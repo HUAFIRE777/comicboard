@@ -802,6 +802,50 @@
       background: #f1f5f9 !important;
     }
     
+
+    /* ================= 100 站矩阵与紧凑胶囊白天模式强化 ================= */
+    body.theme-light #sitesDirectory100 .bg-gradient-to-b {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
+    }
+    body.theme-light #sitesDirectory100 h2,
+    body.theme-light #sitesDirectory100 h3,
+    body.theme-light #sitesDirectory100 h4 {
+      color: #0f172a !important;
+    }
+    body.theme-light #sitesDirectory100 p,
+    body.theme-light #sitesDirectory100 span {
+      color: #334155 !important;
+    }
+    body.theme-light #sitesDirectory100 a.group {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.theme-light #sitesDirectory100 a.group:hover {
+      background: #f8fafc !important;
+      border-color: #4f46e5 !important;
+    }
+    body.theme-light #pageManagerDock {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    }
+    body.theme-light #pageManagerDock span#pageIndicator {
+      color: #4338ca !important;
+    }
+    body.theme-light #pageManagerDock button:not(#btnAddPage) {
+      color: #334155 !important;
+    }
+    body.theme-light #pageManagerDock #btnAddPage {
+      background-color: #4f46e5 !important;
+      color: #ffffff !important;
+    }
+    body.theme-light #pageManagerDock #btnAddPage * {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+    }
+    
 </style>
 </head>
 <body class="flex flex-col font-sans">
@@ -931,7 +975,7 @@
     </button>
 
     <!-- ===== 左侧专业悬浮工具坞 (Comic & Manga 专属创作体系) ===== -->
-    <aside id="leftSidebar" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-1.5 rounded-2xl shadow-2xl transition-all max-h-[88vh] overflow-y-auto">
+    <aside id="leftSidebar" class="absolute left-1.5 sm:left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-xl transition-all max-h-[85vh] overflow-y-auto scrollbar-none">
       <!-- 0. 鼠标选择与调整 (Select - V) -->
       <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="select" data-i18n-title="tip_select" title="↖️ 鼠标选择与调整 (快捷键 V，点选分镜/气泡/图片/文字可拖动、旋转或缩放)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7 18 3-7 7-3L3 3z"/><path d="m13 13 6 6"/></svg>
@@ -1233,7 +1277,7 @@
     </div>
 
     <!-- 左下角画布缩放与导航坞 (Pan & Zoom Dock) -->
-    <div id="zoomDock" class="absolute bottom-4 left-4 z-30 flex items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-2 py-1 rounded-xl shadow-xl text-xs text-slate-300">
+    <div id="zoomDock" class="hidden sm:flex absolute bottom-4 left-4 z-30 items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-2 py-1 rounded-xl shadow-xl text-xs text-slate-300">
       <button id="btnZoomOut" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="缩小 (Ctrl+滚轮)">−</button>
       <button id="btnZoomReset" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg font-mono text-[11px]" title="重置 100%">100%</button>
       <button id="btnZoomIn" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="放大 (Ctrl+滚轮)">+</button>
@@ -1242,9 +1286,9 @@
     </div>
 
     <!-- 中下方悬浮多页/漫画纸张管理器 (Page Manager Dock) -->
-    <div id="pageManagerDock" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-3 py-1.5 rounded-2xl shadow-xl text-xs text-slate-200">
+    <div id="pageManagerDock" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-3 py-1.5 rounded-full shadow-xl text-xs text-slate-200 whitespace-nowrap flex-nowrap shrink-0 max-w-[92vw] select-none">
       <button id="btnPrevPage" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="上一页 (◀)">◀</button>
-      <span id="pageIndicator" class="font-bold text-xs px-2 text-indigo-400 tracking-wide font-mono">第 1 / 1 页</span>
+      <span id="pageIndicator" class="font-bold font-mono whitespace-nowrap tracking-wide shrink-0 px-2 text-xs text-indigo-400">第 1 / 1 页</span>
       <button id="btnNextPage" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="下一页 (▶)">▶</button>
       <span class="text-slate-700">|</span>
       <button id="btnAddPage" class="flex items-center gap-1 px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="新建空白漫画页 (+)">
@@ -1570,21 +1614,228 @@
 
   <!-- ================= 5. 全矩阵底部互链导航 ================= -->
     <!-- ================= 5. 全矩阵底部互链导航 & 独立开发者 IP 专区 ================= -->
+  
+    <!-- ================= 🌟 100 个免费实用独立网站矩阵展台 (100 Free & Practical Sites Directory) ================= -->
+    <section id="sitesDirectory100" class="w-full max-w-5xl mx-auto px-4 py-8 space-y-6">
+      <!-- 头部：创始人寄语与挑战宣言 (完全依据 Huafire777 要求规范) -->
+      <div class="bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800/80">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>独立开发长期挑战 · 100 个免费实用的网站</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight pt-1">开发 100 个免费实用的网站</h2>
+          </div>
+          <div class="flex items-center gap-2 font-mono text-xs text-slate-400 bg-slate-800/80 px-3.5 py-2 rounded-xl border border-slate-700/60 self-start sm:self-auto">
+            <span>当前交付进度:</span>
+            <span class="text-emerald-400 font-bold text-sm">7 / 100</span>
+            <span class="text-slate-500">(7%)</span>
+          </div>
+        </div>
+
+        <!-- 进度指示条 (精美细致) -->
+        <div class="space-y-1.5">
+          <div class="w-full bg-slate-800/90 h-2 rounded-full overflow-hidden p-0.5 border border-slate-700/40">
+            <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: 7%;"></div>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+            <span>第 1 站：EazyOPC 主站</span>
+            <span>目标：100 个实用轻量独立站</span>
+          </div>
+        </div>
+
+        <!-- 创始人真诚介绍 (原汁原味遵照用户指定文案) -->
+        <div class="space-y-3 text-slate-300 text-sm leading-relaxed pt-1">
+          <p>
+            你好！我是 <strong class="text-white font-semibold">Huafire777</strong>，一名热爱生活的独立全栈开发者。在日常创作和学习中，我发现市面上的许多工具充斥着强制注册登录、高昂的按月订阅收费、强制云端同步以及复杂的臃肿功能。
+          </p>
+          <p>
+            我坚信工具应当回归本质：<strong>即开即用、极致轻量、零干扰且充分尊重用户的数据隐私</strong>。因此我开启了这项长期挑战：利用AI独立研发并持续维护 100 个真正好用、开箱即用免费的独立网站，当然有一些网站可能会象征性收取4.99美元的开发服务费，希望得到大家支持！帮助更多创作者、学生与专业人士提升效率！大家可以关注我的社交媒体下方的社交媒体账号！
+          </p>
+        </div>
+      </div>
+
+      <!-- 矩阵展台：已上线 7 大核心站点与规划专区 -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <span>🌐</span> <span>已上线站点矩阵 · Active Sites (7/100)</span>
+          </h3>
+          <span class="text-[11px] text-slate-500">点击任意卡片即可直接秒开体验</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <!-- 01: EazyOPC 主站 -->
+          <a href="https://eazyopc.com" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-indigo-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-indigo-400 font-bold">#01 主站枢纽</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">官方门户</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-indigo-300 transition flex items-center gap-1.5">
+                <span>🏠</span> <span>EazyOPC 官方主站</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                独立开发商业全栈模版、自动化交付流水线与数字化生产力解决方案。
+              </p>
+            </div>
+            <div class="text-[11px] text-indigo-400 font-semibold flex items-center gap-1 pt-1">
+              <span>访问主站 eazyopc.com</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- 02: ComicBoard 漫画分镜 -->
+          <a href="https://comicboard.eazyopc.com" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-pink-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-pink-400 font-bold">#02 漫画创作</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">12款笔刷</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-pink-300 transition flex items-center gap-1.5">
+                <span>🎨</span> <span>ComicBoard · 漫画分镜</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                专为日漫、条漫设计，配备 G 笔动态压感、四格分镜网格与漫画对话气泡框。
+              </p>
+            </div>
+            <div class="text-[11px] text-pink-400 font-semibold flex items-center gap-1 pt-1">
+              <span>立即使用 comicboard.eazyopc.com</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- 03: Whiteboard 极简白板 -->
+          <a href="https://whiteboard.eazyopc.com" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-indigo-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-indigo-400 font-bold">#03 灵感白板</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">免登录</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-indigo-300 transition flex items-center gap-1.5">
+                <span>💼</span> <span>Whiteboard · 极简白板</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                秒开轻量级无界手绘板，会议草稿记录、头脑风暴与多页矢量无损整理。
+              </p>
+            </div>
+            <div class="text-[11px] text-indigo-400 font-semibold flex items-center gap-1 pt-1">
+              <span>立即使用 whiteboard.eazyopc.com</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- 04: Chalkboard 护眼黑板 -->
+          <a href="https://chalkboard.eazyopc.com" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-emerald-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-emerald-400 font-bold">#04 教学讲义</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">墨绿护眼</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition flex items-center gap-1.5">
+                <span>👨‍🏫</span> <span>Chalkboard · 护眼黑板</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                高对比度经典墨绿与哑光碳黑板书，模拟真实粉笔微粒，网课与微课录制利器。
+              </p>
+            </div>
+            <div class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 pt-1">
+              <span>立即使用 chalkboard.eazyopc.com</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- 05: Graph 坐标方格纸 -->
+          <a href="https://graph.eazyopc.com" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-blue-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-blue-400 font-bold">#05 工程数学</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">精准网格</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-blue-300 transition flex items-center gap-1.5">
+                <span>📐</span> <span>Graph · 坐标函数网格</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                厘米网格、工程点阵与极坐标系纸张，数学物理几何画图，线条精准吸附。
+              </p>
+            </div>
+            <div class="text-[11px] text-blue-400 font-semibold flex items-center gap-1 pt-1">
+              <span>立即使用 graph.eazyopc.com</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- 06: KidsDraw 少儿趣味画板 -->
+          <a href="https://kidsdraw.eazyopc.com" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-amber-400 font-bold">#06 亲子启蒙</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">创意填色</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition flex items-center gap-1.5">
+                <span>👶</span> <span>KidsDraw · 儿童画板</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                专为儿童与亲子设计的趣味纯净画板，大按钮防误触，支持一笔整擦与多页图册。
+              </p>
+            </div>
+            <div class="text-[11px] text-amber-400 font-semibold flex items-center gap-1 pt-1">
+              <span>立即使用 kidsdraw.eazyopc.com</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- 07: AI 虚拟公司系统 -->
+          <a href="https://eazyopc.com/company" target="_blank" class="group p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-purple-500/60 transition-all shadow-md flex flex-col justify-between space-y-3">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-purple-400 font-bold">#07 自动化协作</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">AI智能体</span>
+              </div>
+              <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition flex items-center gap-1.5">
+                <span>🤖</span> <span>EazyOPC Company · AI公司</span>
+              </h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                面向独立开发者的一人公司智能体业务流转系统，指令驱动与自动化任务看板。
+              </p>
+            </div>
+            <div class="text-[11px] text-purple-400 font-semibold flex items-center gap-1 pt-1">
+              <span>查看看板 eazyopc.com/company</span> <span>➔</span>
+            </div>
+          </a>
+
+          <!-- #08 ~ #100 敬请期待预告展位 -->
+          <div class="p-4 rounded-2xl bg-slate-900/40 border border-dashed border-slate-800 flex flex-col justify-between space-y-3">
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-500">
+                <span>#08 ~ #100 规划中</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">持续周更</span>
+              </div>
+              <h4 class="text-base font-bold text-slate-400 flex items-center gap-1.5">
+                <span>🚀</span> <span>更多独立站正在高速研发中</span>
+              </h4>
+              <p class="text-xs text-slate-500 leading-relaxed">
+                包含客户端无损 PDF 工具箱、SVG 矢量图标生成器、代码美化卡片、配色工具等，敬请期待！
+              </p>
+            </div>
+            <div class="text-[11px] text-slate-500 font-mono">
+              每周持续迭代上线 · 欢迎在下方留言提出新站点想法
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
   <footer id="globalFooter" class="w-full bg-slate-900/90 border-t border-slate-800 py-10 px-4 text-center text-xs text-slate-400 space-y-6">
     <!-- 个人 IP 宣言与目标 -->
     <div class="max-w-3xl mx-auto space-y-3">
-      <div class="badge-creator inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/15 border border-indigo-500/30 text-indigo-300 font-semibold text-xs shadow-sm">
+      <div class="badge-creator inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80 text-slate-300 font-semibold text-xs shadow-sm">
         <span class="text-sm">🚀</span>
-        <span>独立开发者 · Huafire</span>
-        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-        <span class="text-slate-200">目标打造 100 个真正好用且永久免费的独立网站</span>
+        <span>独立开发者 · Huafire777</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span class="text-slate-200">开发 100 个免费实用的网站</span>
       </div>
       <p class="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
-        坚持纯粹极简、100% 浏览器客户端本地计算零隐私泄露。<br class="hidden sm:inline">
-        关注我的独立开发历程，或者在下方留言提出您的宝贵建议，我们一起见证 100 个免费网站的诞生！
+        坚持纯粹极简、100% 客户端本地运算保障数据安全。<br class="hidden sm:inline">
+        关注我的独立开发日常，或在下方留下您的建议，共同见证 100 个实用网站！
       </p>
       
-            <!-- 社交媒体矩阵 & 反馈按钮 (已接入作者真实官方主页) -->
       <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-2">
         <!-- 𝕏 (Twitter) -->
         <a id="socialLinkX" href="https://x.com/huafire777?s=11" target="_blank" rel="noopener noreferrer" class="social-icon-btn group relative px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-black border border-slate-700 hover:border-slate-500 transition-all duration-200 text-slate-300 hover:text-white shadow-sm flex items-center gap-1.5" title="关注笔者的 𝕏 (@huafire777)">
