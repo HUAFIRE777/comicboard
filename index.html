@@ -1228,12 +1228,6 @@
           <span class="text-[9px] px-1 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold">6k+粉</span>
         </a>
 
-        <!-- 微信视频号 (WeChat Channels - 点击复制 ID 关注) -->
-        <a id="socialLinkChannels" href="javascript:void(0)" data-name="微信视频号" data-channel-id="sphwqif1iqACjhY" class="social-icon-btn group relative px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-emerald-950/30 border border-slate-700 hover:border-emerald-500/60 transition-all duration-200 text-slate-300 hover:text-emerald-400 shadow-sm flex items-center gap-1.5 cursor-pointer" title="微信搜一搜视频号：sphwqif1iqACjhY (点击复制 ID)">
-          <svg class="w-3.5 h-3.5 fill-current text-emerald-400" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.54 21.46a.8.8 0 0 0 .999.999l4.292-.898A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm-1.5 6.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-6.9 7.4c.3-.6 1.4-1.4 3.4-1.4s3.1.8 3.4 1.4a.8.8 0 0 1-.7 1.1h-5.4a.8.8 0 0 1-.7-1.1z"/></svg>
-          <span class="text-xs font-medium">视频号</span>
-        </a>
-
         <!-- 💡 提建议 / 留言完善 (高亮主按钮) -->
         <button id="btnOpenFeedbackModal" type="button" class="feedback-trigger-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold text-xs shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 ml-1">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
@@ -4166,7 +4160,6 @@
       tiktok: 'https://www.tiktok.com/@huafire888?_r=1&_t=ZP-99usa5q1Xzy',
       douyin: 'https://v.douyin.com/fjqP8e7ZHEo/',
       xiaohongshu: 'https://xhslink.cn/o/3fq007werND',
-      videoChannelId: 'sphwqif1iqACjhY',
       email: 'huafire777@gmail.com'
     };
 
@@ -4207,20 +4200,6 @@
     if (feedbackModal) {
       feedbackModal.onclick = (e) => {
         if (e.target === feedbackModal) feedbackModal.classList.add('hidden');
-      };
-    }
-
-    // 微信视频号交互：点击复制视频号 ID 并弹窗提示搜索关注
-    const channelBtn = document.getElementById('socialLinkChannels');
-    if (channelBtn) {
-      channelBtn.onclick = (e) => {
-        e.preventDefault();
-        const cid = channelBtn.getAttribute('data-channel-id') || creatorSocials.videoChannelId;
-        navigator.clipboard.writeText(cid).then(() => {
-          showCreatorToast(`🎥 微信视频号 ID: <strong>${cid}</strong> 已复制！打开微信搜一搜即可关注作者 🚀`);
-        }).catch(() => {
-          showCreatorToast(`🎥 微信视频号搜索 ID: <strong>${cid}</strong> 即可关注作者！`);
-        });
       };
     }
 
