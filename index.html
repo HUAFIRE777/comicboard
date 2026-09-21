@@ -2296,7 +2296,7 @@
             <div class="flex items-center justify-between">
               <div class="font-bold text-amber-300 flex items-center gap-1.5">
                 <span data-i18n="tier_pro_title">选项二：Pro 终身版</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">一次付费 · 永久通用</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">一次付费 · 永久使用</span>
               </div>
               <div class="text-right">
                 <span class="text-[10px] text-slate-400 line-through mr-1">$19.99</span>
@@ -2375,11 +2375,11 @@
         <div class="flex items-center justify-between px-1 text-[11px] text-slate-400">
           <span class="flex items-center gap-1.5 text-slate-400">
             <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            <span class="font-medium text-slate-300">一次付费 · 永久通用</span>
+            <span class="font-medium text-slate-300">一次付费 · 永久使用</span>
           </span>
           <button id="btnOpenRestoreModal" type="button" class="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1.5 hover:underline cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-            <span>换设备点击连接方法</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+            <span data-i18n="btn_open_restore">输入卡密或邮箱直接使用</span>
           </button>
         </div>
       </div>
@@ -2387,76 +2387,53 @@
   </div>
 
   <!-- ================= 7. 跨设备与换浏览器恢复购买弹窗 ================= -->
-  <!-- ================= 7. 换设备点击连接方法 (跨设备授权绑定指南) ================= -->
+  <!-- ================= 7. 输入卡密或邮箱直接使用 (跨设备授权绑定指南) ================= -->
+  <!-- ================= 7. 输入卡密或邮箱直接使用 (极简免教学直达验证) ================= -->
   <div id="restoreModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-6 shadow-2xl text-white space-y-5 max-h-[92vh] overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
       <!-- 头部 -->
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div class="flex items-center gap-2.5">
           <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center">
-            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
           </div>
           <div>
-            <h3 class="text-base font-bold text-white tracking-tight" data-i18n="restore_title">换设备连接与权限激活</h3>
-            <p class="text-[11px] text-slate-400">一次付费 · 永久通用 · 支持电脑、手机与平板无缝同步</p>
+            <h3 class="text-base font-bold text-white tracking-tight" data-i18n="restore_title">输入卡密或购买邮箱直接使用</h3>
+            <p class="text-[11px] text-slate-400">一次付费 · 永久使用 · 支持电脑、手机与平板</p>
           </div>
         </div>
         <button id="btnCloseRestoreModal" class="text-slate-400 hover:text-white text-base px-2">✕</button>
       </div>
 
-      <!-- 两种连接方法卡片 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-        <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-1.5">
-          <div class="font-bold text-white flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono font-bold">1</span>
-            <span>方法一：输入凭据即刻连接</span>
-          </div>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            在新电脑、手机或平板上，输入您购买时填写的<strong>电子邮箱</strong>或收据中的<strong>订单卡密</strong>，点击验证即可立即激活。
-          </p>
-        </div>
-
-        <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-1.5">
-          <div class="font-bold text-white flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px] font-mono font-bold">2</span>
-            <span>方法二：收据邮件免密直连</span>
-          </div>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            在购买成功的收据邮件中，点击<strong>【专属免密直连链接】</strong>。用手机或任意新设备点开，系统将全自动静默激活 Pro。
-          </p>
-        </div>
-      </div>
-
-      <!-- 激活输入区 -->
+      <!-- 激活输入区 (直接展示，杜绝繁琐教学卡片) -->
       <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
         <label class="text-[11px] font-semibold text-slate-300 block">
-          输入授权卡密 (License Key) 或 购买邮箱
+          授权卡密 (License Key) 或 购买时填写的邮箱
         </label>
-        <div class="flex flex-col sm:flex-row gap-2">
-          <input type="text" id="restoreKeyInput" placeholder="例如: yourname@email.com 或 OPC-PRO-8899" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none focus:border-amber-500 font-mono" />
-          <button id="btnConfirmRestore" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-1.5 shrink-0 active:scale-95">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            <span data-i18n="btn_confirm_restore">立即连接此设备</span>
+        <div class="space-y-2">
+          <input type="text" id="restoreKeyInput" placeholder="例如: yourname@email.com 或 OPC-PRO-8899" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none focus:border-amber-500 font-mono" />
+          <button id="btnConfirmRestore" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-1.5 active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span data-i18n="btn_confirm_restore">立即验证并激活此设备</span>
           </button>
         </div>
-        <p class="text-[10px] text-slate-500 flex items-center gap-1.5">
-          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>授权卡密已自动发至您的下单邮箱，如未找到请检查垃圾邮件箱。</span>
+        <p class="text-[10px] text-slate-400 flex items-start gap-1.5 pt-1">
+          <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>卡密已自动发送至您的下单邮箱。换电脑或手机直接输入邮箱/卡密即可解锁。</span>
         </p>
       </div>
 
       <!-- 底部保障声明 -->
-      <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
-        <span class="flex items-center gap-1.5 text-slate-300 font-medium">
+      <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800/80">
+        <span class="flex items-center gap-1.5 text-slate-300 font-medium text-[11px]">
           <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-          <span>一次付费 · 永久通用 · 终身无任何重复扣费</span>
+          <span>一次付费 · 永久使用 · 零重复收费</span>
         </span>
-        <span class="text-slate-500 text-[10px]">支持多台个人设备同时使用</span>
+        <span class="text-slate-500 text-[10px]">多设备通用</span>
       </div>
     </div>
   </div>
 
-  <!-- ================= 7. 💡 用户邮件留言与改进建议弹窗 ================= -->
   <!-- ================= 7. 用户邮件留言与改进建议弹窗 ================= -->
   <div id="feedbackModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
@@ -2571,7 +2548,7 @@
         <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_2"><strong>透明背景 PNG</strong>（设计师抠图与贴纸神器）</span></div>
         <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_3"><strong>Canva / Figma 矢量无损工程 (SVG)</strong>（自由二次编辑）</span></div>
         <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_4"><strong>高保真 PDF 打印文档</strong>（按选定画幅输出）</span></div>
-        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_5"><strong>一次付费 · 永久通用</strong>（全部功能统一打包，无后续收费）</span></div>
+        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_5"><strong>一次付费 · 永久使用</strong>（全部功能统一打包，无后续收费）</span></div>
       </div>
 
       <div class="space-y-2.5">
@@ -3008,10 +2985,10 @@
         tier_pro_title: '选项二：Pro 终身版',
         tier_pro_desc: '只需单次 $4.99，永久解锁全部 4 大专业规格与商业授权，跨电脑/手机终身有效，绝无二次收费：',
         pro_choose_format: '👉 选择本次导出的 Pro 文件规格：',
-        restore_title: '换设备连接与权限激活',
+        restore_title: '输入卡密或购买邮箱直接使用',
         restore_desc: '如果您曾在其他电脑、手机、平板购买过，或清空了浏览器缓存，无需再次付费！请输入您购买时填写的电子邮箱或订单卡密 (License Key)，系统将立即为您激活。',
-        btn_confirm_restore: '立即连接此设备',
-        restore_safe_guarantee: '一次付费 · 永久通用 · 终身无任何重复扣费'
+        btn_confirm_restore: '立即验证并激活此设备',
+        restore_safe_guarantee: '一次付费 · 永久使用 · 终身无任何重复扣费'
       },
       en: {
         site_subtitle: 'Minimalist Dot Matrix & Idea Board',
@@ -3421,9 +3398,9 @@
         tier_pro_title: 'Option 2: Pro Lifetime Access',
         tier_pro_desc: 'Pay $4.99 once to unlock ALL 4 professional formats below and commercial rights across all your devices with no recurring fees:',
         pro_choose_format: '👉 Choose Pro format to export:',
-        restore_title: 'Restore Pro Lifetime License',
+        restore_title: '输入卡密或购买邮箱直接使用',
         restore_desc: 'If you already purchased Pro on another computer, tablet, or phone, or cleared your browser data, you never need to pay twice! Enter your purchase Email or License Key to restore access instantly.',
-        btn_confirm_restore: 'Verify & Restore Pro Status',
+        btn_confirm_restore: '立即验证并激活此设备',
         restore_safe_guarantee: '🛡️ Pay once · Lifetime access across all devices · No hidden fees'
       },
       ja: {
