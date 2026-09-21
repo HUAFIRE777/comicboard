@@ -1,0 +1,21 @@
+{
+  "name": "ComicBoard — EazyOPC",
+  "short_name": "ComicBoard",
+  "description": "100% Client-Side Private Digital Canvas & Drawing Tool",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ec4899",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

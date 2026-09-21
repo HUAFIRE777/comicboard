@@ -102,7 +102,8 @@
   }
   </script>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   
@@ -503,6 +504,304 @@
       color: #1e293b !important;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
     }
+
+    /* ================= ☀️ 白天模式超高清晰度与无障碍对比度强化 (WCAG AAA) ================= */
+    body.theme-light {
+      background-color: #f7f4ee !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar {
+      background: rgba(255, 255, 255, 0.96) !important;
+      border-bottom-color: #e2d9cc !important;
+      box-shadow: 0 2px 12px rgba(40, 30, 20, 0.04) !important;
+    }
+    body.theme-light #topNavbar span,
+    body.theme-light #topNavbar div {
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar a {
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar .text-slate-400 {
+      color: #475569 !important;
+    }
+    body.theme-light #leftSidebar {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+    }
+    body.theme-light #leftSidebar button {
+      color: #1e293b !important;
+    }
+    body.theme-light #leftSidebar button:hover {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #leftSidebar .tool-btn-active {
+      background: #4f46e5 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+    }
+    body.theme-light #zoomDock,
+    body.theme-light #pageManagerDock,
+    body.theme-light #paletteFlyout {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+    }
+    body.theme-light #zoomDock button,
+    body.theme-light #pageManagerDock button {
+      color: #0f172a !important;
+    }
+    body.theme-light #pageManagerDock #pageIndicator {
+      color: #3730a3 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-light #pageManagerDock #btnAddPage {
+      background: #4f46e5 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+    }
+    body.theme-light #pageManagerDock #btnAddPage * {
+      color: #ffffff !important;
+    }
+    body.theme-light #canvasCard {
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+      border: 1px solid #e2d9cc !important;
+    }
+    body.theme-light footer#globalFooter {
+      background: #f1ede4 !important;
+      border-top-color: #dfd7ca !important;
+      color: #1e293b !important;
+    }
+    body.theme-light footer#globalFooter a {
+      color: #0f172a !important;
+      font-weight: 600 !important;
+    }
+    body.theme-light footer#globalFooter a:hover {
+      color: #4338ca !important;
+    }
+    body.theme-light footer#globalFooter p {
+      color: #1e293b !important;
+      font-weight: 500 !important;
+    }
+    body.theme-light footer#globalFooter .badge-creator {
+      background: rgba(79, 70, 229, 0.08) !important;
+      border-color: rgba(79, 70, 229, 0.35) !important;
+      color: #312e81 !important;
+    }
+    body.theme-light footer#globalFooter .badge-creator span {
+      color: #1e1b4b !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light footer#globalFooter .social-icon-btn {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+    }
+    body.theme-light footer#globalFooter .social-icon-btn:hover {
+      border-color: #64748b !important;
+      color: #000000 !important;
+      background: #f8fafc !important;
+    }
+    body.theme-light .feature-card,
+    body.theme-light section.bg-slate-900\/60,
+    body.theme-light section.bg-slate-900\/70,
+    body.theme-light section.bg-gradient-to-r {
+      background: #ffffff !important;
+      border-color: #e2d9cd !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-light .feature-card h3,
+    body.theme-light .feature-card h4,
+    body.theme-light section h3,
+    body.theme-light section h4 {
+      color: #0f172a !important;
+    }
+    body.theme-light .feature-card p,
+    body.theme-light section p,
+    body.theme-light details div {
+      color: #334155 !important;
+    }
+    body.theme-light details {
+      background: #ffffff !important;
+      border-color: #e2d9cd !important;
+    }
+    body.theme-light details summary {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light details[open] {
+      background: #faf8f5 !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.theme-light .selection-action-pill {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12) !important;
+    }
+    body.theme-light .selection-action-pill button {
+      color: #0f172a !important;
+    }
+    body.theme-light .selection-action-pill button:hover {
+      background: #f1f5f9 !important;
+    }
+
+  
+    /* ================= ☀️ 完美白天模式 (Daylight / Warm White) 超清晰无障碍对比度 ================= */
+    body.theme-light {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-bottom: 1px solid #cbd5e1 !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.theme-light #topNavbar span,
+    body.theme-light #topNavbar div,
+    body.theme-light #topNavbar a,
+    body.theme-light #topNavbar button:not(#btnProUpgrade) {
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar .text-slate-400,
+    body.theme-light #topNavbar .text-slate-500 {
+      color: #475569 !important;
+    }
+    body.theme-light #leftSidebar {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border: 1px solid #cbd5e1 !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+    }
+    body.theme-light #leftSidebar button {
+      color: #334155 !important;
+    }
+    body.theme-light #leftSidebar button:hover {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #leftSidebar .tool-btn-active {
+      background: #4f46e5 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35) !important;
+    }
+    body.theme-light #zoomDock,
+    body.theme-light #pageManagerDock,
+    body.theme-light #paletteFlyout,
+    body.theme-light #brushStudioFlyout,
+    body.theme-light #panelsFlyout,
+    body.theme-light #balloonsFlyout,
+    body.theme-light #shortcutsModal > div {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
+    }
+    body.theme-light #zoomDock button,
+    body.theme-light #pageManagerDock button:not(#btnAddPage) {
+      color: #1e293b !important;
+    }
+    body.theme-light #zoomDock button:hover,
+    body.theme-light #pageManagerDock button:not(#btnAddPage):hover {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    /* 🌟 核心修复：加页按钮在白天模式下必须是高亮明亮紫底白字，绝不隐形 */
+    body.theme-light #pageManagerDock #btnAddPage {
+      background-color: #4f46e5 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4) !important;
+      border: 1px solid #4338ca !important;
+    }
+    body.theme-light #pageManagerDock #btnAddPage * {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light #pageManagerDock #btnAddPage:hover {
+      background-color: #4338ca !important;
+    }
+    body.theme-light #pageManagerDock #pageIndicator {
+      color: #4338ca !important;
+      font-weight: 800 !important;
+    }
+    body.theme-light #brushStudioFlyout .brush-card {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #brushStudioFlyout .brush-card:hover {
+      background: #eef2ff !important;
+      border-color: #6366f1 !important;
+    }
+    body.theme-light #brushStudioFlyout .brush-card.active {
+      background: #e0e7ff !important;
+      border-color: #4f46e5 !important;
+      box-shadow: 0 0 0 1.5px #4f46e5 !important;
+    }
+    body.theme-light footer#globalFooter {
+      background-color: #ffffff !important;
+      border-top-color: #cbd5e1 !important;
+      color: #334155 !important;
+    }
+    body.theme-light footer#globalFooter a {
+      color: #475569 !important;
+    }
+    body.theme-light footer#globalFooter a:hover {
+      color: #4f46e5 !important;
+    }
+    body.theme-light footer#globalFooter .badge-creator {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.theme-light footer#globalFooter .badge-creator span {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light .feature-card,
+    body.theme-light section.bg-slate-900\/60,
+    body.theme-light section.bg-slate-900\/70,
+    body.theme-light section.bg-gradient-to-r {
+      background: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.theme-light .feature-card h3,
+    body.theme-light .feature-card h4,
+    body.theme-light section h3,
+    body.theme-light section h4 {
+      color: #0f172a !important;
+    }
+    body.theme-light .feature-card p,
+    body.theme-light section p,
+    body.theme-light details div {
+      color: #334155 !important;
+    }
+    body.theme-light details {
+      background: #ffffff !important;
+      border-color: #e2e8f0 !important;
+    }
+    body.theme-light details summary {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light details[open] {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.theme-light .selection-action-pill {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+    }
+    body.theme-light .selection-action-pill button {
+      color: #0f172a !important;
+    }
+    body.theme-light .selection-action-pill button:hover {
+      background: #f1f5f9 !important;
+    }
+    
 </style>
 </head>
 <body class="flex flex-col font-sans">
@@ -642,6 +941,16 @@
       <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="hand" data-i18n-title="tip_hand" title="✋ 画板抓手平移 (快捷键 H / 任意工具下长按空格键拖动，自由拖动画板到任意位置)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
       </button>
+      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+
+      <!-- 🎨 笔刷工坊与更多笔尖 (12 款大师级笔刷) -->
+      <button id="btnMoreBrushes" class="p-2 rounded-xl text-indigo-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" title="🎨 打开专业笔刷工坊 (G笔/丸笔/素描/水彩/喷枪/发光/排线等 12 款笔刷)">
+        <span class="text-sm">🎨</span>
+      </button>
+      <button id="btnCurrentBrush" class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center tool-btn-active" data-tool="gpen" title="当前笔刷 (点击可直接在画布书写，点击上方调色板可调颜色)">
+        <span id="curBrushIcon" class="text-sm">🖋️</span>
+      </button>
+    
 
       <div class="w-6 h-px bg-slate-700 my-0.5"></div>
 
@@ -791,6 +1100,116 @@
     </div>
 
     <!-- 悬浮调色板 & 粗细弹窗 (Popover) -->
+    
+    <!-- 🎨 12 大大师级专业笔刷工坊弹窗 (12 Professional Brushes Flyout) -->
+    <div id="brushStudioFlyout" class="hidden absolute left-16 sm:left-20 top-1/2 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-72 text-white max-h-[85vh] overflow-y-auto scrollbar-none">
+      <div class="flex items-center justify-between pb-1.5 border-b border-slate-700/80">
+        <div class="flex items-center gap-1.5">
+          <span class="text-sm">🎨</span>
+          <span class="text-xs font-bold tracking-wide">专业笔刷工坊 · Brush Studio</span>
+        </div>
+        <span class="text-[10px] text-indigo-400 font-mono">12 款大师级笔尖</span>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-2 text-left">
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="gpen">
+          <span class="text-base">🖋️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">漫画 G 笔 / 钢笔</div>
+            <div class="text-[9px] text-slate-400">尖锐压感 · 主线勾勒</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="maru">
+          <span class="text-base">🖊️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">漫画丸笔</div>
+            <div class="text-[9px] text-slate-400">0.3mm · 发丝与精密</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="pencil">
+          <span class="text-base">✏️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">2B 素描铅笔</div>
+            <div class="text-[9px] text-slate-400">细腻铅粉 · 草图素描</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="blue_pencil">
+          <span class="text-base">✏️</span>
+          <div>
+            <div class="text-[11px] font-bold text-sky-400 group-hover:text-sky-300">分镜蓝铅笔</div>
+            <div class="text-[9px] text-slate-400">非摄影蓝 · 构图草稿</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="brush">
+          <span class="text-base">🖌️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">水彩软毛笔</div>
+            <div class="text-[9px] text-slate-400">柔韧毛笔 · 湿画晕染</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="spray">
+          <span class="text-base">💨</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">网点喷枪</div>
+            <div class="text-[9px] text-slate-400">网点渐变 · 光晕颗粒</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="highlighter">
+          <span class="text-base">🪄</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">荧光重点笔</div>
+            <div class="text-[9px] text-slate-400">半透明叠底 · 高光批注</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="crosshatch">
+          <span class="text-base">🖍️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">阴影排线笔</div>
+            <div class="text-[9px] text-slate-400">漫画排线 · 人物阴影</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="neon">
+          <span class="text-base">✨</span>
+          <div>
+            <div class="text-[11px] font-bold text-amber-300 group-hover:text-amber-200">霓虹发光笔</div>
+            <div class="text-[9px] text-slate-400">赛博外发光 · 特效能量</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="dotted">
+          <span class="text-base">📏</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">虚线标注笔</div>
+            <div class="text-[9px] text-slate-400">标准虚线 · 引线分割</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="laser">
+          <span class="text-base">🔴</span>
+          <div>
+            <div class="text-[11px] font-bold text-rose-400 group-hover:text-rose-300">激光指示笔</div>
+            <div class="text-[9px] text-slate-400">演讲演示 · 实时光斑</div>
+          </div>
+        </button>
+
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="ballpoint">
+          <span class="text-base">✍️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">经典圆珠笔</div>
+            <div class="text-[9px] text-slate-400">流利顺滑 · 会议速记</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
     <div id="paletteFlyout" class="hidden absolute left-16 sm:left-20 top-1/2 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-3 w-52 text-white">
       <div>
         <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1.5" data-i18n="palette_title">画笔颜色</span>
@@ -874,169 +1293,137 @@
       </p>
     </div>
 
-    <!-- 🌟 核心功能动画演示 (Pure CSS / SVG Keyframes 动态交互展示区) -->
+    <!-- 🌟 真实核心能力全景图鉴 (真实参数与架构展示，告别虚假动画) -->
     <section class="space-y-4">
       <div class="flex items-center justify-between">
         <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <span>🎬</span> <span>核心功能动画演示 · Feature Demos</span>
+          <span>⚡</span> <span>核心能力全景图鉴 · Professional Architecture</span>
         </h3>
-        <span class="text-[11px] text-slate-500 font-mono">100% 浏览器客户端实时运算</span>
+        <span class="text-[11px] text-slate-500 font-mono">100% 浏览器客户端 Native 硬件加速</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- 动画卡片 1: 智能吸附 (Draw & Hold) -->
-        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
-          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-center">
-            <svg class="w-full h-full" viewBox="0 0 240 140" fill="none">
-              <!-- 辅助坐标底纹 -->
-              <circle cx="60" cy="30" r="1" fill="#334155" /><circle cx="120" cy="30" r="1" fill="#334155" /><circle cx="180" cy="30" r="1" fill="#334155" />
-              <circle cx="60" cy="70" r="1" fill="#334155" /><circle cx="120" cy="70" r="1" fill="#334155" /><circle cx="180" cy="70" r="1" fill="#334155" />
-              <circle cx="60" cy="110" r="1" fill="#334155" /><circle cx="120" cy="110" r="1" fill="#334155" /><circle cx="180" cy="110" r="1" fill="#334155" />
-              <!-- 正在绘制并吸附成完美直线的笔迹 -->
-              <path d="M 30 70 Q 75 66, 120 72 T 210 70" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-dasharray="200" style="animation: snapLineAnim 3.8s ease-in-out infinite;" />
-              <!-- 仿真运笔指针 -->
-              <g style="animation: penCursorAnim 3.8s ease-in-out infinite;">
-                <path d="M 0 0 L 6 18 L 18 6 Z" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
-                <circle cx="0" cy="0" r="2" fill="#ef4444" />
-              </g>
-            </svg>
-            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-emerald-400 font-mono flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              <span>停顿 0.4 秒 · 瞬间吸附为数学级正圆与完美直线</span>
+        <!-- 真实规格卡片 1: 12 款大师级笔尖物理引擎 -->
+        <div class="feature-card bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800/60 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-1 border-b border-slate-800">
+              <span class="text-indigo-400 font-bold">笔尖物理模拟特性</span>
+              <span>12 种专业压感算法</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-[11px]">
+              <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-800/80">
+                <span class="text-indigo-300 font-bold block">🖋️ 漫画 G 笔 / 钢笔</span>
+                <span class="text-slate-400 text-[10px]">动态速度导数自适应，起笔轻、落笔重，尖锐笔锋</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-800/80">
+                <span class="text-pink-300 font-bold block">🖊️ 漫画丸笔 0.3mm</span>
+                <span class="text-slate-400 text-[10px]">恒定超细 0.8px 线条，人物发丝与建筑透视精密排线</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-800/80">
+                <span class="text-amber-300 font-bold block">✨ 赛博霓虹笔</span>
+                <span class="text-slate-400 text-[10px]">Dual-pass 双通道实时外发光渲染，炫彩能量特效</span>
+              </div>
+              <div class="p-2 rounded-lg bg-slate-900/90 border border-slate-800/80">
+                <span class="text-emerald-300 font-bold block">💨 网点气溶喷枪</span>
+                <span class="text-slate-400 text-[10px]">半径内极坐标高斯粒子散射，黑白漫画网点渐变</span>
+              </div>
             </div>
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>✨</span> <span>智能图形吸附 (Draw & Hold)</span>
+              <span>🖋️</span> <span>12 款行业大师级手绘笔刷库</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              无论是随手画线、正圆、三角形还是矩形，下笔画完后指尖在终点稍作停顿 0.4 秒，算法将自动智能识别曲率，秒级变形为极致工整的几何线稿。
+              内置 G 笔、丸笔、素描铅笔、蓝草稿笔、水彩毛笔、网点喷枪、荧光笔、排线笔、霓虹笔、虚线笔、激光笔与圆珠笔。点击左侧工具坞「更多笔刷」即可随心切换。
             </p>
           </div>
         </div>
 
-        <!-- 动画卡片 2: Figma 360° 自由旋转与 8 控点缩放 -->
-        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
-          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-center">
-            <!-- 旋转变换演示框 -->
-            <div class="relative w-28 h-24 border-1.5 border-blue-500 bg-blue-500/10 rounded flex items-center justify-center" style="animation: rotateBoxAnim 5.2s ease-in-out infinite; transform-origin: center center;">
-              <!-- 顶部 360° 旋转连杆与手柄 -->
-              <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-blue-500"></div>
-              <div class="absolute -top-8 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-blue-500 shadow"></div>
-              <!-- 4 角手柄 -->
-              <div class="absolute -top-1.5 -left-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
-              <div class="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
-              <div class="absolute -bottom-1.5 -right-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
-              <div class="absolute -bottom-1.5 -left-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
-              <!-- 内部图片与文字演示 -->
-              <div class="text-center">
-                <div class="w-7 h-7 mx-auto rounded bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white text-xs shadow">🎨</div>
-                <span class="text-[9px] font-bold text-slate-300 block mt-1">Photo.png</span>
-              </div>
+        <!-- 真实规格卡片 2: 工业级矢量自由选区与 360° 旋转矩阵 -->
+        <div class="feature-card bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800/60 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-1 border-b border-slate-800">
+              <span class="text-blue-400 font-bold">2D 仿射变换矩阵</span>
+              <span>8 方向控点 + 360° 自由旋转</span>
             </div>
-            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-blue-400 font-mono flex items-center gap-1.5">
-              <span>📐 360° 任意角度自由旋转 · 告别廉价红叉</span>
+            <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80 font-mono text-[10px] text-slate-300 space-y-1">
+              <div class="flex justify-between text-blue-300">
+                <span>旋转: (x', y') = R(θ) · (x - Cx, y - Cy) + (Cx, Cy)</span>
+              </div>
+              <div class="flex justify-between text-emerald-300">
+                <span>缩放: x' = X_new + (x - X_old) * (W_new / W_old)</span>
+              </div>
+              <div class="text-slate-400 text-[9px] pt-0.5">
+                支持手绘笔画、插入图片与文本同时框选、等比/非等比拉伸、360° 任意角度旋转及一键克隆副本。
+              </div>
             </div>
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>🔄</span> <span>Figma 标杆级 360° 旋转与等比缩放</span>
+              <span>📐</span> <span>标杆级矢量套索与变换系统</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              彻底淘汰传统白板的廉价紫色边框与红叉！配备 8 个工业级缩放变形手柄、顶部旋转圆球与悬浮操作胶囊，点选图片与文字即可 360° 自由旋转。
+              无论是圈选整段笔画还是点击单条线条，均可通过 8 个工业级手柄拉伸缩放，或拖动顶部把手实现 360° 自由旋转。告别传统白板的简陋红叉！
             </p>
           </div>
         </div>
 
-        <!-- 动画卡片 3: 漫画分镜多页翻阅与无限纸张 -->
-        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
-          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-center">
-            <!-- 模拟连环滑动页面 -->
-            <div class="flex w-[300%] h-32 items-center" style="animation: comicSlideAnim 6s ease-in-out infinite;">
-              <!-- 第 1 页: 分镜草图 -->
-              <div class="w-full flex items-center justify-center">
-                <div class="w-36 h-28 bg-slate-900 border border-slate-700 rounded-lg p-2 shadow-xl space-y-1.5">
-                  <div class="flex justify-between items-center text-[9px] text-slate-400 font-mono">
-                    <span>PAGE 1 · 分镜草稿</span>
-                    <span class="text-indigo-400 font-bold">1/3</span>
-                  </div>
-                  <div class="grid grid-cols-2 gap-1 h-16">
-                    <div class="border border-dashed border-slate-700 rounded flex items-center justify-center text-[8px] text-slate-500">远景镜头</div>
-                    <div class="border border-dashed border-slate-700 rounded flex items-center justify-center text-[8px] text-slate-500">主角特写</div>
-                  </div>
-                </div>
-              </div>
-              <!-- 第 2 页: 线稿与台词 -->
-              <div class="w-full flex items-center justify-center">
-                <div class="w-36 h-28 bg-slate-900 border border-slate-700 rounded-lg p-2 shadow-xl space-y-1.5">
-                  <div class="flex justify-between items-center text-[9px] text-slate-400 font-mono">
-                    <span>PAGE 2 · 线稿对白</span>
-                    <span class="text-indigo-400 font-bold">2/3</span>
-                  </div>
-                  <div class="border border-slate-700 rounded h-16 p-1 flex flex-col justify-between">
-                    <span class="text-[8px] text-emerald-400 font-semibold">💭 "我们找到了宝藏！"</span>
-                    <div class="w-full h-1 bg-indigo-500/40 rounded"></div>
-                  </div>
-                </div>
-              </div>
-              <!-- 第 3 页: 完稿与导出 -->
-              <div class="w-full flex items-center justify-center">
-                <div class="w-36 h-28 bg-slate-900 border border-indigo-500/60 rounded-lg p-2 shadow-xl space-y-1.5">
-                  <div class="flex justify-between items-center text-[9px] text-indigo-300 font-mono">
-                    <span>PAGE 3 · 完稿输出</span>
-                    <span class="text-indigo-400 font-bold">3/3</span>
-                  </div>
-                  <div class="bg-indigo-950/40 rounded h-16 flex items-center justify-center text-[9px] text-indigo-200 font-bold">
-                    <span>📄 合成单份多页 PDF</span>
-                  </div>
-                </div>
-              </div>
+        <!-- 真实规格卡片 3: 多页分镜管理与出版级 PDF -->
+        <div class="feature-card bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800/60 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-1 border-b border-slate-800">
+              <span class="text-indigo-400 font-bold">出版级多页工作流</span>
+              <span>矢量合并无损导出</span>
             </div>
-            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-rose-400 font-mono flex items-center gap-1.5">
-              <span>📚 纸张无限 · 自由加页与漫画分镜切换</span>
+            <div class="flex items-center justify-between text-center text-[10px] gap-1 pt-1">
+              <div class="flex-1 p-1.5 rounded bg-slate-900 border border-slate-800 text-slate-300">
+                <span class="block text-indigo-400 font-bold">PAGE 1</span>
+                <span>分镜草稿</span>
+              </div>
+              <span class="text-slate-600">➔</span>
+              <div class="flex-1 p-1.5 rounded bg-slate-900 border border-slate-800 text-slate-300">
+                <span class="block text-indigo-400 font-bold">PAGE 2</span>
+                <span>线稿对白</span>
+              </div>
+              <span class="text-slate-600">➔</span>
+              <div class="flex-1 p-1.5 rounded bg-slate-900 border border-slate-800 text-slate-300">
+                <span class="block text-emerald-400 font-bold">PDF EXPORT</span>
+                <span>300 DPI 导出</span>
+              </div>
             </div>
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>📖</span> <span>无限纸张漫画分镜与多页图册系统</span>
+              <span>📚</span> <span>无限多页漫画/教案管理与导出</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              打破单张画布局限！通过底部的多页管理坞随时「➕ 加页」，每一页拥有独立笔画与撤销栈。导出 PDF 时自动按序连贯装订为单份完整电子书。
+              点击底部「➕加页」即可轻松新建页面，支持上一页/下一页无缝翻阅。完成创作后一键合并导出为正式出版级多页 PDF，告别单页拼接烦恼。
             </p>
           </div>
         </div>
 
-        <!-- 动画卡片 4: 矢量 SVG 1秒导入 Figma / Canva -->
-        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
-          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-around px-4">
-            <!-- 白板端 -->
-            <div class="w-24 h-28 bg-slate-900 border border-slate-700 rounded-xl p-2 flex flex-col items-center justify-center gap-1.5 shadow">
-              <span class="text-xs">💼 白板手绘</span>
-              <div class="px-1.5 py-0.5 bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 rounded text-[9px] font-mono">SVG 矢量</div>
+        <!-- 真实规格卡片 4: 100% 浏览器本地隐私安全 -->
+        <div class="feature-card bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800/60 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 pb-1 border-b border-slate-800">
+              <span class="text-emerald-400 font-bold">零网络依赖 · 离线可用</span>
+              <span>PWA 桌面级标准</span>
             </div>
-            <!-- 连接光标流 -->
-            <div class="flex flex-col items-center gap-1">
-              <span class="text-indigo-400 text-sm font-bold animate-pulse">➔</span>
-              <span class="text-[9px] text-slate-400 font-mono">1 键复制</span>
-            </div>
-            <!-- 目标端 (Figma / Canva) -->
-            <div class="w-24 h-28 bg-gradient-to-b from-slate-900 to-indigo-950/50 border border-indigo-500/50 rounded-xl p-2 flex flex-col items-center justify-center gap-1.5 shadow" style="animation: vectorPulse 2.8s ease-in-out infinite;">
-              <div class="flex items-center gap-1">
-                <span class="text-xs">🎨</span>
-                <span class="text-[10px] font-bold text-white">Figma / Canva</span>
+            <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[11px] text-slate-300 space-y-1">
+              <div class="flex items-center gap-1.5 text-emerald-400">
+                <span>🛡️</span> <span>本地内存沙箱运行，绝不上报任何笔迹与草稿数据</span>
               </div>
-              <span class="text-[9px] text-emerald-400 font-semibold">✓ 路径无损可编辑</span>
-            </div>
-            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-indigo-400 font-mono flex items-center gap-1.5">
-              <span>🚀 Ctrl+V 粘贴直接导入主流设计软件</span>
+              <div class="flex items-center gap-1.5 text-slate-400 text-[10px]">
+                <span>⚡</span> <span>原生 Service Worker 离线缓存，无网络时依然秒开创作</span>
+              </div>
             </div>
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>⚡</span> <span>矢量 SVG 无缝直通 Figma / Canva / AI</span>
+              <span>🛡️</span> <span>100% 浏览器客户端零延迟与隐私安全</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              支持点击「复制矢量 SVG」后直接在 Canva、Figma、Illustrator 中按 Ctrl+V (Mac: Cmd+V) 粘贴，所有笔画均为原生标准贝塞尔曲线，任意拉伸不失真！
+              基于原生 HTML5 Canvas 2D 与 Pointer Events 架构，所有运算均在本地设备运行。既保证了触控笔与鼠标的零延迟响应，更从根本上保障了作者的知识产权。
             </p>
           </div>
         </div>
@@ -1186,7 +1573,7 @@
   <footer id="globalFooter" class="w-full bg-slate-900/90 border-t border-slate-800 py-10 px-4 text-center text-xs text-slate-400 space-y-6">
     <!-- 个人 IP 宣言与目标 -->
     <div class="max-w-3xl mx-auto space-y-3">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/15 border border-indigo-500/30 text-indigo-300 font-semibold text-xs shadow-sm">
+      <div class="badge-creator inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/15 via-purple-500/15 to-pink-500/15 border border-indigo-500/30 text-indigo-300 font-semibold text-xs shadow-sm">
         <span class="text-sm">🚀</span>
         <span>独立开发者 · Huafire</span>
         <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
@@ -2404,7 +2791,7 @@
         }
       }
 
-      // 2. 渲染 7 大商业级手绘笔画
+            // 2. 渲染 12 大商业级手绘笔画 (G-Pen, 丸笔, 铅笔, 蓝笔, 毛笔, 喷枪, 荧光, 排线, 霓虹, 虚线, 激光, 圆珠笔)
       for (const s of appState.strokes) {
         if (!s.points || s.points.length === 0) continue;
         targetCtx.save();
@@ -2435,29 +2822,59 @@
           targetCtx.lineCap = 'round';
           targetCtx.lineJoin = 'round';
           targetCtx.lineWidth = Math.max(1, s.size * 0.75);
+        } else if (s.tool === 'blue_pencil') {
+          targetCtx.strokeStyle = '#38bdf8';
+          targetCtx.fillStyle = '#38bdf8';
+          targetCtx.globalAlpha = 0.65;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(1, s.size * 0.8);
+        } else if (s.tool === 'maru') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.95;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(0.8, s.size * 0.55);
         } else if (s.tool === 'brush') {
           targetCtx.strokeStyle = s.color;
           targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.9;
+          targetCtx.globalAlpha = 0.88;
           targetCtx.lineCap = 'round';
           targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = s.size * 1.3;
-        } else if (s.tool === 'crayon') {
+          targetCtx.lineWidth = s.size * 1.35;
+        } else if (s.tool === 'crosshatch') {
           targetCtx.strokeStyle = s.color;
           targetCtx.fillStyle = s.color;
           targetCtx.globalAlpha = 0.85;
           targetCtx.lineCap = 'round';
           targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = s.size * 1.15;
-        } else if (s.tool === 'ballpoint') {
+          targetCtx.lineWidth = s.size * 0.9;
+        } else if (s.tool === 'neon') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.shadowBlur = Math.max(6, s.size * 2.8);
+          targetCtx.shadowColor = s.color;
+          targetCtx.globalAlpha = 0.95;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(2, s.size * 1.2);
+        } else if (s.tool === 'dotted') {
           targetCtx.strokeStyle = s.color;
           targetCtx.fillStyle = s.color;
           targetCtx.globalAlpha = 1.0;
           targetCtx.lineCap = 'round';
           targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(1, s.size * 0.85);
+          targetCtx.setLineDash([Math.max(4, s.size * 1.8), Math.max(4, s.size * 1.8)]);
+          targetCtx.lineWidth = s.size;
+        } else if (s.tool === 'ballpoint') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.95;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(1, s.size * 0.82);
         } else {
-          // 钢笔 (Fountain Pen)
           targetCtx.strokeStyle = s.color;
           targetCtx.fillStyle = s.color;
           targetCtx.globalAlpha = 1.0;
@@ -2648,20 +3065,9 @@
 
       const pad = 6;
       minX -= pad; minY -= pad; maxX += pad; maxY += pad;
-      const boxW = maxX - minX;
-      const boxH = maxY - minY;
+      const boxW = Math.max(20, maxX - minX);
+      const boxH = Math.max(20, maxY - minY);
       appState.selectionBounds = { x: minX, y: minY, width: boxW, height: boxH };
-
-      // 检测单选对象旋转角度
-      let activeItem = null;
-      let curRotation = 0;
-      if (appState.selectedImages.length === 1 && appState.selectedTexts.length === 0 && appState.selectedStrokes.length === 0) {
-        activeItem = appState.selectedImages[0];
-        curRotation = activeItem.rotation || 0;
-      } else if (appState.selectedTexts.length === 1 && appState.selectedImages.length === 0 && appState.selectedStrokes.length === 0) {
-        activeItem = appState.selectedTexts[0];
-        curRotation = activeItem.rotation || 0;
-      }
 
       const box = document.createElement('div');
       box.className = 'selection-box rounded';
@@ -2669,9 +3075,6 @@
       box.style.top = `${minY}px`;
       box.style.width = `${boxW}px`;
       box.style.height = `${boxH}px`;
-      if (curRotation) {
-        box.style.transform = `rotate(${curRotation}rad)`;
-      }
 
       box.innerHTML = `
         <!-- 360° 顶部旋转杆与旋转球手柄 (Figma 规范) -->
@@ -2688,7 +3091,7 @@
         <div class="selection-handle selection-handle-sw" data-handle="sw" title="等比缩放"></div>
         <div class="selection-handle selection-handle-w" data-handle="w" title="水平拉伸"></div>
 
-        <!-- 现代浮动操作胶囊栏 (告别廉价红叉) -->
+        <!-- 现代浮动操作胶囊栏 -->
         <div class="selection-action-pill">
           <button class="btn-pill-rot-l" title="逆时针旋转 90°">⤾ -90°</button>
           <button class="btn-pill-rot-r" title="顺时针旋转 90°">⤿ +90°</button>
@@ -2700,17 +3103,12 @@
       `;
 
       // 绑定动作胶囊事件
-      const rotLBtn = box.querySelector('.btn-pill-rot-l');
-      const rotRBtn = box.querySelector('.btn-pill-rot-r');
-      const copyBtn = box.querySelector('.btn-pill-copy');
-      const delBtn = box.querySelector('.btn-pill-delete');
+      box.querySelector('.btn-pill-rot-l').onclick = (e) => { e.stopPropagation(); rotateSelectedItems(-Math.PI / 2); };
+      box.querySelector('.btn-pill-rot-r').onclick = (e) => { e.stopPropagation(); rotateSelectedItems(Math.PI / 2); };
+      box.querySelector('.btn-pill-copy').onclick = (e) => { e.stopPropagation(); duplicateSelectedItems(); };
+      box.querySelector('.btn-pill-delete').onclick = (e) => { e.stopPropagation(); deleteSelectedItems(); };
 
-      rotLBtn.onclick = (e) => { e.stopPropagation(); rotateSelectedItems(-Math.PI / 2); };
-      rotRBtn.onclick = (e) => { e.stopPropagation(); rotateSelectedItems(Math.PI / 2); };
-      copyBtn.onclick = (e) => { e.stopPropagation(); duplicateSelectedItems(); };
-      delBtn.onclick = (e) => { e.stopPropagation(); deleteSelectedItems(); };
-
-      // 🌟 360° 顶部旋转把手交互
+      // 🌟 360° 顶部旋转把手交互 (完整支持：笔画点云 + 图片 + 文本围绕选区中心精确旋转)
       const rotHandle = box.querySelector('.selection-rot-handle');
       rotHandle.onpointerdown = (e) => {
         e.stopPropagation();
@@ -2720,24 +3118,66 @@
         const centerX = minX + boxW / 2;
         const centerY = minY + boxH / 2;
         const startPointer = getCanvasCoordinates(e);
-        const initialAngle = curRotation || 0;
         const baseAngle = Math.atan2(startPointer.y - centerY, startPointer.x - centerX) + Math.PI / 2;
+
+        const snapStrokes = (appState.selectedStrokes || []).map(s => ({
+          stroke: s,
+          origPoints: s.points.map(p => ({ x: p.x, y: p.y }))
+        }));
+        const snapImgs = (appState.selectedImages || []).map(im => ({
+          ref: im,
+          cx: im.x + im.width / 2,
+          cy: im.y + im.height / 2,
+          rot: im.rotation || 0
+        }));
+        const snapTexts = (appState.selectedTexts || []).map(t => ({
+          ref: t,
+          x: t.x,
+          y: t.y,
+          rot: t.rotation || 0
+        }));
 
         const onRotMove = (me) => {
           me.preventDefault();
           const curPointer = getCanvasCoordinates(me);
           const currentAngle = Math.atan2(curPointer.y - centerY, curPointer.x - centerX) + Math.PI / 2;
           const deltaAngle = currentAngle - baseAngle;
-          const newAngle = initialAngle + deltaAngle;
 
-          if (activeItem) {
-            activeItem.rotation = newAngle;
-          } else {
-            for (const im of (appState.selectedImages || [])) im.rotation = (im.rotation || 0) + deltaAngle;
-            for (const t of (appState.selectedTexts || [])) t.rotation = (t.rotation || 0) + deltaAngle;
+          const cosA = Math.cos(deltaAngle);
+          const sinA = Math.sin(deltaAngle);
+
+          // 1. 旋转手绘线条笔画
+          for (const item of snapStrokes) {
+            for (let i = 0; i < item.origPoints.length; i++) {
+              const orig = item.origPoints[i];
+              const dx = orig.x - centerX;
+              const dy = orig.y - centerY;
+              item.stroke.points[i].x = centerX + (dx * cosA - dy * sinA);
+              item.stroke.points[i].y = centerY + (dx * sinA + dy * cosA);
+            }
           }
 
-          box.style.transform = `rotate(${newAngle}rad)`;
+          // 2. 旋转图片 (中心围绕选区中心公转，自身自转叠加)
+          for (const item of snapImgs) {
+            const dx = item.cx - centerX;
+            const dy = item.cy - centerY;
+            const ncx = centerX + (dx * cosA - dy * sinA);
+            const ncy = centerY + (dx * sinA + dy * cosA);
+            item.ref.x = ncx - item.ref.width / 2;
+            item.ref.y = ncy - item.ref.height / 2;
+            item.ref.rotation = item.rot + deltaAngle;
+          }
+
+          // 3. 旋转文本
+          for (const item of snapTexts) {
+            const dx = item.x - centerX;
+            const dy = item.y - centerY;
+            item.ref.x = centerX + (dx * cosA - dy * sinA);
+            item.ref.y = centerY + (dx * sinA + dy * cosA);
+            item.ref.rotation = item.rot + deltaAngle;
+          }
+
+          box.style.transform = `rotate(${deltaAngle}rad)`;
           redrawAllStrokes();
         };
 
@@ -2751,7 +3191,7 @@
         window.addEventListener('pointerup', onRotUp);
       };
 
-      // 整体框拖拽（移动平移）
+      // 整体框拖拽（平移）
       box.onpointerdown = (e) => {
         if (e.target.dataset.handle || e.target.dataset.rot || e.target.closest('.selection-action-pill')) return;
         e.stopPropagation();
@@ -2766,6 +3206,7 @@
           const dx = curPos.x - appState.dragStartPos.x;
           const dy = curPos.y - appState.dragStartPos.y;
           appState.dragStartPos = curPos;
+
           for (const s of (appState.selectedStrokes || [])) {
             for (const pt of s.points) { pt.x += dx; pt.y += dy; }
           }
@@ -2789,75 +3230,144 @@
         window.addEventListener('pointerup', onBoxUp);
       };
 
-      // 8 方向手柄缩放
+      // 🌟 8 方向手柄缩放 (手绘笔迹线条 + 图片 + 文本 完整缩放拉伸)
       box.querySelectorAll('.selection-handle').forEach(handle => {
         handle.onpointerdown = (e) => {
           e.stopPropagation();
           e.preventDefault();
           saveHistory();
           const handleType = handle.dataset.handle;
-          const startPos = getCanvasCoordinates(e);
+          const startPointer = getCanvasCoordinates(e);
 
-          const snapImgs = (appState.selectedImages || []).map(im => ({ ref: im, x: im.x, y: im.y, w: im.width, h: im.height }));
-          const snapTexts = (appState.selectedTexts || []).map(t => ({ ref: t, size: t.size }));
+          const origBounds = {
+            x: minX,
+            y: minY,
+            w: Math.max(1, boxW),
+            h: Math.max(1, boxH)
+          };
+
+          const snapStrokes = (appState.selectedStrokes || []).map(s => ({
+            stroke: s,
+            origSize: s.size || 2,
+            origPoints: s.points.map(pt => ({
+              x: pt.x,
+              y: pt.y,
+              pressure: pt.pressure,
+              time: pt.time,
+              sprayDots: pt.sprayDots ? pt.sprayDots.map(d => ({ ...d })) : undefined
+            }))
+          }));
+
+          const snapImgs = (appState.selectedImages || []).map(im => ({
+            ref: im,
+            x: im.x,
+            y: im.y,
+            w: im.width,
+            h: im.height
+          }));
+
+          const snapTexts = (appState.selectedTexts || []).map(t => ({
+            ref: t,
+            x: t.x,
+            y: t.y,
+            size: t.size
+          }));
 
           const onHandleMove = (me) => {
             me.preventDefault();
-            const cur = getCanvasCoordinates(me);
-            const dx = cur.x - startPos.x;
-            const dy = cur.y - startPos.y;
+            const curPointer = getCanvasCoordinates(me);
+            const dx = curPointer.x - startPointer.x;
+            const dy = curPointer.y - startPointer.y;
 
-            for (const item of snapImgs) {
-              const ratio = item.h / item.w;
-              if (handleType === 'se') {
-                const nw = Math.max(30, Math.round(item.w + dx));
-                item.ref.width = nw;
-                item.ref.height = Math.max(20, Math.round(nw * ratio));
-              } else if (handleType === 'sw') {
-                const nw = Math.max(30, Math.round(item.w - dx));
-                item.ref.x = item.x + (item.w - nw);
-                item.ref.width = nw;
-                item.ref.height = Math.max(20, Math.round(nw * ratio));
-              } else if (handleType === 'ne') {
-                const nw = Math.max(30, Math.round(item.w + dx));
-                const nh = Math.max(20, Math.round(nw * ratio));
-                item.ref.y = item.y + (item.h - nh);
-                item.ref.width = nw;
-                item.ref.height = nh;
-              } else if (handleType === 'nw') {
-                const nw = Math.max(30, Math.round(item.w - dx));
-                const nh = Math.max(20, Math.round(nw * ratio));
-                item.ref.x = item.x + (item.w - nw);
-                item.ref.y = item.y + (item.h - nh);
-                item.ref.width = nw;
-                item.ref.height = nh;
-              } else if (handleType === 'e') {
-                item.ref.width = Math.max(30, Math.round(item.w + dx));
-              } else if (handleType === 'w') {
-                const nw = Math.max(30, Math.round(item.w - dx));
-                item.ref.x = item.x + (item.w - nw);
-                item.ref.width = nw;
-              } else if (handleType === 's') {
-                item.ref.height = Math.max(20, Math.round(item.h + dy));
-              } else if (handleType === 'n') {
-                const nh = Math.max(20, Math.round(item.h - dy));
-                item.ref.y = item.y + (item.h - nh);
-                item.ref.height = nh;
+            let newX = origBounds.x;
+            let newY = origBounds.y;
+            let newW = origBounds.w;
+            let newH = origBounds.h;
+
+            if (handleType === 'se') {
+              newW = origBounds.w + dx;
+              newH = origBounds.h + dy;
+            } else if (handleType === 'e') {
+              newW = origBounds.w + dx;
+            } else if (handleType === 's') {
+              newH = origBounds.h + dy;
+            } else if (handleType === 'sw') {
+              newW = origBounds.w - dx;
+              newH = origBounds.h + dy;
+              newX = origBounds.x + dx;
+            } else if (handleType === 'w') {
+              newW = origBounds.w - dx;
+              newX = origBounds.x + dx;
+            } else if (handleType === 'ne') {
+              newW = origBounds.w + dx;
+              newH = origBounds.h - dy;
+              newY = origBounds.y + dy;
+            } else if (handleType === 'n') {
+              newH = origBounds.h - dy;
+              newY = origBounds.y + dy;
+            } else if (handleType === 'nw') {
+              newW = origBounds.w - dx;
+              newH = origBounds.h - dy;
+              newX = origBounds.x + dx;
+              newY = origBounds.y + dy;
+            }
+
+            if (newW < 12) {
+              if (handleType.includes('w')) newX = origBounds.x + origBounds.w - 12;
+              newW = 12;
+            }
+            if (newH < 12) {
+              if (handleType.includes('n')) newY = origBounds.y + origBounds.h - 12;
+              newH = 12;
+            }
+
+            const scaleX = newW / origBounds.w;
+            const scaleY = newH / origBounds.h;
+            const avgScale = Math.sqrt(Math.abs(scaleX * scaleY));
+
+            // 1. 缩放手绘线条笔画
+            for (const item of snapStrokes) {
+              item.stroke.size = Math.max(1, item.origSize * avgScale);
+              for (let i = 0; i < item.origPoints.length; i++) {
+                const origPt = item.origPoints[i];
+                const targetPt = item.stroke.points[i];
+                targetPt.x = newX + (origPt.x - origBounds.x) * scaleX;
+                targetPt.y = newY + (origPt.y - origBounds.y) * scaleY;
+                if (origPt.sprayDots && targetPt.sprayDots) {
+                  for (let j = 0; j < origPt.sprayDots.length; j++) {
+                    targetPt.sprayDots[j].dx = origPt.sprayDots[j].dx * scaleX;
+                    targetPt.sprayDots[j].dy = origPt.sprayDots[j].dy * scaleY;
+                  }
+                }
               }
             }
 
+            // 2. 缩放图片
+            for (const item of snapImgs) {
+              item.ref.x = newX + (item.x - origBounds.x) * scaleX;
+              item.ref.y = newY + (item.y - origBounds.y) * scaleY;
+              item.ref.width = Math.max(12, item.w * scaleX);
+              item.ref.height = Math.max(12, item.h * scaleY);
+            }
+
+            // 3. 缩放文本
             for (const item of snapTexts) {
-              const delta = (handleType.includes('e') || handleType.includes('s')) ? dx : -dx;
-              item.ref.size = Math.max(12, Math.min(120, Math.round(item.size + delta * 0.2)));
+              item.ref.x = newX + (item.x - origBounds.x) * scaleX;
+              item.ref.y = newY + (item.y - origBounds.y) * scaleY;
+              item.ref.size = Math.max(10, Math.round(item.size * avgScale));
             }
 
             redrawAllStrokes();
-            updateSelectionBoxUI();
+            box.style.left = `${newX}px`;
+            box.style.top = `${newY}px`;
+            box.style.width = `${newW}px`;
+            box.style.height = `${newH}px`;
           };
 
           const onHandleUp = () => {
             window.removeEventListener('pointermove', onHandleMove);
             window.removeEventListener('pointerup', onHandleUp);
+            updateSelectionBoxUI();
           };
 
           window.addEventListener('pointermove', onHandleMove);
@@ -2869,19 +3379,72 @@
     }
 
     function rotateSelectedItems(angleDelta) {
+      if (!appState.selectionBounds) return;
       saveHistory();
+      const centerX = appState.selectionBounds.x + appState.selectionBounds.width / 2;
+      const centerY = appState.selectionBounds.y + appState.selectionBounds.height / 2;
+      const cosA = Math.cos(angleDelta);
+      const sinA = Math.sin(angleDelta);
+
+      // 1. 旋转手绘线条笔画
+      for (const s of (appState.selectedStrokes || [])) {
+        for (const pt of s.points) {
+          const dx = pt.x - centerX;
+          const dy = pt.y - centerY;
+          pt.x = centerX + (dx * cosA - dy * sinA);
+          pt.y = centerY + (dx * sinA + dy * cosA);
+        }
+      }
+
+      // 2. 旋转图片
       for (const im of (appState.selectedImages || [])) {
+        const cx = im.x + im.width / 2;
+        const cy = im.y + im.height / 2;
+        const dx = cx - centerX;
+        const dy = cy - centerY;
+        const ncx = centerX + (dx * cosA - dy * sinA);
+        const ncy = centerY + (dx * sinA + dy * cosA);
+        im.x = ncx - im.width / 2;
+        im.y = ncy - im.height / 2;
         im.rotation = ((im.rotation || 0) + angleDelta) % (Math.PI * 2);
       }
+
+      // 3. 旋转文字
       for (const t of (appState.selectedTexts || [])) {
+        const dx = t.x - centerX;
+        const dy = t.y - centerY;
+        t.x = centerX + (dx * cosA - dy * sinA);
+        t.y = centerY + (dx * sinA + dy * cosA);
         t.rotation = ((t.rotation || 0) + angleDelta) % (Math.PI * 2);
       }
+
       redrawAllStrokes();
       updateSelectionBoxUI();
     }
 
     function duplicateSelectedItems() {
       saveHistory();
+      if (appState.selectedStrokes && appState.selectedStrokes.length > 0) {
+        const clonedStrokes = [];
+        for (const s of appState.selectedStrokes) {
+          const clone = {
+            id: Date.now() + Math.random(),
+            tool: s.tool,
+            color: s.color,
+            size: s.size,
+            points: s.points.map(pt => ({
+              x: pt.x + 24,
+              y: pt.y + 24,
+              pressure: pt.pressure,
+              time: pt.time,
+              sprayDots: pt.sprayDots ? pt.sprayDots.map(d => ({ ...d })) : undefined
+            }))
+          };
+          appState.strokes.push(clone);
+          clonedStrokes.push(clone);
+        }
+        appState.selectedStrokes = clonedStrokes;
+      }
       if (appState.selectedImages && appState.selectedImages.length > 0) {
         const clonedList = [];
         for (const im of appState.selectedImages) {
@@ -3144,38 +3707,80 @@
         ctx.moveTo(p1.x, p1.y);
         ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
         ctx.stroke();
-      } else if (s.tool === 'brush') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.9;
+      } else if (s.tool === 'blue_pencil') {
+        ctx.strokeStyle = '#38bdf8';
+        ctx.globalAlpha = 0.65;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.lineWidth = s.size * 1.3;
+        ctx.lineWidth = Math.max(1, s.size * 0.8);
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
         ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
         ctx.stroke();
-      } else if (s.tool === 'crayon') {
+      } else if (s.tool === 'maru') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 0.95;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Math.max(0.8, s.size * 0.55);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'brush') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 0.88;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = s.size * 1.35;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'crosshatch') {
         ctx.strokeStyle = s.color;
         ctx.globalAlpha = 0.85;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.lineWidth = s.size * 1.15;
+        ctx.lineWidth = s.size * 0.9;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'neon') {
+        ctx.strokeStyle = s.color;
+        ctx.shadowBlur = Math.max(6, s.size * 2.8);
+        ctx.shadowColor = s.color;
+        ctx.globalAlpha = 0.95;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Math.max(2, s.size * 1.2);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'dotted') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 1.0;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.setLineDash([Math.max(4, s.size * 1.8), Math.max(4, s.size * 1.8)]);
+        ctx.lineWidth = s.size;
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
         ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
         ctx.stroke();
       } else if (s.tool === 'ballpoint') {
         ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 1.0;
+        ctx.globalAlpha = 0.95;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(1, s.size * 0.85);
+        ctx.lineWidth = Math.max(1, s.size * 0.82);
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
         ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
         ctx.stroke();
       } else {
-        // 🖋️ 钢笔：速度导数与压感动态笔锋 (MacBook 触控板仿真)
         const dt = Math.max(8, (p2.time || performance.now()) - (p1.time || performance.now()));
         const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
         const speed = dist / dt;
@@ -3265,6 +3870,26 @@
           return;
         }
 
+        // 点选线条笔画
+        let hitStroke = null;
+        for (let i = appState.strokes.length - 1; i >= 0; i--) {
+          const s = appState.strokes[i];
+          if (isStrokeNearPoint(s, pos.x, pos.y, Math.max(10, (s.size || 3) * 1.5))) {
+            hitStroke = s;
+            break;
+          }
+        }
+        if (hitStroke) {
+          saveHistory();
+          appState.selectedStrokes = [hitStroke];
+          appState.selectedImages = [];
+          appState.selectedTexts = [];
+          updateSelectionBoxUI();
+          appState.isDraggingSelection = true;
+          appState.dragStartPos = pos;
+          return;
+        }
+
         clearSelection();
         return;
       }
@@ -3307,12 +3932,16 @@
       const baseSize = Number(appState.brushSize);
       let strokeWidth = baseSize;
       if (appState.tool === 'pencil') strokeWidth = baseSize * 0.75;
-      else if (appState.tool === 'ballpoint') strokeWidth = baseSize * 0.85;
-      else if (appState.tool === 'brush') strokeWidth = baseSize * (0.6 + 0.8 * pressure);
-      else if (appState.tool === 'crayon') strokeWidth = baseSize * 1.15;
+      else if (appState.tool === 'maru') strokeWidth = Math.max(0.8, baseSize * 0.55);
+      else if (appState.tool === 'blue_pencil') strokeWidth = Math.max(1, baseSize * 0.8);
+      else if (appState.tool === 'brush') strokeWidth = baseSize * (0.7 + 0.8 * pressure);
+      else if (appState.tool === 'ballpoint') strokeWidth = baseSize * 0.82;
+      else if (appState.tool === 'crosshatch') strokeWidth = baseSize * 0.9;
+      else if (appState.tool === 'neon') strokeWidth = Math.max(2, baseSize * 1.2);
+      else if (appState.tool === 'dotted') strokeWidth = baseSize;
       else if (appState.tool === 'highlighter') strokeWidth = baseSize * 3.6;
       else if (appState.tool === 'spray') strokeWidth = baseSize * 2.2;
-      else if (appState.tool === 'pen') strokeWidth = baseSize * (0.45 + 0.9 * Math.pow(pressure, 1.4));
+      else strokeWidth = baseSize * (0.5 + 0.8 * Math.pow(pressure, 1.3));
 
       pos.time = performance.now();
       pos.pressure = pressure;
@@ -4147,6 +4776,68 @@
     window.addEventListener('resize', resizeCanvas);
 
     window.addEventListener('DOMContentLoaded', () => {
+      if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }); }
+      
+      // 🌟 12 大大师级笔刷工坊事件绑定
+      const btnMoreBrushes = document.getElementById('btnMoreBrushes');
+      const btnCurrentBrush = document.getElementById('btnCurrentBrush');
+      const brushStudioFlyout = document.getElementById('brushStudioFlyout');
+      const curBrushIcon = document.getElementById('curBrushIcon');
+
+      const brushIcons = {
+        gpen: '🖋️',
+        maru: '🖊️',
+        pencil: '✏️',
+        blue_pencil: '✏️',
+        brush: '🖌️',
+        spray: '💨',
+        highlighter: '🪄',
+        crosshatch: '🖍️',
+        neon: '✨',
+        dotted: '📏',
+        laser: '🔴',
+        ballpoint: '✍️'
+      };
+
+      if (btnMoreBrushes && brushStudioFlyout) {
+        btnMoreBrushes.onclick = (e) => {
+          e.stopPropagation();
+          brushStudioFlyout.classList.toggle('hidden');
+          const pal = document.getElementById('paletteFlyout');
+          if (pal && !pal.classList.contains('hidden')) pal.classList.add('hidden');
+        };
+      }
+
+      if (btnCurrentBrush && brushStudioFlyout) {
+        btnCurrentBrush.onclick = (e) => {
+          e.stopPropagation();
+          appState.tool = btnCurrentBrush.dataset.tool || 'gpen';
+          updateToolButtonsUI();
+        };
+      }
+
+      document.querySelectorAll('#brushStudioFlyout .brush-card').forEach(card => {
+        card.onclick = (e) => {
+          e.stopPropagation();
+          const chosenBrush = card.dataset.brush;
+          appState.tool = chosenBrush;
+          if (btnCurrentBrush) {
+            btnCurrentBrush.dataset.tool = chosenBrush;
+            if (curBrushIcon) curBrushIcon.innerText = brushIcons[chosenBrush] || '🖋️';
+          }
+          document.querySelectorAll('#brushStudioFlyout .brush-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          brushStudioFlyout.classList.add('hidden');
+          updateToolButtonsUI();
+        };
+      });
+
+      document.addEventListener('click', (e) => {
+        if (brushStudioFlyout && !brushStudioFlyout.contains(e.target) && e.target !== btnMoreBrushes) {
+          brushStudioFlyout.classList.add('hidden');
+        }
+      });
+
       const savedLang = localStorage.getItem('user_lang_pref') || 'zh';
       setLanguage(savedLang);
       const savedTheme = localStorage.getItem('eazyopc_theme') || 'dark';
