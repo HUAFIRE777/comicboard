@@ -1,0 +1,3976 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title id="pageTitle">Free Online Whiteboard — Minimalist Dot Matrix & Sticky Notes Canvas | Whiteboard</title>
+  <meta name="description" content="EazyOPC ComicBoard 是专为漫画家、分镜师、二次元画师与 AI Agent 打造的极简多页漫画分镜在线画板。内置四格漫画网格、日漫 B5 原稿纸、对白气泡框、G 笔与网点喷枪，支持无限多页分镜管理、画板自由平移拖拽与单份多页 PDF / 矢量 SVG 导出，100% 浏览器客户端本地隐私运算。">
+  <meta name="keywords" content="comic maker, manga storyboard, comic strip maker, webtoon canvas, manga drawing online, 漫画分镜, ネーム 作成, 4-koma maker, 在线画漫画, comic board, 四格漫画制作, 分镜草稿, online comic creator, AI comic agent">
+  <meta name="author" content="EazyOPC" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://comicboard.eazyopc.com/" />
+
+  <!-- Multi-language Alternate Hreflang Tags -->
+  <link rel="alternate" hreflang="x-default" href="https://comicboard.eazyopc.com/" />
+  <link rel="alternate" hreflang="en" href="https://comicboard.eazyopc.com/?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://comicboard.eazyopc.com/?lang=zh" />
+  <link rel="alternate" hreflang="ja" href="https://comicboard.eazyopc.com/?lang=ja" />
+  <link rel="alternate" hreflang="ko" href="https://comicboard.eazyopc.com/?lang=ko" />
+  <link rel="alternate" hreflang="de" href="https://comicboard.eazyopc.com/?lang=de" />
+  <link rel="alternate" hreflang="es" href="https://comicboard.eazyopc.com/?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://comicboard.eazyopc.com/?lang=fr" />
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EazyOPC" />
+  <meta property="og:url" content="https://comicboard.eazyopc.com/" />
+  <meta property="og:title" content="Free Online Whiteboard — Minimalist Dot Matrix & Sticky Notes Canvas | Whiteboard" />
+  <meta property="og:description" content="Clean, distraction-free online whiteboard for brainstorming, sprint workshops, system architecture, and process mapping. Features draggable sticky notes, flow arrows, process shape boxes, dot matrix grid, and instant 4K meeting export." />
+  <meta property="og:image" content="https://comicboard.eazyopc.com/favicon.svg" />
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Online Whiteboard — Minimalist Dot Matrix & Sticky Notes Canvas | Whiteboard" />
+  <meta name="twitter:description" content="Clean, distraction-free online whiteboard for brainstorming, sprint workshops, system architecture, and process mapping. Features draggable sticky notes, flow arrows, process shape boxes, dot matrix grid, and instant 4K meeting export." />
+  <meta name="twitter:image" content="https://comicboard.eazyopc.com/favicon.svg" />
+
+  <!-- Structured Data (Schema.org WebApplication + FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://comicboard.eazyopc.com/#webapp",
+        "url": "https://comicboard.eazyopc.com/",
+        "name": "Whiteboard - Minimalist Brainstorming & Sticky Notes Canvas",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires HTML5 Canvas and JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.94",
+          "ratingCount": "2750",
+          "bestRating": "5",
+          "worstRating": "1"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://comicboard.eazyopc.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is this online whiteboard free without registration?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, there is zero registration, no login, and no credit card required. Open the URL and immediately start whiteboarding."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the smart shape snapping work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Just like GoodNotes, simply draw a line, circle, or rectangle and hold your stylus or finger still for half a second at the end — it magically snaps into a mathematically perfect geometric shape."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I paste images and screenshots from clipboard?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Press Ctrl+V (or Cmd+V) anywhere on the page, or drag and drop images directly onto the canvas to annotate over them."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I select and move drawn strokes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Use the Lasso tool to circle any stroke, image, or text and drag it anywhere on the canvas."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-6499357447763670" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6499357447763670" crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS & jsPDF CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: #090d16;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      overflow-y: auto;
+      touch-action: pan-y;
+      -webkit-font-smoothing: antialiased;
+    }
+    #mainCanvas {
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: crosshair;
+    }
+    .laser-dot {
+      pointer-events: none;
+      position: absolute;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    }
+    .sticky-note {
+      touch-action: auto;
+      user-select: text;
+    }
+    .sticky-note textarea {
+      touch-action: auto;
+      user-select: text;
+    }
+    .tool-btn-active {
+      background: linear-gradient(135deg, #4f46e5, #6366f1) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.45);
+    }
+    body.is-fullscreen {
+      overflow: hidden !important;
+    }
+    body.is-fullscreen #topNavbar,
+    body.is-fullscreen #adSection,
+    body.is-fullscreen #seoArticleSection,
+    body.is-fullscreen #globalFooter {
+      display: none !important;
+    }
+    body.is-fullscreen #workbenchWrapper {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 50 !important;
+      padding: 0 !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      background: #090d16 !important;
+    }
+    body.is-fullscreen #exitFullscreenBtn {
+      display: flex !important;
+    }
+    /* Figma / Miro 标杆级矢量选框与变换控制 */
+    .selection-box {
+      border: 1.5px solid #2563eb;
+      background: rgba(37, 99, 235, 0.05);
+      position: absolute;
+      pointer-events: auto;
+      cursor: move;
+      touch-action: none;
+      box-sizing: border-box;
+      transform-origin: center center;
+    }
+    .selection-handle {
+      width: 9px;
+      height: 9px;
+      background: #ffffff;
+      border: 1.5px solid #2563eb;
+      border-radius: 2px;
+      position: absolute;
+      pointer-events: auto;
+      touch-action: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      z-index: 10;
+    }
+    .selection-handle-nw { top: -5px; left: -5px; cursor: nwse-resize; }
+    .selection-handle-ne { top: -5px; right: -5px; cursor: nesw-resize; }
+    .selection-handle-se { bottom: -5px; right: -5px; cursor: nwse-resize; }
+    .selection-handle-sw { bottom: -5px; left: -5px; cursor: nesw-resize; }
+    .selection-handle-n  { top: -5px; left: calc(50% - 4.5px); cursor: ns-resize; }
+    .selection-handle-s  { bottom: -5px; left: calc(50% - 4.5px); cursor: ns-resize; }
+    .selection-handle-w  { top: calc(50% - 4.5px); left: -5px; cursor: ew-resize; }
+    .selection-handle-e  { top: calc(50% - 4.5px); right: -5px; cursor: ew-resize; }
+
+    /* 360° 旋转杆与旋转球手柄 */
+    .selection-rot-stem {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      width: 1.5px;
+      height: 24px;
+      background-color: #2563eb;
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+    .selection-rot-handle {
+      position: absolute;
+      top: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 13px;
+      height: 13px;
+      background: #ffffff;
+      border: 1.5px solid #2563eb;
+      border-radius: 50%;
+      cursor: grab;
+      pointer-events: auto;
+      touch-action: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+      z-index: 12;
+      transition: transform 0.12s ease, background-color 0.12s ease;
+    }
+    .selection-rot-handle:hover,
+    .selection-rot-handle:active {
+      transform: translateX(-50%) scale(1.3);
+      background: #2563eb;
+      cursor: grabbing;
+    }
+
+    /* 工业级浮动操作胶囊 (告别廉价红叉) */
+    .selection-action-pill {
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: #090d16;
+      border: 1px solid #334155;
+      border-radius: 9999px;
+      padding: 3px 7px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      pointer-events: auto;
+      z-index: 12;
+      white-space: nowrap;
+    }
+    .selection-action-pill button {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .selection-action-pill button:hover {
+      background: #1e293b;
+      color: #ffffff;
+    }
+    .selection-action-pill button.btn-pill-delete:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
+    /* 拟真手握画笔光标 */
+    .cursor-pen-nib {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Cpath d='M2 2L9 4.5L24 19.5L19.5 24L4.5 9L2 2Z' fill='%231e293b' stroke='%23ffffff' stroke-width='1.5'/%3E%3Cpath d='M2 2L5 8L8 5L2 2Z' fill='%234f46e5'/%3E%3Ccircle cx='2' cy='2' r='1.2' fill='%23ffffff'/%3E%3Cpath d='M5 5L12 12' stroke='%2394a3b8' stroke-width='1'/%3E%3C/svg%3E") 2 2, crosshair !important;
+    }
+
+    
+    /* 🌟 核心功能动画演示 (Pure CSS / SVG Keyframes) */
+    @keyframes snapLineAnim {
+      0% { stroke-dashoffset: 160; opacity: 0.2; stroke: #94a3b8; }
+      40% { stroke-dashoffset: 0; opacity: 0.7; stroke: #94a3b8; }
+      55% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+      70% { transform: scale(1.02); filter: drop-shadow(0 0 8px #38bdf8); stroke: #38bdf8; }
+      90% { stroke-dashoffset: 0; opacity: 1; stroke: #38bdf8; }
+      100% { stroke-dashoffset: 0; opacity: 0.8; stroke: #38bdf8; }
+    }
+    @keyframes penCursorAnim {
+      0% { transform: translate(12px, 50px); opacity: 0; }
+      10% { opacity: 1; }
+      40% { transform: translate(150px, 50px); opacity: 1; }
+      65% { transform: translate(150px, 50px); opacity: 1; }
+      75% { transform: translate(150px, 50px) scale(1.2); opacity: 0.6; }
+      100% { transform: translate(170px, 35px); opacity: 0; }
+    }
+    @keyframes rotateBoxAnim {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(0deg); }
+      45% { transform: rotate(45deg); }
+      65% { transform: rotate(90deg); }
+      85% { transform: rotate(90deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes comicSlideAnim {
+      0%, 28% { transform: translateX(0%); }
+      33%, 61% { transform: translateX(-33.333%); }
+      66%, 95% { transform: translateX(-66.666%); }
+      100% { transform: translateX(0%); }
+    }
+    @keyframes vectorPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+      50% { transform: scale(1.03); box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.6); }
+    }
+
+    /* ☀️ 白天暖白护眼模式 (Theme Light - Warm White 高清晰对比) */
+    body.theme-light {
+      background-color: #faf8f5 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar {
+      background: rgba(253, 251, 247, 0.96) !important;
+      border-bottom-color: #e5e0d8 !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 10px rgba(40, 30, 20, 0.04) !important;
+    }
+    body.theme-light #topNavbar .text-white,
+    body.theme-light #topNavbar .text-slate-200 {
+      color: #0f172a !important;
+    }
+    body.theme-light #topNavbar .bg-slate-800\/90,
+    body.theme-light #topNavbar .bg-slate-800 {
+      background: #f4efe6 !important;
+      border-color: #e2dbcd !important;
+      color: #1e293b !important;
+    }
+    body.theme-light #topNavbar select {
+      color: #1e293b !important;
+    }
+    body.theme-light #workbenchWrapper {
+      background: #f4efe6 !important;
+    }
+    body.theme-light #canvasCard {
+      background: #ffffff !important;
+      border: 1px solid #e5e0d8 !important;
+      box-shadow: 0 16px 40px rgba(40, 30, 20, 0.08), 0 2px 8px rgba(0,0,0,0.03) !important;
+    }
+    body.theme-light #leftSidebar {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: #e2dbcd !important;
+      box-shadow: 0 12px 32px rgba(40, 30, 20, 0.08) !important;
+    }
+    body.theme-light #leftSidebar button {
+      color: #475569 !important;
+    }
+    body.theme-light #leftSidebar button:hover {
+      background: #f4efe6 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #leftSidebar .tool-btn-active {
+      background: #4f46e5 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+    }
+    body.theme-light #zoomDock,
+    body.theme-light #pageManagerDock,
+    body.theme-light #paletteFlyout {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border-color: #e2dbcd !important;
+      color: #1e293b !important;
+      box-shadow: 0 10px 28px rgba(40, 30, 20, 0.08) !important;
+    }
+    body.theme-light #zoomDock button,
+    body.theme-light #pageManagerDock button {
+      color: #334155 !important;
+    }
+    body.theme-light #zoomDock button:hover,
+    body.theme-light #pageManagerDock button:hover {
+      background: #f4efe6 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #ratioSelector,
+    body.theme-light #paperSelector,
+    body.theme-light #btnLangDropdown {
+      color: #1e293b !important;
+      background: transparent !important;
+    }
+    body.theme-light #langMenu {
+      background: #ffffff !important;
+      border-color: #e2dbcd !important;
+      color: #1e293b !important;
+      box-shadow: 0 12px 28px rgba(40, 30, 20, 0.12) !important;
+    }
+    body.theme-light #langMenu button {
+      color: #334155 !important;
+    }
+    body.theme-light #langMenu button:hover {
+      background: #eef2ff !important;
+      color: #4f46e5 !important;
+    }
+    body.theme-light .selection-action-pill {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1) !important;
+    }
+    body.theme-light .selection-action-pill button {
+      color: #334155 !important;
+    }
+    body.theme-light .selection-action-pill button:hover {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light .selection-action-pill button.btn-pill-delete:hover {
+      background: #fee2e2 !important;
+      color: #dc2626 !important;
+    }
+
+    /* SEO 文章与问答板块高清晰暖白适配 */
+    body.theme-light #seoArticleSection .text-white {
+      color: #0f172a !important;
+    }
+    body.theme-light #seoArticleSection .text-slate-200 {
+      color: #1e293b !important;
+    }
+    body.theme-light #seoArticleSection .text-slate-300 {
+      color: #334155 !important;
+    }
+    body.theme-light #seoArticleSection .text-slate-400 {
+      color: #475569 !important;
+    }
+    body.theme-light #seoArticleSection .bg-slate-900\/60,
+    body.theme-light #seoArticleSection .bg-slate-900,
+    body.theme-light #seoArticleSection .bg-slate-800\/50,
+    body.theme-light #seoArticleSection .bg-slate-800 {
+      background: #ffffff !important;
+      border-color: #e5e0d8 !important;
+      box-shadow: 0 4px 16px rgba(40, 30, 20, 0.04) !important;
+    }
+    body.theme-light #adSection .bg-slate-900\/60 {
+      background: #ffffff !important;
+      border-color: #e5e0d8 !important;
+    }
+    body.theme-light footer#globalFooter {
+      background: #f4efe6 !important;
+      border-top-color: #e5e0d8 !important;
+      color: #475569 !important;
+    }
+    body.theme-light footer#globalFooter a {
+      color: #334155 !important;
+    }
+    body.theme-light footer#globalFooter a:hover {
+      color: #4f46e5 !important;
+    }
+  </style>
+</head>
+<body class="flex flex-col font-sans">
+
+  <!-- ================= 1. 顶部全局品牌导航栏 ================= -->
+  <header id="topNavbar" class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 transition-all">
+    <div class="flex items-center gap-3 flex-shrink-0">
+      <a href="https://eazyopc.com" class="flex items-center gap-2 group" title="EazyOPC Home">
+        <!-- 专属矢量 Logo -->
+        <svg class="w-8 h-8 rounded-xl shadow-md group-hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="10" fill="url(#wb_grad)" />
+          <circle cx="12" cy="12" r="1.5" fill="#c7d2fe" />
+          <circle cx="20" cy="12" r="1.5" fill="#c7d2fe" />
+          <circle cx="28" cy="12" r="1.5" fill="#c7d2fe" />
+          <circle cx="12" cy="20" r="1.5" fill="#c7d2fe" />
+          <circle cx="20" cy="20" r="1.5" fill="#c7d2fe" />
+          <circle cx="28" cy="20" r="1.5" fill="#c7d2fe" />
+          <circle cx="12" cy="28" r="1.5" fill="#c7d2fe" />
+          <circle cx="20" cy="28" r="1.5" fill="#c7d2fe" />
+          <circle cx="28" cy="28" r="1.5" fill="#c7d2fe" />
+          <path d="M14 26 L22 14 L26 18 L18 30 Z" fill="#ffffff" />
+          <path d="M12 28 L14 26 L18 30 L16 32 Z" fill="#fbbf24" />
+          <defs>
+            <linearGradient id="wb_grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#4f46e5" />
+              <stop offset="1" stop-color="#7c3aed" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div>
+          <div class="text-sm font-extrabold tracking-tight text-white flex items-center gap-1.5 leading-none">
+            <span>Whiteboard</span>
+            <span class="text-[10px] font-semibold px-1.5 py-0.2 bg-indigo-500/20 text-indigo-300 rounded">by EazyOPC</span>
+          </div>
+          <span class="text-[10px] text-slate-400 hidden sm:inline leading-none" data-i18n="site_subtitle">极简点阵与灵感便签白板</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 中部控制：画幅比例选择 & 底纹预设 -->
+    <div class="flex items-center gap-2 overflow-x-auto py-1">
+      <div class="flex items-center gap-1 bg-slate-800/90 border border-slate-700/80 rounded-xl px-2 py-1 flex-shrink-0">
+        <span class="text-[11px] text-slate-400 font-medium">📐 <span class="hidden md:inline" data-i18n="lbl_ratio">画幅</span>:</span>
+        <select id="ratioSelector" class="bg-transparent text-slate-200 text-xs outline-none cursor-pointer font-medium max-w-[160px] sm:max-w-[200px]">
+          <optgroup label="📄 办公学习与作业试卷 (Homework & Docs)" class="bg-slate-900 text-slate-200">
+            <option value="a4_p">📄 A4 纵向 (标准作业/试卷 210×297)</option>
+            <option value="a4_l">📄 A4 横向 (横版教案/讲义 297×210)</option>
+            <option value="a3_l">📄 A3 跨页大版 (试卷/板书 420×297)</option>
+            <option value="letter_p">📄 US Letter (美标通用 8.5×11 in)</option>
+          </optgroup>
+          <optgroup label="🎨 漫画分镜与创作 (Manga & Comics)" class="bg-slate-900 text-slate-200">
+            <option value="manga_b5">🎨 日漫标准 B5 (投稿/同人 182×257)</option>
+            <option value="webtoon">🎨 垂直长条漫 (Webtoon 9:20 长卷)</option>
+            <option value="comic_4koma">🎨 四格漫画分镜 (4-Koma 1:2 连环)</option>
+          </optgroup>
+          <optgroup label="💻 演讲汇报与屏幕 (Presentation & Screen)" class="bg-slate-900 text-slate-200">
+            <option value="16_9">💻 16:9 宽屏演示 (PPT / Keynote)</option>
+            <option value="4_3">💻 4:3 经典课件 (iPad / 教学大屏)</option>
+            <option value="16_10">💻 16:10 商务全屏 (MacBook 笔记本)</option>
+          </optgroup>
+          <optgroup label="📱 移动自媒体与社交 (Social & Mobile)" class="bg-slate-900 text-slate-200">
+            <option value="1_1">📱 1:1 社交方形 (小红书/IG 配图)</option>
+            <option value="9_16">📱 9:16 手机竖屏 (Shorts / 海报)</option>
+            <option value="3_4">📱 3:4 小红书竖版 (精选封面)</option>
+          </optgroup>
+          <optgroup label="♾️ 自由无限模式 (Freeform)" class="bg-slate-900 text-slate-200">
+            <option value="free" selected>♾️ 自适应无界画板 (Responsive)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-1 bg-slate-800/90 border border-slate-700/80 rounded-xl px-2 py-1 flex-shrink-0">
+        <span class="text-[11px] text-slate-400 font-medium">📄 <span class="hidden md:inline" data-i18n="lbl_paper">纸张</span>:</span>
+        <select id="paperSelector" class="bg-transparent text-slate-200 text-xs outline-none cursor-pointer">
+          <option value="manga_manuscript" selected>日漫原稿纸 (B5 出血安全框)</option>
+          <option value="comic_4koma_grid">四格漫画纸 (4-Koma Grid)</option>
+          <option value="webtoon_canvas">条漫长卷纸 (Webtoon)</option>
+          <option value="plain">纯白无暇画纸 (Plain White)</option>
+          <option value="dot">分镜点阵纸 (Dot Matrix)</option>
+          <option value="square">5mm 精密网格 (5mm Grid)</option>
+          <option value="dark_comic">暗夜黑卡漫稿纸 (Dark Board)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 右侧动作按钮组 -->
+    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+      <!-- 白天/黑夜模式切换 -->
+      <button id="btnThemeToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)">
+        <span id="themeIcon">🌙</span> <span id="themeLabel" class="hidden sm:inline">夜间</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition" title="全屏沉浸创作">
+        <span>⛶</span> <span class="hidden sm:inline" data-i18n="fullscreen">全屏</span>
+      </button>
+
+      <button id="btnExport" class="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg transition-transform active:scale-95">
+        <span>💾</span> <span data-i18n="export">导出</span>
+      </button>
+
+      <div class="relative">
+        <button id="btnLangDropdown" class="flex items-center gap-1 px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs cursor-pointer border border-slate-700">
+          <span>🌐</span> <span id="currentLangLabel">中</span> <span>▾</span>
+        </button>
+        <div id="langMenu" class="hidden absolute right-0 mt-1 w-32 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-1 z-50 flex flex-col gap-0.5 text-xs text-slate-200">
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="zh">🇨🇳 简体中文</button>
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="en">🇺🇸 English</button>
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="ja">🇯🇵 日本語</button>
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="ko">🇰🇷 한국어</button>
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="de">🇩🇪 Deutsch</button>
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="es">🇪🇸 Español</button>
+          <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="fr">🇫🇷 Français</button>
+        </div>
+      </div>
+
+      <button id="btnTopProBadge" class="hidden sm:flex items-center gap-1 px-2.5 py-1 bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 text-amber-300 rounded-xl text-xs font-semibold transition">
+        <span>⭐</span> <span id="proBadgeLabel">Pro</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 2. 核心工作台区域 (SaaS 级绘图舞台) ================= -->
+  <main id="workbenchWrapper" class="relative w-full bg-slate-950 flex items-center justify-center p-2 sm:p-4 overflow-hidden h-[72vh] min-h-[520px] max-h-[920px] transition-all">
+    
+    <button id="exitFullscreenBtn" class="hidden absolute top-4 right-5 z-40 items-center gap-1.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs font-medium shadow-2xl backdrop-blur-md transition">
+      <span>✕</span> <span data-i18n="exit_fullscreen">退出全屏</span>
+    </button>
+
+    <!-- ===== 左侧专业悬浮工具坞 (Comic & Manga 专属创作体系) ===== -->
+    <aside id="leftSidebar" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-1.5 rounded-2xl shadow-2xl transition-all max-h-[88vh] overflow-y-auto">
+      <!-- 0. 鼠标选择与调整 (Select - V) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="select" data-i18n-title="tip_select" title="↖️ 鼠标选择与调整 (快捷键 V，点选分镜/气泡/图片/文字可拖动、旋转或缩放)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7 18 3-7 7-3L3 3z"/><path d="m13 13 6 6"/></svg>
+      </button>
+
+      <!-- 1. ✋ 画板抓手自由拖动 (Hand Pan Tool - H) 满足用户“画板可以拖动”的核心痛点 -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="hand" data-i18n-title="tip_hand" title="✋ 画板抓手平移 (快捷键 H / 任意工具下长按空格键拖动，自由拖动画板到任意位置)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+      </button>
+
+      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+
+      <!-- 2. 📐 漫画分镜格菜单 (Comic Panel Grid) -->
+      <button id="btnTogglePanels" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_panels" title="📐 插入漫画分镜格 (四格漫画/日漫6格/条漫长卷/自由分格)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+      </button>
+
+      <!-- 3. 💬 漫画对白气泡框 (Speech Balloons) -->
+      <button id="btnToggleBalloons" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_balloons" title="💬 插入漫画对话气泡 (对白椭圆/呐喊刺猬/思考云朵/旁白框)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      </button>
+
+      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+
+      <!-- 4. 漫画 G 笔 (G-Pen - 尖锐压感，主勾线王者) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition tool-btn-active flex items-center justify-center" data-tool="gpen" data-i18n-title="tip_gpen" title="🖋️ 漫画 G 笔 (日漫主勾线王：高弹性动态笔锋，运笔速度自适应，快捷键 P)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18"/><path d="M2 2l7.5 7.5"/><circle cx="11" cy="11" r="1.5"/></svg>
+      </button>
+
+      <!-- 5. 漫画丸笔 (Maru-pen - 极细线条，发丝与精密背景) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="maru" data-i18n-title="tip_maru" title="🖊️ 漫画丸笔 (极细恒定细线：描绘人物发丝、眼睫毛与精细背景建筑)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/><path d="m15 5 4 4"/></svg>
+      </button>
+
+      <!-- 6. 分镜非摄影蓝草稿铅笔 (Drafting Blue Pencil) -->
+      <button class="tool-btn p-2 rounded-xl text-sky-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="blue_pencil" data-i18n-title="tip_blue_pencil" title="✏️ 分镜蓝铅笔 (经典日漫非摄影蓝草稿笔：构思分镜草图与人物轮廓)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4-14 14H4v-4L18 2z"/><path d="M14 6l4 4"/></svg>
+      </button>
+
+      <!-- 7. 彩漫水彩软笔 (Color Manga Brush) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="brush" data-i18n-title="tip_brush" title="🖌️ 彩漫水彩软笔 (水彩晕染与彩漫着色)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.37 2.63 14 7l-1.5-1.5 4.37-4.37a2.12 2.12 0 1 1 3 3z"/><path d="M9 12 2.5 18.5a3.54 3.54 0 0 0 5 5L14 17"/><path d="m13 8 3 3"/></svg>
+      </button>
+
+      <!-- 8. 阴影排线笔 (Crosshatch / Shadow) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="crosshatch" data-i18n-title="tip_crosshatch" title="🖍️ 阴影排线笔 (快速刻画人物阴影与黑白层次)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0z"/><path d="m5 2 5 5"/><path d="M2 18v4h4"/></svg>
+      </button>
+
+      <!-- 9. 网点气溶喷雾笔 (Screentone & Airbrush) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="spray" data-i18n-title="tip_spray" title="💨 网点喷枪 (漫画网点渐变、光晕与星芒粒子)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h6v4H8z"/><path d="M11 6v4"/><path d="M5 10h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"/><circle cx="18" cy="4" r="1"/><circle cx="21" cy="7" r="1"/><circle cx="20" cy="1" r="1"/></svg>
+      </button>
+
+      <!-- 10. 荧光高光重点笔 -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="highlighter" data-i18n-title="tip_highlighter" title="🪄 荧光重点笔 (彩色分镜批注与高光)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"/><path d="M16 16l4-4"/><path d="m18 8 2 2"/><path d="m14 6 4 4"/></svg>
+      </button>
+
+      <!-- 11. 拟声词与台词打字工具 (Text Tool - T) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="text" data-i18n-title="tip_text" title="🔤 拟声词与台词打字 (快捷键 T，输入轰、咚、啪、BOOM 漫画特效字)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      </button>
+
+      <!-- 12. ⚡ 一笔整擦 -->
+      <button class="tool-btn p-2 rounded-xl text-amber-300 hover:bg-amber-500/20 text-xs transition flex items-center justify-center" data-tool="eraser" data-i18n-title="tip_eraser" title="⚡ 一笔整擦 (点中笔画瞬间全消，快捷键 E)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
+      </button>
+
+      <!-- 13. ⭕ 套索选择与移动工具 -->
+      <button class="tool-btn p-2 rounded-xl text-indigo-300 hover:bg-indigo-500/20 text-xs transition flex items-center justify-center" data-tool="lasso" data-i18n-title="tip_lasso" title="⭕ 套索圈选与平移 (画圈圈住即可整体拖动，快捷键 L)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 22a5 5 0 0 1-2-4"/><path d="M3.3 14A6.8 6.8 0 0 1 2 10c0-4.4 4.5-8 10-8s10 3.6 10 8-4.5 8-10 8a12 12 0 0 1-5-1"/><circle cx="5" cy="18" r="2"/></svg>
+      </button>
+
+      <!-- 14. 插入临摹参考图/贴图 (Figma 现代相框) -->
+      <button id="btnInsertImage" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_image" title="🖼️ 导入漫画人物设定图 / 临摹照片，支持 Ctrl+V 粘贴">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="4" ry="4"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+      </button>
+      <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
+
+      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+
+      <!-- 15. 激光笔演示 -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="laser" data-i18n-title="tip_laser" title="讲解激光教鞭 (分镜讲解)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 4-2 2m0 0-2 2m2-2 2 2m-2-2-2-2"/><path d="m17 7-9.5 9.5a2.12 2.12 0 0 0 3 3L20 10"/><path d="m19 2 2 2"/><path d="m22 7-2-2"/></svg>
+      </button>
+
+      <!-- 16. 调色面板 -->
+      <button id="btnTogglePalette" class="relative p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_palette" title="画笔色彩与粗细调节">
+        <span id="activeColorDot" class="w-4 h-4 rounded-full block border border-white/60 bg-zinc-900 shadow-sm"></span>
+      </button>
+
+      <!-- 17. 撤销 -->
+      <button id="btnUndo" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_undo" title="撤销 (Ctrl+Z)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+      </button>
+      <!-- 18. 清屏 -->
+      <button id="btnClearAll" class="p-2 rounded-xl text-rose-400 hover:bg-rose-950/60 text-xs transition flex items-center justify-center" data-i18n-title="tip_clear" title="🗑️ 清空当前画板">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+      </button>
+    </aside>
+
+    <!-- 漫画分镜格选择浮动弹窗 (Panel Templates Popover) -->
+    <div id="panelsMenu" class="hidden absolute left-16 sm:left-20 top-1/3 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-56 text-white">
+      <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
+        <span class="text-xs font-bold text-slate-200">📐 选择漫画分镜格模板</span>
+        <button id="btnClosePanelsMenu" class="text-slate-400 hover:text-white text-xs">✕</button>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="4koma">
+          <div class="w-full h-8 border border-dashed border-slate-400 rounded flex flex-col justify-between p-0.5"><div class="w-full h-1 bg-slate-400"></div><div class="w-full h-1 bg-slate-400"></div></div>
+          <span class="text-[11px] font-bold block">四格漫画 (4-Koma)</span>
+        </button>
+        <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="6panel">
+          <div class="w-full h-8 border border-dashed border-slate-400 rounded grid grid-cols-2 gap-0.5 p-0.5"><div class="bg-slate-400/40"></div><div class="bg-slate-400/40"></div></div>
+          <span class="text-[11px] font-bold block">日漫标准 6 格</span>
+        </button>
+        <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="3panel">
+          <div class="w-full h-8 border border-dashed border-slate-400 rounded flex flex-col gap-0.5 p-0.5"><div class="bg-slate-400/40 h-2"></div><div class="bg-slate-400/40 h-2"></div></div>
+          <span class="text-[11px] font-bold block">经典 3 格分镜</span>
+        </button>
+        <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="webtoon">
+          <div class="w-full h-8 border border-dashed border-slate-400 rounded flex flex-col gap-1 p-0.5"><div class="bg-indigo-400/40 h-3"></div><div class="bg-indigo-400/40 h-3"></div></div>
+          <span class="text-[11px] font-bold block">条漫竖屏流</span>
+        </button>
+      </div>
+      <button id="btnInsertCustomBox" class="w-full py-1.5 bg-slate-800 hover:bg-indigo-600 rounded-xl text-xs font-semibold border border-slate-700 transition">
+        ➕ 插入自定义单格框
+      </button>
+    </div>
+
+    <!-- 漫画对白气泡框选择浮动弹窗 (Speech Balloons Popover) -->
+    <div id="balloonsMenu" class="hidden absolute left-16 sm:left-20 top-2/5 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-56 text-white">
+      <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
+        <span class="text-xs font-bold text-slate-200">💬 插入对白气泡框</span>
+        <button id="btnCloseBalloonsMenu" class="text-slate-400 hover:text-white text-xs">✕</button>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="oval">
+          <div class="w-7 h-5 mx-auto rounded-full border border-white flex items-center justify-center text-[9px]">💬</div>
+          <span class="text-[11px] font-bold block">日常对白框</span>
+        </button>
+        <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="shout">
+          <div class="w-7 h-5 mx-auto border border-dashed border-amber-400 flex items-center justify-center text-[9px]">💥</div>
+          <span class="text-[11px] font-bold block">尖角呐喊框</span>
+        </button>
+        <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="thought">
+          <div class="w-7 h-5 mx-auto rounded-xl border border-dotted border-blue-400 flex items-center justify-center text-[9px]">💭</div>
+          <span class="text-[11px] font-bold block">内心思考云</span>
+        </button>
+        <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="rect">
+          <div class="w-7 h-5 mx-auto border border-slate-300 flex items-center justify-center text-[9px]">📜</div>
+          <span class="text-[11px] font-bold block">旁白讲解框</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 悬浮调色板 & 粗细弹窗 (Popover) -->
+    <div id="paletteFlyout" class="hidden absolute left-16 sm:left-20 top-1/2 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-3 w-52 text-white">
+      <div>
+        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1.5" data-i18n="palette_title">画笔颜色</span>
+        <div id="paletteColors" class="grid grid-cols-6 gap-1.5 items-center">
+          <!-- 预设颜色由 JS 填充，末尾带有全光谱自定义取色器 -->
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
+          <span data-i18n="size">粗细</span>
+          <span id="brushSizeVal" class="text-white">4px</span>
+        </div>
+        <input id="brushSizeInput" type="range" min="1" max="40" value="4" class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+      
+      <div class="pt-2 border-t border-slate-700/80 flex items-center justify-between">
+        <button id="btnSmartInvert" class="w-full py-1 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] rounded-lg border border-slate-600/80 flex items-center justify-center gap-1.5 transition" title="智能反转笔划色彩，自动适配黑白底色">
+          <span>🌓</span> <span>智能对比度修复 (反色)</span>
+        </button>
+      </div>
+      </div>
+    </div>
+
+    <!-- 左下角画布缩放与导航坞 (Pan & Zoom Dock) -->
+    <div id="zoomDock" class="absolute bottom-4 left-4 z-30 flex items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-2 py-1 rounded-xl shadow-xl text-xs text-slate-300">
+      <button id="btnZoomOut" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="缩小 (Ctrl+滚轮)">−</button>
+      <button id="btnZoomReset" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg font-mono text-[11px]" title="重置 100%">100%</button>
+      <button id="btnZoomIn" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="放大 (Ctrl+滚轮)">+</button>
+      <span class="text-slate-600">|</span>
+      <button id="btnZoomFit" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg text-[11px]" data-i18n-title="tip_fit" title="适应居中">📐 <span data-i18n="fit">适中</span></button>
+    </div>
+
+    <!-- 中下方悬浮多页/漫画纸张管理器 (Page Manager Dock) -->
+    <div id="pageManagerDock" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 px-3 py-1.5 rounded-2xl shadow-xl text-xs text-slate-200">
+      <button id="btnPrevPage" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="上一页 (◀)">◀</button>
+      <span id="pageIndicator" class="font-bold text-xs px-2 text-indigo-400 tracking-wide font-mono">第 1 / 1 页</span>
+      <button id="btnNextPage" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="下一页 (▶)">▶</button>
+      <span class="text-slate-700">|</span>
+      <button id="btnAddPage" class="flex items-center gap-1 px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="新建空白漫画页 (+)">
+        <span>➕</span> <span data-i18n="add_page">加页</span>
+      </button>
+      <button id="btnDeletePage" class="p-1 hover:bg-rose-900/40 text-slate-400 hover:text-rose-400 rounded-lg text-xs transition" title="删除当前页面">🗑️</button>
+    </div>
+
+    <!-- 真实物理纸张容器 (带高阶阴影与标准长宽比，彻底告别模糊) -->
+    <div id="canvasCard" class="relative rounded-2xl shadow-2xl ring-1 ring-slate-800 overflow-hidden flex items-center justify-center transition-transform bg-white origin-center">
+      <canvas id="mainCanvas"></canvas>
+      <!-- 激光笔动画层 -->
+      <div id="laserLayer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+      <!-- 便签与打字层 -->
+      <div id="stickyLayer" class="absolute inset-0 pointer-events-none"></div>
+      <!-- 套索拖动选区层 -->
+      <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
+    </div>
+  </main>
+
+  <!-- ================= 3. Google AdSense 广告位 (高展示率横幅) ================= -->
+  <section id="adSection" class="w-full max-w-5xl mx-auto px-4 py-4">
+    <div class="w-full bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 flex flex-col items-center justify-center min-h-[90px] text-center">
+      <span class="text-[10px] text-slate-500 tracking-wider uppercase mb-1">Sponsored Advertisement</span>
+      <ins class="adsbygoogle"
+           style="display:block; min-height: 60px;"
+           data-ad-client="ca-pub-6499357447763670"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <!-- ================= 4. SEO 教程、动画演示与 AI Agent 协同指南 ================= -->
+  <article id="seoArticleSection" class="w-full max-w-5xl mx-auto px-4 py-8 space-y-12">
+    
+    <!-- 标头介绍 -->
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold">
+        <span>⚡ 专为创作者、学生、职场人与 AI Agent 打造的下一代 Web 画板</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">极简直观，兼具工业级创作与分镜排版能力</h2>
+      <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+        告别冗重软件，支持 GoodNotes 同款智能几何吸附、Figma 360° 变换、无限多页漫画分镜、MacBook 压感笔触，以及与 Claude、Codex、Antigravity 等 AI Agent 的无缝矢量协作。
+      </p>
+    </div>
+
+    <!-- 🌟 核心功能动画演示 (Pure CSS / SVG Keyframes 动态交互展示区) -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>🎬</span> <span>核心功能动画演示 · Feature Demos</span>
+        </h3>
+        <span class="text-[11px] text-slate-500 font-mono">100% 浏览器客户端实时运算</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 动画卡片 1: 智能吸附 (Draw & Hold) -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-center">
+            <svg class="w-full h-full" viewBox="0 0 240 140" fill="none">
+              <!-- 辅助坐标底纹 -->
+              <circle cx="60" cy="30" r="1" fill="#334155" /><circle cx="120" cy="30" r="1" fill="#334155" /><circle cx="180" cy="30" r="1" fill="#334155" />
+              <circle cx="60" cy="70" r="1" fill="#334155" /><circle cx="120" cy="70" r="1" fill="#334155" /><circle cx="180" cy="70" r="1" fill="#334155" />
+              <circle cx="60" cy="110" r="1" fill="#334155" /><circle cx="120" cy="110" r="1" fill="#334155" /><circle cx="180" cy="110" r="1" fill="#334155" />
+              <!-- 正在绘制并吸附成完美直线的笔迹 -->
+              <path d="M 30 70 Q 75 66, 120 72 T 210 70" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-dasharray="200" style="animation: snapLineAnim 3.8s ease-in-out infinite;" />
+              <!-- 仿真运笔指针 -->
+              <g style="animation: penCursorAnim 3.8s ease-in-out infinite;">
+                <path d="M 0 0 L 6 18 L 18 6 Z" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
+                <circle cx="0" cy="0" r="2" fill="#ef4444" />
+              </g>
+            </svg>
+            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-emerald-400 font-mono flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>停顿 0.4 秒 · 瞬间吸附为数学级正圆与完美直线</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>✨</span> <span>智能图形吸附 (Draw & Hold)</span>
+            </h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              无论是随手画线、正圆、三角形还是矩形，下笔画完后指尖在终点稍作停顿 0.4 秒，算法将自动智能识别曲率，秒级变形为极致工整的几何线稿。
+            </p>
+          </div>
+        </div>
+
+        <!-- 动画卡片 2: Figma 360° 自由旋转与 8 控点缩放 -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-center">
+            <!-- 旋转变换演示框 -->
+            <div class="relative w-28 h-24 border-1.5 border-blue-500 bg-blue-500/10 rounded flex items-center justify-center" style="animation: rotateBoxAnim 5.2s ease-in-out infinite; transform-origin: center center;">
+              <!-- 顶部 360° 旋转连杆与手柄 -->
+              <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-blue-500"></div>
+              <div class="absolute -top-8 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-blue-500 shadow"></div>
+              <!-- 4 角手柄 -->
+              <div class="absolute -top-1.5 -left-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
+              <div class="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
+              <div class="absolute -bottom-1.5 -right-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
+              <div class="absolute -bottom-1.5 -left-1.5 w-2.5 h-2.5 bg-white border border-blue-500"></div>
+              <!-- 内部图片与文字演示 -->
+              <div class="text-center">
+                <div class="w-7 h-7 mx-auto rounded bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white text-xs shadow">🎨</div>
+                <span class="text-[9px] font-bold text-slate-300 block mt-1">Photo.png</span>
+              </div>
+            </div>
+            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-blue-400 font-mono flex items-center gap-1.5">
+              <span>📐 360° 任意角度自由旋转 · 告别廉价红叉</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>🔄</span> <span>Figma 标杆级 360° 旋转与等比缩放</span>
+            </h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              彻底淘汰传统白板的廉价紫色边框与红叉！配备 8 个工业级缩放变形手柄、顶部旋转圆球与悬浮操作胶囊，点选图片与文字即可 360° 自由旋转。
+            </p>
+          </div>
+        </div>
+
+        <!-- 动画卡片 3: 漫画分镜多页翻阅与无限纸张 -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-center">
+            <!-- 模拟连环滑动页面 -->
+            <div class="flex w-[300%] h-32 items-center" style="animation: comicSlideAnim 6s ease-in-out infinite;">
+              <!-- 第 1 页: 分镜草图 -->
+              <div class="w-full flex items-center justify-center">
+                <div class="w-36 h-28 bg-slate-900 border border-slate-700 rounded-lg p-2 shadow-xl space-y-1.5">
+                  <div class="flex justify-between items-center text-[9px] text-slate-400 font-mono">
+                    <span>PAGE 1 · 分镜草稿</span>
+                    <span class="text-indigo-400 font-bold">1/3</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-1 h-16">
+                    <div class="border border-dashed border-slate-700 rounded flex items-center justify-center text-[8px] text-slate-500">远景镜头</div>
+                    <div class="border border-dashed border-slate-700 rounded flex items-center justify-center text-[8px] text-slate-500">主角特写</div>
+                  </div>
+                </div>
+              </div>
+              <!-- 第 2 页: 线稿与台词 -->
+              <div class="w-full flex items-center justify-center">
+                <div class="w-36 h-28 bg-slate-900 border border-slate-700 rounded-lg p-2 shadow-xl space-y-1.5">
+                  <div class="flex justify-between items-center text-[9px] text-slate-400 font-mono">
+                    <span>PAGE 2 · 线稿对白</span>
+                    <span class="text-indigo-400 font-bold">2/3</span>
+                  </div>
+                  <div class="border border-slate-700 rounded h-16 p-1 flex flex-col justify-between">
+                    <span class="text-[8px] text-emerald-400 font-semibold">💭 "我们找到了宝藏！"</span>
+                    <div class="w-full h-1 bg-indigo-500/40 rounded"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- 第 3 页: 完稿与导出 -->
+              <div class="w-full flex items-center justify-center">
+                <div class="w-36 h-28 bg-slate-900 border border-indigo-500/60 rounded-lg p-2 shadow-xl space-y-1.5">
+                  <div class="flex justify-between items-center text-[9px] text-indigo-300 font-mono">
+                    <span>PAGE 3 · 完稿输出</span>
+                    <span class="text-indigo-400 font-bold">3/3</span>
+                  </div>
+                  <div class="bg-indigo-950/40 rounded h-16 flex items-center justify-center text-[9px] text-indigo-200 font-bold">
+                    <span>📄 合成单份多页 PDF</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-rose-400 font-mono flex items-center gap-1.5">
+              <span>📚 纸张无限 · 自由加页与漫画分镜切换</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>📖</span> <span>无限纸张漫画分镜与多页图册系统</span>
+            </h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              打破单张画布局限！通过底部的多页管理坞随时「➕ 加页」，每一页拥有独立笔画与撤销栈。导出 PDF 时自动按序连贯装订为单份完整电子书。
+            </p>
+          </div>
+        </div>
+
+        <!-- 动画卡片 4: 矢量 SVG 1秒导入 Figma / Canva -->
+        <div class="bg-slate-900/70 border border-slate-800/90 rounded-2xl p-4 space-y-3 hover:border-indigo-500/50 transition">
+          <div class="relative h-44 bg-slate-950/80 rounded-xl overflow-hidden border border-slate-800/60 flex items-center justify-around px-4">
+            <!-- 白板端 -->
+            <div class="w-24 h-28 bg-slate-900 border border-slate-700 rounded-xl p-2 flex flex-col items-center justify-center gap-1.5 shadow">
+              <span class="text-xs">💼 白板手绘</span>
+              <div class="px-1.5 py-0.5 bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 rounded text-[9px] font-mono">SVG 矢量</div>
+            </div>
+            <!-- 连接光标流 -->
+            <div class="flex flex-col items-center gap-1">
+              <span class="text-indigo-400 text-sm font-bold animate-pulse">➔</span>
+              <span class="text-[9px] text-slate-400 font-mono">1 键复制</span>
+            </div>
+            <!-- 目标端 (Figma / Canva) -->
+            <div class="w-24 h-28 bg-gradient-to-b from-slate-900 to-indigo-950/50 border border-indigo-500/50 rounded-xl p-2 flex flex-col items-center justify-center gap-1.5 shadow" style="animation: vectorPulse 2.8s ease-in-out infinite;">
+              <div class="flex items-center gap-1">
+                <span class="text-xs">🎨</span>
+                <span class="text-[10px] font-bold text-white">Figma / Canva</span>
+              </div>
+              <span class="text-[9px] text-emerald-400 font-semibold">✓ 路径无损可编辑</span>
+            </div>
+            <div class="absolute bottom-2.5 left-3 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/80 text-[10px] text-indigo-400 font-mono flex items-center gap-1.5">
+              <span>🚀 Ctrl+V 粘贴直接导入主流设计软件</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>⚡</span> <span>矢量 SVG 无缝直通 Figma / Canva / AI</span>
+            </h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              支持点击「复制矢量 SVG」后直接在 Canva、Figma、Illustrator 中按 Ctrl+V (Mac: Cmd+V) 粘贴，所有笔画均为原生标准贝塞尔曲线，任意拉伸不失真！
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🤖 重点板块：AI Agent 协同创作与自动化分镜指南 -->
+    <section class="bg-gradient-to-r from-indigo-950/40 via-slate-900/80 to-purple-950/40 border border-indigo-500/30 rounded-2xl p-6 space-y-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-base shadow">🤖</div>
+        <div>
+          <h3 class="text-base font-bold text-white">AI Agent 协同创作与自动化分镜指南 (Claude / Codex / Antigravity)</h3>
+          <p class="text-xs text-slate-400">如何与现代大模型智能体无缝协同，打造高效的自动化绘图、漫画分镜与学术作业工作流</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2">
+        <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
+          <div class="font-bold text-indigo-300 flex items-center gap-1">
+            <span>1.</span> <span>Prompt 驱动 SVG 矢量生成</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-[11px]">
+            您可以向 Claude、ChatGPT 或 Antigravity 提出提示词：“请帮我生成一个 4 格漫画分镜或流程图的 SVG 代码”。AI 将直接给出标准的几何线条与角色草稿代码。
+          </p>
+        </div>
+
+        <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
+          <div class="font-bold text-emerald-300 flex items-center gap-1">
+            <span>2.</span> <span>剪贴板一秒上板与手绘修正</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-[11px]">
+            复制代码或截图后，在本画板任意位置按 <kbd class="px-1 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono text-[10px]">Ctrl+V</kbd> 即可秒级导入。借助我们 7 种专业笔刷与 360° 旋转手柄，您可以直接在 AI 画面上批注手绘修正。
+          </p>
+        </div>
+
+        <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
+          <div class="font-bold text-amber-300 flex items-center gap-1">
+            <span>3.</span> <span>多模态视觉评测与多页交付</span>
+          </div>
+          <p class="text-slate-400 leading-relaxed text-[11px]">
+            将完成的作品导出为 A4 作业 PDF 或日漫 B5 分镜，直接发送给智能体进行作业批改、色彩推敲或分镜评审，形成闭环的创作者智能伙伴工作流。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📖 常见问题与核心使用手册 (FAQ & Manual) -->
+    <section class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>❓</span> <span>使用指南与常见问题 (FAQ & Manual)</span>
+        </h3>
+        <span class="text-xs text-slate-500">点击问题可展开详细操作指南</span>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <!-- Q1: 黑板背景切换与智能反色 -->
+        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer" open>
+          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
+            <span>1. 为什么切换到复古墨绿黑板或碳黑黑板后，黑色笔迹依然看得清？</span>
+            <span class="group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <div class="text-slate-300 mt-2.5 space-y-2 leading-relaxed text-xs">
+            <p>
+              传统白板在切换深色底板时，黑色线条往往会“隐形”无法看清。我们内置了<strong>「智能底纹对比度保护引擎」</strong>：
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-slate-400">
+              <li><strong>自动反色感知</strong>：当您从纯白或点阵底纸切换到「复古墨绿黑板」或「哑光碳黑黑板」时，系统会自动检测过暗笔画与文字，瞬间转化为高清晰的粉笔白色（<code class="text-slate-300">#f8fafc</code>），当前下笔颜色也会同步切换为白粉笔。</li>
+              <li><strong>一键手动修复</strong>：如果您插入了深色图片或文字，也可以在左侧调色板中点击<strong>「🌓 智能对比度修复」</strong>按钮，一键对齐反转。</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Q2: 画布尺寸规格表 -->
+        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer">
+          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
+            <span>2. 都有哪些针对学生、教师、漫画家与职场人的专属画布尺寸？</span>
+            <span class="group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <div class="text-slate-300 mt-2.5 space-y-2 leading-relaxed text-xs">
+            <p>我们在顶部导航栏的<strong>「📐 画幅」</strong>下拉菜单中预置了各大群体的行业级标准画幅：</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] pt-1">
+              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
+                <span class="font-bold text-indigo-400">📄 办公学习与作业试卷：</span>
+                <p class="text-slate-400 mt-0.5">A4 纵向 (210×297mm，打印/试卷)、A4 横向 (297×210mm，讲义报告)、A3 跨页大版 (420×297mm，工程制图)、US Letter (美标信纸)。</p>
+              </div>
+              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
+                <span class="font-bold text-pink-400">🎨 漫画分镜与创作：</span>
+                <p class="text-slate-400 mt-0.5">日漫标准 B5 (182×257mm，杂志投稿/同人本)、垂直条漫长卷 (Webtoon 9:20 手机流)、四格漫画分镜 (4-Koma 1:2 连环排版)。</p>
+              </div>
+              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
+                <span class="font-bold text-emerald-400">💻 演讲汇报与大屏演示：</span>
+                <p class="text-slate-400 mt-0.5">16:9 演示宽屏 (PPT / Keynote 演讲)、4:3 经典平板课件 (iPad 教学)、16:10 商务笔记本全屏。</p>
+              </div>
+              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
+                <span class="font-bold text-amber-400">📱 移动自媒体与自由模式：</span>
+                <p class="text-slate-400 mt-0.5">1:1 社交正方形 (小红书/Instagram)、9:16 移动竖屏 (Shorts/海报)、3:4 竖版封面，以及默认的无限自适应画板。</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Q3: 键盘快捷键秘籍 -->
+        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer">
+          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
+            <span>3. 键盘快捷键与触控板手势秘籍</span>
+            <span class="group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <div class="text-slate-300 mt-2.5 space-y-2 leading-relaxed text-xs">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">V</kbd> 鼠标选择与调整</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">P</kbd> 钢笔画笔工具</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">T</kbd> 文本打字工具</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">E</kbd> ⚡ 一笔整擦</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">L</kbd> ⭕ 套索选择移动</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">Del / Backspace</kbd> 删除选中物</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">Space + 拖拽</kbd> 抓手平移画布</div>
+              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">双指轻敲屏幕</kbd> 移动端极速撤销</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Q4: Pro 权限详细权益 -->
+        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer">
+          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
+            <span>4. EazyOPC Pro 会员包含哪些权益？是永久使用的吗？</span>
+            <span class="group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <div class="text-slate-300 mt-2.5 space-y-1.5 leading-relaxed text-xs">
+            <p>
+              是的！我们坚定拒绝订阅制与重复套路收费。<strong>仅需一次性支付 $4.99 USD，即可终身永久享受全部 Pro 旗舰特权</strong>，绝无任何二次收费：
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-slate-400">
+              <li><strong>4K 印刷级超清导出</strong>：300 DPI 超高解析度无水印 PNG。</li>
+              <li><strong>透明背景免抠图导出</strong>：一键剔除纸张底色，直接嵌入 PPT 或海报排版。</li>
+              <li><strong>矢量 SVG 工程导出</strong>：无限缩放不失真，无缝复制粘贴进 Figma / Canva 深度重构。</li>
+              <li><strong>无限页多页漫画分镜 PDF</strong>：将所有绘制页面一键合并生成正式出版级电子文档。</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+  </article>
+
+  <!-- ================= 5. 全矩阵底部互链导航 ================= -->
+  <footer id="globalFooter" class="w-full bg-slate-900/90 border-t border-slate-800 py-6 px-4 text-center text-xs text-slate-400 space-y-3">
+    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-slate-300">
+      <a href="https://eazyopc.com" target="_blank" class="hover:text-indigo-400 transition flex items-center gap-1">🏠 <span>EazyOPC 官网</span></a>
+      <span>·</span>
+      <a href="https://videotools.eazyopc.com" target="_blank" class="hover:text-indigo-400 transition flex items-center gap-1">🎬 <span>VideoTools 视频工具</span></a>
+      <span>·</span>
+      <a href="https://kidsdraw.eazyopc.com" class="hover:text-indigo-400 transition flex items-center gap-1">👶 <span>少儿画板</span></a>
+      <span>·</span>
+      <a href="https://graph.eazyopc.com" class="hover:text-indigo-400 transition flex items-center gap-1">📐 <span>坐标方格纸</span></a>
+      <span>·</span>
+      <a href="https://chalkboard.eazyopc.com" class="hover:text-indigo-400 transition flex items-center gap-1">👨‍🏫 <span>教学黑板</span></a>
+      <span>·</span>
+      <a href="https://whiteboard.eazyopc.com" class="hover:text-indigo-400 transition flex items-center gap-1">💼 <span>在线白板</span></a>
+      <span>·</span>
+      <a href="https://comicboard.eazyopc.com" class="text-pink-400 font-bold flex items-center gap-1">🎨 <span>漫画分镜板</span></a>
+    </div>
+    <div class="text-[11px] text-slate-500">
+      © 2026 EazyOPC. All Rights Reserved. 100% 浏览器客户端本地计算 · 零数据上云
+    </div>
+  </footer>
+
+  <!-- ================= 6. 现代专业导出中心模态弹窗 ================= -->
+  <div id="exportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">💾</div>
+          <div>
+            <h3 class="text-base font-bold" data-i18n="export_modal_title">导出作品 · Export Center</h3>
+            <p class="text-[11px] text-slate-400" data-i18n="export_modal_desc">选择输出文件格式与画质规格</p>
+          </div>
+        </div>
+        <button id="btnCloseExportModal" class="text-slate-400 hover:text-white text-lg px-2">✕</button>
+      </div>
+
+      <!-- 👑 Pro 全套特权说明横幅 (清楚说明 4.99 包含所有功能，永久使用) -->
+      <div class="p-3 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-transparent border border-amber-500/30 rounded-2xl flex items-center justify-between text-xs">
+        <div>
+          <div class="font-bold text-amber-400 flex items-center gap-1.5">
+            <span>⭐ <span data-i18n="pro_banner_title">EazyOPC Pro 全套特权大礼包</span></span>
+            <span class="text-[9px] px-1.5 py-0.5 bg-amber-500/20 text-amber-300 rounded font-bold" data-i18n="pro_banner_tag">一次付费 · 永久使用</span>
+          </div>
+          <p class="text-[11px] text-slate-300 mt-1" data-i18n="pro_banner_desc">
+            只需单次 $4.99 USD，即可永久解锁下方全部 4K 超清、透明免扣图、Canva/Figma 矢量工程及 PDF 格式，无任何二次收费！
+          </p>
+        </div>
+        <div class="text-right flex-shrink-0 ml-3">
+          <span class="text-[10px] text-slate-400 line-through block">$19.99</span>
+          <span class="text-sm font-black text-amber-400 block">$4.99</span>
+        </div>
+      </div>
+
+      <!-- 格式选择列表 -->
+      <div class="space-y-2 text-xs">
+        <!-- 1. 免费 1080P PNG -->
+        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-emerald-500 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <input type="radio" name="exportFormat" value="png_free" checked class="w-4 h-4 accent-emerald-500" />
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span data-i18n="fmt_png_free">🖼️ 1080P 标准 PNG</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-semibold" data-i18n="free_badge">免费 Free</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_png_free_desc">带微小 EazyOPC 水印，日常记录与快速分享首选</p>
+            </div>
+          </div>
+          <span class="font-bold text-emerald-400" data-i18n="free_price">$0 免费</span>
+        </label>
+
+        <!-- 2. 4K Ultra-HD 超清原画 -->
+        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <input type="radio" name="exportFormat" value="png_4k" class="w-4 h-4 accent-amber-500" />
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span data-i18n="fmt_png_4k">✨ 4K Ultra-HD 超清原画</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_png_4k_desc">3840px 极清分辨率，永久纯净去水印</p>
+            </div>
+          </div>
+          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
+        </label>
+
+        <!-- 3. 透明背景 PNG -->
+        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <input type="radio" name="exportFormat" value="png_transparent" class="w-4 h-4 accent-amber-500" />
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span data-i18n="fmt_png_transparent">🪟 透明背景 PNG (扣除底纸)</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_png_transparent_desc">自动剥离底色，仅留笔迹，做贴纸/PPT/海报神器</p>
+            </div>
+          </div>
+          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
+        </label>
+
+        <!-- 4. 🎨 Canva / Figma 矢量无损工程 (SVG) -->
+        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <input type="radio" name="exportFormat" value="svg_vector" class="w-4 h-4 accent-amber-500" />
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span data-i18n="fmt_svg_canva">🎨 Canva / Figma 矢量无损工程 (SVG)</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_svg_canva_desc">100% 矢量贝塞尔曲线，可无缝直接导入 Canva、Figma、Illustrator 二次自由编辑</p>
+            </div>
+          </div>
+          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
+        </label>
+
+        <!-- 5. 矢量 PDF 打印文档 -->
+        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
+          <div class="flex items-center gap-2.5">
+            <input type="radio" name="exportFormat" value="pdf_pro" class="w-4 h-4 accent-amber-500" />
+            <div>
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span data-i18n="fmt_pdf">📄 矢量 PDF 打印文档</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_pdf_desc">按选定比例精准排版，打印出纸、教研备课首选</p>
+            </div>
+          </div>
+          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
+        </label>
+      </div>
+
+      <!-- Canva / Figma 专属快捷联动动作坞 (选中 SVG 时展开) -->
+      <div id="canvaFigmaActions" class="hidden p-3 bg-slate-800/80 border border-indigo-500/40 rounded-2xl space-y-2 text-xs">
+        <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+          <span>🚀</span> <span data-i18n="canva_figma_title">Canva & Figma 直连编辑工作流</span>
+        </div>
+        <p class="text-[11px] text-slate-400" data-i18n="canva_figma_desc">已专为设计工具优化矢量格式，您可以一键复制矢量节点，或直接跳转到对应工具无缝编辑：</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 pt-1">
+          <button id="btnCopySvgToClipboard" class="py-2 px-2 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 cursor-pointer">
+            <span>📋</span> <span data-i18n="btn_copy_svg">复制矢量到剪贴板</span>
+          </button>
+          <a href="https://www.canva.com" target="_blank" id="btnOpenCanva" class="py-2 px-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 text-center">
+            <span>🎨</span> <span data-i18n="btn_open_canva">前往 Canva.com</span>
+          </a>
+          <a href="https://www.figma.com" target="_blank" id="btnOpenFigma" class="py-2 px-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 text-center">
+            <span>⚡</span> <span data-i18n="btn_open_figma">前往 Figma.com</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-1">
+        <button id="btnExecuteExport" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2">
+          <span>⬇️</span> <span id="lblExecuteExport" data-i18n="lbl_export_default">免费导出 1080P 标准图 (带水印)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 7. 手机端原生存图模态弹窗 ================= -->
+  <div id="mobileSaveModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-3xl p-5 shadow-2xl text-white text-center space-y-3">
+      <div class="flex justify-between items-center">
+        <h4 class="text-sm font-bold flex items-center gap-1">📸 <span data-i18n="mobile_save_title">手机保存到相册</span></h4>
+        <button id="btnCloseMobileSave" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+      <p class="text-[11px] text-amber-300 bg-amber-500/15 p-2 rounded-xl border border-amber-500/30" data-i18n="mobile_save_hint">
+        👉 <strong>长按下方图片 1 秒</strong>，在系统菜单中选择<strong>「存储图像」</strong>或<strong>「保存到相册」</strong>即可！
+      </p>
+      <div class="rounded-xl overflow-hidden border border-slate-700 bg-slate-950 max-h-64 flex items-center justify-center">
+        <img id="mobilePreviewImg" class="max-h-60 max-w-full object-contain" alt="Whiteboard Export Preview" />
+      </div>
+      <button id="btnMobileFallbackDownload" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-xl font-medium" data-i18n="mobile_download_btn">
+        浏览器直接下载文件
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= 8. Creem $4.99 永久使用授权结账弹窗 ================= -->
+  <div id="proModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4">
+      <div class="text-center space-y-1.5">
+        <div class="inline-block p-3 bg-amber-500/15 text-amber-400 rounded-2xl text-2xl mb-1">⭐</div>
+        <h3 class="text-lg font-bold" data-i18n="pro_title">解锁 EazyOPC Pro 永久使用版</h3>
+        <p class="text-xs text-slate-400" data-i18n="pro_desc">一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套特权，无后续订阅费。</p>
+      </div>
+
+      <div class="p-4 bg-slate-800/80 border border-slate-700/60 rounded-2xl space-y-2 text-xs text-slate-300">
+        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_1"><strong>4K Ultra-HD 超清原画</strong>（永久纯净去水印）</span></div>
+        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_2"><strong>透明背景 PNG</strong>（设计师抠图与贴纸神器）</span></div>
+        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_3"><strong>Canva / Figma 矢量无损工程 (SVG)</strong>（自由二次编辑）</span></div>
+        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_4"><strong>高保真 PDF 打印文档</strong>（按选定画幅输出）</span></div>
+        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_5"><strong>一次付费 · 永久使用</strong>（全部功能统一打包，无后续收费）</span></div>
+      </div>
+
+      <div class="space-y-2.5">
+        <a id="creemCheckoutBtn" href="https://www.creem.io/payment/prod_67fz975idTqLQ4QNWfb5in" target="_blank" class="block w-full text-center py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-xs" data-i18n="buy_btn">
+          立即以 $4.99 USD 解锁永久使用
+        </a>
+        
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-700"></div>
+          <span class="flex-shrink mx-2 text-[10px] text-slate-500 uppercase tracking-wider" data-i18n="has_license">已有授权码？</span>
+          <div class="flex-grow border-t border-slate-700"></div>
+        </div>
+
+        <div class="flex gap-2">
+          <input id="licenseInput" type="text" placeholder="输入卡密 (如 EZPRO-...)" data-i18n-ph="license_placeholder" class="flex-1 bg-slate-800 border border-slate-700 px-3 py-2 rounded-xl text-xs text-white outline-none focus:border-amber-500" />
+          <button id="btnVerifyLicense" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-xs font-semibold rounded-xl transition" data-i18n="activate">激活</button>
+        </div>
+      </div>
+
+      <button id="btnCloseProModal" class="w-full text-center text-xs text-slate-400 hover:text-slate-300 py-1 transition" data-i18n="continue_free">暂不解锁，继续免费使用</button>
+    </div>
+  </div>
+
+  <!-- ================= 9. 核心商业绘图与矢量运算引擎 ================= -->
+  <script>
+    const TRANSLATIONS = {
+      zh: {
+        site_subtitle: '极简点阵与灵感便签白板',
+        lbl_ratio: '画幅', lbl_paper: '纸张', fullscreen: '全屏', exit_fullscreen: '退出全屏',
+        export: '导出', palette_title: '画笔颜色', size: '粗细', theme_light: '白天', theme_dark: '夜间', fit: '适中',
+        pro_title: '解锁 EazyOPC Pro 永久使用版',
+        pro_desc: '一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套商业特权，无后续订阅费。',
+        buy_btn: '立即以 $4.99 USD 解锁永久使用',
+        has_license: '已有授权码？', activate: '激活', continue_free: '暂不解锁，继续免费使用',
+        export_modal_title: '导出作品 · Export Center', export_modal_desc: '选择输出文件格式与画质规格',
+        pro_banner_title: 'EazyOPC Pro 全套特权大礼包', pro_banner_tag: '一次付费 · 永久使用',
+        pro_banner_desc: '只需单次 $4.99 USD，即可永久解锁下方全部 4K 超清、透明免扣图、Canva/Figma 矢量工程及 PDF 格式，无任何二次收费！',
+        fmt_png_free: '🖼️ 1080P 标准 PNG', fmt_png_free_desc: '带微小 EazyOPC 水印，日常记录与快速分享首选', free_badge: '免费 Free', free_price: '$0 免费',
+        fmt_png_4k: '✨ 4K Ultra-HD 超清原画', fmt_png_4k_desc: '3840px 极清分辨率，永久纯净去水印',
+        fmt_png_transparent: '🪟 透明背景 PNG (扣除底纸)', fmt_png_transparent_desc: '自动剥离底色，仅留笔迹，做贴纸/PPT/海报神器',
+        fmt_svg_canva: '🎨 Canva / Figma 矢量无损工程 (SVG)', fmt_svg_canva_desc: '100% 矢量贝塞尔曲线，可无缝直接导入 Canva、Figma、Illustrator 二次自由编辑',
+        fmt_pdf: '📄 矢量 PDF 打印文档', fmt_pdf_desc: '按选定比例精准排版，高清打印与备课归档首选',
+        pro_tag: '⭐ Pro', pro_included: 'Pro 包含 · 永久使用',
+        canva_figma_title: 'Canva & Figma 直连编辑工作流', canva_figma_desc: '已专为设计工具优化矢量格式，您可以一键复制矢量节点，或直接跳转到对应工具无缝编辑：',
+        btn_copy_svg: '复制矢量到剪贴板', btn_open_canva: '前往 Canva.com', btn_open_figma: '前往 Figma.com',
+        lbl_export_default: '免费导出 1080P 标准图 (带水印)',
+        btn_export_free: '免费导出 1080P 标准图 (带水印)',
+        btn_export_pro_active: '立即以 Pro 权限导出',
+        btn_export_pro_buy: '⭐ 仅需 $4.99 永久解锁全部 Pro 特权 (包含当前格式)',
+        svg_copied_toast: '🎉 矢量 SVG 已成功复制到剪贴板！\n直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V)，即可立即无缝粘贴可自由编辑的矢量线稿！',
+        mobile_save_title: '手机保存到相册', mobile_save_hint: '👉 长按下方图片 1 秒，在系统菜单中选择「存储图像」或「保存到相册」即可！', mobile_download_btn: '浏览器直接下载文件',
+        pro_perk_1: '<strong>4K Ultra-HD 超清原画</strong>（永久纯净去水印）',
+        pro_perk_2: '<strong>透明背景 PNG</strong>（设计师抠图与贴纸神器）',
+        pro_perk_3: '<strong>Canva / Figma 矢量工程 (SVG)</strong>（自由二次编辑）',
+        pro_perk_4: '<strong>高保真 PDF 打印文档</strong>（按选定画幅输出）',
+        pro_perk_5: '<strong>一次付费 · 永久使用</strong>（全部功能统一打包，无后续收费）',
+        license_placeholder: '输入卡密 (如 EZPRO-...)',
+        tip_select: '↖️ 鼠标选择与调整 (快捷键 V，点选图片/文字可拖动、四角缩放或旋转)',
+        tip_pen: '🖋️ 钢笔 (自然笔锋压感，停顿吸附完美几何，快捷键 P)',
+        tip_ballpoint: '🖊️ 圆珠笔 (恒定细腻线条，日常书写与线稿草稿)',
+        tip_pencil: '✏️ 质感铅笔 (石墨颗粒素描微质感)',
+        tip_brush: '🖌️ 水彩毛笔 (流动国画书法墨韵，动态笔锋)',
+        tip_crayon: '🖍️ 油画蜡笔 (粗糙油画棒蜡质肌理)',
+        tip_highlighter: '🪄 荧光高亮笔 (文字底层半透高亮)',
+        tip_spray: '💨 喷雾星空笔 (漫画网点阴影与星芒粉末粒子)',
+        tip_text: '🔤 文本打字工具 (快捷键 T，点击任意位置输入)',
+        tip_eraser: '⚡ 智能笔迹橡皮 (快捷键 E，点中笔画瞬间全消)',
+        tip_lasso: '⭕ 自由套索选择 (快捷键 L，画圈圈住即可整体拖动)',
+        tip_image: '🖼️ 插入本地图片 / 支持 Ctrl+V 粘贴截图',
+        tip_arrow: '➡️ 插入流程连接箭头',
+        tip_box: '🔲 插入流程矩形框',
+        tip_sticky: '📝 添加拖拽式彩色便利贴',
+        tip_laser: '🔦 讲解激光教鞭 (1.2秒淡化)',
+        tip_palette: '🎯 画笔色彩与粗细调节',
+        tip_undo: '↩️ 撤销 (Ctrl+Z，移动端双指轻敲)',
+        tip_clear: '🗑️ 清空白板所有内容',
+        tip_fit: '适应居中',
+        add_page: '加页',
+        ratios: {
+          free: '♾️ 自适应满屏 (Responsive)',
+          a4_p: '📄 A4 纵向 (210×297mm)',
+          a4_l: '📄 A4 横向 (297×210mm)',
+          16_9: '💻 16:9 演示宽屏 (Presentation)',
+          9_16: '📱 9:16 移动竖屏 (Mobile Post)',
+          4_3: '📱 4:3 经典平板 (Tablet)',
+          1_1: '🔲 1:1 正方形 (Square)'
+        },
+        papers: {
+          dot: '极简点阵纸 (Dot Matrix)',
+          plain: '纯白无暇白板 (Plain White)',
+          square: '5mm 精密方格 (5mm Grid)',
+          green_chalk: '复古墨绿黑板 (Green Board)',
+          black_chalk: '哑光碳黑黑板 (Black Board)',
+          ivory: '护眼米黄原木 (Warm Ivory)',
+          ruled: '四线三格英文字 (Ruled Lines)'
+        }
+      },
+      en: {
+        site_subtitle: 'Minimalist Dot Matrix & Idea Board',
+        lbl_ratio: 'Ratio', lbl_paper: 'Paper', fullscreen: 'Fullscreen', exit_fullscreen: 'Exit Fullscreen',
+        export: 'Export', palette_title: 'Color Palette', size: 'Size', theme_light: 'Day', theme_dark: 'Night', fit: 'Fit',
+        pro_title: 'Unlock EazyOPC Pro Lifetime Access',
+        pro_desc: 'Pay $4.99 once for lifetime access to 4K, Transparent PNG, Canva/Figma Vector SVG, PDF, and all Pro features with zero subscriptions.',
+        buy_btn: 'Unlock Lifetime Access for $4.99 USD',
+        has_license: 'Have a license key?', activate: 'Activate', continue_free: 'Continue with free version',
+        export_modal_title: 'Export Artwork · Export Center', export_modal_desc: 'Select output format and quality',
+        pro_banner_title: 'EazyOPC Pro All-in-One Lifetime Bundle', pro_banner_tag: 'Pay Once · Lifetime Access',
+        pro_banner_desc: 'Just $4.99 USD permanently unlocks all formats below: 4K Ultra-HD, Transparent PNG, Canva/Figma SVG, and PDF with no extra charges!',
+        fmt_png_free: '🖼️ 1080P Standard PNG', fmt_png_free_desc: 'With subtle watermark, perfect for everyday notes & sharing', free_badge: 'Free', free_price: '$0 Free',
+        fmt_png_4k: '✨ 4K Ultra-HD Crisp Artwork', fmt_png_4k_desc: '3840px ultra-crisp resolution, permanently watermark-free',
+        fmt_png_transparent: '🪟 Transparent Background PNG', fmt_png_transparent_desc: 'Removes background, ideal for stickers, slides & presentations',
+        fmt_svg_canva: '🎨 Canva & Figma Vector Project (SVG)', fmt_svg_canva_desc: '100% vector curves, fully editable in Canva, Figma, and Illustrator',
+        fmt_pdf: '📄 Vector PDF Document', fmt_pdf_desc: 'Exact aspect ratio layout, ideal for printing & notes',
+        pro_tag: '⭐ Pro', pro_included: 'Included in Pro · Lifetime',
+        canva_figma_title: 'Canva & Figma Direct Workflow', canva_figma_desc: 'Optimized vector format for design tools. Copy vector nodes or open directly in your favorite editor:',
+        btn_copy_svg: 'Copy Vector SVG to Clipboard', btn_open_canva: 'Open Canva.com', btn_open_figma: 'Open Figma.com',
+        lbl_export_default: 'Free Export 1080P (Watermarked)',
+        btn_export_free: 'Free Export 1080P (Watermarked)',
+        btn_export_pro_active: 'Export with Pro Access',
+        btn_export_pro_buy: '⭐ Unlock All Pro Formats ($4.99 Lifetime)',
+        svg_copied_toast: '🎉 Vector SVG copied to clipboard!\nPress Ctrl+V (Mac: Cmd+V) directly on Canva or Figma to paste fully editable vector curves!',
+        mobile_save_title: 'Save to Photos', mobile_save_hint: '👉 Press and hold the image below for 1 second, then tap "Save Image" or "Save to Photos"!', mobile_download_btn: 'Download File Directly',
+        pro_perk_1: '<strong>4K Ultra-HD Crisp Artwork</strong> (Permanently watermark-free)',
+        pro_perk_2: '<strong>Transparent Background PNG</strong> (Great for stickers & slides)',
+        pro_perk_3: '<strong>Canva & Figma Vector Project (SVG)</strong> (Fully editable)',
+        pro_perk_4: '<strong>High-fidelity PDF Document</strong> (Print-ready layout)',
+        pro_perk_5: '<strong>Pay Once · Lifetime Access</strong> (All features bundled, no recurring fee)',
+        license_placeholder: 'Enter license key (e.g., EZPRO-...)',
+        tip_select: '↖️ Select & Adjust (Key V: click image/text to drag, scale, rotate, or delete)',
+        tip_pen: '🖋️ Pen (Pressure-sensitive, hold for shapes, Key P)',
+        tip_ballpoint: '🖊️ Ballpoint Pen (Uniform clean lines for drafting)',
+        tip_pencil: '✏️ Pencil (Fine graphite texture strokes)',
+        tip_brush: '🖌️ Watercolor Brush (Fluid calligraphy and organic shading)',
+        tip_crayon: '🖍️ Wax Crayon (Rich pastel crayon texture)',
+        tip_highlighter: '🪄 Highlighter (Semi-transparent accent marker)',
+        tip_spray: '💨 Airbrush & Spray (Comic screentone & stellar splatter)',
+        tip_text: '🔤 Text Tool (Key T: click anywhere to type)',
+        tip_eraser: '⚡ Stroke Eraser (Key E: click to delete entire stroke)',
+        tip_lasso: '⭕ Freehand Lasso (Key L: circle to select and move)',
+        tip_image: '🖼️ Insert Image / Paste screenshot with Ctrl+V',
+        tip_arrow: '➡️ Connective Flow Arrow',
+        tip_box: '🔲 Flowchart Rectangle Box',
+        tip_sticky: '📝 Draggable Sticky Notes',
+        tip_laser: '🔦 Laser Pointer (Fades in 1.2s)',
+        tip_palette: '🎯 Color Palette & Stroke Width',
+        tip_undo: '↩️ Undo (Ctrl+Z / 2-finger tap on mobile)',
+        tip_clear: '🗑️ Clear Canvas',
+        tip_fit: 'Fit to Screen',
+        add_page: 'Add Page',
+        ratios: {
+          free: '♾️ Responsive (Full Screen)',
+          a4_p: '📄 A4 Portrait (Print)',
+          a4_l: '📄 A4 Landscape',
+          16_9: '💻 16:9 Presentation',
+          9_16: '📱 9:16 Mobile Story',
+          4_3: '📱 4:3 Tablet (iPad)',
+          1_1: '🔲 1:1 Square (Social)'
+        },
+        papers: {
+          dot: 'Dot Matrix Grid',
+          plain: 'Pure Whiteboard',
+          square: '5mm Engineering Grid',
+          green_chalk: 'Classic Green Board',
+          black_chalk: 'Matte Black Board',
+          ivory: 'Warm Ivory Paper',
+          ruled: 'Ruled Notebook Lines'
+        }
+      },
+      ja: {
+        site_subtitle: '極小ドット方眼＆アイデア付箋ホワイトボード',
+        lbl_ratio: '比率', lbl_paper: '用紙', fullscreen: '全画面', exit_fullscreen: '全画面終了',
+        export: '保存', palette_title: 'カラー', size: '太さ', theme_light: '昼', theme_dark: '夜', fit: '最適化',
+        pro_title: 'EazyOPC Pro 永久利用ライセンス',
+        pro_desc: '一回のお支払い $4.99 で、4K原画、透過PNG、Canva/FigmaベクターSVG、PDFなど全機能を永久利用。追加課金なし。',
+        buy_btn: '$4.99 で永久利用をアンロック',
+        has_license: 'ライセンスキーをお持ちですか？', activate: '有効化', continue_free: '無料版を続ける',
+        export_modal_title: '作品のエクスポート · Export Center', export_modal_desc: '出力フォーマットと画質を選択',
+        pro_banner_title: '⭐ EazyOPC Pro フル機能パック', pro_banner_tag: '一度の購入 · 永久利用',
+        pro_banner_desc: '$4.99 USD の一度の購入で、以下の 4K、透過PNG、Canva/Figmaベクター、PDF がすべて永久に利用可能になります！',
+        fmt_png_free: '🖼️ 1080P 標準 PNG', fmt_png_free_desc: '控えめな透かし入り、日常の記録や共有に最適', free_badge: '無料', free_price: '$0 無料',
+        fmt_png_4k: '✨ 4K Ultra-HD 超高精細原画', fmt_png_4k_desc: '3840px の最高解像度、完全透かしなし',
+        fmt_png_transparent: '🪟 背景透過 PNG', fmt_png_transparent_desc: '背景を除去し線画のみ抽出、スライドやステッカーに最適',
+        fmt_svg_canva: '🎨 Canva / Figma ベクター無劣化 (SVG)', fmt_svg_canva_desc: '100% ベクター曲線、Canva、Figma、Illustrator で自由に再編集可能',
+        fmt_pdf: '📄 ベクター PDF 印刷文書', fmt_pdf_desc: '指定比率で高精度レイアウト、印刷や授業準備に最適',
+        pro_tag: '⭐ Pro', pro_included: 'Pro に含む · 永久利用',
+        canva_figma_title: 'Canva & Figma 直接連携ワークフロー', canva_figma_desc: 'デザインツール向けに最適化されたベクター形式です。クリップボードにコピーして直接貼り付け可能：',
+        btn_copy_svg: 'ベクターをクリップボードにコピー', btn_open_canva: 'Canva.com を開く', btn_open_figma: 'Figma.com を開く',
+        lbl_export_default: '1080P 標準画像を無料保存 (透かしあり)',
+        btn_export_free: '1080P 標準画像を無料保存 (透かしあり)',
+        btn_export_pro_active: 'Pro 権限でエクスポート',
+        btn_export_pro_buy: '⭐ $4.99 で Pro 全機能を永久利用 (この形式を含む)',
+        svg_copied_toast: '🎉 ベクター SVG をクリップボードにコピーしました！\nCanva や Figma のキャンバス上で Ctrl+V (Mac: Cmd+V) を押すと、編集可能なベクターとして貼り付けできます！',
+        mobile_save_title: '写真を保存', mobile_save_hint: '👉 下の画像を1秒長押しし、メニューから「画像を保存」を選択してください！', mobile_download_btn: 'ブラウザから直接ダウンロード',
+        pro_perk_1: '<strong>4K Ultra-HD 超高精細原画</strong>（完全透かしなし）',
+        pro_perk_2: '<strong>背景透過 PNG</strong>（ステッカーやスライド用）',
+        pro_perk_3: '<strong>Canva / Figma ベクター (SVG)</strong>（自由編集）',
+        pro_perk_4: '<strong>高精度 PDF 印刷文書</strong>（用紙比率対応）',
+        pro_perk_5: '<strong>一度の購入 · 永久利用</strong>（追加課金なしのフルパッケージ）',
+        license_placeholder: 'ライセンスキーを入力 (例: EZPRO-...)',
+        tip_select: '↖️ 選択と編集 (キー V: 画像/文字をクリックして移動・拡大縮小・回転・削除)',
+        tip_pen: '🖋️ ペン (筆圧感知、長押しで自動幾何吸着、キー P)',
+        tip_ballpoint: '🖊️ ボールペン (均一な細線、下書きに最適)',
+        tip_pencil: '✏️ 鉛筆 (繊細なテクスチャ)',
+        tip_brush: '🖌️ 水彩・毛筆 (流れる書道インクと筆跡)',
+        tip_crayon: '🖍️ クレヨン (油性パステルの豊かな質感)',
+        tip_highlighter: '🖍️ 蛍光ペン (半透明マーカー)',
+        tip_spray: '💨 エアブラシ・スプレー (トーンや星屑粒子)',
+        tip_text: '🔤 テキスト入力 (キー T: 任意の位置をクリックして入力)',
+        tip_eraser: '⚡ ストローク消しゴム (キー E: クリックで一筆全消去)',
+        tip_lasso: '⭕ なげなわ選択 (キー L: 囲んで全体移動)',
+        tip_image: '🖼️ 画像挿入 / Ctrl+V でスクリーンショット貼り付け',
+        tip_arrow: '➡️ フロー接続矢印',
+        tip_box: '🔲 フローチャート四角枠',
+        tip_sticky: '📝 ドラッグ可能な付箋メモ',
+        tip_laser: '🔦 レーザーポインター (1.2秒で消去)',
+        tip_palette: '🎯 カラーパレット＆太さ調整',
+        tip_undo: '↩️ 元に戻す (Ctrl+Z / モバイル2本指タップ)',
+        tip_clear: '🗑️ キャンバスを全消去',
+        tip_fit: '画面に合わせる',
+        add_page: 'ページ追加',
+        ratios: {
+          free: '♾️ 全画面適応 (Responsive)',
+          a4_p: '📄 A4 縦向き (210×297mm)',
+          a4_l: '📄 A4 横向き (297×210mm)',
+          16_9: '💻 16:9 プレゼン用',
+          9_16: '📱 9:16 モバイル縦画面',
+          4_3: '📱 4:3 タブレット (iPad)',
+          1_1: '🔲 1:1 正方形 (SNS)'
+        },
+        papers: {
+          dot: 'ドット方眼紙 (Dot Matrix)',
+          plain: '無地ホワイトボード (Plain White)',
+          square: '5mm 方眼罫 (5mm Grid)',
+          green_chalk: '深緑黒板 (Green Board)',
+          black_chalk: 'マット黒板 (Black Board)',
+          ivory: '目に優しいアイボリー (Warm Ivory)',
+          ruled: '英語罫線 (Ruled Lines)'
+        }
+      },
+      ko: {
+        site_subtitle: '미니멀 도트 매트릭스 & 아이디어 보드',
+        lbl_ratio: '비율', lbl_paper: '용지', fullscreen: '전체화면', exit_fullscreen: '전체화면 종료',
+        export: '내보내기', palette_title: '색상', size: '굵기', theme_light: '주간', theme_dark: '야간', fit: '화면맞춤',
+        pro_title: 'EazyOPC Pro 평생 이용 라이선스',
+        pro_desc: '한 번 $4.99 결제로 4K 원화, 투명 PNG, Canva/Figma 벡터 SVG, PDF 등 모든 프로 기능을 평생 이용하세요. 추가 요금 없음.',
+        buy_btn: '$4.99 로 평생 이용 잠금 해제',
+        has_license: '라이선스 키가 있으신가요?', activate: '활성화', continue_free: '무료 버전 유지',
+        export_modal_title: '작품 내보내기 · Export Center', export_modal_desc: '출력 파일 형식 및 화질 선택',
+        pro_banner_title: '⭐ EazyOPC Pro 올인원 평생 패키지', pro_banner_tag: '단 1회 결제 · 평생 이용',
+        pro_banner_desc: '$4.99 USD 단 한 번 결제로 아래 4K, 투명 배경, Canva/Figma 벡터, PDF 형식을 모두 평생 무제한 이용할 수 있습니다!',
+        fmt_png_free: '🖼️ 1080P 표준 PNG', fmt_png_free_desc: '은은한 워터마크 포함, 일상 기록 및 빠른 공유용', free_badge: '무료 Free', free_price: '$0 무료',
+        fmt_png_4k: '✨ 4K Ultra-HD 초고화질 원화', fmt_png_4k_desc: '3840px 초고해상도, 영구 워터마크 제거',
+        fmt_png_transparent: '🪟 투명 배경 PNG', fmt_png_transparent_desc: '배경을 제거하고 필기만 추출, 스티커 및 PPT 제작 필수',
+        fmt_svg_canva: '🎨 Canva / Figma 벡터 무손실 프로젝트 (SVG)', fmt_svg_canva_desc: '100% 벡터 곡선, Canva, Figma, Illustrator 에서 자유롭게 2차 편집 가능',
+        fmt_pdf: '📄 벡터 PDF 인쇄 문서', fmt_pdf_desc: '지정 비율 완벽 레이아웃, 고화질 인쇄 및 수업 준비용',
+        pro_tag: '⭐ Pro', pro_included: 'Pro 포함 · 평생 이용',
+        canva_figma_title: 'Canva & Figma 직접 연동 워크플로우', canva_figma_desc: '디자인 도구에 최적화된 벡터 형식입니다. 클립보드에 복사해 직접 붙여넣거나 바로 이동할 수 있습니다:',
+        btn_copy_svg: '벡터 클립보드 복사', btn_open_canva: 'Canva.com 열기', btn_open_figma: 'Figma.com 열기',
+        lbl_export_default: '무료 1080P 표준 저장 (워터마크 포함)',
+        btn_export_free: '무료 1080P 표준 저장 (워터마크 포함)',
+        btn_export_pro_active: 'Pro 권한으로 즉시 내보내기',
+        btn_export_pro_buy: '⭐ $4.99 로 모든 Pro 평생 이용 (현재 형식 포함)',
+        svg_copied_toast: '🎉 벡터 SVG 가 클립보드에 복사되었습니다!\nCanva 나 Figma 캔버스에서 Ctrl+V (Mac: Cmd+V) 를 누르면 편집 가능한 벡터로 즉시 붙여넣을 수 있습니다!',
+        mobile_save_title: '사진첩에 저장', mobile_save_hint: '👉 아래 이미지를 1초간 길게 눌러 메뉴에서 "이미지 저장"을 선택하세요!', mobile_download_btn: '브라우저로 직접 다운로드',
+        pro_perk_1: '<strong>4K Ultra-HD 초고화질 원화</strong> (영구 워터마크 제거)',
+        pro_perk_2: '<strong>투명 배경 PNG</strong> (스티커 및 슬라이드 제작)',
+        pro_perk_3: '<strong>Canva / Figma 벡터 프로젝트 (SVG)</strong> (완전 편집 가능)',
+        pro_perk_4: '<strong>고품질 PDF 인쇄 문서</strong> (비율 맞춤 레이아웃)',
+        pro_perk_5: '<strong>단 1회 결제 · 평생 이용</strong> (모든 기능 통합 번들, 추가 비용 없음)',
+        license_placeholder: '인증 코드 입력 (예: EZPRO-...)',
+        tip_select: '↖️ 마우스 선택 및 조절 (키 V: 이미지/글자 클릭 후 이동, 크기 조절, 회전, 삭제)',
+        tip_pen: '🖋️ 펜 (필압 감지, 멈추면 완벽 도형 흡착, 키 P)',
+        tip_ballpoint: '🖊️ 볼펜 (균일하고 깔끔한 필기 선)',
+        tip_pencil: '✏️ 연필 (섬세한 질감 스트로크)',
+        tip_brush: '🖌️ 수채화 붓 (자연스러운 캘리그라피와 번짐)',
+        tip_crayon: '🖍️ 크레용 (풍부한 유화 파스텔 질감)',
+        tip_highlighter: '🖍️ 형광펜 (반투명 하이라이트)',
+        tip_spray: '💨 에어브러시 스프레이 (만화 톤 및 별빛 입자)',
+        tip_text: '🔤 텍스트 도구 (키 T: 클릭하여 입력)',
+        tip_eraser: '⚡ 스트로크 지우개 (키 E: 원클릭 전체 지우기)',
+        tip_lasso: '⭕ 자유 올가미 (키 L: 영역 선택 후 이동)',
+        tip_image: '🖼️ 이미지 삽입 / Ctrl+V 로 캡처 붙여넣기',
+        tip_arrow: '➡️ 흐름도 연결 화살표',
+        tip_box: '🔲 사각형 흐름 상자',
+        tip_sticky: '📝 드래그 가능한 메모지',
+        tip_laser: '🔦 레이저 포인터 (1.2초 후 페이드)',
+        tip_palette: '🎯 색상 팔레트 및 굵기 조절',
+        tip_undo: '↩️ 실행 취소 (Ctrl+Z / 모바일 두 손가락 탭)',
+        tip_clear: '🗑️ 화이트보드 전체 지우기',
+        tip_fit: '화면 맞춤',
+        add_page: '페이지 추가',
+        ratios: {
+          free: '♾️ 반응형 전체화면 (Responsive)',
+          a4_p: '📄 A4 세로 (210×297mm)',
+          a4_l: '📄 A4 가로 (297×210mm)',
+          16_9: '💻 16:9 발표용 와이드',
+          9_16: '📱 9:16 모바일 세로',
+          4_3: '📱 4:3 태블릿 (iPad)',
+          1_1: '🔲 1:1 정사각형 (SNS)'
+        },
+        papers: {
+          dot: '점 격자 노트 (Dot Matrix)',
+          plain: '순백색 화이트보드 (Plain White)',
+          square: '5mm 모눈종이 (5mm Grid)',
+          green_chalk: '클래식 칠판 초록 (Green Board)',
+          black_chalk: '매트 블랙 칠판 (Black Board)',
+          ivory: '눈이 편한 아이보리 (Warm Ivory)',
+          ruled: '영어 4선 노트 (Ruled Lines)'
+        }
+      },
+      de: {
+        site_subtitle: 'Minimalistisches Punktraster- & Ideen-Whiteboard',
+        lbl_ratio: 'Format', lbl_paper: 'Papier', fullscreen: 'Vollbild', exit_fullscreen: 'Vollbild beenden',
+        export: 'Export', palette_title: 'Farbe', size: 'Stärke', theme_light: 'Tag', theme_dark: 'Nacht', fit: 'Einpassen',
+        pro_title: 'EazyOPC Pro Dauerhafte Nutzung Freischalten',
+        pro_desc: 'Einmalig $4.99 zahlen für lebenslange 4K-, transparente PNG-, Canva/Figma-Vektor-SVG- und PDF-Exporte ohne Abo.',
+        buy_btn: 'Dauerhafte Nutzung für $4.99 freischalten',
+        has_license: 'Haben Sie einen Schlüssel?', activate: 'Aktivieren', continue_free: 'Kostenlos fortfahren',
+        export_modal_title: 'Werk exportieren · Export Center', export_modal_desc: 'Format und Qualität wählen',
+        pro_banner_title: '⭐ EazyOPC Pro Komplettpaket', pro_banner_tag: 'Einmal zahlen · Dauerhaft nutzen',
+        pro_banner_desc: 'Nur einmalig $4.99 USD für dauerhaften Zugriff auf 4K, transparente PNGs, Canva/Figma-Vektoren und PDFs!',
+        fmt_png_free: '🖼️ 1080P Standard-PNG', fmt_png_free_desc: 'Mit dezentem Wasserzeichen, ideal für Notizen', free_badge: 'Kostenlos', free_price: '$0 Kostenlos',
+        fmt_png_4k: '✨ 4K Ultra-HD Grafik', fmt_png_4k_desc: '3840px gestochen scharf, dauerhaft ohne Wasserzeichen',
+        fmt_png_transparent: '🪟 Transparentes PNG', fmt_png_transparent_desc: 'Entfernt Papierhintergrund, ideal für Präsentationen & Sticker',
+        fmt_svg_canva: '🎨 Canva & Figma Vektor-Projekt (SVG)', fmt_svg_canva_desc: '100% Vektorkurven, frei bearbeitbar in Canva, Figma & Illustrator',
+        fmt_pdf: '📄 Vektor-PDF-Dokument', fmt_pdf_desc: 'Präzises Seitenverhältnis, ideal für Druck und Vorbereitung',
+        pro_tag: '⭐ Pro', pro_included: 'In Pro enthalten · Dauerhaft',
+        canva_figma_title: 'Canva & Figma Direkt-Workflow', canva_figma_desc: 'Optimiert für Designtools. In Zwischenablage kopieren oder direkt im Editor öffnen:',
+        btn_copy_svg: 'Vektor-SVG kopieren', btn_open_canva: 'Canva.com öffnen', btn_open_figma: 'Figma.com öffnen',
+        lbl_export_default: '1080P kostenlos exportieren (Wasserzeichen)',
+        btn_export_free: '1080P kostenlos exportieren (Wasserzeichen)',
+        btn_export_pro_active: 'Mit Pro-Rechten exportieren',
+        btn_export_pro_buy: '⭐ Alle Pro-Funktionen für $4.99 freischalten (Dauerhaft)',
+        svg_copied_toast: '🎉 Vektor-SVG kopiert!\nDrücken Sie Strg+V in Canva oder Figma, um bearbeitbare Vektoren einzufügen!',
+        mobile_save_title: 'In Fotos speichern', mobile_save_hint: '👉 Bild 1 Sekunde gedrückt halten und "In Fotos sichern" wählen!', mobile_download_btn: 'Datei direkt herunterladen',
+        pro_perk_1: '<strong>4K Ultra-HD Grafik</strong> (Ohne Wasserzeichen)',
+        pro_perk_2: '<strong>Transparentes PNG</strong> (Für Sticker & Folien)',
+        pro_perk_3: '<strong>Canva & Figma Vektor (SVG)</strong> (Voll bearbeitbar)',
+        pro_perk_4: '<strong>Präzises PDF-Dokument</strong> (Druckfertig)',
+        pro_perk_5: '<strong>Einmal zahlen · Dauerhaft nutzen</strong> (Komplettpaket)',
+        license_placeholder: 'Lizenzschlüssel eingeben (z.B. EZPRO-...)',
+        tip_select: '↖️ Auswählen & Bearbeiten (Taste V: Ziehen, skalieren, drehen, löschen)',
+        tip_pen: '🖋️ Stift (Druckempfindlich, halten für Formen, Taste P)',
+        tip_ballpoint: '🖊️ Kugelschreiber (Gleichmäßige feine Linien)',
+        tip_pencil: '✏️ Bleistift (Feine Graphitlinien)',
+        tip_brush: '🖌️ Aquarellpinsel (Fließende Kalligrafie & Schattierung)',
+        tip_crayon: '🖍️ Wachsmalstift (Körnige Pastellstruktur)',
+        tip_highlighter: '🖍️ Textmarker (Halbtransparent)',
+        tip_spray: '💨 Sprühdose (Comic-Raster & Sternenstaub)',
+        tip_text: '🔤 Textwerkzeug (Taste T: Klicken zum Tippen)',
+        tip_eraser: '⚡ Strich-Radierer (Taste E: Ganzen Strich löschen)',
+        tip_lasso: '⭕ Lasso-Werkzeug (Taste L: Einkreisen zum Verschieben)',
+        tip_image: '🖼️ Bild einfügen / Strg+V für Screenshot',
+        tip_arrow: '➡️ Verbindungspfeil',
+        tip_box: '🔲 Rechteck-Flussbox',
+        tip_sticky: '📝 Farbige Notizzettel',
+        tip_laser: '🔦 Laserpointer (Verblasst nach 1.2s)',
+        tip_palette: '🎯 Farbpalette & Stärke',
+        tip_undo: '↩️ Rückgängig (Strg+Z / 2-Finger-Tipp)',
+        tip_clear: '🗑️ Whiteboard leeren',
+        tip_fit: 'Einpassen',
+        add_page: 'Neue Seite',
+        ratios: {
+          free: '♾️ Vollbild (Responsive)',
+          a4_p: '📄 A4 Hochformat (210×297mm)',
+          a4_l: '📄 A4 Querformat (297×210mm)',
+          16_9: '💻 16:9 Breitbild (Präsentation)',
+          9_16: '📱 9:16 Handy Hochformat',
+          4_3: '📱 4:3 Tablet (iPad)',
+          1_1: '🔲 1:1 Quadrat (Social)'
+        },
+        papers: {
+          dot: 'Punktgitter (Dot Matrix)',
+          plain: 'Reines Weiß (Plain White)',
+          square: '5mm Karopapier (5mm Grid)',
+          green_chalk: 'Klassische Grüne Tafel',
+          black_chalk: 'Matte Schwarze Tafel',
+          ivory: 'Sanftes Elfenbein (Warm Ivory)',
+          ruled: 'Linienpapier (Ruled Lines)'
+        }
+      },
+      es: {
+        site_subtitle: 'Pizarra Minimalista de Puntos y Notas',
+        lbl_ratio: 'Proporción', lbl_paper: 'Papel', fullscreen: 'Pantalla completa', exit_fullscreen: 'Salir',
+        export: 'Exportar', palette_title: 'Paleta', size: 'Grosor', theme_light: 'Día', theme_dark: 'Noche', fit: 'Ajustar',
+        pro_title: 'Desbloquear EazyOPC Pro de Uso Permanente',
+        pro_desc: 'Pago único de $4.99 para uso permanente de 4K, PNG transparente, vectores Canva/Figma SVG y PDF sin suscripciones.',
+        buy_btn: 'Desbloquear Uso Permanente por $4.99 USD',
+        has_license: '¿Tienes clave?', activate: 'Activar', continue_free: 'Continuar gratis',
+        export_modal_title: 'Exportar Obra · Export Center', export_modal_desc: 'Elige formato y resolución de salida',
+        pro_banner_title: '⭐ Paquete Todo Incluido EazyOPC Pro', pro_banner_tag: 'Pago Único · Uso Permanente',
+        pro_banner_desc: '¡Por solo $4.99 USD desbloqueas para siempre todos los formatos: 4K, PNG transparente, vectores Canva/Figma y PDF!',
+        fmt_png_free: '🖼️ 1080P Estándar PNG', fmt_png_free_desc: 'Con marca de agua sutil, ideal para notas y compartir', free_badge: 'Gratis', free_price: '$0 Gratis',
+        fmt_png_4k: '✨ 4K Ultra-HD Obra Nítida', fmt_png_4k_desc: '3840px de ultra resolución, sin marcas de agua',
+        fmt_png_transparent: '🪟 PNG con Fondo Transparente', fmt_png_transparent_desc: 'Elimina el fondo, ideal para diapositivas y stickers',
+        fmt_svg_canva: '🎨 Proyecto Vectorial Canva / Figma (SVG)', fmt_svg_canva_desc: 'Curvas 100% vectoriales, editable en Canva, Figma e Illustrator',
+        fmt_pdf: '📄 Documento PDF Vectorial', fmt_pdf_desc: 'Diseño a escala exacta, ideal para imprimir y preparar clases',
+        pro_tag: '⭐ Pro', pro_included: 'Incluido en Pro · Uso Permanente',
+        canva_figma_title: 'Flujo de Trabajo Directo Canva y Figma', canva_figma_desc: 'Formato vectorial optimizado para herramientas de diseño. Copia al portapapeles o abre directamente:',
+        btn_copy_svg: 'Copiar Vector SVG', btn_open_canva: 'Abrir Canva.com', btn_open_figma: 'Abrir Figma.com',
+        lbl_export_default: 'Exportar 1080P Gratis (con marca)',
+        btn_export_free: 'Exportar 1080P Gratis (con marca)',
+        btn_export_pro_active: 'Exportar con Acceso Pro',
+        btn_export_pro_buy: '⭐ Desbloquear Todo Pro por $4.99 (Uso Permanente)',
+        svg_copied_toast: '🎉 ¡Vector SVG copiado al portapapeles!\nPresiona Ctrl+V en Canva o Figma para pegar vectores editables al instante.',
+        mobile_save_title: 'Guardar en Fotos', mobile_save_hint: '👉 ¡Mantén presionada la imagen 1 segundo y selecciona "Guardar en Fotos"!', mobile_download_btn: 'Descargar archivo directamente',
+        pro_perk_1: '<strong>4K Ultra-HD Obra Nítida</strong> (Sin marcas de agua)',
+        pro_perk_2: '<strong>PNG con Fondo Transparente</strong> (Ideal para stickers)',
+        pro_perk_3: '<strong>Proyecto Canva / Figma Vectorial</strong> (Editable)',
+        pro_perk_4: '<strong>Documento PDF Vectorial</strong> (Listo para imprimir)',
+        pro_perk_5: '<strong>Pago Único · Uso Permanente</strong> (Paquete completo)',
+        license_placeholder: 'Introduce clave (ej. EZPRO-...)',
+        tip_select: '↖️ Seleccionar y Ajustar (Tecla V: mover, escalar, rotar o borrar)',
+        tip_pen: '🖋️ Pluma (Sensible a presión, mantén para formas, Tecla P)',
+        tip_ballpoint: '🖊️ Bolígrafo (Líneas uniformes para bocetos)',
+        tip_pencil: '✏️ Lápiz (Trazos finos con textura de grafito)',
+        tip_brush: '🖌️ Pincel de Acuarela (Caligrafía fluida y sombreado)',
+        tip_crayon: '🖍️ Crayón de Cera (Textura de pastel al óleo)',
+        tip_highlighter: '🖍️ Resaltador (Marcador semitransparente)',
+        tip_spray: '💨 Aerógrafo y Spray (Tramas de cómic y partículas)',
+        tip_text: '🔤 Texto (Tecla T: clic en cualquier lugar para escribir)',
+        tip_eraser: '⚡ Borrador de Trazos (Tecla E: borra trazo completo al clic)',
+        tip_lasso: '⭕ Lazo Libre (Tecla L: encierra para mover todo)',
+        tip_image: '🖼️ Insertar Imagen / Pegar captura con Ctrl+V',
+        tip_arrow: '➡️ Flecha de conexión',
+        tip_box: '🔲 Caja de diagrama de flujo',
+        tip_sticky: '📝 Notas adhesivas arrastrables',
+        tip_laser: '🔦 Puntero láser (Se desvanece en 1.2s)',
+        tip_palette: '🎯 Paleta de color y grosor',
+        tip_undo: '↩️ Deshacer (Ctrl+Z / toque con 2 dedos)',
+        tip_clear: '🗑️ Limpiar pizarra',
+        tip_fit: 'Ajustar a pantalla',
+        add_page: 'Añadir página',
+        ratios: {
+          free: '♾️ Pantalla completa (Adaptable)',
+          a4_p: '📄 A4 Vertical (210×297mm)',
+          a4_l: '📄 A4 Horizontal (297×210mm)',
+          16_9: '💻 16:9 Presentación Panorámica',
+          9_16: '📱 9:16 Historia Móvil',
+          4_3: '📱 4:3 Tableta (iPad)',
+          1_1: '🔲 1:1 Cuadrado (Social)'
+        },
+        papers: {
+          dot: 'Cuadrícula de Puntos (Dot Matrix)',
+          plain: 'Pizarra Blanca Pura (Plain White)',
+          square: 'Cuadrícula 5mm (5mm Grid)',
+          green_chalk: 'Pizarra Verde Clásica',
+          black_chalk: 'Pizarra Negra Mate',
+          ivory: 'Marfil Cálido (Warm Ivory)',
+          ruled: 'Pautas Rayadas (Ruled Lines)'
+        }
+      },
+      fr: {
+        site_subtitle: 'Tableau Blanc Minimaliste à Points & Idées',
+        lbl_ratio: 'Format', lbl_paper: 'Papier', fullscreen: 'Plein écran', exit_fullscreen: 'Quitter plein écran',
+        export: 'Exporter', palette_title: 'Palette', size: 'Taille', theme_light: 'Jour', theme_dark: 'Nuit', fit: 'Ajuster',
+        pro_title: 'Débloquer EazyOPC Pro à Utilisation Permanente',
+        pro_desc: 'Paiement unique de 4,99 $ pour un accès permanent aux formats 4K, PNG transparent, vectoriel Canva/Figma SVG et PDF sans abonnement.',
+        buy_btn: 'Débloquer l\'Accès Permanent pour 4,99 $ USD',
+        has_license: 'Avez-vous une clé ?', activate: 'Activer', continue_free: 'Continuer gratuitement',
+        export_modal_title: 'Exporter l\'Œuvre · Export Center', export_modal_desc: 'Choisissez le format et la résolution de sortie',
+        pro_banner_title: '⭐ Pack Tout-en-Un EazyOPC Pro', pro_banner_tag: 'Paiement Unique · Utilisation Permanente',
+        pro_banner_desc: 'Pour seulement 4,99 $ USD, débloquez à vie tous les formats ci-dessous : 4K, PNG transparent, vectoriel Canva/Figma et PDF !',
+        fmt_png_free: '🖼️ 1080P PNG Standard', fmt_png_free_desc: 'Avec filigrane discret, parfait pour les notes quotidiennes', free_badge: 'Gratuit', free_price: '0 $ Gratuit',
+        fmt_png_4k: '✨ 4K Ultra-HD Œuvre Nette', fmt_png_4k_desc: 'Résolution ultra-nette 3840px, sans filigrane',
+        fmt_png_transparent: '🪟 PNG à Fond Transparent', fmt_png_transparent_desc: 'Retire l\'arrière-plan, idéal pour autocollants & diaporamas',
+        fmt_svg_canva: '🎨 Projet Vectoriel Canva / Figma (SVG)', fmt_svg_canva_desc: 'Courbes 100% vectorielles, modifiable dans Canva, Figma et Illustrator',
+        fmt_pdf: '📄 Document PDF Vectoriel', fmt_pdf_desc: 'Mise en page aux dimensions exactes, idéal pour impression et cours',
+        pro_tag: '⭐ Pro', pro_included: 'Inclus dans Pro · Permanent',
+        canva_figma_title: 'Flux de Travail Direct Canva & Figma', canva_figma_desc: 'Format vectoriel optimisé pour le design. Copiez dans le presse-papier ou ouvrez directement :',
+        btn_copy_svg: 'Copier le Vectoriel SVG', btn_open_canva: 'Ouvrir Canva.com', btn_open_figma: 'Ouvrir Figma.com',
+        lbl_export_default: 'Exporter 1080P Gratuit (avec filigrane)',
+        btn_export_free: 'Exporter 1080P Gratuit (avec filigrane)',
+        btn_export_pro_active: 'Exporter avec l\'Accès Pro',
+        btn_export_pro_buy: '⭐ Débloquer Tout Pro pour 4,99 $ (Permanent)',
+        svg_copied_toast: '🎉 Vectoriel SVG copié dans le presse-papier !\nAppuyez sur Ctrl+V dans Canva ou Figma pour coller des tracés vectoriels éditables !',
+        mobile_save_title: 'Enregistrer dans Photos', mobile_save_hint: '👉 Maintenez l\'image ci-dessous 1 seconde et choisissez "Enregistrer l\'image" !', mobile_download_btn: 'Télécharger le fichier directement',
+        pro_perk_1: '<strong>4K Ultra-HD Œuvre Nette</strong> (Sans filigrane)',
+        pro_perk_2: '<strong>PNG à Fond Transparent</strong> (Pour autocollants & slides)',
+        pro_perk_3: '<strong>Projet Vectoriel Canva / Figma (SVG)</strong> (Modifiable)',
+        pro_perk_4: '<strong>Document PDF Vectoriel</strong> (Prêt à imprimer)',
+        pro_perk_5: '<strong>Paiement Unique · Utilisation Permanente</strong> (Pack complet)',
+        license_placeholder: 'Entrez la clé (ex: EZPRO-...)',
+        tip_select: '↖️ Sélectionner & Ajuster (Touche V: déplacer, redimensionner, pivoter, supprimer)',
+        tip_pen: '🖋️ Stylo (Sensible à la pression, maintenir pour formes, Touche P)',
+        tip_ballpoint: '🖊️ Stylo à Bille (Lignes nettes et uniformes)',
+        tip_pencil: '✏️ Crayon (Tracé fin texturé au graphite)',
+        tip_brush: '🖌️ Pinceau Aquarelle (Calligraphie fluide & lavis)',
+        tip_crayon: '🖍️ Pastel à la Cire (Texture riche de pastel gras)',
+        tip_highlighter: '🪄 Surligneur (Marqueur semi-transparent)',
+        tip_spray: '💨 Aérographe & Spray (Trames manga & poussière d\'étoiles)',
+        tip_text: '🔤 Texte (Touche T: cliquer pour taper du texte)',
+        tip_eraser: '⚡ Gomme de Tracé (Touche E: effacer un trait complet au clic)',
+        tip_lasso: '⭕ Lasso Libre (Touche L: entourer pour déplacer tout)',
+        tip_image: '🖼️ Insérer une Image / Coller capture avec Ctrl+V',
+        tip_arrow: '➡️ Flèche de liaison',
+        tip_box: '🔲 Boîte d\'organigramme',
+        tip_sticky: '📝 Pense-bête déplaçable',
+        tip_laser: '🔦 Pointeur laser (Disparaît en 1.2s)',
+        tip_palette: '🎯 Palette de couleurs et épaisseur',
+        tip_undo: '↩️ Annuler (Ctrl+Z / tap 2 doigts)',
+        tip_clear: '🗑️ Tout effacer',
+        tip_fit: 'Ajuster à l\'écran',
+        add_page: 'Ajouter page',
+        ratios: {
+          free: '♾️ Plein écran (Adaptable)',
+          a4_p: '📄 A4 Portrait (210×297mm)',
+          a4_l: '📄 A4 Paysage (297×210mm)',
+          16_9: '💻 16:9 Présentation Large',
+          9_16: '📱 9:16 Story Mobile',
+          4_3: '📱 4:3 Tablette (iPad)',
+          1_1: '🔲 1:1 Carré (Réseaux)'
+        },
+        papers: {
+          dot: 'Papier Pointillé (Dot Matrix)',
+          plain: 'Tableau Blanc Pur (Plain White)',
+          square: 'Grille 5mm (5mm Grid)',
+          green_chalk: 'Tableau Vert Classique',
+          black_chalk: 'Tableau Noir Mat',
+          ivory: 'Ivoire Doux (Warm Ivory)',
+          ruled: 'Lignes d\'écriture (Ruled Lines)'
+        }
+      }
+    };
+
+    const appState = {
+      lang: 'zh',
+      tool: 'pen',        // 'select' | 'pen' | 'ballpoint' | 'pencil' | 'brush' | 'crayon' | 'highlighter' | 'spray' | 'text' | 'eraser' | 'lasso' | 'laser'
+      paper: 'dot',
+      ratio: 'free',
+      currentColor: '#18181b',
+      brushSize: 4,
+      isPro: localStorage.getItem('eazyopc_pro_unlocked') === 'true',
+      strokes: [],
+      texts: [],          // [{ id, text, x, y, size, color, rotation }]
+      images: [],         // [{ id, img, x, y, width, height, rotation }]
+      history: [],
+      redoStack: [],
+      // 🌟 无限纸张 / 漫画多页创作系统 (Multi-Page Comic Book Engine)
+      pages: [
+        {
+          id: 1,
+          strokes: [],
+          texts: [],
+          images: [],
+          history: [],
+          redoStack: []
+        }
+      ],
+      currentPageIndex: 0,
+      lassoPath: [],
+      selectedStrokes: [],
+      selectedImages: [],
+      selectedTexts: [],
+      selectionBounds: null,
+      isDraggingSelection: false,
+      dragStartPos: { x: 0, y: 0 },
+      // 缩放与平移状态 (Pan & Zoom)
+      zoom: 1.0,
+      panX: 0,
+      panY: 0,
+      isPanning: false,
+      panStart: { x: 0, y: 0 }
+    };
+
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    const canvasCard = document.getElementById('canvasCard');
+    const workbenchWrapper = document.getElementById('workbenchWrapper');
+    const laserLayer = document.getElementById('laserLayer');
+    const stickyLayer = document.getElementById('stickyLayer');
+    const selectionOverlay = document.getElementById('selectionOverlay');
+
+    function updateCanvasCursor() {
+      if (!canvas) return;
+      if (appState.tool === 'select') {
+        canvas.style.cursor = 'default';
+        canvas.classList.remove('cursor-pen-nib');
+      } else if (appState.tool === 'text') {
+        canvas.style.cursor = 'text';
+        canvas.classList.remove('cursor-pen-nib');
+      } else if (appState.tool === 'eraser') {
+        canvas.style.cursor = 'cell';
+        canvas.classList.remove('cursor-pen-nib');
+      } else if (appState.tool === 'lasso') {
+        canvas.style.cursor = 'crosshair';
+        canvas.classList.remove('cursor-pen-nib');
+      } else if (appState.tool === 'laser') {
+        canvas.style.cursor = 'pointer';
+        canvas.classList.remove('cursor-pen-nib');
+      } else {
+        // 🖋️ 真实握笔手感：启用倾斜 45° 拟真笔尖光标
+        canvas.classList.add('cursor-pen-nib');
+      }
+    }
+
+    const COMIC_PALETTE = ['#0f172a', '#1e293b', '#2563eb', '#38bdf8', '#ef4444', '#f59e0b', '#10b981', '#a855f7', '#ec4899', '#f8fafc'];
+
+    let cssWidth = 800;
+    let cssHeight = 600;
+    let dpr = 1;
+
+    
+    // 🌓 智能底纹对比度保护系统 (Auto Contrast Protection)
+    function isDarkPaper(p) {
+      if (!p) return false;
+      return p === 'green_chalk' || p === 'black_chalk' || p === 'chalk_green' || p === 'chalk_black' || p.includes('black') || p.includes('chalk');
+    }
+
+    function hexToRgb(hex) {
+      if (!hex || typeof hex !== 'string') return null;
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      if (c.length !== 6) return null;
+      const num = parseInt(c, 16);
+      return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+    }
+
+    function isColorTooDark(hex) {
+      const rgb = hexToRgb(hex);
+      if (!rgb) return false;
+      const lum = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255;
+      return lum < 0.28;
+    }
+
+    function isColorTooLight(hex) {
+      const rgb = hexToRgb(hex);
+      if (!rgb) return false;
+      const lum = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255;
+      return lum > 0.82;
+    }
+
+    function adaptPaperContrast(prevPaper, newPaper) {
+      const wasDark = isDarkPaper(prevPaper);
+      const isNowDark = isDarkPaper(newPaper);
+      if (wasDark === isNowDark) return;
+
+      saveHistory();
+
+      // 1. 从浅色底换到深色黑板底 (Light -> Dark)
+      if (!wasDark && isNowDark) {
+        const darkColors = new Set(['#000000', '#0f172a', '#18181b', '#1e293b', '#334155', '#475569', '#111827', '#020617', '#27272a']);
+        const convertItem = (item) => {
+          if (!item.color) return;
+          const c = item.color.toLowerCase();
+          if (darkColors.has(c) || isColorTooDark(c)) {
+            item.color = '#f8fafc'; // 粉笔白
+          }
+        };
+
+        for (const pg of (appState.pages || [])) {
+          for (const s of (pg.strokes || [])) convertItem(s);
+          for (const t of (pg.texts || [])) convertItem(t);
+        }
+        for (const s of appState.strokes) convertItem(s);
+        for (const t of appState.texts) convertItem(t);
+
+        if (darkColors.has(appState.currentColor.toLowerCase()) || isColorTooDark(appState.currentColor)) {
+          appState.currentColor = '#f8fafc';
+          const dot = document.getElementById('activeColorDot');
+          if (dot) dot.style.backgroundColor = '#f8fafc';
+        }
+      }
+
+      // 2. 从深色黑板换到浅色白板底 (Dark -> Light)
+      if (wasDark && !isNowDark) {
+        const whiteColors = new Set(['#ffffff', '#f8fafc', '#f1f5f9', '#e2e8f0', '#cbd5e1']);
+        const convertItem = (item) => {
+          if (!item.color) return;
+          const c = item.color.toLowerCase();
+          if (whiteColors.has(c) || isColorTooLight(c)) {
+            item.color = '#0f172a'; // 深石板黑
+          }
+        };
+
+        for (const pg of (appState.pages || [])) {
+          for (const s of (pg.strokes || [])) convertItem(s);
+          for (const t of (pg.texts || [])) convertItem(t);
+        }
+        for (const s of appState.strokes) convertItem(s);
+        for (const t of appState.texts) convertItem(t);
+
+        if (whiteColors.has(appState.currentColor.toLowerCase()) || isColorTooLight(appState.currentColor)) {
+          appState.currentColor = '#0f172a';
+          const dot = document.getElementById('activeColorDot');
+          if (dot) dot.style.backgroundColor = '#0f172a';
+        }
+      }
+    }
+
+    function manualSmartInvert() {
+      saveHistory();
+      const isDark = isDarkPaper(appState.paper);
+      for (const s of appState.strokes) {
+        if (!s.color) continue;
+        if (isDark) {
+          if (isColorTooDark(s.color)) s.color = '#f8fafc';
+        } else {
+          if (isColorTooLight(s.color)) s.color = '#0f172a';
+        }
+      }
+      for (const t of appState.texts) {
+        if (!t.color) continue;
+        if (isDark) {
+          if (isColorTooDark(t.color)) t.color = '#f8fafc';
+        } else {
+          if (isColorTooLight(t.color)) t.color = '#0f172a';
+        }
+      }
+      redrawAllStrokes();
+    }
+
+    function applyZoomAndPan() {
+      canvasCard.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom})`;
+      document.getElementById('btnZoomReset').innerText = `${Math.round(appState.zoom * 100)}%`;
+    }
+
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const containerRect = workbenchWrapper.getBoundingClientRect();
+      const maxW = Math.max(300, containerRect.width - (document.body.classList.contains('is-fullscreen') ? 0 : 32));
+      const maxH = Math.max(300, containerRect.height - (document.body.classList.contains('is-fullscreen') ? 0 : 32));
+
+      let targetRatio = null;
+      if (appState.ratio === 'a4_p') targetRatio = 210 / 297;
+      else if (appState.ratio === 'a4_l') targetRatio = 297 / 210;
+      else if (appState.ratio === 'a3_l') targetRatio = 420 / 297;
+      else if (appState.ratio === 'letter_p') targetRatio = 8.5 / 11;
+      else if (appState.ratio === 'manga_b5') targetRatio = 182 / 257;
+      else if (appState.ratio === 'webtoon') targetRatio = 9 / 20;
+      else if (appState.ratio === 'comic_4koma') targetRatio = 1 / 2;
+      else if (appState.ratio === '16_9') targetRatio = 16 / 9;
+      else if (appState.ratio === '16_10') targetRatio = 16 / 10;
+      else if (appState.ratio === '4_3') targetRatio = 4 / 3;
+      else if (appState.ratio === '1_1') targetRatio = 1;
+      else if (appState.ratio === '9_16') targetRatio = 9 / 16;
+      else if (appState.ratio === '3_4') targetRatio = 3 / 4;
+
+      if (!targetRatio) {
+        cssWidth = maxW;
+        cssHeight = maxH;
+      } else {
+        if (maxW / maxH > targetRatio) {
+          cssHeight = maxH;
+          cssWidth = maxH * targetRatio;
+        } else {
+          cssWidth = maxW;
+          cssHeight = maxW / targetRatio;
+        }
+      }
+
+      cssWidth = Math.round(cssWidth);
+      cssHeight = Math.round(cssHeight);
+
+      canvasCard.style.width = `${cssWidth}px`;
+      canvasCard.style.height = `${cssHeight}px`;
+
+      canvas.width = Math.round(cssWidth * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
+      canvas.style.width = `${cssWidth}px`;
+      canvas.style.height = `${cssHeight}px`;
+
+      applyZoomAndPan();
+      redrawAllStrokes();
+      updateSelectionBoxUI();
+    }
+
+    function renderBackgroundOnContext(targetCtx, w, h, scaleFactor = 1, transparent = false) {
+      targetCtx.save();
+      targetCtx.setTransform(1, 0, 0, 1, 0, 0);
+
+      if (transparent) {
+        targetCtx.clearRect(0, 0, w * scaleFactor, h * scaleFactor);
+        targetCtx.restore();
+        return;
+      }
+
+      targetCtx.scale(scaleFactor, scaleFactor);
+
+      switch (appState.paper) {
+        case 'manga_manuscript':
+          // 经典日漫 B5 印刷原稿纸 (带有内框裁切安全线与天头地脚标尺)
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.fillRect(0, 0, w, h);
+
+          // 浅蓝非摄影安全线 (Non-repro Blue)
+          targetCtx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+          targetCtx.lineWidth = 1;
+
+          const padX = Math.round(w * 0.08);
+          const padY = Math.round(h * 0.08);
+          // 外出血框 (Bleed box)
+          targetCtx.strokeRect(padX * 0.5, padY * 0.5, w - padX, h - padY);
+          // 内框主体 (Inner safe frame)
+          targetCtx.setLineDash([6, 3]);
+          targetCtx.strokeRect(padX, padY, w - padX * 2, h - padY * 2);
+          targetCtx.setLineDash([]);
+
+          // 中心十字标记 (Center cross mark)
+          targetCtx.beginPath();
+          targetCtx.moveTo(w / 2 - 8, h / 2); targetCtx.lineTo(w / 2 + 8, h / 2);
+          targetCtx.moveTo(w / 2, h / 2 - 8); targetCtx.lineTo(w / 2, h / 2 + 8);
+          targetCtx.stroke();
+          break;
+
+        case 'comic_4koma_grid':
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.fillRect(0, 0, w, h);
+          targetCtx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
+          targetCtx.lineWidth = 1.5;
+          const kPad = Math.round(w * 0.12);
+          const boxH = Math.round((h - kPad * 2) / 4);
+          for (let i = 0; i < 4; i++) {
+            targetCtx.strokeRect(kPad, kPad + i * boxH + 4, w - kPad * 2, boxH - 8);
+          }
+          break;
+
+        case 'webtoon_canvas':
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.fillRect(0, 0, w, h);
+          targetCtx.strokeStyle = 'rgba(99, 102, 241, 0.25)';
+          targetCtx.setLineDash([4, 4]);
+          targetCtx.strokeRect(20, 20, w - 40, h - 40);
+          targetCtx.setLineDash([]);
+          break;
+
+        case 'dot':
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.fillRect(0, 0, w, h);
+          targetCtx.fillStyle = 'rgba(148, 163, 184, 0.45)';
+          const dotStep = 28;
+          for (let x = dotStep; x < w; x += dotStep) {
+            for (let y = dotStep; y < h; y += dotStep) {
+              targetCtx.beginPath(); targetCtx.arc(Math.round(x), Math.round(y), 1.25, 0, Math.PI * 2); targetCtx.fill();
+            }
+          }
+          break;
+
+        case 'square':
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.fillRect(0, 0, w, h);
+          targetCtx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
+          targetCtx.lineWidth = 0.5;
+          const step = 20;
+          targetCtx.beginPath();
+          for (let x = 0; x <= w; x += step) { targetCtx.moveTo(x, 0); targetCtx.lineTo(x, h); }
+          for (let y = 0; y <= h; y += step) { targetCtx.moveTo(0, y); targetCtx.lineTo(w, y); }
+          targetCtx.stroke();
+          break;
+
+        case 'dark_comic':
+          targetCtx.fillStyle = '#0f172a';
+          targetCtx.fillRect(0, 0, w, h);
+          targetCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+          targetCtx.setLineDash([4, 4]);
+          targetCtx.strokeRect(20, 20, w - 40, h - 40);
+          targetCtx.setLineDash([]);
+          break;
+
+        default:
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.fillRect(0, 0, w, h);
+          break;
+      }
+
+      targetCtx.restore();
+    }
+
+    function redrawAllStrokes(targetCtx = ctx, scale = dpr, transparent = false) {
+      renderBackgroundOnContext(targetCtx, cssWidth, cssHeight, scale, transparent);
+
+      targetCtx.save();
+      targetCtx.setTransform(1, 0, 0, 1, 0, 0);
+      targetCtx.scale(scale, scale);
+
+      // 1. 渲染插入/粘贴的图片 (支持 360° 旋转)
+      for (const im of appState.images) {
+        if (im.img && im.img.complete) {
+          targetCtx.save();
+          const cx = im.x + im.width / 2;
+          const cy = im.y + im.height / 2;
+          targetCtx.translate(cx, cy);
+          if (im.rotation) targetCtx.rotate(im.rotation);
+          targetCtx.drawImage(im.img, -im.width / 2, -im.height / 2, im.width, im.height);
+          targetCtx.restore();
+        }
+      }
+
+      // 2. 渲染 7 大商业级手绘笔画
+      for (const s of appState.strokes) {
+        if (!s.points || s.points.length === 0) continue;
+        targetCtx.save();
+
+        if (s.tool === 'highlighter') {
+          targetCtx.globalCompositeOperation = 'multiply';
+          targetCtx.strokeStyle = s.color;
+          targetCtx.globalAlpha = 0.35;
+          targetCtx.lineCap = 'square';
+          targetCtx.lineJoin = 'miter';
+          targetCtx.lineWidth = s.size * 3.6;
+        } else if (s.tool === 'spray') {
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.45;
+          for (const pt of s.points) {
+            if (pt.sprayDots) {
+              for (const dot of pt.sprayDots) {
+                targetCtx.fillRect(pt.x + dot.dx, pt.y + dot.dy, dot.r, dot.r);
+              }
+            }
+          }
+          targetCtx.restore();
+          continue;
+        } else if (s.tool === 'pencil') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.78;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(1, s.size * 0.75);
+        } else if (s.tool === 'brush') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.9;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = s.size * 1.3;
+        } else if (s.tool === 'crayon') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.85;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = s.size * 1.15;
+        } else if (s.tool === 'ballpoint') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 1.0;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(1, s.size * 0.85);
+        } else {
+          // 钢笔 (Fountain Pen)
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 1.0;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = s.size;
+        }
+
+        if (s.points.length === 1) {
+          targetCtx.beginPath();
+          targetCtx.arc(s.points[0].x, s.points[0].y, Math.max(1.5, targetCtx.lineWidth / 2), 0, Math.PI * 2);
+          targetCtx.fill();
+        } else {
+          targetCtx.beginPath();
+          for (let i = 1; i < s.points.length; i++) {
+            const p1 = s.points[i - 1];
+            const p2 = s.points[i];
+            const midX = (p1.x + p2.x) / 2;
+            const midY = (p1.y + p2.y) / 2;
+            if (i === 1) targetCtx.moveTo(p1.x, p1.y);
+            targetCtx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+          }
+          targetCtx.stroke();
+        }
+
+        targetCtx.restore();
+      }
+
+      // 3. 渲染自由打字文本 (支持 360° 旋转)
+      for (const t of appState.texts) {
+        targetCtx.save();
+        targetCtx.font = `600 ${t.size}px sans-serif`;
+        targetCtx.fillStyle = t.color;
+        const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
+        const cx = t.x + estW / 2;
+        const cy = t.y - t.size / 2;
+        targetCtx.translate(cx, cy);
+        if (t.rotation) targetCtx.rotate(t.rotation);
+        targetCtx.fillText(t.text, -estW / 2, t.size / 2);
+        targetCtx.restore();
+      }
+
+      targetCtx.restore();
+    }
+
+    function createLaserBeam(x, y) {
+      const dot = document.createElement('div');
+      dot.className = 'laser-dot w-4 h-4 bg-rose-500 shadow-[0_0_12px_#f43f5e] opacity-90';
+      dot.style.left = `${x}px`;
+      dot.style.top = `${y}px`;
+      laserLayer.appendChild(dot);
+      requestAnimationFrame(() => {
+        dot.style.opacity = '0';
+        dot.style.transform = 'translate(-50%, -50%) scale(2.2)';
+      });
+      setTimeout(() => dot.remove(), 1200);
+    }
+
+    function distToSegmentSquared(p, v, w) {
+      const l2 = (w.x - v.x) ** 2 + (w.y - v.y) ** 2;
+      if (l2 === 0) return (p.x - v.x) ** 2 + (p.y - v.y) ** 2;
+      let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+      t = Math.max(0, Math.min(1, t));
+      return (p.x - (v.x + t * (w.x - v.x))) ** 2 + (p.y - (v.y + t * (w.y - v.y))) ** 2;
+    }
+
+    function isStrokeNearPoint(stroke, px, py, radius) {
+      if (!stroke.points || stroke.points.length === 0) return false;
+      const r2 = radius * radius;
+      for (let i = 0; i < stroke.points.length; i++) {
+        const p1 = stroke.points[i];
+        if ((p1.x - px) ** 2 + (p1.y - py) ** 2 <= r2) return true;
+        if (i > 0) {
+          const p0 = stroke.points[i - 1];
+          if (distToSegmentSquared({ x: px, y: py }, p0, p1) <= r2) return true;
+        }
+      }
+      return false;
+    }
+
+    function eraseStrokesAt(x, y) {
+      const hitRadius = Math.max(20, appState.brushSize * 3);
+      const initialStrokeCount = appState.strokes.length;
+      appState.strokes = appState.strokes.filter(s => !isStrokeNearPoint(s, x, y, hitRadius));
+      
+      const initialTextCount = appState.texts.length;
+      appState.texts = appState.texts.filter(t => Math.hypot(t.x - x, t.y - y) > hitRadius * 1.5);
+
+      if (appState.strokes.length < initialStrokeCount || appState.texts.length < initialTextCount) {
+        redrawAllStrokes();
+        return true;
+      }
+      return false;
+    }
+
+    function pointInPolygon(point, vs) {
+      const x = point.x, y = point.y;
+      let inside = false;
+      for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        const xi = vs[i].x, yi = vs[i].y;
+        const xj = vs[j].x, yj = vs[j].y;
+        const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+
+    // 🌟 GoodNotes 智能图形长按吸附引擎 (Draw & Hold)
+    let shapeHoldTimer = null;
+    let isShapeSnapped = false;
+
+    function checkAndSnapShape(stroke) {
+      if (!stroke || stroke.points.length < 5) return;
+      const pts = stroke.points;
+      const p0 = pts[0];
+      const pN = pts[pts.length - 1];
+      const straightDist = Math.hypot(pN.x - p0.x, pN.y - p0.y);
+      let totalLen = 0;
+      for (let i = 1; i < pts.length; i++) {
+        totalLen += Math.hypot(pts[i].x - pts[i-1].x, pts[i].y - pts[i-1].y);
+      }
+
+      // 1. 直线吸附识别
+      if (straightDist > 30 && straightDist / totalLen > 0.88) {
+        stroke.points = [p0, pN];
+        isShapeSnapped = true;
+        redrawAllStrokes();
+        return;
+      }
+
+      // 2. 闭合圆形/椭圆/矩形吸附识别
+      if (straightDist < Math.max(35, totalLen * 0.2)) {
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        for (const p of pts) {
+          if (p.x < minX) minX = p.x;
+          if (p.y < minY) minY = p.y;
+          if (p.x > maxX) maxX = p.x;
+          if (p.y > maxY) maxY = p.y;
+        }
+        const w = maxX - minX;
+        const h = maxY - minY;
+        if (w > 20 && h > 20) {
+          const cx = minX + w / 2;
+          const cy = minY + h / 2;
+          const ellipsePts = [];
+          for (let a = 0; a <= Math.PI * 2 + 0.1; a += Math.PI / 16) {
+            ellipsePts.push({ x: cx + Math.cos(a) * (w / 2), y: cy + Math.sin(a) * (h / 2) });
+          }
+          stroke.points = ellipsePts;
+          isShapeSnapped = true;
+          redrawAllStrokes();
+        }
+      }
+    }
+
+    // ⭕ 标杆级 Figma / Miro 矢量选框与 360° 自由旋转控制
+    function updateSelectionBoxUI() {
+      selectionOverlay.innerHTML = '';
+      if ((!appState.selectedStrokes || appState.selectedStrokes.length === 0) &&
+          (!appState.selectedTexts || appState.selectedTexts.length === 0) &&
+          (!appState.selectedImages || appState.selectedImages.length === 0)) {
+        appState.selectionBounds = null;
+        return;
+      }
+
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const s of (appState.selectedStrokes || [])) {
+        for (const pt of s.points) {
+          if (pt.x < minX) minX = pt.x;
+          if (pt.y < minY) minY = pt.y;
+          if (pt.x > maxX) maxX = pt.x;
+          if (pt.y > maxY) maxY = pt.y;
+        }
+      }
+      for (const t of (appState.selectedTexts || [])) {
+        if (t.x < minX) minX = t.x;
+        if (t.y - t.size < minY) minY = t.y - t.size;
+        const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
+        if (t.x + estW > maxX) maxX = t.x + estW;
+        if (t.y > maxY) maxY = t.y;
+      }
+      for (const im of (appState.selectedImages || [])) {
+        if (im.x < minX) minX = im.x;
+        if (im.y < minY) minY = im.y;
+        if (im.x + im.width > maxX) maxX = im.x + im.width;
+        if (im.y + im.height > maxY) maxY = im.y + im.height;
+      }
+
+      const pad = 6;
+      minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+      const boxW = maxX - minX;
+      const boxH = maxY - minY;
+      appState.selectionBounds = { x: minX, y: minY, width: boxW, height: boxH };
+
+      // 检测单选对象旋转角度
+      let activeItem = null;
+      let curRotation = 0;
+      if (appState.selectedImages.length === 1 && appState.selectedTexts.length === 0 && appState.selectedStrokes.length === 0) {
+        activeItem = appState.selectedImages[0];
+        curRotation = activeItem.rotation || 0;
+      } else if (appState.selectedTexts.length === 1 && appState.selectedImages.length === 0 && appState.selectedStrokes.length === 0) {
+        activeItem = appState.selectedTexts[0];
+        curRotation = activeItem.rotation || 0;
+      }
+
+      const box = document.createElement('div');
+      box.className = 'selection-box rounded';
+      box.style.left = `${minX}px`;
+      box.style.top = `${minY}px`;
+      box.style.width = `${boxW}px`;
+      box.style.height = `${boxH}px`;
+      if (curRotation) {
+        box.style.transform = `rotate(${curRotation}rad)`;
+      }
+
+      box.innerHTML = `
+        <!-- 360° 顶部旋转杆与旋转球手柄 (Figma 规范) -->
+        <div class="selection-rot-stem"></div>
+        <div class="selection-rot-handle" data-rot="true" title="按住拖拽 360° 自由旋转"></div>
+        
+        <!-- 8 方向工业级缩放变形手柄 -->
+        <div class="selection-handle selection-handle-nw" data-handle="nw" title="等比缩放"></div>
+        <div class="selection-handle selection-handle-n" data-handle="n" title="垂直拉伸"></div>
+        <div class="selection-handle selection-handle-ne" data-handle="ne" title="等比缩放"></div>
+        <div class="selection-handle selection-handle-e" data-handle="e" title="水平拉伸"></div>
+        <div class="selection-handle selection-handle-se" data-handle="se" title="等比缩放"></div>
+        <div class="selection-handle selection-handle-s" data-handle="s" title="垂直拉伸"></div>
+        <div class="selection-handle selection-handle-sw" data-handle="sw" title="等比缩放"></div>
+        <div class="selection-handle selection-handle-w" data-handle="w" title="水平拉伸"></div>
+
+        <!-- 现代浮动操作胶囊栏 (告别廉价红叉) -->
+        <div class="selection-action-pill">
+          <button class="btn-pill-rot-l" title="逆时针旋转 90°">⤾ -90°</button>
+          <button class="btn-pill-rot-r" title="顺时针旋转 90°">⤿ +90°</button>
+          <span style="color:#64748b; font-size:10px;">|</span>
+          <button class="btn-pill-copy" title="复制副本 (Duplicate)">📋 复制</button>
+          <span style="color:#64748b; font-size:10px;">|</span>
+          <button class="btn-pill-delete" title="删除 (Delete)">🗑️ 删除</button>
+        </div>
+      `;
+
+      // 绑定动作胶囊事件
+      const rotLBtn = box.querySelector('.btn-pill-rot-l');
+      const rotRBtn = box.querySelector('.btn-pill-rot-r');
+      const copyBtn = box.querySelector('.btn-pill-copy');
+      const delBtn = box.querySelector('.btn-pill-delete');
+
+      rotLBtn.onclick = (e) => { e.stopPropagation(); rotateSelectedItems(-Math.PI / 2); };
+      rotRBtn.onclick = (e) => { e.stopPropagation(); rotateSelectedItems(Math.PI / 2); };
+      copyBtn.onclick = (e) => { e.stopPropagation(); duplicateSelectedItems(); };
+      delBtn.onclick = (e) => { e.stopPropagation(); deleteSelectedItems(); };
+
+      // 🌟 360° 顶部旋转把手交互
+      const rotHandle = box.querySelector('.selection-rot-handle');
+      rotHandle.onpointerdown = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        saveHistory();
+
+        const centerX = minX + boxW / 2;
+        const centerY = minY + boxH / 2;
+        const startPointer = getCanvasCoordinates(e);
+        const initialAngle = curRotation || 0;
+        const baseAngle = Math.atan2(startPointer.y - centerY, startPointer.x - centerX) + Math.PI / 2;
+
+        const onRotMove = (me) => {
+          me.preventDefault();
+          const curPointer = getCanvasCoordinates(me);
+          const currentAngle = Math.atan2(curPointer.y - centerY, curPointer.x - centerX) + Math.PI / 2;
+          const deltaAngle = currentAngle - baseAngle;
+          const newAngle = initialAngle + deltaAngle;
+
+          if (activeItem) {
+            activeItem.rotation = newAngle;
+          } else {
+            for (const im of (appState.selectedImages || [])) im.rotation = (im.rotation || 0) + deltaAngle;
+            for (const t of (appState.selectedTexts || [])) t.rotation = (t.rotation || 0) + deltaAngle;
+          }
+
+          box.style.transform = `rotate(${newAngle}rad)`;
+          redrawAllStrokes();
+        };
+
+        const onRotUp = () => {
+          window.removeEventListener('pointermove', onRotMove);
+          window.removeEventListener('pointerup', onRotUp);
+          updateSelectionBoxUI();
+        };
+
+        window.addEventListener('pointermove', onRotMove);
+        window.addEventListener('pointerup', onRotUp);
+      };
+
+      // 整体框拖拽（移动平移）
+      box.onpointerdown = (e) => {
+        if (e.target.dataset.handle || e.target.dataset.rot || e.target.closest('.selection-action-pill')) return;
+        e.stopPropagation();
+        e.preventDefault();
+        saveHistory();
+        appState.isDraggingSelection = true;
+        appState.dragStartPos = getCanvasCoordinates(e);
+
+        const onBoxMove = (me) => {
+          me.preventDefault();
+          const curPos = getCanvasCoordinates(me);
+          const dx = curPos.x - appState.dragStartPos.x;
+          const dy = curPos.y - appState.dragStartPos.y;
+          appState.dragStartPos = curPos;
+          for (const s of (appState.selectedStrokes || [])) {
+            for (const pt of s.points) { pt.x += dx; pt.y += dy; }
+          }
+          for (const t of (appState.selectedTexts || [])) {
+            t.x += dx; t.y += dy;
+          }
+          for (const im of (appState.selectedImages || [])) {
+            im.x += dx; im.y += dy;
+          }
+          redrawAllStrokes();
+          updateSelectionBoxUI();
+        };
+
+        const onBoxUp = () => {
+          appState.isDraggingSelection = false;
+          window.removeEventListener('pointermove', onBoxMove);
+          window.removeEventListener('pointerup', onBoxUp);
+        };
+
+        window.addEventListener('pointermove', onBoxMove);
+        window.addEventListener('pointerup', onBoxUp);
+      };
+
+      // 8 方向手柄缩放
+      box.querySelectorAll('.selection-handle').forEach(handle => {
+        handle.onpointerdown = (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          saveHistory();
+          const handleType = handle.dataset.handle;
+          const startPos = getCanvasCoordinates(e);
+
+          const snapImgs = (appState.selectedImages || []).map(im => ({ ref: im, x: im.x, y: im.y, w: im.width, h: im.height }));
+          const snapTexts = (appState.selectedTexts || []).map(t => ({ ref: t, size: t.size }));
+
+          const onHandleMove = (me) => {
+            me.preventDefault();
+            const cur = getCanvasCoordinates(me);
+            const dx = cur.x - startPos.x;
+            const dy = cur.y - startPos.y;
+
+            for (const item of snapImgs) {
+              const ratio = item.h / item.w;
+              if (handleType === 'se') {
+                const nw = Math.max(30, Math.round(item.w + dx));
+                item.ref.width = nw;
+                item.ref.height = Math.max(20, Math.round(nw * ratio));
+              } else if (handleType === 'sw') {
+                const nw = Math.max(30, Math.round(item.w - dx));
+                item.ref.x = item.x + (item.w - nw);
+                item.ref.width = nw;
+                item.ref.height = Math.max(20, Math.round(nw * ratio));
+              } else if (handleType === 'ne') {
+                const nw = Math.max(30, Math.round(item.w + dx));
+                const nh = Math.max(20, Math.round(nw * ratio));
+                item.ref.y = item.y + (item.h - nh);
+                item.ref.width = nw;
+                item.ref.height = nh;
+              } else if (handleType === 'nw') {
+                const nw = Math.max(30, Math.round(item.w - dx));
+                const nh = Math.max(20, Math.round(nw * ratio));
+                item.ref.x = item.x + (item.w - nw);
+                item.ref.y = item.y + (item.h - nh);
+                item.ref.width = nw;
+                item.ref.height = nh;
+              } else if (handleType === 'e') {
+                item.ref.width = Math.max(30, Math.round(item.w + dx));
+              } else if (handleType === 'w') {
+                const nw = Math.max(30, Math.round(item.w - dx));
+                item.ref.x = item.x + (item.w - nw);
+                item.ref.width = nw;
+              } else if (handleType === 's') {
+                item.ref.height = Math.max(20, Math.round(item.h + dy));
+              } else if (handleType === 'n') {
+                const nh = Math.max(20, Math.round(item.h - dy));
+                item.ref.y = item.y + (item.h - nh);
+                item.ref.height = nh;
+              }
+            }
+
+            for (const item of snapTexts) {
+              const delta = (handleType.includes('e') || handleType.includes('s')) ? dx : -dx;
+              item.ref.size = Math.max(12, Math.min(120, Math.round(item.size + delta * 0.2)));
+            }
+
+            redrawAllStrokes();
+            updateSelectionBoxUI();
+          };
+
+          const onHandleUp = () => {
+            window.removeEventListener('pointermove', onHandleMove);
+            window.removeEventListener('pointerup', onHandleUp);
+          };
+
+          window.addEventListener('pointermove', onHandleMove);
+          window.addEventListener('pointerup', onHandleUp);
+        };
+      });
+
+      selectionOverlay.appendChild(box);
+    }
+
+    function rotateSelectedItems(angleDelta) {
+      saveHistory();
+      for (const im of (appState.selectedImages || [])) {
+        im.rotation = ((im.rotation || 0) + angleDelta) % (Math.PI * 2);
+      }
+      for (const t of (appState.selectedTexts || [])) {
+        t.rotation = ((t.rotation || 0) + angleDelta) % (Math.PI * 2);
+      }
+      redrawAllStrokes();
+      updateSelectionBoxUI();
+    }
+
+    function duplicateSelectedItems() {
+      saveHistory();
+      if (appState.selectedImages && appState.selectedImages.length > 0) {
+        const clonedList = [];
+        for (const im of appState.selectedImages) {
+          const clone = {
+            id: Date.now() + Math.random(),
+            img: im.img,
+            x: im.x + 24,
+            y: im.y + 24,
+            width: im.width,
+            height: im.height,
+            rotation: im.rotation || 0
+          };
+          appState.images.push(clone);
+          clonedList.push(clone);
+        }
+        appState.selectedImages = clonedList;
+      }
+      if (appState.selectedTexts && appState.selectedTexts.length > 0) {
+        const clonedList = [];
+        for (const t of appState.selectedTexts) {
+          const clone = {
+            id: Date.now() + Math.random(),
+            text: t.text,
+            x: t.x + 24,
+            y: t.y + 24,
+            size: t.size,
+            color: t.color,
+            rotation: t.rotation || 0
+          };
+          appState.texts.push(clone);
+          clonedList.push(clone);
+        }
+        appState.selectedTexts = clonedList;
+      }
+      redrawAllStrokes();
+      updateSelectionBoxUI();
+    }
+
+    function clearSelection() {
+      appState.selectedStrokes = [];
+      appState.selectedTexts = [];
+      appState.selectedImages = [];
+      appState.selectionBounds = null;
+      selectionOverlay.innerHTML = '';
+    }
+
+    function deleteSelectedItems() {
+      if ((!appState.selectedStrokes || appState.selectedStrokes.length === 0) &&
+          (!appState.selectedTexts || appState.selectedTexts.length === 0) &&
+          (!appState.selectedImages || appState.selectedImages.length === 0)) return;
+      saveHistory();
+      if (appState.selectedStrokes && appState.selectedStrokes.length > 0) {
+        const selSet = new Set(appState.selectedStrokes);
+        appState.strokes = appState.strokes.filter(s => !selSet.has(s));
+      }
+      if (appState.selectedTexts && appState.selectedTexts.length > 0) {
+        const selSet = new Set(appState.selectedTexts);
+        appState.texts = appState.texts.filter(t => !selSet.has(t));
+      }
+      if (appState.selectedImages && appState.selectedImages.length > 0) {
+        const selSet = new Set(appState.selectedImages);
+        appState.images = appState.images.filter(im => !selSet.has(im));
+      }
+      clearSelection();
+      redrawAllStrokes();
+    }
+
+    // 快捷键 Delete / Backspace 删除选中项
+    window.addEventListener('keydown', (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if ((appState.selectedStrokes && appState.selectedStrokes.length > 0) ||
+            (appState.selectedTexts && appState.selectedTexts.length > 0) ||
+            (appState.selectedImages && appState.selectedImages.length > 0)) {
+          e.preventDefault();
+          deleteSelectedItems();
+        }
+      }
+    });
+
+    // 🌟 漫画多页纸张管理系统 (Multi-Page Comic Book Engine)
+    function updatePageUI() {
+      const indicator = document.getElementById('pageIndicator');
+      if (indicator) {
+        const cur = appState.currentPageIndex + 1;
+        const total = appState.pages.length;
+        indicator.innerText = `第 ${cur} / ${total} 页`;
+      }
+    }
+
+    function syncCurrentPageToState() {
+      if (appState.pages && appState.pages[appState.currentPageIndex]) {
+        appState.pages[appState.currentPageIndex] = {
+          id: appState.pages[appState.currentPageIndex].id || Date.now(),
+          strokes: appState.strokes.slice(),
+          texts: appState.texts.slice(),
+          images: appState.images.slice(),
+          history: appState.history.slice(),
+          redoStack: (appState.redoStack || []).slice()
+        };
+      }
+    }
+
+    function loadPage(index) {
+      if (index < 0 || index >= appState.pages.length) return;
+      syncCurrentPageToState();
+      appState.currentPageIndex = index;
+      const p = appState.pages[index];
+      appState.strokes = (p.strokes || []).slice();
+      appState.texts = (p.texts || []).slice();
+      appState.images = (p.images || []).slice();
+      appState.history = (p.history || []).slice();
+      appState.redoStack = (p.redoStack || []).slice();
+      clearSelection();
+      redrawAllStrokes();
+      updatePageUI();
+    }
+
+    function addNewPage() {
+      syncCurrentPageToState();
+      const newPage = {
+        id: Date.now(),
+        strokes: [],
+        texts: [],
+        images: [],
+        history: [],
+        redoStack: []
+      };
+      appState.pages.push(newPage);
+      loadPage(appState.pages.length - 1);
+    }
+
+    function deleteCurrentPage() {
+      if (appState.pages.length <= 1) {
+        // 仅剩 1 页时清空该页笔迹
+        saveHistory();
+        appState.strokes = [];
+        appState.texts = [];
+        appState.images = [];
+        clearSelection();
+        redrawAllStrokes();
+        return;
+      }
+      const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+      if (!confirm(dict.confirm_delete_page || '确定要删除当前页面吗？此操作无法撤销。')) return;
+      appState.pages.splice(appState.currentPageIndex, 1);
+      if (appState.currentPageIndex >= appState.pages.length) {
+        appState.currentPageIndex = appState.pages.length - 1;
+      }
+      const p = appState.pages[appState.currentPageIndex];
+      appState.strokes = (p.strokes || []).slice();
+      appState.texts = (p.texts || []).slice();
+      appState.images = (p.images || []).slice();
+      appState.history = (p.history || []).slice();
+      appState.redoStack = (p.redoStack || []).slice();
+      clearSelection();
+      redrawAllStrokes();
+      updatePageUI();
+    }
+
+    // 自由打字工具 (Text Tool)
+    function createInlineTextInput(x, y) {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = '输入文字...';
+      const fontSize = Math.max(14, appState.brushSize * 4);
+      input.className = 'absolute z-30 bg-white/90 text-slate-900 px-2 py-1 rounded-lg border border-indigo-500 shadow-xl outline-none text-xs font-semibold';
+      input.style.left = `${x}px`;
+      input.style.top = `${y - 12}px`;
+      input.style.color = appState.currentColor === '#ffffff' ? '#18181b' : appState.currentColor;
+
+      stickyLayer.appendChild(input);
+      setTimeout(() => input.focus(), 50);
+
+      const finish = () => {
+        const val = input.value.trim();
+        if (val) {
+          saveHistory();
+          appState.texts.push({
+            id: Date.now(),
+            text: val,
+            x: x,
+            y: y + fontSize * 0.8,
+            size: fontSize,
+            color: appState.currentColor
+          });
+          redrawAllStrokes();
+        }
+        input.remove();
+      };
+
+      input.onkeydown = (e) => {
+        if (e.key === 'Enter') finish();
+      };
+      input.onblur = finish;
+    }
+
+    let isDrawing = false;
+    let currentStroke = null;
+
+    function getCanvasCoordinates(e) {
+      const rect = canvasCard.getBoundingClientRect();
+      const scaleX = cssWidth / rect.width;
+      const scaleY = cssHeight / rect.height;
+      return {
+        x: Math.max(0, Math.min(cssWidth, (e.clientX - rect.left) * scaleX)),
+        y: Math.max(0, Math.min(cssHeight, (e.clientY - rect.top) * scaleY))
+      };
+    }
+
+    function generateSprayDots(cx, cy, radius) {
+      const dots = [];
+      const count = Math.round(Math.max(8, radius * 2.2));
+      for (let i = 0; i < count; i++) {
+        const r = Math.random() * radius * 1.5;
+        const theta = Math.random() * Math.PI * 2;
+        dots.push({
+          dx: Math.cos(theta) * r,
+          dy: Math.sin(theta) * r,
+          r: Math.random() < 0.25 ? 1.6 : 1.0
+        });
+      }
+      return dots;
+    }
+
+    function renderLiveStrokeSegment(s, p1, p2) {
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+
+      const midX = (p1.x + p2.x) / 2;
+      const midY = (p1.y + p2.y) / 2;
+
+      if (s.tool === 'highlighter') {
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 0.35;
+        ctx.lineCap = 'square';
+        ctx.lineJoin = 'miter';
+        ctx.lineWidth = s.size * 3.6;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      } else if (s.tool === 'spray') {
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = 0.45;
+        if (p2.sprayDots) {
+          for (const dot of p2.sprayDots) {
+            ctx.fillRect(p2.x + dot.dx, p2.y + dot.dy, dot.r, dot.r);
+          }
+        }
+      } else if (s.tool === 'pencil') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 0.78;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Math.max(1, s.size * 0.75);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'brush') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 0.9;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = s.size * 1.3;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'crayon') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 0.85;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = s.size * 1.15;
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else if (s.tool === 'ballpoint') {
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 1.0;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Math.max(1, s.size * 0.85);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      } else {
+        // 🖋️ 钢笔：速度导数与压感动态笔锋 (MacBook 触控板仿真)
+        const dt = Math.max(8, (p2.time || performance.now()) - (p1.time || performance.now()));
+        const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        const speed = dist / dt;
+        const dynamicTaper = Math.max(0.45, 1.15 - Math.min(0.65, speed * 0.16));
+
+        ctx.strokeStyle = s.color;
+        ctx.globalAlpha = 1.0;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Math.max(1, s.size * dynamicTaper);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, midX, midY);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    canvas.addEventListener('pointerdown', (e) => {
+      // 抓手平移模式 (Hand tool、空格长按或鼠标中键)
+      if (appState.tool === 'hand' || e.spaceKey || appState.isSpaceDown || e.button === 1) {
+        appState.isPanning = true;
+        appState.panStart = { x: e.clientX - appState.panX, y: e.clientY - appState.panY };
+        canvasCard.style.cursor = 'grabbing';
+        return;
+      }
+        appState.isPanning = true;
+        appState.panStart = { x: e.clientX - appState.panX, y: e.clientY - appState.panY };
+        return;
+      }
+
+      e.preventDefault();
+      const pos = getCanvasCoordinates(e);
+
+      if (appState.tool === 'text') {
+        createInlineTextInput(pos.x, pos.y);
+        return;
+      }
+
+      if (appState.tool === 'select') {
+        if (appState.selectionBounds &&
+            pos.x >= appState.selectionBounds.x &&
+            pos.x <= appState.selectionBounds.x + appState.selectionBounds.width &&
+            pos.y >= appState.selectionBounds.y &&
+            pos.y <= appState.selectionBounds.y + appState.selectionBounds.height) {
+          saveHistory();
+          appState.isDraggingSelection = true;
+          appState.dragStartPos = pos;
+          return;
+        }
+
+        // 优先点选最顶层的图片
+        let hitImg = null;
+        for (let i = appState.images.length - 1; i >= 0; i--) {
+          const im = appState.images[i];
+          if (pos.x >= im.x && pos.x <= im.x + im.width && pos.y >= im.y && pos.y <= im.y + im.height) {
+            hitImg = im;
+            break;
+          }
+        }
+        if (hitImg) {
+          saveHistory();
+          appState.selectedImages = [hitImg];
+          appState.selectedTexts = [];
+          appState.selectedStrokes = [];
+          updateSelectionBoxUI();
+          appState.isDraggingSelection = true;
+          appState.dragStartPos = pos;
+          return;
+        }
+
+        // 点选文字
+        let hitText = null;
+        for (let i = appState.texts.length - 1; i >= 0; i--) {
+          const t = appState.texts[i];
+          const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
+          if (pos.x >= t.x && pos.x <= t.x + estW && pos.y >= t.y - t.size && pos.y <= t.y + 6) {
+            hitText = t;
+            break;
+          }
+        }
+        if (hitText) {
+          saveHistory();
+          appState.selectedTexts = [hitText];
+          appState.selectedImages = [];
+          appState.selectedStrokes = [];
+          updateSelectionBoxUI();
+          appState.isDraggingSelection = true;
+          appState.dragStartPos = pos;
+          return;
+        }
+
+        clearSelection();
+        return;
+      }
+
+      if (appState.tool === 'lasso') {
+        if (appState.selectionBounds &&
+            pos.x >= appState.selectionBounds.x &&
+            pos.x <= appState.selectionBounds.x + appState.selectionBounds.width &&
+            pos.y >= appState.selectionBounds.y &&
+            pos.y <= appState.selectionBounds.y + appState.selectionBounds.height) {
+          saveHistory();
+          appState.isDraggingSelection = true;
+          appState.dragStartPos = pos;
+          return;
+        }
+        clearSelection();
+        isDrawing = true;
+        appState.lassoPath = [pos];
+        return;
+      }
+
+      clearSelection();
+
+      if (appState.tool === 'laser') {
+        createLaserBeam(pos.x, pos.y);
+        return;
+      }
+
+      if (appState.tool === 'eraser') {
+        saveHistory();
+        eraseStrokesAt(pos.x, pos.y);
+        isDrawing = true;
+        return;
+      }
+
+      saveHistory();
+      isDrawing = true;
+      isShapeSnapped = false;
+      const pressure = (e.pressure !== undefined && e.pressure > 0) ? e.pressure : 0.5;
+      const baseSize = Number(appState.brushSize);
+      let strokeWidth = baseSize;
+      if (appState.tool === 'pencil') strokeWidth = baseSize * 0.75;
+      else if (appState.tool === 'ballpoint') strokeWidth = baseSize * 0.85;
+      else if (appState.tool === 'brush') strokeWidth = baseSize * (0.6 + 0.8 * pressure);
+      else if (appState.tool === 'crayon') strokeWidth = baseSize * 1.15;
+      else if (appState.tool === 'highlighter') strokeWidth = baseSize * 3.6;
+      else if (appState.tool === 'spray') strokeWidth = baseSize * 2.2;
+      else if (appState.tool === 'pen') strokeWidth = baseSize * (0.45 + 0.9 * Math.pow(pressure, 1.4));
+
+      pos.time = performance.now();
+      pos.pressure = pressure;
+      if (appState.tool === 'spray') {
+        pos.sprayDots = generateSprayDots(pos.x, pos.y, strokeWidth);
+      }
+
+      currentStroke = {
+        id: Date.now() + Math.random(),
+        tool: appState.tool,
+        color: appState.currentColor,
+        size: Math.max(1.5, strokeWidth),
+        points: [pos]
+      };
+      appState.strokes.push(currentStroke);
+
+      // 绘制起点微圆点
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      ctx.fillStyle = currentStroke.color;
+      if (currentStroke.tool === 'highlighter') {
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.globalAlpha = 0.35;
+      } else if (currentStroke.tool === 'pencil') {
+        ctx.globalAlpha = 0.78;
+      } else if (currentStroke.tool === 'spray' && pos.sprayDots) {
+        ctx.globalAlpha = 0.45;
+        for (const dot of pos.sprayDots) {
+          ctx.fillRect(pos.x + dot.dx, pos.y + dot.dy, dot.r, dot.r);
+        }
+      }
+      if (currentStroke.tool !== 'spray') {
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, Math.max(1, currentStroke.size / 2), 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      clearTimeout(shapeHoldTimer);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (appState.isPanning) {
+        appState.panX = e.clientX - appState.panStart.x;
+        appState.panY = e.clientY - appState.panStart.y;
+        applyZoomAndPan();
+        return;
+      }
+
+      e.preventDefault();
+
+      if (appState.isDraggingSelection) {
+        const pos = getCanvasCoordinates(e);
+        const dx = pos.x - appState.dragStartPos.x;
+        const dy = pos.y - appState.dragStartPos.y;
+        appState.dragStartPos = pos;
+
+        for (const s of appState.selectedStrokes) {
+          for (const pt of s.points) { pt.x += dx; pt.y += dy; }
+        }
+        for (const t of appState.selectedTexts) {
+          t.x += dx; t.y += dy;
+        }
+        for (const im of appState.selectedImages) {
+          im.x += dx; im.y += dy;
+        }
+        redrawAllStrokes();
+        updateSelectionBoxUI();
+        return;
+      }
+
+      if (!isDrawing) return;
+
+      const pos = getCanvasCoordinates(e);
+
+      if (appState.tool === 'lasso') {
+        appState.lassoPath.push(pos);
+        redrawAllStrokes();
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+        ctx.strokeStyle = '#2563eb';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        for (let i = 0; i < appState.lassoPath.length; i++) {
+          const p = appState.lassoPath[i];
+          if (i === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+        ctx.restore();
+        return;
+      }
+
+      if (appState.tool === 'laser') {
+        createLaserBeam(pos.x, pos.y);
+        return;
+      }
+
+      if (appState.tool === 'eraser') {
+        eraseStrokesAt(pos.x, pos.y);
+        return;
+      }
+
+      // 🌟 高频触控板采样：利用 e.getCoalescedEvents 获取细腻子像素点流
+      if (currentStroke && !isShapeSnapped) {
+        const events = (e.getCoalescedEvents && typeof e.getCoalescedEvents === 'function')
+          ? e.getCoalescedEvents()
+          : [e];
+
+        for (const ce of events) {
+          const cPos = getCanvasCoordinates(ce);
+          cPos.time = performance.now();
+          cPos.pressure = (ce.pressure !== undefined && ce.pressure > 0) ? ce.pressure : 0.5;
+          if (currentStroke.tool === 'spray') {
+            cPos.sprayDots = generateSprayDots(cPos.x, cPos.y, currentStroke.size);
+          }
+          currentStroke.points.push(cPos);
+
+          const pts = currentStroke.points;
+          if (pts.length >= 2) {
+            renderLiveStrokeSegment(currentStroke, pts[pts.length - 2], pts[pts.length - 1]);
+          }
+        }
+
+        // 🌟 GoodNotes 停顿 420ms 智能吸附计时器
+        clearTimeout(shapeHoldTimer);
+        shapeHoldTimer = setTimeout(() => {
+          if (isDrawing && currentStroke) {
+            checkAndSnapShape(currentStroke);
+          }
+        }, 420);
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      clearTimeout(shapeHoldTimer);
+      if (appState.isPanning) {
+        appState.isPanning = false;
+      if (appState.tool === 'hand') canvasCard.style.cursor = 'grab';
+        return;
+      }
+      if (appState.isDraggingSelection) {
+        appState.isDraggingSelection = false;
+        return;
+      }
+
+      if (isDrawing && appState.tool === 'lasso') {
+        isDrawing = false;
+        if (appState.lassoPath.length > 2) {
+          appState.selectedStrokes = appState.strokes.filter(s => s.points.some(pt => pointInPolygon(pt, appState.lassoPath)));
+          appState.selectedTexts = appState.texts.filter(t => pointInPolygon({x: t.x, y: t.y}, appState.lassoPath));
+          appState.selectedImages = appState.images.filter(im => pointInPolygon({x: im.x + im.width/2, y: im.y + im.height/2}, appState.lassoPath));
+          redrawAllStrokes();
+          updateSelectionBoxUI();
+        }
+        appState.lassoPath = [];
+        return;
+      }
+
+      isDrawing = false;
+      currentStroke = null;
+    });
+
+    // 🖼️ 剪贴板图片粘贴与文件插入 (Ctrl+V / Drag & Drop)
+    function addImageToCanvas(src, posX, posY) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        saveHistory();
+        const maxDim = Math.min(cssWidth * 0.7, 400);
+        let w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { h = Math.round(h * (maxDim / w)); w = maxDim; }
+          else { w = Math.round(w * (maxDim / h)); h = maxDim; }
+        }
+        const x = posX !== undefined ? posX - w/2 : (cssWidth - w)/2;
+        const y = posY !== undefined ? posY - h/2 : (cssHeight - h)/2;
+        const newImg = {
+          id: Date.now() + Math.random(),
+          img: img,
+          x: Math.max(10, Math.round(x)),
+          y: Math.max(10, Math.round(y)),
+          width: w,
+          height: h
+        };
+        appState.images.push(newImg);
+        appState.tool = 'select';
+        updateToolButtonsUI();
+        appState.selectedImages = [newImg];
+        appState.selectedTexts = [];
+        appState.selectedStrokes = [];
+        redrawAllStrokes();
+        updateSelectionBoxUI();
+      };
+      img.src = src;
+    }
+
+    window.addEventListener('paste', (e) => {
+      const items = (e.clipboardData || window.clipboardData).items;
+      for (const item of items) {
+        if (item.type.indexOf('image') !== -1) {
+          e.preventDefault();
+          const blob = item.getAsFile();
+          const reader = new FileReader();
+          reader.onload = (ev) => addImageToCanvas(ev.target.result);
+          reader.readAsDataURL(blob);
+          break;
+        }
+      }
+    });
+
+    workbenchWrapper.addEventListener('dragover', (e) => e.preventDefault());
+    workbenchWrapper.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+        const file = e.dataTransfer.files[0];
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (ev) => addImageToCanvas(ev.target.result);
+          reader.readAsDataURL(file);
+        }
+      }
+    });
+
+    const btnInsertImage = document.getElementById('btnInsertImage');
+    const imageFileInput = document.getElementById('imageFileInput');
+    btnInsertImage.onclick = () => imageFileInput.click();
+    imageFileInput.onchange = (e) => {
+      if (e.target.files && e.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (ev) => addImageToCanvas(ev.target.result);
+        reader.readAsDataURL(e.target.files[0]);
+      }
+    };
+
+    // 缩放导航坞 (Pan & Zoom)
+    document.getElementById('btnZoomIn').onclick = () => {
+      appState.zoom = Math.min(2.5, appState.zoom + 0.15);
+      applyZoomAndPan();
+    };
+    document.getElementById('btnZoomOut').onclick = () => {
+      appState.zoom = Math.max(0.4, appState.zoom - 0.15);
+      applyZoomAndPan();
+    };
+    document.getElementById('btnZoomReset').onclick = () => {
+      appState.zoom = 1.0;
+      appState.panX = 0;
+      appState.panY = 0;
+      applyZoomAndPan();
+    };
+    document.getElementById('btnZoomFit').onclick = () => {
+      appState.zoom = 1.0;
+      appState.panX = 0;
+      appState.panY = 0;
+      resizeCanvas();
+    };
+
+    workbenchWrapper.addEventListener('wheel', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.1 : -0.1;
+        appState.zoom = Math.max(0.4, Math.min(2.5, appState.zoom + delta));
+        applyZoomAndPan();
+      }
+    }, { passive: false });
+
+    // 撤销/重做历史
+    function saveHistory() {
+      if (appState.history.length > 25) appState.history.shift();
+      appState.history.push({
+        strokes: JSON.parse(JSON.stringify(appState.strokes)),
+        texts: JSON.parse(JSON.stringify(appState.texts)),
+        images: appState.images.slice()
+      });
+    }
+
+    document.getElementById('btnUndo').onclick = () => {
+      if (appState.history.length > 0) {
+        const prev = appState.history.pop();
+        appState.strokes = prev.strokes;
+        appState.texts = prev.texts || [];
+        appState.images = prev.images || [];
+        clearSelection();
+        redrawAllStrokes();
+      }
+    };
+
+    // 键盘快捷键 (V/P/E/L/T/Ctrl+Z/Delete/Space)
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const key = e.key.toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && key === 'z') {
+        e.preventDefault();
+        document.getElementById('btnUndo').click();
+      } else if (key === 'h') {
+        appState.tool = 'hand'; updateToolButtonsUI();
+      } else if (key === 'v') {
+        appState.tool = 'select'; updateToolButtonsUI();
+      } else if (key === 'p') {
+        appState.tool = 'pen'; updateToolButtonsUI();
+      } else if (key === 'e') {
+        appState.tool = 'eraser'; updateToolButtonsUI();
+      } else if (key === 'l') {
+        appState.tool = 'lasso'; updateToolButtonsUI();
+      } else if (key === 't') {
+        appState.tool = 'text'; updateToolButtonsUI();
+      } else if (key === 'delete' || key === 'backspace') {
+        if ((appState.selectedImages && appState.selectedImages.length > 0) ||
+            (appState.selectedTexts && appState.selectedTexts.length > 0) ||
+            (appState.selectedStrokes && appState.selectedStrokes.length > 0)) {
+          e.preventDefault();
+          deleteSelectedItems();
+        }
+      } else if (e.code === 'Space') {
+        appState.isSpaceDown = true;
+        workbenchWrapper.style.cursor = 'grab';
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space') {
+        appState.isSpaceDown = false;
+        workbenchWrapper.style.cursor = 'default';
+      }
+    });
+
+    // 移动端双指轻敲撤销手势
+    let touchStartCount = 0;
+    let touchStartTime = 0;
+    workbenchWrapper.addEventListener('touchstart', (e) => {
+      touchStartCount = e.touches.length;
+      touchStartTime = Date.now();
+    });
+    workbenchWrapper.addEventListener('touchend', () => {
+      const elapsed = Date.now() - touchStartTime;
+      if (elapsed < 300 && touchStartCount === 2) {
+        document.getElementById('btnUndo').click();
+      }
+      touchStartCount = 0;
+    });
+
+    document.getElementById('btnClearAll').onclick = () => {
+      if (confirm('确认清空画板吗？所有笔触、文字与图片将被清除。')) {
+        saveHistory();
+        appState.strokes = [];
+        appState.texts = [];
+        appState.images = [];
+        clearSelection();
+        stickyLayer.innerHTML = '';
+        redrawAllStrokes();
+      }
+    };
+
+    // 导出中心逻辑
+    const exportModal = document.getElementById('exportModal');
+    const btnCloseExportModal = document.getElementById('btnCloseExportModal');
+    const btnExecuteExport = document.getElementById('btnExecuteExport');
+    const lblExecuteExport = document.getElementById('lblExecuteExport');
+
+    document.getElementById('btnExport').onclick = () => {
+      updateExportModalUI();
+      exportModal.classList.remove('hidden');
+    };
+    btnCloseExportModal.onclick = () => exportModal.classList.add('hidden');
+    exportModal.onclick = (e) => { if (e.target === exportModal) exportModal.classList.add('hidden'); };
+
+    function getSelectedExportFormat() {
+      const checked = document.querySelector('input[name="exportFormat"]:checked');
+      return checked ? checked.value : 'png_free';
+    }
+
+    function updateExportModalUI() {
+      const fmt = getSelectedExportFormat();
+      const canvaBox = document.getElementById('canvaFigmaActions');
+      if (canvaBox) {
+        canvaBox.classList.toggle('hidden', fmt !== 'svg_vector');
+      }
+      document.querySelectorAll('.export-card').forEach(card => {
+        const input = card.querySelector('input');
+        if (input.checked) {
+          card.classList.remove('border-slate-700/60');
+          card.classList.add(input.value === 'png_free' ? 'border-emerald-500' : 'border-amber-500');
+        } else {
+          card.classList.remove('border-emerald-500', 'border-amber-500');
+          card.classList.add('border-slate-700/60');
+        }
+      });
+
+      const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+      if (fmt === 'png_free') {
+        btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
+        lblExecuteExport.innerText = dict.btn_export_free || '免费导出 1080P 标准图 (带水印)';
+      } else {
+        if (appState.isPro) {
+          btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
+          lblExecuteExport.innerText = dict.btn_export_pro_active || '立即以 Pro 权限导出';
+        } else {
+          btnExecuteExport.className = 'w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
+          lblExecuteExport.innerText = dict.btn_export_pro_buy || '⭐ 仅需 $4.99 永久解锁全部 Pro 特权 (包含当前格式)';
+        }
+      }
+    }
+
+    document.querySelectorAll('input[name="exportFormat"]').forEach(radio => {
+      radio.onchange = updateExportModalUI;
+    });
+
+    btnExecuteExport.onclick = () => {
+      const fmt = getSelectedExportFormat();
+      if (fmt === 'png_free') {
+        exportModal.classList.add('hidden');
+        exportImageCanvas(1.5, true, false);
+      } else {
+        if (!appState.isPro) {
+          document.getElementById('proModal').classList.remove('hidden');
+          return;
+        }
+        exportModal.classList.add('hidden');
+        if (fmt === 'png_4k') exportImageCanvas(3.0, false, false);
+        else if (fmt === 'png_transparent') exportImageCanvas(2.0, false, true);
+        else if (fmt === 'svg_vector') exportVectorSVG();
+        else if (fmt === 'pdf_pro') exportToPDF();
+      }
+    };
+
+    function exportImageCanvas(scaleFactor = 2, withWatermark = false, isTransparent = false) {
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = Math.round(cssWidth * scaleFactor);
+      offCanvas.height = Math.round(cssHeight * scaleFactor);
+      const offCtx = offCanvas.getContext('2d');
+
+      redrawAllStrokes(offCtx, scaleFactor, isTransparent);
+
+      if (withWatermark && !isTransparent) {
+        offCtx.save();
+        offCtx.font = `600 ${Math.round(13 * scaleFactor)}px sans-serif`;
+        offCtx.fillStyle = 'rgba(100, 116, 139, 0.65)';
+        offCtx.textAlign = 'right';
+        offCtx.fillText('Made with EazyOPC Whiteboard', offCanvas.width - 16 * scaleFactor, offCanvas.height - 14 * scaleFactor);
+        offCtx.restore();
+      }
+
+      offCanvas.toBlob(blob => {
+        if (!blob) return;
+        handleFileDownloadOrShare(blob, `Whiteboard-${Date.now()}.png`, 'image/png');
+      }, 'image/png');
+    }
+
+    function generateVectorSVGString() {
+      let pathsSvg = '';
+
+      // 1. 导出插入的图片 (支持 360° 旋转)
+      for (const im of appState.images) {
+        if (im.img && im.img.src) {
+          const cx = im.x + im.width / 2;
+          const cy = im.y + im.height / 2;
+          const rotDeg = ((im.rotation || 0) * 180 / Math.PI).toFixed(2);
+          const transform = im.rotation ? ` transform="rotate(${rotDeg} ${cx} ${cy})"` : '';
+          pathsSvg += `<image href="${im.img.src}" x="${im.x}" y="${im.y}" width="${im.width}" height="${im.height}"${transform} />\n`;
+        }
+      }
+
+      // 2. 导出 7 大笔刷手绘线条
+      for (const s of appState.strokes) {
+        if (!s.points || s.points.length === 0) continue;
+        if (s.tool === 'spray') {
+          for (const pt of s.points) {
+            if (pt.sprayDots) {
+              for (const dot of pt.sprayDots) {
+                pathsSvg += `<rect x="${pt.x + dot.dx}" y="${pt.y + dot.dy}" width="${dot.r}" height="${dot.r}" fill="${s.color}" opacity="0.45" />\n`;
+              }
+            }
+          }
+          continue;
+        }
+        if (s.points.length === 1) {
+          pathsSvg += `<circle cx="${s.points[0].x}" cy="${s.points[0].y}" r="${s.size / 2}" fill="${s.color}" />\n`;
+          continue;
+        }
+        let d = `M ${s.points[0].x} ${s.points[0].y}`;
+        for (let i = 1; i < s.points.length; i++) {
+          const p1 = s.points[i - 1];
+          const p2 = s.points[i];
+          const midX = (p1.x + p2.x) / 2;
+          const midY = (p1.y + p2.y) / 2;
+          d += ` Q ${p1.x} ${p1.y} ${midX} ${midY}`;
+        }
+        const opacity = s.tool === 'highlighter' ? '0.35' : (s.tool === 'pencil' ? '0.78' : '1');
+        pathsSvg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.size}" stroke-linecap="round" stroke-linejoin="round" opacity="${opacity}" />\n`;
+      }
+
+      // 3. 导出自由打字文字 (支持 360° 旋转)
+      for (const t of appState.texts) {
+        const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
+        const cx = t.x + estW / 2;
+        const cy = t.y - t.size / 2;
+        const rotDeg = ((t.rotation || 0) * 180 / Math.PI).toFixed(2);
+        const transform = t.rotation ? ` transform="rotate(${rotDeg} ${cx} ${cy})"` : '';
+        pathsSvg += `<text x="${t.x}" y="${t.y}" font-size="${t.size}" fill="${t.color}" font-weight="600" font-family="sans-serif"${transform}>${t.text}</text>\n`;
+      }
+
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cssWidth} ${cssHeight}" width="${cssWidth}" height="${cssHeight}">
+  <rect width="100%" height="100%" fill="${appState.paper.includes('chalk') ? '#0c241b' : '#ffffff'}" />
+  ${pathsSvg}
+</svg>`;
+    }
+
+    function exportVectorSVG() {
+      const svgContent = generateVectorSVGString();
+      const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+      handleFileDownloadOrShare(blob, `Whiteboard-${Date.now()}.svg`, 'image/svg+xml');
+    }
+
+    const btnCopySvg = document.getElementById('btnCopySvgToClipboard');
+    if (btnCopySvg) {
+      btnCopySvg.onclick = async () => {
+        const svgContent = generateVectorSVGString();
+        const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+        try {
+          await navigator.clipboard.writeText(svgContent);
+          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
+        } catch (err) {
+          const ta = document.createElement('textarea');
+          ta.value = svgContent;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
+        }
+      };
+    }
+
+    function exportToPDF() {
+      if (!window.jspdf) {
+        alert('PDF 渲染组件加载中，请稍后再试');
+        return;
+      }
+      syncCurrentPageToState();
+      const { jsPDF } = window.jspdf;
+      const isLandscape = cssWidth >= cssHeight;
+      const pdf = new jsPDF({ orientation: isLandscape ? 'l' : 'p', unit: 'pt', format: 'a4' });
+      const pdfW = pdf.internal.pageSize.getWidth();
+      const pdfH = pdf.internal.pageSize.getHeight();
+
+      const origIndex = appState.currentPageIndex;
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width = Math.round(cssWidth * 2);
+      offCanvas.height = Math.round(cssHeight * 2);
+      const offCtx = offCanvas.getContext('2d');
+
+      // 逐页绘制并打包多页 PDF（漫画分镜本）
+      appState.pages.forEach((p, idx) => {
+        if (idx > 0) pdf.addPage();
+        appState.strokes = p.strokes || [];
+        appState.texts = p.texts || [];
+        appState.images = p.images || [];
+        offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
+        redrawAllStrokes(offCtx, 2, false);
+        const imgData = offCanvas.toDataURL('image/jpeg', 0.95);
+        pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
+      });
+
+      // 恢复原激活页
+      loadPage(origIndex);
+      pdf.save(`Whiteboard-Story-${Date.now()}.pdf`);
+    }
+
+    async function handleFileDownloadOrShare(blob, filename, mimeType) {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: mimeType })] })) {
+        try {
+          await navigator.share({
+            files: [new File([blob], filename, { type: mimeType })],
+            title: 'Whiteboard 导出作品',
+            text: '通过 EazyOPC 在线白板创建'
+          });
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      if (isMobile && mimeType.startsWith('image/')) {
+        const url = URL.createObjectURL(blob);
+        const mobilePreviewImg = document.getElementById('mobilePreviewImg');
+        mobilePreviewImg.src = url;
+        const mobileSaveModal = document.getElementById('mobileSaveModal');
+        mobileSaveModal.classList.remove('hidden');
+
+        document.getElementById('btnCloseMobileSave').onclick = () => {
+          mobileSaveModal.classList.add('hidden');
+          URL.revokeObjectURL(url);
+        };
+        document.getElementById('btnMobileFallbackDownload').onclick = () => {
+          triggerNativeDownload(url, filename);
+        };
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      triggerNativeDownload(url, filename);
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+
+    function triggerNativeDownload(url, filename) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    // 调色板与全光谱自定义色盘
+    const paletteFlyout = document.getElementById('paletteFlyout');
+    const paletteColors = document.getElementById('paletteColors');
+    const activeColorDot = document.getElementById('activeColorDot');
+    const brushSizeInput = document.getElementById('brushSizeInput');
+    const brushSizeVal = document.getElementById('brushSizeVal');
+
+    COMIC_PALETTE.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'w-6 h-6 rounded-full border border-slate-600 transition-transform active:scale-90';
+      btn.style.backgroundColor = c;
+      btn.onclick = () => {
+        appState.currentColor = c;
+        activeColorDot.style.backgroundColor = c;
+        if (appState.tool === 'eraser' || appState.tool === 'lasso') {
+          appState.tool = 'pen';
+          updateToolButtonsUI();
+        }
+        paletteFlyout.classList.add('hidden');
+      };
+      paletteColors.appendChild(btn);
+    });
+
+    // 彩虹全光谱取色器
+    const customColorLabel = document.createElement('label');
+    customColorLabel.className = 'relative w-6 h-6 rounded-full overflow-hidden border border-slate-500 hover:scale-110 transition cursor-pointer flex items-center justify-center';
+    customColorLabel.title = '全光谱自定义取色';
+    customColorLabel.innerHTML = `
+      <div class="w-full h-full bg-[conic-gradient(from_0deg,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000)]"></div>
+      <input type="color" id="customColorPicker" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+    `;
+    paletteColors.appendChild(customColorLabel);
+
+    customColorLabel.querySelector('input').onchange = (e) => {
+      const col = e.target.value;
+      appState.currentColor = col;
+      activeColorDot.style.backgroundColor = col;
+      if (appState.tool === 'eraser' || appState.tool === 'lasso') {
+        appState.tool = 'pen';
+        updateToolButtonsUI();
+      }
+      paletteFlyout.classList.add('hidden');
+    };
+
+    document.getElementById('btnTogglePalette').onclick = (e) => {
+      e.stopPropagation();
+      paletteFlyout.classList.toggle('hidden');
+    };
+    document.addEventListener('click', (e) => {
+      if (!paletteFlyout.contains(e.target) && e.target !== document.getElementById('btnTogglePalette')) {
+        paletteFlyout.classList.add('hidden');
+      }
+    });
+
+    brushSizeInput.oninput = (e) => {
+      appState.brushSize = Number(e.target.value);
+      brushSizeVal.innerText = `${appState.brushSize}px`;
+    };
+
+    function updateToolButtonsUI() {
+      document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.classList.toggle('tool-btn-active', btn.dataset.tool === appState.tool);
+      });
+      if (appState.tool !== 'lasso' && appState.tool !== 'select') clearSelection();
+      updateCanvasCursor();
+    }
+
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+      btn.onclick = () => {
+        appState.tool = btn.dataset.tool;
+        updateToolButtonsUI();
+      };
+    });
+
+    // 绑定多页管理器按钮
+    const btnPrevPage = document.getElementById('btnPrevPage');
+    const btnNextPage = document.getElementById('btnNextPage');
+    const btnAddPage = document.getElementById('btnAddPage');
+    const btnDeletePage = document.getElementById('btnDeletePage');
+
+    if (btnPrevPage) btnPrevPage.onclick = () => { if (appState.currentPageIndex > 0) loadPage(appState.currentPageIndex - 1); };
+    if (btnNextPage) btnNextPage.onclick = () => { if (appState.currentPageIndex < appState.pages.length - 1) loadPage(appState.currentPageIndex + 1); };
+    if (btnAddPage) btnAddPage.onclick = () => addNewPage();
+    if (btnDeletePage) btnDeletePage.onclick = () => deleteCurrentPage();
+
+    
+
+    document.getElementById('ratioSelector').onchange = (e) => {
+      appState.ratio = e.target.value;
+      resizeCanvas();
+    };
+    document.getElementById('paperSelector').onchange = (e) => {
+      const prevPaper = appState.paper;
+      const newPaper = e.target.value;
+      adaptPaperContrast(prevPaper, newPaper);
+      appState.paper = newPaper;
+      redrawAllStrokes();
+    };
+
+    const btnToggleFullscreen = document.getElementById('btnToggleFullscreen');
+    const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
+
+    function toggleFullscreenMode() {
+      const isFull = document.body.classList.toggle('is-fullscreen');
+      if (isFull) {
+        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      }
+      setTimeout(resizeCanvas, 150);
+    }
+
+    btnToggleFullscreen.onclick = toggleFullscreenMode;
+    exitFullscreenBtn.onclick = toggleFullscreenMode;
+
+    function setLanguage(lang) {
+      if (!TRANSLATIONS[lang]) lang = 'en';
+      appState.lang = lang;
+      localStorage.setItem('user_lang_pref', lang);
+      const labels = { zh: '中', en: 'EN', ja: '日', ko: '한', de: 'DE', es: 'ES', fr: 'FR' };
+      document.getElementById('currentLangLabel').textContent = labels[lang] || 'EN';
+      const dict = TRANSLATIONS[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (dict[key]) el.title = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (dict[key]) el.placeholder = dict[key];
+      });
+      if (dict.ratios) {
+        const ratioSel = document.getElementById('ratioSelector');
+        if (ratioSel) {
+          Array.from(ratioSel.options).forEach(opt => {
+            if (dict.ratios[opt.value]) opt.textContent = dict.ratios[opt.value];
+          });
+        }
+      }
+      if (dict.papers) {
+        const paperSel = document.getElementById('paperSelector');
+        if (paperSel) {
+          Array.from(paperSel.options).forEach(opt => {
+            if (dict.papers[opt.value]) opt.textContent = dict.papers[opt.value];
+          });
+        }
+      }
+      const isLight = document.body.classList.contains('theme-light');
+      if (themeLabel) themeLabel.innerText = isLight ? (dict.theme_light || '白天') : (dict.theme_dark || '夜间');
+      if (typeof updateExportModalUI === 'function') updateExportModalUI();
+    }
+
+    // 白天 / 夜间模式控制 (Day/Night Theme)
+    const btnThemeToggle = document.getElementById('btnThemeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+
+    function applyTheme(theme) {
+      const isLight = theme === 'light';
+      document.body.classList.toggle('theme-light', isLight);
+      if (themeIcon) themeIcon.innerText = isLight ? '☀️' : '🌙';
+      const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+      if (themeLabel) themeLabel.innerText = isLight ? (dict.theme_light || '白天') : (dict.theme_dark || '夜间');
+      localStorage.setItem('eazyopc_theme', theme);
+    }
+
+    if (btnThemeToggle) {
+      btnThemeToggle.onclick = () => {
+        const isLight = document.body.classList.contains('theme-light');
+        applyTheme(isLight ? 'dark' : 'light');
+      };
+    }
+
+    const btnLangDropdown = document.getElementById('btnLangDropdown');
+    const langMenu = document.getElementById('langMenu');
+    btnLangDropdown.onclick = (e) => { e.stopPropagation(); langMenu.classList.toggle('hidden'); };
+    document.addEventListener('click', () => langMenu.classList.add('hidden'));
+
+    document.querySelectorAll('.lang-opt').forEach(btn => {
+      btn.onclick = () => {
+        setLanguage(btn.dataset.lang);
+        langMenu.classList.add('hidden');
+      };
+    });
+
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('success') === 'true' || urlParams.get('pro') === 'true') {
+        localStorage.setItem('eazyopc_pro_unlocked', 'true');
+        appState.isPro = true;
+        window.history.replaceState({}, document.title, window.location.pathname);
+        setTimeout(() => alert('🎉 恭喜！付款已确认，Whiteboard Pro 终身版权益已激活！'), 400);
+      }
+    } catch (e) {}
+
+    document.getElementById('btnVerifyLicense').onclick = () => {
+      const code = document.getElementById('licenseInput').value.trim();
+      if ((code.toUpperCase().startsWith('EZPRO-') && code.length >= 10) || code.length >= 8) {
+        localStorage.setItem('eazyopc_pro_unlocked', 'true');
+        appState.isPro = true;
+        alert('🎉 恭喜！已成功激活 Whiteboard Pro 终身版！');
+        document.getElementById('proModal').classList.add('hidden');
+      } else {
+        alert('激活码无效，请核对购买收据邮件中的卡密。');
+      }
+    };
+
+    document.getElementById('btnTopProBadge').onclick = () => document.getElementById('proModal').classList.remove('hidden');
+    document.getElementById('btnCloseProModal').onclick = () => document.getElementById('proModal').classList.add('hidden');
+
+    window.addEventListener('resize', resizeCanvas);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('user_lang_pref') || 'zh';
+      setLanguage(savedLang);
+      const savedTheme = localStorage.getItem('eazyopc_theme') || 'dark';
+      applyTheme(savedTheme);
+      activeColorDot.style.backgroundColor = appState.currentColor;
+      resizeCanvas();
+    });
+  </script>
+</body>
+</html>
