@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-  <title id="pageTitle">Free Online Whiteboard — Minimalist Dot Matrix & Sticky Notes Canvas | Whiteboard</title>
-  <meta name="description" content="EazyOPC ComicBoard 是专为漫画家、分镜师、二次元画师与 AI Agent 打造的极简多页漫画分镜在线画板。内置四格漫画网格、日漫 B5 原稿纸、对白气泡框、G 笔与网点喷枪，支持无限多页分镜管理、画板自由平移拖拽与单份多页 PDF / 矢量 SVG 导出，100% 浏览器客户端本地隐私运算。">
-  <meta name="keywords" content="comic maker, manga storyboard, comic strip maker, webtoon canvas, manga drawing online, 漫画分镜, ネーム 作成, 4-koma maker, 在线画漫画, comic board, 四格漫画制作, 分镜草稿, online comic creator, AI comic agent">
+  <title id="pageTitle">Free Online Comic Board — Manga Storyboard & Strip Creator | ComicBoard</title>
+  <meta name="description" content="EazyOPC ComicBoard 是专为漫画家、分镜师、二次元画师与插画创作者打造的极简多页漫画分镜在线画板。内置四格漫画网格、日漫 B5 原稿纸、对白气泡框、G 笔与酒精马克笔，支持无限多页分镜管理、画板自由平移拖拽与单份多页 PDF / 矢量 SVG 导出，100% 浏览器客户端本地隐私运算。">
+  <meta name="keywords" content="comic maker, manga storyboard, comic strip maker, webtoon canvas, manga drawing online, 漫画分镜, ネーム 作成, 4-koma maker, 在线画漫画, comic board, 四格漫画制作, 分镜草稿, online comic creator">
   <meta name="author" content="EazyOPC" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://comicboard.eazyopc.com/" />
@@ -1178,6 +1178,10 @@
     }
     
 </style>
+  <!-- Open-Source Typography (Google Fonts - 16 Master Typographic Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@600;700&family=Comic+Neue:wght@400;700&family=Creepster&family=Fredoka:wght@500;700&family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@600;700&family=Orbitron:wght@600;800&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 </head>
 <body class="flex flex-col font-sans">
 
@@ -1269,17 +1273,20 @@
         <span id="themeIcon">🌙</span> <span id="themeLabel" class="hidden sm:inline">夜间</span>
       </button>
 
-      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition" title="全屏沉浸创作">
-        <span>⛶</span> <span class="hidden sm:inline" data-i18n="fullscreen">全屏</span>
+      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1.5 transition" title="全屏沉浸创作">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        <span class="hidden sm:inline" data-i18n="fullscreen">全屏</span>
       </button>
 
       <button id="btnExport" class="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg transition-transform active:scale-95">
-        <span>💾</span> <span data-i18n="export">导出</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        <span data-i18n="export">导出</span>
       </button>
 
       <div class="relative">
-        <button id="btnLangDropdown" class="flex items-center gap-1 px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs cursor-pointer border border-slate-700">
-          <span>🌐</span> <span id="currentLangLabel">中</span> <span>▾</span>
+        <button id="btnLangDropdown" class="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs cursor-pointer border border-slate-700">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+          <span id="currentLangLabel">中</span> <span>▾</span>
         </button>
         <div id="langMenu" class="hidden absolute right-0 mt-1 w-32 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-1 z-50 flex flex-col gap-0.5 text-xs text-slate-200">
           <button class="lang-opt text-left px-2.5 py-1.5 hover:bg-indigo-600 rounded-xl transition" data-lang="zh">🇨🇳 简体中文</button>
@@ -1292,8 +1299,9 @@
         </div>
       </div>
 
-      <button id="btnTopProBadge" class="hidden sm:flex items-center gap-1 px-2.5 py-1 bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 text-amber-300 rounded-xl text-xs font-semibold transition">
-        <span>⭐</span> <span id="proBadgeLabel">Pro</span>
+      <button id="btnTopProBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 text-amber-300 rounded-xl text-xs font-semibold transition">
+        <svg class="w-3 h-3 text-amber-400 inline-block" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <span id="proBadgeLabel">Pro</span>
       </button>
     </div>
   </header>
@@ -1305,119 +1313,96 @@
       <span>✕</span> <span data-i18n="exit_fullscreen">退出全屏</span>
     </button>
 
-    <!-- ===== 左侧专业悬浮工具坞 (Comic & Manga 专属创作体系) ===== -->
-    <aside id="leftSidebar" class="absolute left-1.5 sm:left-4 top-16 sm:top-20 z-30 flex flex-col items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-xl transition-all max-h-[calc(100vh-5.5rem)] overflow-y-auto scrollbar-none">
-      <!-- 0. 鼠标选择与调整 (Select - V) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="select" data-i18n-title="tip_select" title="↖️ 鼠标选择与调整 (快捷键 V，点选分镜/气泡/图片/文字可拖动、旋转或缩放)">
+    <!-- ===== 左侧专业悬浮工具坞 (PS 级紧凑精简设计，杜绝工具栏过长与底部重叠) ===== -->
+    <aside id="leftSidebar" class="absolute left-1.5 sm:left-4 top-16 sm:top-20 z-30 flex flex-col items-center gap-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 p-1 sm:p-1.5 rounded-2xl shadow-xl transition-all select-none">
+      <!-- 1. 鼠标选择与调整 (Select - V) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="select" data-i18n-title="tip_select" title="↖️ 鼠标选择与调整 (快捷键 V)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7 18 3-7 7-3L3 3z"/><path d="m13 13 6 6"/></svg>
       </button>
 
-      <!-- 1. ✋ 画板抓手自由拖动 (Hand Pan Tool - H) 满足用户“画板可以拖动”的核心痛点 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="hand" data-i18n-title="tip_hand" title="✋ 画板抓手平移 (快捷键 H / 任意工具下长按空格键拖动，自由拖动画板到任意位置)">
+      <!-- 2. 画板抓手平移 (Hand Pan Tool - H) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="hand" data-i18n-title="tip_hand" title="✋ 画板抓手平移 (快捷键 H / 空格键)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
       </button>
+
       <div class="w-6 h-px bg-slate-700 my-0.5"></div>
 
-      <!-- 🎨 笔刷工坊与更多笔尖 (12 款大师级笔刷) -->
-      <button id="btnMoreBrushes" class="p-2 rounded-xl text-indigo-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" title="🎨 打开专业笔刷工坊 (G笔/丸笔/素描/水彩/喷枪/发光/排线等 12 款笔刷)">
-        <span class="text-sm">🎨</span>
-      </button>
-      <button id="btnCurrentBrush" class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center tool-btn-active" data-tool="gpen" title="当前笔刷 (点击可直接在画布书写，点击上方调色板可调颜色)">
+      <!-- 3. 当前主画笔 (点击画画，长按或点右下角三角弹出 12 款笔刷工坊) -->
+      <button id="btnCurrentBrush" class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center tool-btn-active relative group" data-tool="gpen" data-i18n-title="tip_gpen" title="🖋️ 漫画 G 笔 (快捷键 P，点击绘制，点击右下角三角切换 12 种大师笔刷)">
         <span id="curBrushIcon" class="text-sm">🖋️</span>
-      </button>
-    
-
-      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
-
-      <!-- 2. 📐 漫画分镜格菜单 (Comic Panel Grid) -->
-      <button id="btnTogglePanels" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_panels" title="📐 插入漫画分镜格 (四格漫画/日漫6格/条漫长卷/自由分格)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+        <span class="absolute bottom-0.5 right-0.5 text-[8px] text-slate-400 leading-none">▾</span>
       </button>
 
-      <!-- 3. 💬 漫画对白气泡框 (Speech Balloons) -->
-      <button id="btnToggleBalloons" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_balloons" title="💬 插入漫画对话气泡 (对白椭圆/呐喊刺猬/思考云朵/旁白框)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-      </button>
-
-      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
-
-      <!-- 4. 漫画 G 笔 (G-Pen - 尖锐压感，主勾线王者) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition tool-btn-active flex items-center justify-center" data-tool="gpen" data-i18n-title="tip_gpen" title="🖋️ 漫画 G 笔 (日漫主勾线王：高弹性动态笔锋，运笔速度自适应，快捷键 P)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18"/><path d="M2 2l7.5 7.5"/><circle cx="11" cy="11" r="1.5"/></svg>
-      </button>
-
-      <!-- 5. 漫画丸笔 (Maru-pen - 极细线条，发丝与精密背景) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="maru" data-i18n-title="tip_maru" title="🖊️ 漫画丸笔 (极细恒定细线：描绘人物发丝、眼睫毛与精细背景建筑)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/><path d="m15 5 4 4"/></svg>
-      </button>
-
-      <!-- 6. 分镜非摄影蓝草稿铅笔 (Drafting Blue Pencil) -->
-      <button class="tool-btn p-2 rounded-xl text-sky-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="blue_pencil" data-i18n-title="tip_blue_pencil" title="✏️ 分镜蓝铅笔 (经典日漫非摄影蓝草稿笔：构思分镜草图与人物轮廓)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2l4 4-14 14H4v-4L18 2z"/><path d="M14 6l4 4"/></svg>
-      </button>
-
-      <!-- 7. 彩漫水彩软笔 (Color Manga Brush) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="brush" data-i18n-title="tip_brush" title="🖌️ 彩漫水彩软笔 (水彩晕染与彩漫着色)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.37 2.63 14 7l-1.5-1.5 4.37-4.37a2.12 2.12 0 1 1 3 3z"/><path d="M9 12 2.5 18.5a3.54 3.54 0 0 0 5 5L14 17"/><path d="m13 8 3 3"/></svg>
-      </button>
-
-      <!-- 8. 阴影排线笔 (Crosshatch / Shadow) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="crosshatch" data-i18n-title="tip_crosshatch" title="🖍️ 阴影排线笔 (快速刻画人物阴影与黑白层次)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0z"/><path d="m5 2 5 5"/><path d="M2 18v4h4"/></svg>
-      </button>
-
-      <!-- 9. 网点气溶喷雾笔 (Screentone & Airbrush) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="spray" data-i18n-title="tip_spray" title="💨 网点喷枪 (漫画网点渐变、光晕与星芒粒子)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h6v4H8z"/><path d="M11 6v4"/><path d="M5 10h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"/><circle cx="18" cy="4" r="1"/><circle cx="21" cy="7" r="1"/><circle cx="20" cy="1" r="1"/></svg>
-      </button>
-
-      <!-- 10. 荧光高光重点笔 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="highlighter" data-i18n-title="tip_highlighter" title="🪄 荧光重点笔 (彩色分镜批注与高光)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"/><path d="M16 16l4-4"/><path d="m18 8 2 2"/><path d="m14 6 4 4"/></svg>
-      </button>
-
-      <!-- 11. 拟声词与台词打字工具 (Text Tool - T) -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="text" data-i18n-title="tip_text" title="🔤 拟声词与台词打字 (快捷键 T，输入轰、咚、啪、BOOM 漫画特效字)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-      </button>
-
-      <!-- 12. ⚡ 一笔整擦 -->
-      <button class="tool-btn p-2 rounded-xl text-amber-300 hover:bg-amber-500/20 text-xs transition flex items-center justify-center" data-tool="eraser" data-i18n-title="tip_eraser" title="⚡ 一笔整擦 (点中笔画瞬间全消，快捷键 E)">
+      <!-- 4. 智能笔迹橡皮擦 (Eraser - E) -->
+      <button class="tool-btn p-2 rounded-xl text-amber-400 hover:bg-amber-500/20 text-xs transition flex items-center justify-center" data-tool="eraser" data-i18n-title="tip_eraser" title="⚡ 智能笔迹橡皮擦 (快捷键 E)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
       </button>
 
-      <!-- 13. ⭕ 套索选择与移动工具 -->
-      <button class="tool-btn p-2 rounded-xl text-indigo-300 hover:bg-indigo-500/20 text-xs transition flex items-center justify-center" data-tool="lasso" data-i18n-title="tip_lasso" title="⭕ 套索圈选与平移 (画圈圈住即可整体拖动，快捷键 L)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 22a5 5 0 0 1-2-4"/><path d="M3.3 14A6.8 6.8 0 0 1 2 10c0-4.4 4.5-8 10-8s10 3.6 10 8-4.5 8-10 8a12 12 0 0 1-5-1"/><circle cx="5" cy="18" r="2"/></svg>
+      <!-- 5. 台词与文本打字 (Text - T) -->
+      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="text" data-i18n-title="tip_text" title="🔤 漫画台词文本 (快捷键 T，支持 9 款开源艺术字体与行内二次编辑)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
       </button>
 
-      <!-- 14. 插入临摹参考图/贴图 (Figma 现代相框) -->
-      <button id="btnInsertImage" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_image" title="🖼️ 导入漫画人物设定图 / 临摹照片，支持 Ctrl+V 粘贴">
+      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+
+      <!-- 6. 📐 漫画分镜格菜单 -->
+      <button id="btnTogglePanels" class="p-2 rounded-xl text-indigo-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_panels" title="📐 插入漫画分镜格 (四格漫画/日漫6格/条漫)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+      </button>
+
+      <!-- 7. 💬 漫画对白气泡框 -->
+      <button id="btnToggleBalloons" class="p-2 rounded-xl text-sky-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_balloons" title="💬 插入对话气泡 (对白椭圆/呐喊刺猬/内心云朵/旁白框)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      </button>
+
+      <!-- 8. 🖼️ 插入参考图/贴图 -->
+      <button id="btnInsertImage" class="p-2 rounded-xl text-rose-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_image" title="🖼️ 导入参考图与临摹设定，支持 Ctrl+V 粘贴">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="4" ry="4"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
       </button>
       <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
 
       <div class="w-6 h-px bg-slate-700 my-0.5"></div>
 
-      <!-- 15. 激光笔演示 -->
-      <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="laser" data-i18n-title="tip_laser" title="讲解激光教鞭 (分镜讲解)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 4-2 2m0 0-2 2m2-2 2 2m-2-2-2-2"/><path d="m17 7-9.5 9.5a2.12 2.12 0 0 0 3 3L20 10"/><path d="m19 2 2 2"/><path d="m22 7-2-2"/></svg>
-      </button>
+      <!-- 9. 🎨 Photoshop 风格主画笔前景色块与调色工坊入口 -->
+      <div class="flex flex-col items-center gap-1 my-0.5">
+        <button id="btnTogglePalette" class="w-8 h-8 rounded-xl p-0.5 bg-slate-800 hover:bg-slate-700 border-2 border-indigo-500/80 hover:border-indigo-400 transition flex items-center justify-center shadow-md relative group active:scale-95" data-i18n-title="tip_palette" title="🎨 画笔颜色与 RGB 256 精密调色 (点击展开色板)">
+          <span id="activeColorDot" class="w-full h-full rounded-lg block shadow-inner transition-colors" style="background-color: #18181b;"></span>
+          <span class="absolute -bottom-1 -right-1 text-[9px] bg-slate-900 border border-slate-700 rounded-full w-3.5 h-3.5 flex items-center justify-center pointer-events-none">🎨</span>
+        </button>
+        <button id="btnToolbarSize" class="px-1.5 py-0.5 rounded-md text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 text-[10px] font-mono font-bold leading-none transition border border-slate-700/60" title="调整笔刷粗细">
+          <span id="toolbarSizeDisplay">4px</span>
+        </button>
+      </div>
 
-      <!-- 16. 调色面板 -->
-      <button id="btnTogglePalette" class="relative p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_palette" title="画笔色彩与粗细调节">
-        <span id="activeColorDot" class="w-4 h-4 rounded-full block border border-white/60 bg-zinc-900 shadow-sm"></span>
-      </button>
+      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
 
-      <!-- 17. 撤销 -->
-      <button id="btnUndo" class="p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_undo" title="撤销 (Ctrl+Z)">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
-      </button>
-      <!-- 18. 清屏 -->
-      <button id="btnClearAll" class="p-2 rounded-xl text-rose-400 hover:bg-rose-950/60 text-xs transition flex items-center justify-center" data-i18n-title="tip_clear" title="🗑️ 清空当前画板">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+      <!-- 10. ⋯ 更多工具抽屉 (包含套索、激光笔、撤销、清屏) -->
+      <button id="btnToggleMoreTools" class="p-2 rounded-xl text-slate-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_more_tools" title="⋯ 更多工具 (套索、激光教鞭、撤销、清屏)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
       </button>
     </aside>
+
+    <!-- 🗄️ PS 式「更多工具」二级收拢抽屉 (Secondary Tools Drawer) -->
+    <div id="moreToolsDrawer" class="hidden absolute left-14 sm:left-18 top-16 sm:top-20 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-2.5 shadow-2xl space-y-2 w-56 text-white transition-all">
+      <div class="flex items-center justify-between pb-1.5 border-b border-slate-800 text-xs font-bold text-slate-300">
+        <span class="flex items-center gap-1"><span>🧰</span> <span>更多工具 · Tools</span></span>
+        <button id="btnCloseMoreTools" class="text-slate-400 hover:text-white text-xs">✕</button>
+      </div>
+      <div class="grid grid-cols-2 gap-1.5 text-xs">
+        <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="lasso">
+          <span>⭕</span> <span class="text-[11px] font-medium">自由套索 (L)</span>
+        </button>
+        <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="laser">
+          <span>🔴</span> <span class="text-[11px] font-medium">激光教鞭</span>
+        </button>
+        <button id="btnUndoDrawer" class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left">
+          <span>↩️</span> <span class="text-[11px] font-medium">撤销 (Ctrl+Z)</span>
+        </button>
+      </div>
+      <div class="pt-1.5 border-t border-slate-800 flex justify-between">
+        <button id="btnClearAllDrawer" class="w-full py-1 text-center text-xs text-rose-400 hover:bg-rose-950/40 rounded-lg transition">🗑️ 清空画纸所有笔迹</button>
+      </div>
+    </div>
 
     <!-- 漫画分镜格选择浮动弹窗 (Panel Templates Popover) -->
     <div id="panelsMenu" class="hidden absolute left-16 sm:left-20 top-1/3 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-56 text-white">
@@ -1477,88 +1462,136 @@
     <!-- 悬浮调色板 & 粗细弹窗 (Popover) -->
     
     <!-- 🎨 12 大大师级专业笔刷工坊弹窗 (12 Professional Brushes Flyout) -->
-    <div id="brushStudioFlyout" class="hidden absolute left-16 sm:left-20 top-16 sm:top-20 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-72 text-white max-h-[85vh] overflow-y-auto scrollbar-none">
+    <div id="brushStudioFlyout" class="hidden absolute left-16 sm:left-20 top-16 sm:top-20 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-80 text-white max-h-[85vh] overflow-y-auto scrollbar-none">
       <div class="flex items-center justify-between pb-1.5 border-b border-slate-700/80">
         <div class="flex items-center gap-1.5">
           <span class="text-sm">🎨</span>
-          <span class="text-xs font-bold tracking-wide">专业笔刷工坊 · Brush Studio</span>
+          <span class="text-xs font-bold tracking-wide">专业漫画笔刷工坊 · Brush Studio</span>
         </div>
-        <span class="text-[10px] text-indigo-400 font-mono">12 款大师级笔尖</span>
+        <span class="text-[10px] text-indigo-400 font-mono">16 款大师手绘笔</span>
       </div>
       
-      <div class="grid grid-cols-2 gap-2 text-left">
+      <div class="grid grid-cols-2 gap-1.5 text-left">
+        <!-- 1. 🌟 斜头酒精马克笔 (用户重点点名) -->
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="marker">
+          <span class="text-base">🖍️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white flex items-center gap-1">
+              <span>斜头酒精马克笔</span> <span class="text-[8px] px-1 bg-amber-500/20 text-amber-300 rounded font-mono">HOT</span>
+            </div>
+            <div class="text-[9px] text-slate-400">宽扁斜切 · 正片叠底</div>
+          </div>
+        </button>
+
+        <!-- 2. 0.1mm 针管勾线笔 -->
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="fineliner">
+          <span class="text-base">✒️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">0.1mm 针管笔</div>
+            <div class="text-[9px] text-slate-400">极细恒定 · 场景精密</div>
+          </div>
+        </button>
+
+        <!-- 3. 漫画 G 笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="gpen">
           <span class="text-base">🖋️</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white" data-i18n="brush_gpen">漫画 G 笔 / 钢笔</div>
-            <div class="text-[9px] text-slate-400" data-i18n="brush_gpen_sub">尖锐压感 · 主线勾勒</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">漫画 G 笔 / 钢笔</div>
+            <div class="text-[9px] text-slate-400">尖锐弹性 · 主线勾勒</div>
           </div>
         </button>
 
+        <!-- 4. 漫画丸笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="maru">
           <span class="text-base">🖊️</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">漫画丸笔</div>
-            <div class="text-[9px] text-slate-400">0.3mm · 发丝与精密</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">漫画丸笔 0.3mm</div>
+            <div class="text-[9px] text-slate-400">细线发丝 · 眼神精密</div>
           </div>
         </button>
 
+        <!-- 5. 弯头书法美工钢笔 -->
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="fude_pen">
+          <span class="text-base">🖋️</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">弯头美工钢笔</div>
+            <div class="text-[9px] text-slate-400">大动态压感 · 拟声词</div>
+          </div>
+        </button>
+
+        <!-- 6. 纯白高光提亮笔 -->
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="white_gel">
+          <span class="text-base">⚪</span>
+          <div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">高光提亮笔</div>
+            <div class="text-[9px] text-slate-400">不透明白墨 · 瞳孔高光</div>
+          </div>
+        </button>
+
+        <!-- 7. 2B 素描铅笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="pencil">
           <span class="text-base">✏️</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white" data-i18n="brush_pencil">2B 素描铅笔</div>
-            <div class="text-[9px] text-slate-400">细腻铅粉 · 草图素描</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">2B 素描铅笔</div>
+            <div class="text-[9px] text-slate-400">细腻石墨 · 构图草稿</div>
           </div>
         </button>
 
+        <!-- 8. 分镜蓝铅笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="blue_pencil">
           <span class="text-base">✏️</span>
           <div>
-            <div class="text-[11px] font-bold text-sky-400 group-hover:text-sky-300" data-i18n="brush_blue_pencil">分镜蓝铅笔</div>
-            <div class="text-[9px] text-slate-400" data-i18n="brush_blue_pencil_sub">非摄影蓝 · 构图草稿</div>
+            <div class="text-[11px] font-bold text-sky-400 group-hover:text-sky-300">分镜蓝铅笔</div>
+            <div class="text-[9px] text-slate-400">非摄影蓝 · 分镜透视</div>
           </div>
         </button>
 
+        <!-- 9. 水彩软毛笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="brush">
           <span class="text-base">🖌️</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white" data-i18n="brush_brush">水彩软毛笔</div>
-            <div class="text-[9px] text-slate-400" data-i18n="brush_brush_sub">柔韧毛笔 · 湿画晕染</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">水彩软毛笔</div>
+            <div class="text-[9px] text-slate-400">柔韧毛笔 · 湿画晕染</div>
           </div>
         </button>
 
+        <!-- 10. 网点喷枪 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="spray">
           <span class="text-base">💨</span>
           <div>
             <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">网点喷枪</div>
-            <div class="text-[9px] text-slate-400" data-i18n="brush_spray_sub">网点渐变 · 光晕颗粒</div>
+            <div class="text-[9px] text-slate-400">高斯网点 · 阴影渐变</div>
           </div>
         </button>
 
+        <!-- 11. 荧光重点笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="highlighter">
           <span class="text-base">🪄</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white" data-i18n="brush_highlighter">荧光重点笔</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">荧光重点笔</div>
             <div class="text-[9px] text-slate-400">半透明叠底 · 高光批注</div>
           </div>
         </button>
 
+        <!-- 12. 阴影排线笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="crosshatch">
           <span class="text-base">🖍️</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white" data-i18n="brush_crosshatch">阴影排线笔</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">阴影排线笔</div>
             <div class="text-[9px] text-slate-400">漫画排线 · 人物阴影</div>
           </div>
         </button>
 
-        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="neon">
-          <span class="text-base">✨</span>
+        <!-- 13. 柔性秀丽笔 -->
+        <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="calligraphy">
+          <span class="text-base">🖌️</span>
           <div>
-            <div class="text-[11px] font-bold text-amber-300 group-hover:text-amber-200">霓虹发光笔</div>
-            <div class="text-[9px] text-slate-400">赛博外发光 · 特效能量</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">柔性秀丽笔</div>
+            <div class="text-[9px] text-slate-400">传统墨线 · 回锋苍劲</div>
           </div>
         </button>
 
+        <!-- 14. 虚线标注笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="dotted">
           <span class="text-base">📏</span>
           <div>
@@ -1567,28 +1600,31 @@
           </div>
         </button>
 
+        <!-- 15. 激光指示笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="laser">
           <span class="text-base">🔴</span>
           <div>
             <div class="text-[11px] font-bold text-rose-400 group-hover:text-rose-300">激光指示笔</div>
-            <div class="text-[9px] text-slate-400">演讲演示 · 实时光斑</div>
+            <div class="text-[9px] text-slate-400">讲解演示 · 随画随消</div>
           </div>
         </button>
 
+        <!-- 16. 经典圆珠笔 -->
         <button class="brush-card flex items-center gap-2 p-2 rounded-xl bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 hover:border-indigo-500/80 transition group active:scale-95" data-brush="ballpoint">
           <span class="text-base">✍️</span>
           <div>
-            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white" data-i18n="brush_ballpoint">经典圆珠笔</div>
-            <div class="text-[9px] text-slate-400" data-i18n="brush_ballpoint_sub">流利顺滑 · 会议速记</div>
+            <div class="text-[11px] font-bold text-slate-200 group-hover:text-white">经典圆珠笔</div>
+            <div class="text-[9px] text-slate-400">流利顺滑 · 会议速记</div>
           </div>
         </button>
       </div>
     </div>
-
-        <div id="paletteFlyout" class="hidden absolute left-16 sm:left-20 top-16 sm:top-20 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-3 w-64 text-white">
+        <div id="paletteFlyout" class="hidden absolute left-14 sm:left-18 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-3 w-64 text-white transition-all">
       <!-- 调色板标题与当前色预览 -->
       <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
-        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider" data-i18n="palette_title">画笔色彩与 RGB 取色</span>
+        <span class="text-xs text-slate-300 font-bold flex items-center gap-1.5">
+          <span>🎨</span> <span>画笔色彩与粗细</span>
+        </span>
         <div class="flex items-center gap-1.5">
           <span id="rgbHexDisplay" class="font-mono text-xs text-indigo-300 font-bold">#18181B</span>
           <span id="rgbPreviewSwatch" class="w-4 h-4 rounded-full border border-white/60 bg-[#18181b] shadow-sm"></span>
@@ -1608,57 +1644,51 @@
         <div class="space-y-1.5">
           <div class="flex items-center gap-2 text-[11px] font-mono">
             <span class="text-rose-400 font-bold w-3">R</span>
-            <input type="range" id="sliderR" min="0" max="255" value="24" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500" />
-            <input type="number" id="numR" min="0" max="255" value="24" class="w-10 bg-slate-900 border border-slate-700 text-center text-white text-[11px] rounded py-0.5" />
+            <input type="range" id="sliderR" min="0" max="255" value="24" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-rose-500" style="background: linear-gradient(to right, #000000, #ff2222);" />
+            <input type="number" id="numR" min="0" max="255" value="24" class="w-11 bg-slate-900 border border-slate-700 text-center text-white text-[11px] rounded py-0.5 font-bold" />
           </div>
           <div class="flex items-center gap-2 text-[11px] font-mono">
             <span class="text-emerald-400 font-bold w-3">G</span>
-            <input type="range" id="sliderG" min="0" max="255" value="24" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
-            <input type="number" id="numG" min="0" max="255" value="24" class="w-10 bg-slate-900 border border-slate-700 text-center text-white text-[11px] rounded py-0.5" />
+            <input type="range" id="sliderG" min="0" max="255" value="24" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-emerald-500" style="background: linear-gradient(to right, #000000, #22c55e);" />
+            <input type="number" id="numG" min="0" max="255" value="24" class="w-11 bg-slate-900 border border-slate-700 text-center text-white text-[11px] rounded py-0.5 font-bold" />
           </div>
           <div class="flex items-center gap-2 text-[11px] font-mono">
             <span class="text-blue-400 font-bold w-3">B</span>
-            <input type="range" id="sliderB" min="0" max="255" value="27" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
-            <input type="number" id="numB" min="0" max="255" value="27" class="w-10 bg-slate-900 border border-slate-700 text-center text-white text-[11px] rounded py-0.5" />
+            <input type="range" id="sliderB" min="0" max="255" value="27" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-blue-500" style="background: linear-gradient(to right, #000000, #3b82f6);" />
+            <input type="number" id="numB" min="0" max="255" value="27" class="w-11 bg-slate-900 border border-slate-700 text-center text-white text-[11px] rounded py-0.5 font-bold" />
           </div>
         </div>
       </div>
 
       <!-- 经典快捷色板 -->
       <div>
-        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1.5" data-i18n="quick_swatches">常用预设色</span>
-        <div id="paletteColors" class="grid grid-cols-6 gap-1.5 items-center">
+        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1.5" data-i18n="quick_swatches">常用预设色 (16色)</span>
+        <div id="paletteColors" class="grid grid-cols-8 gap-1.5 items-center">
           <!-- 预设颜色由 JS 填充 -->
         </div>
       </div>
 
-      <!-- 粗细控制 -->
-      <div>
-        <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
-          <span data-i18n="size">粗细</span>
-          <span id="brushSizeVal" class="text-white font-mono">4px</span>
+      <!-- 粗细控制 (带快速档位按钮) -->
+      <div class="space-y-1.5 pt-1 border-t border-slate-800">
+        <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+          <span data-i18n="size">画笔粗细</span>
+          <span id="brushSizeVal" class="text-indigo-400 font-mono font-bold">4px</span>
         </div>
         <input id="brushSizeInput" type="range" min="1" max="40" value="4" class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+        <div class="flex items-center justify-between gap-1 text-[10px] text-slate-300">
+          <button type="button" class="btn-quick-size px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition font-mono" data-sz="1">1px</button>
+          <button type="button" class="btn-quick-size px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition font-mono" data-sz="3">3px</button>
+          <button type="button" class="btn-quick-size px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition font-mono" data-sz="6">6px</button>
+          <button type="button" class="btn-quick-size px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition font-mono" data-sz="12">12px</button>
+          <button type="button" class="btn-quick-size px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition font-mono" data-sz="24">24px</button>
+        </div>
       </div>
 
-      <div class="pt-1">
+      <!-- 智能反色对比度修复按钮 -->
+      <div class="pt-1 border-t border-slate-800">
         <button id="btnSmartInvert" class="w-full py-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] rounded-xl border border-slate-700 flex items-center justify-center gap-1.5 transition" title="智能反转笔划色彩，自动适配黑白底色">
           <span>🌓</span> <span data-i18n="smart_invert">智能对比度修复 (反色)</span>
         </button>
-      </div>
-    </div>
-      <div>
-        <div class="flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
-          <span data-i18n="size">粗细</span>
-          <span id="brushSizeVal" class="text-white">4px</span>
-        </div>
-        <input id="brushSizeInput" type="range" min="1" max="40" value="4" class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
-      
-      <div class="pt-2 border-t border-slate-700/80 flex items-center justify-between">
-        <button id="btnSmartInvert" class="w-full py-1 px-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] rounded-lg border border-slate-600/80 flex items-center justify-center gap-1.5 transition" title="智能反转笔划色彩，自动适配黑白底色">
-          <span>🌓</span> <span>智能对比度修复 (反色)</span>
-        </button>
-      </div>
       </div>
     </div>
 
@@ -1678,18 +1708,37 @@
       <button id="btnNextPage" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="下一页 (▶)">▶</button>
       <span class="text-slate-700">|</span>
       <button id="btnAddPage" class="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="新建空白漫画页 (+)"><svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span data-i18n="add_page" class="text-white font-bold">加页</span></button>
+      <button id="btnToggleDualView" class="flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="双板并排对比 / 见开两页 (Side-by-Side Dual Spread)"><span>📖</span><span id="lblDualView" data-i18n="dual_view">双板并排</span></button>
       <button id="btnDeletePage" class="p-1 hover:bg-rose-900/40 text-slate-400 hover:text-rose-400 rounded-lg text-xs transition" title="删除当前页面">🗑️</button>
     </div>
 
-    <!-- 真实物理纸张容器 (带高阶阴影与标准长宽比，彻底告别模糊) -->
-    <div id="canvasCard" class="relative rounded-2xl shadow-2xl ring-1 ring-slate-800 overflow-hidden flex items-center justify-center transition-transform bg-white origin-center">
-      <canvas id="mainCanvas"></canvas>
-      <!-- 激光笔动画层 -->
-      <div id="laserLayer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
-      <!-- 便签与打字层 -->
-      <div id="stickyLayer" class="absolute inset-0 pointer-events-none"></div>
-      <!-- 套索拖动选区层 -->
-      <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
+    <!-- 真实物理纸张容器 (带高阶阴影与标准长宽比，支持双板并排对照) -->
+    <div id="artboardStage" class="relative flex items-center justify-center gap-6 transition-transform origin-center">
+      <!-- 👁️ 左侧参考对照画板 (Reference Board) -->
+      <div id="referenceCanvasCard" class="hidden relative rounded-2xl shadow-2xl ring-1 ring-slate-800 overflow-hidden flex-col bg-white origin-center">
+        <!-- 顶部对照画板控制坞 -->
+        <div class="flex items-center justify-between px-3 py-1.5 bg-slate-900 border-b border-slate-800 text-xs text-slate-300 select-none">
+          <div class="flex items-center gap-2">
+            <span class="text-indigo-400 font-bold flex items-center gap-1"><span>👁️</span> <span data-i18n="ref_board_title">参考对照板</span></span>
+            <select id="refPageSelect" class="bg-slate-800 text-white text-[10px] rounded px-1.5 py-0.5 border border-slate-700 outline-none cursor-pointer" title="切换要对照的页面"></select>
+          </div>
+          <button id="btnCloseDualView" class="text-slate-400 hover:text-white text-xs px-1 hover:bg-slate-800 rounded" title="退出并排对照">✕</button>
+        </div>
+        <div class="relative flex items-center justify-center flex-1 bg-white overflow-hidden">
+          <canvas id="referenceCanvas"></canvas>
+        </div>
+      </div>
+
+      <!-- ✏️ 当前主绘制画板 (Active Drawing Canvas) -->
+      <div id="canvasCard" class="relative rounded-2xl shadow-2xl ring-1 ring-slate-800 overflow-hidden flex items-center justify-center bg-white origin-center">
+        <canvas id="mainCanvas"></canvas>
+        <!-- 激光笔动画层 -->
+        <div id="laserLayer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+        <!-- 便签与打字层 -->
+        <div id="stickyLayer" class="absolute inset-0 pointer-events-none"></div>
+        <!-- 套索拖动选区层 -->
+        <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
+      </div>
     </div>
   </main>
 
@@ -1707,17 +1756,17 @@
     </div>
   </section>
 
-  <!-- ================= 4. SEO 教程、动画演示与 AI Agent 协同指南 ================= -->
+  <!-- ================= 4. 漫画分镜教程与核心能力动态演示展厅 ================= -->
   <article id="seoArticleSection" class="w-full max-w-5xl mx-auto px-4 py-8 space-y-12">
     
     <!-- 标头介绍 -->
     <div class="text-center max-w-3xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold">
-        <span>⚡ 专为创作者、学生、职场人与 AI Agent 打造的下一代 Web 画板</span>
+        <span>⚡ 专为漫画家、分镜师、二次元画师与插画创作者打造的在线分镜画板</span>
       </div>
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">极简直观，兼具工业级创作与分镜排版能力</h2>
       <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-        告别冗重软件，支持 GoodNotes 同款智能几何吸附、Figma 360° 变换、无限多页漫画分镜、MacBook 压感笔触，以及与 Claude、Codex、Antigravity 等 AI Agent 的无缝矢量协作。
+        告别冗重庞大的专业绘画软件，内置四格漫画网格、日漫 B5 原稿纸、对白气泡框、G 笔与酒精马克笔，原生支持无限多页分镜管理与 4K 超清印刷导出，100% 浏览器客户端零延迟运行。
       </p>
     </div>
 
@@ -1775,7 +1824,7 @@
             <canvas id="demoBrushCanvas" width="340" height="130" class="w-full h-full"></canvas>
             <div class="absolute top-2 left-2 flex gap-1 z-10">
               <button class="demo-brush-tab px-2 py-0.5 rounded text-[10px] bg-indigo-600 text-white font-semibold" data-demo-brush="gpen">G 笔</button>
-              <button class="demo-brush-tab px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 hover:text-white" data-demo-brush="neon">霓虹</button>
+              <button class="demo-brush-tab px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 hover:text-white" data-demo-brush="marker">马克笔</button>
               <button class="demo-brush-tab px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 hover:text-white" data-demo-brush="spray">喷枪</button>
               <button class="demo-brush-tab px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 hover:text-white" data-demo-brush="maru">丸笔</button>
             </div>
@@ -1813,140 +1862,90 @@
       </div>
     </section>
 
-    <!-- 🤖 重点板块：AI Agent 协同创作与自动化分镜指南 -->
+    <!-- 🎨 重点板块：漫画分镜与出版级原稿创作技巧指南 -->
     <section class="bg-gradient-to-r from-indigo-950/40 via-slate-900/80 to-purple-950/40 border border-indigo-500/30 rounded-2xl p-6 space-y-4">
       <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-base shadow">🤖</div>
+        <div class="w-8 h-8 rounded-xl bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-base shadow">🎨</div>
         <div>
-          <h3 class="text-base font-bold text-white">AI Agent 协同创作与自动化分镜指南 (Claude / Codex / Antigravity)</h3>
-          <p class="text-xs text-slate-400">如何与现代大模型智能体无缝协同，打造高效的自动化绘图、漫画分镜与学术作业工作流</p>
+          <h3 class="text-base font-bold text-white">漫画分镜与出版级原稿创作实战指南</h3>
+          <p class="text-xs text-slate-400">如何利用经典四格网格、起承转合分镜节奏与酒精马克笔完成专业漫画创作与印刷排版</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2">
         <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
           <div class="font-bold text-indigo-300 flex items-center gap-1">
-            <span>1.</span> <span>Prompt 驱动 SVG 矢量生成</span>
+            <span>1.</span> <span>经典四格与起承转合分镜节奏</span>
           </div>
           <p class="text-slate-400 leading-relaxed text-[11px]">
-            您可以向 Claude、ChatGPT 或 Antigravity 提出提示词：“请帮我生成一个 4 格漫画分镜或流程图的 SVG 代码”。AI 将直接给出标准的几何线条与角色草稿代码。
+            顶部模版一键切换四格漫画或日漫 B5 原稿纸，在每格中合理分配景别（特写、中景、全景），用对白气泡框规划读者的视觉动线（从右上至左下）。
           </p>
         </div>
 
         <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
-          <div class="font-bold text-emerald-300 flex items-center gap-1">
-            <span>2.</span> <span>剪贴板一秒上板与手绘修正</span>
+          <div class="font-bold text-sky-300 flex items-center gap-1">
+            <span>2.</span> <span>G 笔勾线与斜头酒精马克笔上色</span>
           </div>
           <p class="text-slate-400 leading-relaxed text-[11px]">
-            复制代码或截图后，在本画板任意位置按 <kbd class="px-1 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono text-[10px]">Ctrl+V</kbd> 即可秒级导入。借助我们 7 种专业笔刷与 360° 旋转手柄，您可以直接在 AI 画面上批注手绘修正。
+            使用 G 笔绘制富于弹性压感的人物体态主线，切换斜头酒精马克笔通过半透明正片叠底层层罩染阴影调子，搭配纯白高光笔点缀瞳孔与发丝光芒。
           </p>
         </div>
 
         <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
           <div class="font-bold text-amber-300 flex items-center gap-1">
-            <span>3.</span> <span>多模态视觉评测与多页交付</span>
+            <span>3.</span> <span>跨页双板并排与 300 DPI 出版 PDF 导出</span>
           </div>
           <p class="text-slate-400 leading-relaxed text-[11px]">
-            将完成的作品导出为 A4 作业 PDF 或日漫 B5 分镜，直接发送给智能体进行作业批改、色彩推敲或分镜评审，形成闭环的创作者智能伙伴工作流。
+            开启「双板并排」实时对照前后两页分镜连贯性，绘制完毕后一键导出 300 DPI 矢量 PDF 打印文件或 Canva/Figma SVG 矢量节点，无缝对接商业出版。
           </p>
         </div>
       </div>
     </section>
 
-    <!-- 📖 常见问题与核心使用手册 (FAQ & Manual) -->
-    <section class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-4">
-      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <span>❓</span> <span>使用指南与常见问题 (FAQ & Manual)</span>
-        </h3>
-        <span class="text-xs text-slate-500">点击问题可展开详细操作指南</span>
+  
+
+    <!-- ================= 🤖 重点板块：AI Agent 浏览器自动化与协同绘图实战指南 (Claude / Codex / Antigravity) ================= -->
+    <section class="bg-gradient-to-r from-indigo-950/40 via-slate-900/80 to-purple-950/40 border border-indigo-500/30 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/10">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white tracking-tight">AI Agent 浏览器自动化与协同绘图实战指南</h3>
+          <p class="text-xs text-slate-400">支持 Claude / Codex / Antigravity / Playwright 等智能体通过浏览器自动化与标准 API 操作画板</p>
+        </div>
       </div>
 
-      <div class="space-y-3 text-xs">
-        <!-- Q1: 黑板背景切换与智能反色 -->
-        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer" open>
-          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
-            <span>1. 为什么切换到复古墨绿黑板或碳黑黑板后，黑色笔迹依然看得清？</span>
-            <span class="group-open:rotate-180 transition-transform">▾</span>
-          </summary>
-          <div class="text-slate-300 mt-2.5 space-y-2 leading-relaxed text-xs">
-            <p>
-              传统白板在切换深色底板时，黑色线条往往会“隐形”无法看清。我们内置了<strong>「智能底纹对比度保护引擎」</strong>：
-            </p>
-            <ul class="list-disc list-inside space-y-1 text-slate-400">
-              <li><strong>自动反色感知</strong>：当您从纯白或点阵底纸切换到「复古墨绿黑板」或「哑光碳黑黑板」时，系统会自动检测过暗笔画与文字，瞬间转化为高清晰的粉笔白色（<code class="text-slate-300">#f8fafc</code>），当前下笔颜色也会同步切换为白粉笔。</li>
-              <li><strong>一键手动修复</strong>：如果您插入了深色图片或文字，也可以在左侧调色板中点击<strong>「🌓 智能对比度修复」</strong>按钮，一键对齐反转。</li>
-            </ul>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs pt-1">
+        <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px] font-mono font-bold">1</span>
+            <span>控制台与自动化 API (window.EazyBoard)</span>
           </div>
-        </details>
+          <p class="text-slate-300 leading-relaxed text-[11px]">
+            智能体与无头自动化测试（Playwright / Puppeteer / Browser-Use）可直接调用全局 <code class="px-1.5 py-0.5 bg-slate-800 text-indigo-300 rounded font-mono text-[10px]">window.EazyBoard</code> 接口，快速执行笔刷切换、文字标注、批量几何连线与无水印原图导出。
+          </p>
+        </div>
 
-        <!-- Q2: 画布尺寸规格表 -->
-        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer">
-          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
-            <span>2. 都有哪些针对学生、教师、漫画家与职场人的专属画布尺寸？</span>
-            <span class="group-open:rotate-180 transition-transform">▾</span>
-          </summary>
-          <div class="text-slate-300 mt-2.5 space-y-2 leading-relaxed text-xs">
-            <p>我们在顶部导航栏的<strong>「📐 画幅」</strong>下拉菜单中预置了各大群体的行业级标准画幅：</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] pt-1">
-              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
-                <span class="font-bold text-indigo-400">📄 办公学习与作业试卷：</span>
-                <p class="text-slate-400 mt-0.5">A4 纵向 (210×297mm，打印/试卷)、A4 横向 (297×210mm，讲义报告)、A3 跨页大版 (420×297mm，工程制图)、US Letter (美标信纸)。</p>
-              </div>
-              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
-                <span class="font-bold text-pink-400">🎨 漫画分镜与创作：</span>
-                <p class="text-slate-400 mt-0.5">日漫标准 B5 (182×257mm，杂志投稿/同人本)、垂直条漫长卷 (Webtoon 9:20 手机流)、四格漫画分镜 (4-Koma 1:2 连环排版)。</p>
-              </div>
-              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
-                <span class="font-bold text-emerald-400">💻 演讲汇报与大屏演示：</span>
-                <p class="text-slate-400 mt-0.5">16:9 演示宽屏 (PPT / Keynote 演讲)、4:3 经典平板课件 (iPad 教学)、16:10 商务笔记本全屏。</p>
-              </div>
-              <div class="p-2 bg-slate-900/60 rounded-lg border border-slate-700/60">
-                <span class="font-bold text-amber-400">📱 移动自媒体与自由模式：</span>
-                <p class="text-slate-400 mt-0.5">1:1 社交正方形 (小红书/Instagram)、9:16 移动竖屏 (Shorts/海报)、3:4 竖版封面，以及默认的无限自适应画板。</p>
-              </div>
-            </div>
+        <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="font-bold text-sky-300 flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-[10px] font-mono font-bold">2</span>
+            <span>Computer Use 视觉光标与快捷键驱动</span>
           </div>
-        </details>
+          <p class="text-slate-300 leading-relaxed text-[11px]">
+            全面适配 Claude Computer Use 与视觉智能体。画板配备标准键盘指令（<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">V</kbd> 选择调整、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">B</kbd> 画笔手绘、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">H</kbd> 抓手平移、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">1-9</kbd> 切色），AI 可像人类创作者一样精准操作画布。
+          </p>
+        </div>
 
-        <!-- Q3: 键盘快捷键秘籍 -->
-        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer">
-          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
-            <span>3. 键盘快捷键与触控板手势秘籍</span>
-            <span class="group-open:rotate-180 transition-transform">▾</span>
-          </summary>
-          <div class="text-slate-300 mt-2.5 space-y-2 leading-relaxed text-xs">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">V</kbd> 鼠标选择与调整</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">P</kbd> 钢笔画笔工具</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">T</kbd> 文本打字工具</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">E</kbd> ⚡ 一笔整擦</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">L</kbd> ⭕ 套索选择移动</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">Del / Backspace</kbd> 删除选中物</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">Space + 拖拽</kbd> 抓手平移画布</div>
-              <div class="p-2 bg-slate-900/60 rounded border border-slate-700/60"><kbd class="text-indigo-400 font-bold">双指轻敲屏幕</kbd> 移动端极速撤销</div>
-            </div>
+        <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="font-bold text-amber-300 flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono font-bold">3</span>
+            <span>Prompt 驱动 SVG 矢量生成与二次编辑</span>
           </div>
-        </details>
-
-        <!-- Q4: Pro 权限详细权益 -->
-        <details class="group bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 cursor-pointer">
-          <summary class="font-semibold text-slate-200 flex justify-between items-center text-sm">
-            <span>4. EazyOPC Pro 会员包含哪些权益？是永久使用的吗？</span>
-            <span class="group-open:rotate-180 transition-transform">▾</span>
-          </summary>
-          <div class="text-slate-300 mt-2.5 space-y-1.5 leading-relaxed text-xs">
-            <p>
-              是的！我们坚定拒绝订阅制与重复套路收费。<strong>仅需一次性支付 $4.99 USD，即可终身永久享受全部 Pro 旗舰特权</strong>，绝无任何二次收费：
-            </p>
-            <ul class="list-disc list-inside space-y-1 text-slate-400">
-              <li><strong>4K 印刷级超清导出</strong>：300 DPI 超高解析度无水印 PNG。</li>
-              <li><strong>透明背景免抠图导出</strong>：一键剔除纸张底色，直接嵌入 PPT 或海报排版。</li>
-              <li><strong>矢量 SVG 工程导出</strong>：无限缩放不失真，无缝复制粘贴进 Figma / Canva 深度重构。</li>
-              <li><strong>无限页多页漫画分镜 PDF</strong>：将所有绘制页面一键合并生成正式出版级电子文档。</li>
-            </ul>
-          </div>
-        </details>
+          <p class="text-slate-300 leading-relaxed text-[11px]">
+            引导大模型依据分镜、草图或数学几何输出标准 SVG 矢量节点代码，一键粘贴至画布或导出为 Canva / Figma 格式，实现“Agent 自动化构思 $	o$ 人工手绘精修 $	o$ 印刷级输出”的高效闭环。
+          </p>
+        </div>
       </div>
     </section>
   </article>
@@ -2005,7 +2004,7 @@
             你好！我是 <strong class="text-white font-semibold">Huafire777</strong>，一名热爱生活的独立全栈开发者。在日常创作和学习中，我发现市面上的许多工具充斥着强制注册登录、高昂的按月订阅收费、强制云端同步以及复杂的臃肿功能。
           </p>
           <p>
-            我坚信工具应当回归本质：<strong>即开即用、极致轻量、零干扰且充分尊重用户的数据隐私</strong>。因此我开启了这项长期挑战：利用AI独立研发并持续维护 100 个真正好用、开箱即用免费的独立网站，当然有一些网站可能会象征性收取4.99美元的开发服务费，希望得到大家支持！帮助更多创作者、学生与专业人士提升效率！大家可以关注我的社交媒体下方的社交媒体账号！
+            我坚信工具应当回归本质：<strong>即开即用、极致轻量、零干扰且充分尊重用户的数据隐私</strong>。因此我开启了这项长期挑战：作为独立开发者持续研发并精心维护 100 个真正好用、开箱即用免费的独立网站，当然有一些网站可能会象征性收取4.99美元的开发服务费，希望得到大家支持！帮助更多创作者、学生与专业人士提升效率！大家可以关注我的社交媒体下方的社交媒体账号！
           </p>
         </div>
       </div>
@@ -2161,7 +2160,7 @@
                 <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">持续周更</span>
               </div>
               <h4 class="text-base font-bold text-slate-400 flex items-center gap-1.5">
-                <span>🚀</span> <span>更多独立站正在高速研发中</span>
+                <span>更多独立站正在高速研发中</span>
               </h4>
               <p class="text-xs text-slate-500 leading-relaxed">
                 包含客户端无损 PDF 工具箱、SVG 矢量图标生成器、代码美化卡片、配色工具等，敬请期待！
@@ -2215,17 +2214,19 @@
           <span class="text-xs font-medium">抖音</span>
         </a>
 
-        <!-- 小红书 (RED / Xiaohongshu - 6000+ 粉丝) -->
-        <a id="socialLinkRed" href="https://xhslink.cn/o/3fq007werND" target="_blank" rel="noopener noreferrer" data-name="小红书" class="social-icon-btn group relative px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-red-950/30 border border-slate-700 hover:border-rose-500/60 transition-all duration-200 text-slate-300 hover:text-rose-400 shadow-sm flex items-center gap-1.5" title="关注笔者的小红书 (6000+ 粉丝)">
-          <svg class="w-3.5 h-3.5 fill-current text-rose-500" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.524 4.477 10 10 10s10-4.476 10-10c0-5.523-4.477-10-10-10zm4.27 12.56c-.34.82-.96 1.43-1.8 1.78-.81.35-1.74.38-2.64.1-.56-.18-1.07-.5-1.5-.92-.32.4-.75.7-1.23.89-.48.19-1.01.23-1.53.11-.76-.17-1.38-.62-1.77-1.27-.38-.66-.48-1.44-.27-2.19.21-.76.7-1.4 1.36-1.82.66-.41 1.45-.56 2.2-.42.39.07.77.23 1.1.46.18-.54.5-1.02.93-1.39.42-.37.94-.62 1.5-.72.56-.1 1.13-.05 1.66.15.53.2 1 .55 1.35 1 .36.46.58 1.01.64 1.59.06.58-.04 1.16-.3 1.68-.18.35-.42.66-.72.9.44.3.78.7.99 1.18.21.48.27 1.01.18 1.53-.08.3-.23.57-.42.8z"/></svg>
+                <!-- 小红书 (RED / Xiaohongshu - 6000+ 粉丝) -->
+        <a id="socialLinkRed" href="https://xhslink.cn/o/3fq007werND" target="_blank" rel="noopener noreferrer" data-name="小红书" class="social-icon-btn group relative px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-red-950/40 border border-slate-700 hover:border-rose-500/80 transition-all duration-200 text-slate-300 hover:text-rose-400 shadow-sm flex items-center gap-1.5" title="关注笔者的小红书 (6000+ 粉丝)">
+          <svg class="w-4 h-4 rounded-[4px] shadow-sm shrink-0" viewBox="0 0 32 32">
+            <rect width="32" height="32" rx="7" fill="#FF2442"/>
+            <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="11" letter-spacing="-0.5">RED</text>
+          </svg>
           <span class="text-xs font-medium">小红书</span>
           <span class="text-[9px] px-1 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold">6k+粉</span>
         </a>
-
         <!-- 💡 提建议 / 留言完善 (高亮主按钮) -->
         <button id="btnOpenFeedbackModal" type="button" class="feedback-trigger-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold text-xs shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 ml-1">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
-          <span>💡 提建议 / 留言完善</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg> <span>提建议 / 留言完善</span>
         </button>
       </div></div>
     </div>
@@ -2254,150 +2255,216 @@
   </footer>
 
   <!-- ================= 6. 现代专业导出中心模态弹窗 ================= -->
-  <div id="exportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[90vh] overflow-y-auto">
+  <!-- ================= 6. 现代专业导出中心模态弹窗 (明确二选一：免费普通 vs Pro终身全套) ================= -->
+  <!-- ================= 6. 导出作品模态弹窗 (极简专业双卡片架构) ================= -->
+  <div id="exportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">💾</div>
+          <div class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          </div>
           <div>
-            <h3 class="text-base font-bold" data-i18n="export_modal_title">导出作品 · Export Center</h3>
-            <p class="text-[11px] text-slate-400" data-i18n="export_modal_desc">选择输出文件格式与画质规格</p>
+            <h3 class="text-base font-bold text-white tracking-tight" data-i18n="export_modal_title">导出作品 · Export Center</h3>
+            <p class="text-[11px] text-slate-400" data-i18n="export_modal_desc">请选择适合您的导出规格 (二选一)</p>
           </div>
         </div>
         <button id="btnCloseExportModal" class="text-slate-400 hover:text-white text-lg px-2">✕</button>
       </div>
 
-      <!-- 👑 Pro 全套特权说明横幅 (清楚说明 4.99 包含所有功能，永久使用) -->
-      <div class="p-3 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-transparent border border-amber-500/30 rounded-2xl flex items-center justify-between text-xs">
-        <div>
-          <div class="font-bold text-amber-400 flex items-center gap-1.5">
-            <span>⭐ <span data-i18n="pro_banner_title">EazyOPC Pro 全套特权大礼包</span></span>
-            <span class="text-[9px] px-1.5 py-0.5 bg-amber-500/20 text-amber-300 rounded font-bold" data-i18n="pro_banner_tag">一次付费 · 永久使用</span>
-          </div>
-          <p class="text-[11px] text-slate-300 mt-1" data-i18n="pro_banner_desc">
-            只需单次 $4.99 USD，即可永久解锁下方全部 4K 超清、透明免扣图、Canva/Figma 矢量工程及 PDF 格式，无任何二次收费！
-          </p>
-        </div>
-        <div class="text-right flex-shrink-0 ml-3">
-          <span class="text-[10px] text-slate-400 line-through block">$19.99</span>
-          <span class="text-sm font-black text-amber-400 block">$4.99</span>
-        </div>
-      </div>
-
-      <!-- 格式选择列表 -->
-      <div class="space-y-2 text-xs">
-        <!-- 1. 免费 1080P PNG -->
-        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-emerald-500 cursor-pointer transition">
-          <div class="flex items-center gap-2.5">
-            <input type="radio" name="exportFormat" value="png_free" checked class="w-4 h-4 accent-emerald-500" />
-            <div>
+      <!-- 选项二选一卡片容器 -->
+      <div class="space-y-3 text-xs">
+        <!-- 选项 1：免费普通导出 (Free 1080P) -->
+        <label id="exportCardFree" class="export-tier-card flex items-start gap-3 p-3.5 rounded-2xl bg-slate-800/80 border-2 border-emerald-500 cursor-pointer transition relative hover:bg-slate-800">
+          <input type="radio" name="exportTier" value="free" checked class="w-4 h-4 mt-0.5 accent-emerald-500 cursor-pointer shrink-0" />
+          <div class="space-y-1 flex-1">
+            <div class="flex items-center justify-between">
               <div class="font-bold text-white flex items-center gap-1.5">
-                <span data-i18n="fmt_png_free">🖼️ 1080P 标准 PNG</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-semibold" data-i18n="free_badge">免费 Free</span>
+                <span data-i18n="tier_free_title">选项一：免费普通导出</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-semibold" data-i18n="free_badge">免费版</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_png_free_desc">带微小 EazyOPC 水印，日常记录与快速分享首选</p>
+              <span class="font-bold text-emerald-400 text-xs" data-i18n="free_price">$0 免费</span>
             </div>
+            <p class="text-[11px] text-slate-300 leading-relaxed" data-i18n="tier_free_desc">输出 1080P 标准高清 PNG 格式，带微小 EazyOPC 水印。适合日常草图构思、随手记录与社媒快速分享。</p>
           </div>
-          <span class="font-bold text-emerald-400" data-i18n="free_price">$0 免费</span>
         </label>
 
-        <!-- 2. 4K Ultra-HD 超清原画 -->
-        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
-          <div class="flex items-center gap-2.5">
-            <input type="radio" name="exportFormat" value="png_4k" class="w-4 h-4 accent-amber-500" />
-            <div>
-              <div class="font-bold text-white flex items-center gap-1.5">
-                <span data-i18n="fmt_png_4k">✨ 4K Ultra-HD 超清原画</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+        <!-- 选项 2：Pro 终身全套特权导出 (Pro Lifetime All-in-One) -->
+        <label id="exportCardPro" class="export-tier-card flex items-start gap-3 p-3.5 rounded-2xl bg-slate-800/80 border-2 border-slate-700/80 hover:border-amber-500/80 cursor-pointer transition relative">
+          <input type="radio" name="exportTier" value="pro" class="w-4 h-4 mt-0.5 accent-amber-500 cursor-pointer shrink-0" />
+          <div class="space-y-2 flex-1">
+            <div class="flex items-center justify-between">
+              <div class="font-bold text-amber-300 flex items-center gap-1.5">
+                <span data-i18n="tier_pro_title">选项二：Pro 终身版</span>
+                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">一次付费 · 永久通用</span>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_png_4k_desc">3840px 极清分辨率，永久纯净去水印</p>
+              <div class="text-right">
+                <span class="text-[10px] text-slate-400 line-through mr-1">$19.99</span>
+                <span class="font-black text-amber-400 text-xs">$4.99 USD</span>
+              </div>
             </div>
-          </div>
-          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
-        </label>
+            
+            <p class="text-[11px] text-slate-200 leading-relaxed" data-i18n="tier_pro_desc">
+              单次 $4.99 永久买断，解锁<strong>全部 4 大专业规格</strong>与商业授权，跨设备终身有效，无任何后续订阅费：
+            </p>
 
-        <!-- 3. 透明背景 PNG -->
-        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
-          <div class="flex items-center gap-2.5">
-            <input type="radio" name="exportFormat" value="png_transparent" class="w-4 h-4 accent-amber-500" />
-            <div>
-              <div class="font-bold text-white flex items-center gap-1.5">
-                <span data-i18n="fmt_png_transparent">🪟 透明背景 PNG (扣除底纸)</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+            <!-- 4 大专业特权微缩矩阵 -->
+            <div class="grid grid-cols-2 gap-1.5 text-[10px] pt-0.5">
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <div><span class="font-bold text-white block">4K 超清原画</span><span class="text-slate-400 text-[9px]">3840px 终身去水印</span></div>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_png_transparent_desc">自动剥离底色，仅留笔迹，做贴纸/PPT/海报神器</p>
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+                <div><span class="font-bold text-white block">透明背景 PNG</span><span class="text-slate-400 text-[9px]">剥离底纸·贴纸免抠</span></div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+                <div><span class="font-bold text-white block">Canva/Figma SVG</span><span class="text-slate-400 text-[9px]">矢量贝塞尔无损二次编辑</span></div>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <div><span class="font-bold text-white block">矢量 PDF 打印文档</span><span class="text-slate-400 text-[9px]">按幅面出版印刷排版</span></div>
+              </div>
             </div>
-          </div>
-          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
-        </label>
 
-        <!-- 4. 🎨 Canva / Figma 矢量无损工程 (SVG) -->
-        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
-          <div class="flex items-center gap-2.5">
-            <input type="radio" name="exportFormat" value="svg_vector" class="w-4 h-4 accent-amber-500" />
-            <div>
-              <div class="font-bold text-white flex items-center gap-1.5">
-                <span data-i18n="fmt_svg_canva">🎨 Canva / Figma 矢量无损工程 (SVG)</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
+            <!-- Pro 用户专属格式切换与联动 (选中 Pro 时展开) -->
+            <div id="proFormatSubOptions" class="hidden pt-2 border-t border-amber-500/20 space-y-1.5">
+              <span class="text-[10px] text-amber-300 font-bold block" data-i18n="pro_choose_format">选择本次导出的 Pro 文件规格：</span>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 text-[11px]">
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400 text-center transition active:scale-95" data-fmt="png_4k">4K 超清图</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="png_transparent">透明免抠</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="svg_vector">矢量 SVG</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="pdf_pro">矢量 PDF</button>
               </div>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_svg_canva_desc">100% 矢量贝塞尔曲线，可无缝直接导入 Canva、Figma、Illustrator 二次自由编辑</p>
             </div>
           </div>
-          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
-        </label>
-
-        <!-- 5. 矢量 PDF 打印文档 -->
-        <label class="export-card flex items-center justify-between p-3 rounded-2xl bg-slate-800/90 border-2 border-slate-700/60 cursor-pointer transition">
-          <div class="flex items-center gap-2.5">
-            <input type="radio" name="exportFormat" value="pdf_pro" class="w-4 h-4 accent-amber-500" />
-            <div>
-              <div class="font-bold text-white flex items-center gap-1.5">
-                <span data-i18n="fmt_pdf">📄 矢量 PDF 打印文档</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded font-semibold" data-i18n="pro_tag">⭐ Pro</span>
-              </div>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="fmt_pdf_desc">按选定比例精准排版，打印出纸、教研备课首选</p>
-            </div>
-          </div>
-          <span class="font-semibold text-amber-400 text-[11px] px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20" data-i18n="pro_included">Pro 包含 · 永久使用</span>
         </label>
       </div>
 
-      <!-- Canva / Figma 专属快捷联动动作坞 (选中 SVG 时展开) -->
+      <!-- Canva / Figma 快捷动作坞 (选中 SVG 时展开) -->
       <div id="canvaFigmaActions" class="hidden p-3 bg-slate-800/80 border border-indigo-500/40 rounded-2xl space-y-2 text-xs">
         <div class="font-bold text-indigo-300 flex items-center gap-1.5">
-          <span>🚀</span> <span data-i18n="canva_figma_title">Canva & Figma 直连编辑工作流</span>
+          <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+          <span data-i18n="canva_figma_title">Canva & Figma 直连编辑工作流</span>
         </div>
         <p class="text-[11px] text-slate-400" data-i18n="canva_figma_desc">已专为设计工具优化矢量格式，您可以一键复制矢量节点，或直接跳转到对应工具无缝编辑：</p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 pt-1">
-          <button id="btnCopySvgToClipboard" class="py-2 px-2 bg-indigo-600/80 hover:bg-indigo-500 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 cursor-pointer">
-            <span>📋</span> <span data-i18n="btn_copy_svg">复制矢量到剪贴板</span>
+          <button id="btnCopySvgToClipboard" class="py-2 px-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span data-i18n="btn_copy_svg">复制矢量到剪贴板</span>
           </button>
           <a href="https://www.canva.com" target="_blank" id="btnOpenCanva" class="py-2 px-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 text-center">
-            <span>🎨</span> <span data-i18n="btn_open_canva">前往 Canva.com</span>
+            <span data-i18n="btn_open_canva">前往 Canva.com</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
           <a href="https://www.figma.com" target="_blank" id="btnOpenFigma" class="py-2 px-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 text-center">
-            <span>⚡</span> <span data-i18n="btn_open_figma">前往 Figma.com</span>
+            <span data-i18n="btn_open_figma">前往 Figma.com</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
         </div>
       </div>
 
-      <div class="pt-1">
-        <button id="btnExecuteExport" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2">
-          <span>⬇️</span> <span id="lblExecuteExport" data-i18n="lbl_export_default">免费导出 1080P 标准图 (带水印)</span>
+      <!-- 底部动作与跨设备恢复入口 -->
+      <div class="space-y-2.5 pt-1">
+        <button id="btnExecuteExport" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer active:scale-98">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span id="lblExecuteExport" data-i18n="lbl_export_default">免费导出 1080P 标准图 (带水印)</span>
         </button>
+
+        <div class="flex items-center justify-between px-1 text-[11px] text-slate-400">
+          <span class="flex items-center gap-1.5 text-slate-400">
+            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span class="font-medium text-slate-300">一次付费 · 永久通用</span>
+          </span>
+          <button id="btnOpenRestoreModal" type="button" class="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1.5 hover:underline cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            <span>换设备点击连接方法</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  
+  <!-- ================= 7. 跨设备与换浏览器恢复购买弹窗 ================= -->
+  <!-- ================= 7. 换设备点击连接方法 (跨设备授权绑定指南) ================= -->
+  <div id="restoreModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-3xl p-6 shadow-2xl text-white space-y-5 max-h-[92vh] overflow-y-auto">
+      <!-- 头部 -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white tracking-tight" data-i18n="restore_title">换设备连接与权限激活</h3>
+            <p class="text-[11px] text-slate-400">一次付费 · 永久通用 · 支持电脑、手机与平板无缝同步</p>
+          </div>
+        </div>
+        <button id="btnCloseRestoreModal" class="text-slate-400 hover:text-white text-base px-2">✕</button>
+      </div>
+
+      <!-- 两种连接方法卡片 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-1.5">
+          <div class="font-bold text-white flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono font-bold">1</span>
+            <span>方法一：输入凭据即刻连接</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            在新电脑、手机或平板上，输入您购买时填写的<strong>电子邮箱</strong>或收据中的<strong>订单卡密</strong>，点击验证即可立即激活。
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-1.5">
+          <div class="font-bold text-white flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-[10px] font-mono font-bold">2</span>
+            <span>方法二：收据邮件免密直连</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            在购买成功的收据邮件中，点击<strong>【专属免密直连链接】</strong>。用手机或任意新设备点开，系统将全自动静默激活 Pro。
+          </p>
+        </div>
+      </div>
+
+      <!-- 激活输入区 -->
+      <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+        <label class="text-[11px] font-semibold text-slate-300 block">
+          输入授权卡密 (License Key) 或 购买邮箱
+        </label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input type="text" id="restoreKeyInput" placeholder="例如: yourname@email.com 或 OPC-PRO-8899" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none focus:border-amber-500 font-mono" />
+          <button id="btnConfirmRestore" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-1.5 shrink-0 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span data-i18n="btn_confirm_restore">立即连接此设备</span>
+          </button>
+        </div>
+        <p class="text-[10px] text-slate-500 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>授权卡密已自动发至您的下单邮箱，如未找到请检查垃圾邮件箱。</span>
+        </p>
+      </div>
+
+      <!-- 底部保障声明 -->
+      <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+        <span class="flex items-center gap-1.5 text-slate-300 font-medium">
+          <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span>一次付费 · 永久通用 · 终身无任何重复扣费</span>
+        </span>
+        <span class="text-slate-500 text-[10px]">支持多台个人设备同时使用</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= 7. 💡 用户邮件留言与改进建议弹窗 ================= -->
+  <!-- ================= 7. 用户邮件留言与改进建议弹窗 ================= -->
   <div id="feedbackModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
       <!-- 头部 -->
       <div class="flex items-center justify-between pb-3 border-b border-slate-800">
         <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center text-xl font-bold shadow-lg shadow-amber-500/20">
-            💌
+          <div class="w-10 h-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/20">
+            <svg class="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </div>
           <div>
             <h3 class="text-base font-bold flex items-center gap-1.5">
@@ -2412,10 +2479,10 @@
       <!-- 开发者寄语 -->
       <div class="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-xs space-y-1">
         <div class="font-bold text-indigo-400 flex items-center gap-1">
-          <span>🚀 作者留言 · Huafire</span>
+          <span>作者留言 · Huafire</span>
         </div>
         <p class="text-slate-300 text-[11px] leading-relaxed">
-          “我的目标是打造 100 个真正好用且永久免费的独立网站！如果您在使用过程中觉得哪里不顺手、有 Bug、或者缺少您亟需的功能，请直接告诉我，每一条建议我都会认真阅读并安排排期迭代优化！”
+          “我的目标是打造真正好用且永久免费的独立创作工具！如果您在使用过程中觉得哪里不顺手、有 Bug、或者缺少您亟需的功能，请直接告诉我，每一条建议我都会认真阅读并安排排期迭代优化！”
         </p>
       </div>
 
@@ -2425,20 +2492,20 @@
           <label class="block text-xs font-semibold text-slate-300 mb-1.5">反馈类型</label>
           <div class="grid grid-cols-2 gap-2 text-xs">
             <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-slate-500 cursor-pointer">
-              <input type="radio" name="feedbackType" value="💡 功能改进建议" checked class="text-indigo-500 focus:ring-0">
-              <span>💡 功能改进建议</span>
+              <input type="radio" name="feedbackType" value="功能改进建议" checked class="text-indigo-500 focus:ring-0">
+              <span>功能改进建议</span>
             </label>
             <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-slate-500 cursor-pointer">
-              <input type="radio" name="feedbackType" value="🐞 Bug 缺陷反馈" class="text-indigo-500 focus:ring-0">
-              <span>🐞 Bug 缺陷反馈</span>
+              <input type="radio" name="feedbackType" value="Bug 缺陷反馈" class="text-indigo-500 focus:ring-0">
+              <span>Bug 缺陷反馈</span>
             </label>
             <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-slate-500 cursor-pointer">
-              <input type="radio" name="feedbackType" value="🎨 体验与排版优化" class="text-indigo-500 focus:ring-0">
-              <span>🎨 体验与排版优化</span>
+              <input type="radio" name="feedbackType" value="体验与排版优化" class="text-indigo-500 focus:ring-0">
+              <span>体验与排版优化</span>
             </label>
             <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-slate-500 cursor-pointer">
-              <input type="radio" name="feedbackType" value="🤝 交流合作 / 鼓励" class="text-indigo-500 focus:ring-0">
-              <span>🤝 交流合作 / 鼓励</span>
+              <input type="radio" name="feedbackType" value="交流合作 / 鼓励" class="text-indigo-500 focus:ring-0">
+              <span>交流合作 / 鼓励</span>
             </label>
           </div>
         </div>
@@ -2452,21 +2519,15 @@
 
         <div>
           <label for="feedbackContent" class="block text-xs font-semibold text-slate-300 mb-1">
-            详细建议内容 <span class="text-rose-400">*</span>
+            建议或问题描述 <span class="text-rose-400">*</span>
           </label>
-          <textarea id="feedbackContent" rows="4" required placeholder="请详细描述您遇到的问题、想要新增的功能，或对网站的任何建议..." class="w-full px-3 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
+          <textarea id="feedbackContent" rows="4" required placeholder="请详细描述您的想法或遇到的问题..." class="w-full px-3 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
         </div>
 
-        <!-- 操作按钮组 -->
-        <div class="space-y-2 pt-1">
-          <button type="submit" id="btnSubmitFeedback" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs shadow-lg shadow-orange-500/20 hover:scale-[1.01] active:scale-[0.99] transition flex items-center justify-center gap-1.5">
-            <span>📧 呼出邮箱直发建议邮件</span>
-          </button>
-
-          <button type="button" id="btnCopyFeedback" class="w-full py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium hover:text-white transition flex items-center justify-center gap-1.5">
-            <span>📋 快速提交并复制建议内容</span>
-          </button>
-        </div>
+        <button type="submit" id="btnSubmitFeedback" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl text-xs shadow-lg transition active:scale-98 flex items-center justify-center gap-1.5">
+          <svg class="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>立即发送留言</span>
+        </button>
       </form>
     </div>
   </div>
@@ -2494,20 +2555,23 @@
   </div>
 
   <!-- ================= 8. Creem $4.99 永久使用授权结账弹窗 ================= -->
+  <!-- ================= 8. Creem $4.99 永久使用授权结账弹窗 ================= -->
   <div id="proModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4">
       <div class="text-center space-y-1.5">
-        <div class="inline-block p-3 bg-amber-500/15 text-amber-400 rounded-2xl text-2xl mb-1">⭐</div>
+        <div class="inline-flex p-3 bg-amber-500/15 text-amber-400 rounded-2xl mb-1 items-center justify-center">
+          <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
         <h3 class="text-lg font-bold" data-i18n="pro_title">解锁 EazyOPC Pro 永久使用版</h3>
         <p class="text-xs text-slate-400" data-i18n="pro_desc">一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套特权，无后续订阅费。</p>
       </div>
 
       <div class="p-4 bg-slate-800/80 border border-slate-700/60 rounded-2xl space-y-2 text-xs text-slate-300">
-        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_1"><strong>4K Ultra-HD 超清原画</strong>（永久纯净去水印）</span></div>
-        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_2"><strong>透明背景 PNG</strong>（设计师抠图与贴纸神器）</span></div>
-        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_3"><strong>Canva / Figma 矢量无损工程 (SVG)</strong>（自由二次编辑）</span></div>
-        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_4"><strong>高保真 PDF 打印文档</strong>（按选定画幅输出）</span></div>
-        <div class="flex items-center gap-2">✅ <span data-i18n="pro_perk_5"><strong>一次付费 · 永久使用</strong>（全部功能统一打包，无后续收费）</span></div>
+        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_1"><strong>4K Ultra-HD 超清原画</strong>（永久纯净去水印）</span></div>
+        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_2"><strong>透明背景 PNG</strong>（设计师抠图与贴纸神器）</span></div>
+        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_3"><strong>Canva / Figma 矢量无损工程 (SVG)</strong>（自由二次编辑）</span></div>
+        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_4"><strong>高保真 PDF 打印文档</strong>（按选定画幅输出）</span></div>
+        <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <span data-i18n="pro_perk_5"><strong>一次付费 · 永久通用</strong>（全部功能统一打包，无后续收费）</span></div>
       </div>
 
       <div class="space-y-2.5">
@@ -2531,6 +2595,8 @@
     </div>
   </div>
 
+  
+
   <!-- ================= 9. 核心商业绘图与矢量运算引擎 ================= -->
   <script>
     const TRANSLATIONS = {
@@ -2546,17 +2612,17 @@
         pro_banner_title: 'EazyOPC Pro 全套特权大礼包', pro_banner_tag: '一次付费 · 永久使用',
         pro_banner_desc: '只需单次 $4.99 USD，即可永久解锁下方全部 4K 超清、透明免扣图、Canva/Figma 矢量工程及 PDF 格式，无任何二次收费！',
         fmt_png_free: '🖼️ 1080P 标准 PNG', fmt_png_free_desc: '带微小 EazyOPC 水印，日常记录与快速分享首选', free_badge: '免费 Free', free_price: '$0 免费',
-        fmt_png_4k: '✨ 4K Ultra-HD 超清原画', fmt_png_4k_desc: '3840px 极清分辨率，永久纯净去水印',
+        fmt_png_4k: '4K Ultra-HD 超清原画', fmt_png_4k_desc: '3840px 极清分辨率，永久纯净去水印',
         fmt_png_transparent: '🪟 透明背景 PNG (扣除底纸)', fmt_png_transparent_desc: '自动剥离底色，仅留笔迹，做贴纸/PPT/海报神器',
         fmt_svg_canva: '🎨 Canva / Figma 矢量无损工程 (SVG)', fmt_svg_canva_desc: '100% 矢量贝塞尔曲线，可无缝直接导入 Canva、Figma、Illustrator 二次自由编辑',
         fmt_pdf: '📄 矢量 PDF 打印文档', fmt_pdf_desc: '按选定比例精准排版，高清打印与备课归档首选',
-        pro_tag: '⭐ Pro', pro_included: 'Pro 包含 · 永久使用',
+        pro_tag: 'Pro', pro_included: 'Pro 包含 · 永久使用',
         canva_figma_title: 'Canva & Figma 直连编辑工作流', canva_figma_desc: '已专为设计工具优化矢量格式，您可以一键复制矢量节点，或直接跳转到对应工具无缝编辑：',
         btn_copy_svg: '复制矢量到剪贴板', btn_open_canva: '前往 Canva.com', btn_open_figma: '前往 Figma.com',
         lbl_export_default: '免费导出 1080P 标准图 (带水印)',
         btn_export_free: '免费导出 1080P 标准图 (带水印)',
         btn_export_pro_active: '立即以 Pro 权限导出',
-        btn_export_pro_buy: '⭐ 仅需 $4.99 永久解锁全部 Pro 特权 (包含当前格式)',
+        btn_export_pro_buy: '仅需 $4.99 一次付费 · 永久解锁全部 Pro 特权 (包含当前格式)',
         svg_copied_toast: '🎉 矢量 SVG 已成功复制到剪贴板！\n直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V)，即可立即无缝粘贴可自由编辑的矢量线稿！',
         mobile_save_title: '手机保存到相册', mobile_save_hint: '👉 长按下方图片 1 秒，在系统菜单中选择「存储图像」或「保存到相册」即可！', mobile_download_btn: '浏览器直接下载文件',
         pro_perk_1: '<strong>4K Ultra-HD 超清原画</strong>（永久纯净去水印）',
@@ -2582,6 +2648,7 @@
         tip_sticky: '📝 添加拖拽式彩色便利贴',
         tip_laser: '🔦 讲解激光教鞭 (1.2秒淡化)',
         tip_palette: '🎯 画笔色彩与粗细调节',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ 撤销 (Ctrl+Z，移动端双指轻敲)',
         tip_clear: '🗑️ 清空白板所有内容',
         tip_fit: '适应居中',
@@ -2632,8 +2699,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -2687,8 +2754,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -2742,8 +2809,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -2797,8 +2864,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -2852,8 +2919,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -2868,7 +2935,7 @@
         tip_crosshatch: '🖍️ 阴影排线笔 (快速刻画人物阴影与黑白层次)',
         tip_spray: '💨 网点喷枪 (漫画网点渐变、光晕与星芒粒子)',
         tip_highlighter: '🪄 荧光重点笔 (彩色分镜批注与高光)',
-        tip_neon: '✨ 赛博霓虹笔 (双通道实时外发光渲染)',
+        tip_marker: '🖍️ 斜头酒精马克笔 (宽扁斜切笔头 · 正片叠底)',
         tip_dotted: '〰️ 虚线笔 (标准虚线与辅助参考线)',
         tip_ballpoint: '🖊️ 圆珠笔 (恒定细腻线条，日常书写与线稿草稿)',
         tip_pencil: '✏️ 质感铅笔 (石墨颗粒素描微质感)',
@@ -2907,8 +2974,8 @@
         brush_highlighter_sub: '半透荧光 · 分镜批注',
         brush_crosshatch: '阴影排线笔',
         brush_crosshatch_sub: '黑白排线 · 质感阴影',
-        brush_neon: '赛博发光霓虹',
-        brush_neon_sub: '外发光脉冲 · 特效能量',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: '虚线分镜辅助',
         brush_dotted_sub: '标准点线 · 辅助对齐',
         brush_ballpoint: '经典圆珠笔',
@@ -2933,7 +3000,18 @@
           black_chalk: '哑光碳黑黑板 (Black Board)',
           ivory: '护眼米黄原木 (Warm Ivory)',
           ruled: '四线三格英文字 (Ruled Lines)'
-        }
+        },
+        dual_view: '双板并排',
+        ref_board_title: '参考对照板',
+        tier_free_title: '选项一：免费普通导出',
+        tier_free_desc: '输出 1080P 标准高清 PNG 格式，带微小 EazyOPC 水印。适合日常草图构思、随手记录与社媒快速分享。',
+        tier_pro_title: '选项二：Pro 终身版',
+        tier_pro_desc: '只需单次 $4.99，永久解锁全部 4 大专业规格与商业授权，跨电脑/手机终身有效，绝无二次收费：',
+        pro_choose_format: '👉 选择本次导出的 Pro 文件规格：',
+        restore_title: '换设备连接与权限激活',
+        restore_desc: '如果您曾在其他电脑、手机、平板购买过，或清空了浏览器缓存，无需再次付费！请输入您购买时填写的电子邮箱或订单卡密 (License Key)，系统将立即为您激活。',
+        btn_confirm_restore: '立即连接此设备',
+        restore_safe_guarantee: '一次付费 · 永久通用 · 终身无任何重复扣费'
       },
       en: {
         site_subtitle: 'Minimalist Dot Matrix & Idea Board',
@@ -2947,17 +3025,17 @@
         pro_banner_title: 'EazyOPC Pro All-in-One Lifetime Bundle', pro_banner_tag: 'Pay Once · Lifetime Access',
         pro_banner_desc: 'Just $4.99 USD permanently unlocks all formats below: 4K Ultra-HD, Transparent PNG, Canva/Figma SVG, and PDF with no extra charges!',
         fmt_png_free: '🖼️ 1080P Standard PNG', fmt_png_free_desc: 'With subtle watermark, perfect for everyday notes & sharing', free_badge: 'Free', free_price: '$0 Free',
-        fmt_png_4k: '✨ 4K Ultra-HD Crisp Artwork', fmt_png_4k_desc: '3840px ultra-crisp resolution, permanently watermark-free',
+        fmt_png_4k: '4K Ultra-HD Crisp Artwork', fmt_png_4k_desc: '3840px ultra-crisp resolution, permanently watermark-free',
         fmt_png_transparent: '🪟 Transparent Background PNG', fmt_png_transparent_desc: 'Removes background, ideal for stickers, slides & presentations',
         fmt_svg_canva: '🎨 Canva & Figma Vector Project (SVG)', fmt_svg_canva_desc: '100% vector curves, fully editable in Canva, Figma, and Illustrator',
         fmt_pdf: '📄 Vector PDF Document', fmt_pdf_desc: 'Exact aspect ratio layout, ideal for printing & notes',
-        pro_tag: '⭐ Pro', pro_included: 'Included in Pro · Lifetime',
+        pro_tag: 'Pro', pro_included: 'Included in Pro · Lifetime',
         canva_figma_title: 'Canva & Figma Direct Workflow', canva_figma_desc: 'Optimized vector format for design tools. Copy vector nodes or open directly in your favorite editor:',
         btn_copy_svg: 'Copy Vector SVG to Clipboard', btn_open_canva: 'Open Canva.com', btn_open_figma: 'Open Figma.com',
         lbl_export_default: 'Free Export 1080P (Watermarked)',
         btn_export_free: 'Free Export 1080P (Watermarked)',
         btn_export_pro_active: 'Export with Pro Access',
-        btn_export_pro_buy: '⭐ Unlock All Pro Formats ($4.99 Lifetime)',
+        btn_export_pro_buy: 'Unlock All Pro Formats ($4.99 Lifetime)',
         svg_copied_toast: '🎉 Vector SVG copied to clipboard!\nPress Ctrl+V (Mac: Cmd+V) directly on Canva or Figma to paste fully editable vector curves!',
         mobile_save_title: 'Save to Photos', mobile_save_hint: '👉 Press and hold the image below for 1 second, then tap "Save Image" or "Save to Photos"!', mobile_download_btn: 'Download File Directly',
         pro_perk_1: '<strong>4K Ultra-HD Crisp Artwork</strong> (Permanently watermark-free)',
@@ -2983,6 +3061,7 @@
         tip_sticky: '📝 Draggable Sticky Notes',
         tip_laser: '🔦 Laser Pointer (Fades in 1.2s)',
         tip_palette: '🎯 Color Palette & Stroke Width',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ Undo (Ctrl+Z / 2-finger tap on mobile)',
         tip_clear: '🗑️ Clear Canvas',
         tip_fit: 'Fit to Screen',
@@ -3033,8 +3112,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3088,8 +3167,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3143,8 +3222,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3198,8 +3277,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3253,8 +3332,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3308,8 +3387,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3334,7 +3413,18 @@
           black_chalk: 'Matte Black Board',
           ivory: 'Warm Ivory Paper',
           ruled: 'Ruled Notebook Lines'
-        }
+        },
+        dual_view: 'Dual Spread',
+        ref_board_title: 'Reference Board',
+        tier_free_title: 'Option 1: Free Export',
+        tier_free_desc: 'Outputs 1080P standard PNG with a subtle watermark. Ideal for quick sketches, notes, and sharing.',
+        tier_pro_title: 'Option 2: Pro Lifetime Access',
+        tier_pro_desc: 'Pay $4.99 once to unlock ALL 4 professional formats below and commercial rights across all your devices with no recurring fees:',
+        pro_choose_format: '👉 Choose Pro format to export:',
+        restore_title: 'Restore Pro Lifetime License',
+        restore_desc: 'If you already purchased Pro on another computer, tablet, or phone, or cleared your browser data, you never need to pay twice! Enter your purchase Email or License Key to restore access instantly.',
+        btn_confirm_restore: 'Verify & Restore Pro Status',
+        restore_safe_guarantee: '🛡️ Pay once · Lifetime access across all devices · No hidden fees'
       },
       ja: {
         site_subtitle: '極小ドット方眼＆アイデア付箋ホワイトボード',
@@ -3352,7 +3442,7 @@
         fmt_png_transparent: '🪟 背景透過 PNG', fmt_png_transparent_desc: '背景を除去し線画のみ抽出、スライドやステッカーに最適',
         fmt_svg_canva: '🎨 Canva / Figma ベクター無劣化 (SVG)', fmt_svg_canva_desc: '100% ベクター曲線、Canva、Figma、Illustrator で自由に再編集可能',
         fmt_pdf: '📄 ベクター PDF 印刷文書', fmt_pdf_desc: '指定比率で高精度レイアウト、印刷や授業準備に最適',
-        pro_tag: '⭐ Pro', pro_included: 'Pro に含む · 永久利用',
+        pro_tag: 'Pro', pro_included: 'Pro に含む · 永久利用',
         canva_figma_title: 'Canva & Figma 直接連携ワークフロー', canva_figma_desc: 'デザインツール向けに最適化されたベクター形式です。クリップボードにコピーして直接貼り付け可能：',
         btn_copy_svg: 'ベクターをクリップボードにコピー', btn_open_canva: 'Canva.com を開く', btn_open_figma: 'Figma.com を開く',
         lbl_export_default: '1080P 標準画像を無料保存 (透かしあり)',
@@ -3384,6 +3474,7 @@
         tip_sticky: '📝 ドラッグ可能な付箋メモ',
         tip_laser: '🔦 レーザーポインター (1.2秒で消去)',
         tip_palette: '🎯 カラーパレット＆太さ調整',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ 元に戻す (Ctrl+Z / モバイル2本指タップ)',
         tip_clear: '🗑️ キャンバスを全消去',
         tip_fit: '画面に合わせる',
@@ -3434,8 +3525,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3489,8 +3580,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3544,8 +3635,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3599,8 +3690,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3654,8 +3745,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3698,7 +3789,7 @@
         fmt_png_transparent: '🪟 투명 배경 PNG', fmt_png_transparent_desc: '배경을 제거하고 필기만 추출, 스티커 및 PPT 제작 필수',
         fmt_svg_canva: '🎨 Canva / Figma 벡터 무손실 프로젝트 (SVG)', fmt_svg_canva_desc: '100% 벡터 곡선, Canva, Figma, Illustrator 에서 자유롭게 2차 편집 가능',
         fmt_pdf: '📄 벡터 PDF 인쇄 문서', fmt_pdf_desc: '지정 비율 완벽 레이아웃, 고화질 인쇄 및 수업 준비용',
-        pro_tag: '⭐ Pro', pro_included: 'Pro 포함 · 평생 이용',
+        pro_tag: 'Pro', pro_included: 'Pro 포함 · 평생 이용',
         canva_figma_title: 'Canva & Figma 직접 연동 워크플로우', canva_figma_desc: '디자인 도구에 최적화된 벡터 형식입니다. 클립보드에 복사해 직접 붙여넣거나 바로 이동할 수 있습니다:',
         btn_copy_svg: '벡터 클립보드 복사', btn_open_canva: 'Canva.com 열기', btn_open_figma: 'Figma.com 열기',
         lbl_export_default: '무료 1080P 표준 저장 (워터마크 포함)',
@@ -3730,6 +3821,7 @@
         tip_sticky: '📝 드래그 가능한 메모지',
         tip_laser: '🔦 레이저 포인터 (1.2초 후 페이드)',
         tip_palette: '🎯 색상 팔레트 및 굵기 조절',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ 실행 취소 (Ctrl+Z / 모바일 두 손가락 탭)',
         tip_clear: '🗑️ 화이트보드 전체 지우기',
         tip_fit: '화면 맞춤',
@@ -3780,8 +3872,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3835,8 +3927,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3890,8 +3982,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -3945,8 +4037,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4000,8 +4092,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4044,7 +4136,7 @@
         fmt_png_transparent: '🪟 Transparentes PNG', fmt_png_transparent_desc: 'Entfernt Papierhintergrund, ideal für Präsentationen & Sticker',
         fmt_svg_canva: '🎨 Canva & Figma Vektor-Projekt (SVG)', fmt_svg_canva_desc: '100% Vektorkurven, frei bearbeitbar in Canva, Figma & Illustrator',
         fmt_pdf: '📄 Vektor-PDF-Dokument', fmt_pdf_desc: 'Präzises Seitenverhältnis, ideal für Druck und Vorbereitung',
-        pro_tag: '⭐ Pro', pro_included: 'In Pro enthalten · Dauerhaft',
+        pro_tag: 'Pro', pro_included: 'In Pro enthalten · Dauerhaft',
         canva_figma_title: 'Canva & Figma Direkt-Workflow', canva_figma_desc: 'Optimiert für Designtools. In Zwischenablage kopieren oder direkt im Editor öffnen:',
         btn_copy_svg: 'Vektor-SVG kopieren', btn_open_canva: 'Canva.com öffnen', btn_open_figma: 'Figma.com öffnen',
         lbl_export_default: '1080P kostenlos exportieren (Wasserzeichen)',
@@ -4076,6 +4168,7 @@
         tip_sticky: '📝 Farbige Notizzettel',
         tip_laser: '🔦 Laserpointer (Verblasst nach 1.2s)',
         tip_palette: '🎯 Farbpalette & Stärke',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ Rückgängig (Strg+Z / 2-Finger-Tipp)',
         tip_clear: '🗑️ Whiteboard leeren',
         tip_fit: 'Einpassen',
@@ -4126,8 +4219,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4181,8 +4274,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4236,8 +4329,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4291,8 +4384,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4346,8 +4439,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4390,7 +4483,7 @@
         fmt_png_transparent: '🪟 PNG con Fondo Transparente', fmt_png_transparent_desc: 'Elimina el fondo, ideal para diapositivas y stickers',
         fmt_svg_canva: '🎨 Proyecto Vectorial Canva / Figma (SVG)', fmt_svg_canva_desc: 'Curvas 100% vectoriales, editable en Canva, Figma e Illustrator',
         fmt_pdf: '📄 Documento PDF Vectorial', fmt_pdf_desc: 'Diseño a escala exacta, ideal para imprimir y preparar clases',
-        pro_tag: '⭐ Pro', pro_included: 'Incluido en Pro · Uso Permanente',
+        pro_tag: 'Pro', pro_included: 'Incluido en Pro · Uso Permanente',
         canva_figma_title: 'Flujo de Trabajo Directo Canva y Figma', canva_figma_desc: 'Formato vectorial optimizado para herramientas de diseño. Copia al portapapeles o abre directamente:',
         btn_copy_svg: 'Copiar Vector SVG', btn_open_canva: 'Abrir Canva.com', btn_open_figma: 'Abrir Figma.com',
         lbl_export_default: 'Exportar 1080P Gratis (con marca)',
@@ -4422,6 +4515,7 @@
         tip_sticky: '📝 Notas adhesivas arrastrables',
         tip_laser: '🔦 Puntero láser (Se desvanece en 1.2s)',
         tip_palette: '🎯 Paleta de color y grosor',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ Deshacer (Ctrl+Z / toque con 2 dedos)',
         tip_clear: '🗑️ Limpiar pizarra',
         tip_fit: 'Ajustar a pantalla',
@@ -4472,8 +4566,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4527,8 +4621,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4582,8 +4676,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4637,8 +4731,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4692,8 +4786,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4736,7 +4830,7 @@
         fmt_png_transparent: '🪟 PNG à Fond Transparent', fmt_png_transparent_desc: 'Retire l\'arrière-plan, idéal pour autocollants & diaporamas',
         fmt_svg_canva: '🎨 Projet Vectoriel Canva / Figma (SVG)', fmt_svg_canva_desc: 'Courbes 100% vectorielles, modifiable dans Canva, Figma et Illustrator',
         fmt_pdf: '📄 Document PDF Vectoriel', fmt_pdf_desc: 'Mise en page aux dimensions exactes, idéal pour impression et cours',
-        pro_tag: '⭐ Pro', pro_included: 'Inclus dans Pro · Permanent',
+        pro_tag: 'Pro', pro_included: 'Inclus dans Pro · Permanent',
         canva_figma_title: 'Flux de Travail Direct Canva & Figma', canva_figma_desc: 'Format vectoriel optimisé pour le design. Copiez dans le presse-papier ou ouvrez directement :',
         btn_copy_svg: 'Copier le Vectoriel SVG', btn_open_canva: 'Ouvrir Canva.com', btn_open_figma: 'Ouvrir Figma.com',
         lbl_export_default: 'Exporter 1080P Gratuit (avec filigrane)',
@@ -4768,6 +4862,7 @@
         tip_sticky: '📝 Pense-bête déplaçable',
         tip_laser: '🔦 Pointeur laser (Disparaît en 1.2s)',
         tip_palette: '🎯 Palette de couleurs et épaisseur',
+        tip_more_tools: '⋯ 更多工具',
         tip_undo: '↩️ Annuler (Ctrl+Z / tap 2 doigts)',
         tip_clear: '🗑️ Tout effacer',
         tip_fit: 'Ajuster à l\'écran',
@@ -4818,8 +4913,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4873,8 +4968,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4928,8 +5023,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -4983,8 +5078,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -5038,8 +5133,8 @@
         brush_highlighter_sub: 'Semi-transparent Focus',
         brush_crosshatch: 'Crosshatch Shading',
         brush_crosshatch_sub: 'Manga Hatching & Shadow',
-        brush_neon: 'Cyber Neon Glow',
-        brush_neon_sub: 'Dual-pass Outer Glow',
+        brush_marker: '斜头酒精马克笔',
+        brush_marker_sub: '宽扁斜切 · 正片叠底',
         brush_dotted: 'Dotted Guide Line',
         brush_dotted_sub: 'Uniform Dashes & Grid',
         brush_ballpoint: 'Classic Ballpoint',
@@ -5100,6 +5195,9 @@
       selectionBounds: null,
       isDraggingSelection: false,
       dragStartPos: { x: 0, y: 0 },
+      // 📖 双板并排 / 参照对比画板状态 (Side-by-Side Dual Spread)
+      isDualSpread: false,
+      referencePageIndex: 0,
       // 缩放与平移状态 (Pan & Zoom)
       zoom: 1.0,
       panX: 0,
@@ -5216,21 +5314,28 @@
           if (whiteColors.has(c) || isColorTooLight(c)) {
             item.color = '#0f172a'; // 深石板黑
           }
-        };
-
-        for (const pg of (appState.pages || [])) {
-          for (const s of (pg.strokes || [])) convertItem(s);
-          for (const t of (pg.texts || [])) convertItem(t);
+          appState.currentColor = '#ffffff';
+          const dot = document.getElementById('activeColorDot');
+          if (dot) dot.style.backgroundColor = '#ffffff';
         }
-        for (const s of appState.strokes) convertItem(s);
-        for (const t of appState.texts) convertItem(t);
-
+      } else {
+        for (const s of appState.strokes) {
+          if (whiteColors.has(s.color.toLowerCase()) || isColorTooLight(s.color)) {
+            s.color = '#0f172a';
+          }
+        }
+        for (const t of appState.texts) {
+          if (whiteColors.has(t.color.toLowerCase()) || isColorTooLight(t.color)) {
+            t.color = '#0f172a';
+          }
+        }
         if (whiteColors.has(appState.currentColor.toLowerCase()) || isColorTooLight(appState.currentColor)) {
           appState.currentColor = '#0f172a';
           const dot = document.getElementById('activeColorDot');
           if (dot) dot.style.backgroundColor = '#0f172a';
         }
       }
+      redrawAllStrokes();
     }
 
     function manualSmartInvert() {
@@ -5256,15 +5361,26 @@
     }
 
     function applyZoomAndPan() {
-      canvasCard.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom})`;
+      const stage = document.getElementById('artboardStage');
+      if (stage) {
+        stage.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom})`;
+        canvasCard.style.transform = 'none';
+      } else {
+        canvasCard.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom})`;
+      }
       document.getElementById('btnZoomReset').innerText = `${Math.round(appState.zoom * 100)}%`;
     }
 
     function resizeCanvas() {
       dpr = Math.min(window.devicePixelRatio || 1, 3);
       const containerRect = workbenchWrapper.getBoundingClientRect();
-      const maxW = Math.max(300, containerRect.width - (document.body.classList.contains('is-fullscreen') ? 0 : 32));
-      const maxH = Math.max(300, containerRect.height - (document.body.classList.contains('is-fullscreen') ? 0 : 32));
+      const padding = (document.body.classList.contains('is-fullscreen') ? 0 : 32);
+      let maxW = Math.max(300, containerRect.width - padding);
+      let maxH = Math.max(300, containerRect.height - padding);
+
+      if (appState.isDualSpread) {
+        maxW = Math.max(300, (maxW - 36) * 0.48);
+      }
 
       let targetRatio = null;
       if (appState.ratio === 'a4_p') targetRatio = 210 / 297;
@@ -5305,9 +5421,21 @@
       canvas.style.width = `${cssWidth}px`;
       canvas.style.height = `${cssHeight}px`;
 
+      const refCard = document.getElementById('referenceCanvasCard');
+      const refCanvas = document.getElementById('referenceCanvas');
+      if (refCard && refCanvas) {
+        refCard.style.width = `${cssWidth}px`;
+        refCard.style.height = `${cssHeight + 36}px`;
+        refCanvas.width = Math.round(cssWidth * dpr);
+        refCanvas.height = Math.round(cssHeight * dpr);
+        refCanvas.style.width = `${cssWidth}px`;
+        refCanvas.style.height = `${cssHeight}px`;
+      }
+
       applyZoomAndPan();
       redrawAllStrokes();
       updateSelectionBoxUI();
+      if (appState.isDualSpread) renderReferenceBoard();
     }
 
     function renderBackgroundOnContext(targetCtx, w, h, scaleFactor = 1, transparent = false) {
@@ -5436,7 +5564,41 @@
         if (!s.points || s.points.length === 0) continue;
         targetCtx.save();
 
-        if (s.tool === 'highlighter') {
+        if (s.isDashed || s.tool === 'dotted') {
+          targetCtx.setLineDash([5, 5]);
+        } else {
+          targetCtx.setLineDash([]);
+        }
+
+        if (s.tool === 'marker') {
+          targetCtx.globalCompositeOperation = 'source-over';
+          targetCtx.strokeStyle = s.color;
+          targetCtx.globalAlpha = 0.65;
+          targetCtx.lineCap = 'square';
+          targetCtx.lineJoin = 'bevel';
+          targetCtx.lineWidth = Math.max(3, s.size * 2.8);
+        } else if (s.tool === 'fineliner') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 1.0;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(0.6, s.size * 0.42);
+        } else if (s.tool === 'fude_pen') {
+          targetCtx.strokeStyle = s.color;
+          targetCtx.fillStyle = s.color;
+          targetCtx.globalAlpha = 0.95;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = s.size * 1.5;
+        } else if (s.tool === 'white_gel') {
+          targetCtx.strokeStyle = '#ffffff';
+          targetCtx.fillStyle = '#ffffff';
+          targetCtx.globalAlpha = 1.0;
+          targetCtx.lineCap = 'round';
+          targetCtx.lineJoin = 'round';
+          targetCtx.lineWidth = Math.max(1.2, s.size * 0.85);
+        } else if (s.tool === 'highlighter') {
           targetCtx.globalCompositeOperation = 'multiply';
           targetCtx.strokeStyle = s.color;
           targetCtx.globalAlpha = 0.35;
@@ -5539,17 +5701,31 @@
         targetCtx.restore();
       }
 
-      // 3. 渲染自由打字文本 (支持 360° 旋转)
+      // 3. 渲染自由打字文本 (支持 9 款开源艺术字体、多行对齐与 360° 旋转)
       for (const t of appState.texts) {
+        if (t._editing) continue;
         targetCtx.save();
-        targetCtx.font = `600 ${t.size}px sans-serif`;
-        targetCtx.fillStyle = t.color;
-        const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
-        const cx = t.x + estW / 2;
-        const cy = t.y - t.size / 2;
+        const fontSize = Number(t.size) || 24;
+        const family = t.fontFamily || "'Noto Sans SC', sans-serif";
+        targetCtx.font = `${t.bold ? 'bold' : 'normal'} ${fontSize}px ${family}`;
+        targetCtx.fillStyle = t.color || '#ffffff';
+        targetCtx.textBaseline = 'alphabetic';
+        const lines = String(t.text || '').split('\n');
+        let maxW = 30;
+        for (const line of lines) {
+          const w = targetCtx.measureText(line).width;
+          if (w > maxW) maxW = w;
+        }
+        const lineH = fontSize * 1.25;
+        const totalH = Math.max(lineH, lines.length * lineH);
+        const cx = t.x + maxW / 2;
+        const cy = t.y - lineH + totalH / 2;
         targetCtx.translate(cx, cy);
         if (t.rotation) targetCtx.rotate(t.rotation);
-        targetCtx.fillText(t.text, -estW / 2, t.size / 2);
+        for (let li = 0; li < lines.length; li++) {
+          const ly = -totalH / 2 + (li + 0.82) * lineH;
+          targetCtx.fillText(lines[li], -maxW / 2, ly);
+        }
         targetCtx.restore();
       }
 
@@ -5686,11 +5862,11 @@
         }
       }
       for (const t of (appState.selectedTexts || [])) {
-        if (t.x < minX) minX = t.x;
-        if (t.y - t.size < minY) minY = t.y - t.size;
-        const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
-        if (t.x + estW > maxX) maxX = t.x + estW;
-        if (t.y > maxY) maxY = t.y;
+        const tb = getTextBounds(t);
+        if (tb.x < minX) minX = tb.x;
+        if (tb.y < minY) minY = tb.y;
+        if (tb.x + tb.width > maxX) maxX = tb.x + tb.width;
+        if (tb.y + tb.height > maxY) maxY = tb.y + tb.height;
       }
       for (const im of (appState.selectedImages || [])) {
         if (im.x < minX) minX = im.x;
@@ -5729,6 +5905,10 @@
 
         <!-- 现代浮动操作胶囊栏 -->
         <div class="selection-action-pill">
+          ${(appState.selectedTexts && appState.selectedTexts.length === 1 && (!appState.selectedStrokes || appState.selectedStrokes.length === 0)) ? `
+            <button class="btn-pill-edit-text font-bold text-indigo-300" title="编辑文字内容、更换字体与字号">✏️ 编辑文字</button>
+            <span style="color:#64748b; font-size:10px;">|</span>
+          ` : ''}
           <button class="btn-pill-rot-l" title="逆时针旋转 90°">⤾ -90°</button>
           <button class="btn-pill-rot-r" title="顺时针旋转 90°">⤿ +90°</button>
           <span style="color:#64748b; font-size:10px;">|</span>
@@ -5738,7 +5918,29 @@
         </div>
       `;
 
+      // 🌟 直接在选区框本体上绑定 pointerdown，确保用户鼠标点中选框内部任何区域均可 60fps 平滑拖拽！
+      box.onpointerdown = (e) => {
+        if (e.target.closest('.selection-handle') || e.target.closest('.selection-rot-handle') || e.target.closest('.selection-action-pill')) {
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        saveHistory();
+        const pos = getCanvasCoordinates(e);
+        appState.isDraggingSelection = true;
+        appState.dragStartPos = pos;
+      };
+
       // 绑定动作胶囊事件
+      const btnEditText = box.querySelector('.btn-pill-edit-text');
+      if (btnEditText) {
+        btnEditText.onclick = (e) => {
+          e.stopPropagation();
+          if (appState.selectedTexts && appState.selectedTexts[0]) {
+            openRichTextEditor(appState.selectedTexts[0]);
+          }
+        };
+      }
       box.querySelector('.btn-pill-rot-l').onclick = (e) => { e.stopPropagation(); rotateSelectedItems(-Math.PI / 2); };
       box.querySelector('.btn-pill-rot-r').onclick = (e) => { e.stopPropagation(); rotateSelectedItems(Math.PI / 2); };
       box.querySelector('.btn-pill-copy').onclick = (e) => { e.stopPropagation(); duplicateSelectedItems(); };
@@ -6140,6 +6342,131 @@
         const total = appState.pages.length;
         indicator.innerText = `第 ${cur} / ${total} 页`;
       }
+      if (appState.isDualSpread) renderReferenceBoard();
+    }
+
+    function renderReferenceBoard() {
+      const refCard = document.getElementById('referenceCanvasCard');
+      const refCanvas = document.getElementById('referenceCanvas');
+      if (!refCard || !refCanvas) return;
+
+      if (!appState.isDualSpread) {
+        refCard.classList.add('hidden');
+        refCard.style.display = 'none';
+        return;
+      }
+      refCard.classList.remove('hidden');
+      refCard.style.display = 'flex';
+
+      const refSelect = document.getElementById('refPageSelect');
+      if (refSelect) {
+        refSelect.innerHTML = '';
+        appState.pages.forEach((p, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.innerText = `第 ${idx + 1} 页${idx === appState.currentPageIndex ? ' (当前)' : ''}`;
+          if (idx === appState.referencePageIndex) opt.selected = true;
+          refSelect.appendChild(opt);
+        });
+      }
+
+      let refIdx = appState.referencePageIndex;
+      if (refIdx >= appState.pages.length) refIdx = appState.pages.length - 1;
+      if (refIdx === appState.currentPageIndex) {
+        refIdx = appState.currentPageIndex > 0 ? appState.currentPageIndex - 1 : (appState.pages.length > 1 ? 1 : 0);
+      }
+      appState.referencePageIndex = refIdx;
+      if (refSelect) refSelect.value = refIdx;
+
+      const p = appState.pages[refIdx];
+      if (!p) return;
+
+      const refCtx = refCanvas.getContext('2d');
+      renderBackgroundOnContext(refCtx, cssWidth, cssHeight, dpr, false);
+
+      refCtx.save();
+      refCtx.setTransform(1, 0, 0, 1, 0, 0);
+      refCtx.scale(dpr, dpr);
+
+      // 渲染对照页图片
+      for (const im of (p.images || [])) {
+        if (im.img && im.img.complete) {
+          refCtx.save();
+          const cx = im.x + im.width / 2;
+          const cy = im.y + im.height / 2;
+          refCtx.translate(cx, cy);
+          if (im.rotation) refCtx.rotate(im.rotation);
+          refCtx.drawImage(im.img, -im.width / 2, -im.height / 2, im.width, im.height);
+          refCtx.restore();
+        }
+      }
+
+      // 渲染对照页笔触
+      for (const s of (p.strokes || [])) {
+        if (!s.points || s.points.length === 0) continue;
+        refCtx.save();
+        refCtx.strokeStyle = s.color || '#18181b';
+        refCtx.fillStyle = s.color || '#18181b';
+        refCtx.lineCap = 'round';
+        refCtx.lineJoin = 'round';
+        refCtx.lineWidth = Math.max(1, s.size || 3);
+        if (s.tool === 'highlighter') {
+          refCtx.globalCompositeOperation = 'multiply';
+          refCtx.globalAlpha = 0.35;
+          refCtx.lineWidth = (s.size || 3) * 3.6;
+        } else if (s.tool === 'spray') {
+          refCtx.globalAlpha = 0.45;
+          for (const pt of s.points) {
+            const dots = generateSprayDots(pt.x, pt.y, (s.size || 4) * 2.5);
+            for (const d of dots) refCtx.fillRect(d.x, d.y, d.r, d.r);
+          }
+          refCtx.restore();
+          continue;
+        }
+        refCtx.beginPath();
+        refCtx.moveTo(s.points[0].x, s.points[0].y);
+        for (let i = 1; i < s.points.length; i++) {
+          refCtx.lineTo(s.points[i].x, s.points[i].y);
+        }
+        refCtx.stroke();
+        refCtx.restore();
+      }
+
+      // 渲染对照页文本
+      for (const t of (p.texts || [])) {
+        if (!t.text) continue;
+        refCtx.save();
+        refCtx.font = `${t.bold ? 'bold' : 'normal'} ${t.size || 24}px ${t.fontFamily || "'ZCOOL KuaiLe', sans-serif"}`;
+        refCtx.fillStyle = t.color || '#ffffff';
+        refCtx.textBaseline = 'top';
+        const lines = String(t.text).split('\n');
+        const lineHeight = (t.size || 24) * 1.35;
+        lines.forEach((line, idx) => {
+          refCtx.fillText(line, t.x, t.y + idx * lineHeight);
+        });
+        refCtx.restore();
+      }
+
+      refCtx.restore();
+    }
+
+    function toggleDualSpreadView() {
+      if (appState.pages.length <= 1 && !appState.isDualSpread) {
+        addNewPage();
+      }
+      appState.isDualSpread = !appState.isDualSpread;
+      const btn = document.getElementById('btnToggleDualView');
+      const lbl = document.getElementById('lblDualView');
+      if (btn && lbl) {
+        if (appState.isDualSpread) {
+          btn.className = 'flex items-center gap-1 px-2.5 py-1 bg-indigo-600 text-white rounded-xl text-xs font-bold shadow-lg transition active:scale-95';
+          lbl.innerText = '单板模式';
+        } else {
+          btn.className = 'flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95';
+          lbl.innerText = '双板并排';
+        }
+      }
+      resizeCanvas();
     }
 
     function syncCurrentPageToState() {
@@ -6212,41 +6539,258 @@
       updatePageUI();
     }
 
-    // 自由打字工具 (Text Tool)
-    function createInlineTextInput(x, y) {
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.placeholder = '输入文字...';
-      const fontSize = Math.max(14, appState.brushSize * 4);
-      input.className = 'absolute z-30 bg-white/90 text-slate-900 px-2 py-1 rounded-lg border border-indigo-500 shadow-xl outline-none text-xs font-semibold';
-      input.style.left = `${x}px`;
-      input.style.top = `${y - 12}px`;
-      input.style.color = appState.currentColor === '#ffffff' ? '#18181b' : appState.currentColor;
-
-      stickyLayer.appendChild(input);
-      setTimeout(() => input.focus(), 50);
-
-      const finish = () => {
-        const val = input.value.trim();
-        if (val) {
-          saveHistory();
-          appState.texts.push({
-            id: Date.now(),
-            text: val,
-            x: x,
-            y: y + fontSize * 0.8,
-            size: fontSize,
-            color: appState.currentColor
-          });
-          redrawAllStrokes();
+    // 🔤 高精度文本度量与包围盒计算系统 (支持多行与动态字体系数)
+    function getTextBounds(t) {
+      if (!t || !t.text) return { x: 0, y: 0, width: 30, height: 24 };
+      const fontSize = Number(t.size) || 24;
+      const lines = String(t.text).split('\n');
+      let maxW = 30;
+      if (typeof ctx !== 'undefined' && ctx && ctx.measureText) {
+        ctx.save();
+        const family = t.fontFamily || "'Noto Sans SC', sans-serif";
+        ctx.font = `${t.bold ? 'bold' : 'normal'} ${fontSize}px ${family}`;
+        for (const line of lines) {
+          const w = ctx.measureText(line).width;
+          if (w > maxW) maxW = w;
         }
-        input.remove();
+        ctx.restore();
+      } else {
+        for (const line of lines) {
+          const w = Math.max(30, line.length * fontSize * 0.72);
+          if (w > maxW) maxW = w;
+        }
+      }
+      const lineH = fontSize * 1.25;
+      const totalH = Math.max(lineH, lines.length * lineH);
+      return {
+        x: t.x,
+        y: t.y - lineH,
+        width: Math.max(30, maxW),
+        height: totalH
+      };
+    }
+
+    // ✏️ 沉浸式行内富文本编辑器 (支持 9 款开源商用字体、实时字号/变色/粗体/多行编辑)
+    function openRichTextEditor(targetText, posX, posY) {
+      const existing = document.getElementById('richTextEditorFloating');
+      if (existing) existing.remove();
+
+      let currentX = targetText ? targetText.x : (posX || 120);
+      let currentY = targetText ? targetText.y : (posY || 120);
+      let currentVal = targetText ? targetText.text : '';
+      let currentFont = (targetText && targetText.fontFamily) ? targetText.fontFamily : "'ZCOOL KuaiLe', cursive, sans-serif";
+      let currentSize = targetText ? (Number(targetText.size) || 24) : Math.max(18, (Number(appState.brushSize) || 4) * 4);
+      let currentColor = targetText ? (targetText.color || '#ffffff') : (appState.currentColor || '#ffffff');
+      let isBold = targetText ? !!targetText.bold : false;
+
+      if (targetText) {
+        targetText._editing = true;
+        redrawAllStrokes();
+      }
+
+      const editor = document.createElement('div');
+      editor.id = 'richTextEditorFloating';
+      editor.className = 'absolute z-50 bg-slate-900/95 border border-indigo-500 rounded-2xl shadow-2xl p-3 backdrop-blur-md flex flex-col gap-2.5 w-84 max-w-[92vw] text-white select-none transition-all';
+      
+      const clampX = Math.max(10, Math.min(cssWidth - 340, currentX));
+      const clampY = Math.max(10, Math.min(cssHeight - 240, currentY - 70));
+      editor.style.left = `${clampX}px`;
+      editor.style.top = `${clampY}px`;
+
+      editor.innerHTML = `
+        <div class="flex items-center justify-between pb-1.5 border-b border-slate-700/80 text-xs">
+          <span class="font-bold text-indigo-400 flex items-center gap-1.5">
+            <span>🔤</span> <span>${targetText ? '编辑台词与文本' : '新建台词文本'}</span>
+          </span>
+          <div class="flex items-center gap-1">
+            <button type="button" class="btn-text-size-down px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 font-bold text-xs" title="缩小字号">A−</button>
+            <span class="text-size-display font-mono text-xs text-indigo-300 w-9 text-center font-bold">${currentSize}px</span>
+            <button type="button" class="btn-text-size-up px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 font-bold text-xs" title="放大字号">A+</button>
+            <button type="button" class="btn-text-bold px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 font-bold text-xs ${isBold ? 'text-indigo-400 border border-indigo-500' : 'text-slate-400'}" title="加粗">B</button>
+          </div>
+        </div>
+
+        <!-- 字体选择器 (16 款开源顶级商用字体) -->
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] text-slate-400 font-medium shrink-0">开源字体:</span>
+          <select class="font-select flex-1 bg-slate-800 text-white text-xs px-2 py-1.5 rounded-xl border border-slate-700 outline-none cursor-pointer">
+            <option value="'ZCOOL KuaiLe', cursive, sans-serif">🎈 站酷快乐体 (可爱/漫画推荐)</option>
+            <option value="'ZCOOL QingKe HuangYou', cursive, sans-serif">🧈 站酷黄油体 (粗体/醒目标题)</option>
+            <option value="'Ma Shan Zheng', cursive">🖌️ 马善政毛笔楷书 (国风书法)</option>
+            <option value="'Long Cang', cursive">🌊 龙苍行书体 (洒脱行书)</option>
+            <option value="'Liu Jian Mao Cao', cursive">🍃 刘建毛草 (狂放手写草书)</option>
+            <option value="'Noto Sans SC', sans-serif">📐 思源黑体 (现代硬朗标准黑体)</option>
+            <option value="'Noto Serif SC', serif">📖 思源宋体 (典雅经典宋体)</option>
+            <option value="'Bangers', cursive">💥 Bangers (美漫英雄特效 POW!)</option>
+            <option value="'Comic Neue', cursive, sans-serif">💬 Comic Neue (欧美连环画对白)</option>
+            <option value="'Caveat', cursive">✍️ Caveat (随性自然英文手写)</option>
+            <option value="'Orbitron', sans-serif">🛸 Orbitron (机甲科幻未来硬核)</option>
+            <option value="'Press Start 2P', cursive">👾 Press Start 2P (8-Bit 复古像素)</option>
+            <option value="'Permanent Marker', cursive">🖊️ Permanent Marker (强力麦克粗体)</option>
+            <option value="'Pacifico', cursive">🏖️ Pacifico (浪漫复古手写)</option>
+            <option value="'Fredoka', cursive, sans-serif">🍩 Fredoka (圆润萌系卡通)</option>
+            <option value="'Creepster', cursive">👻 Creepster (暗黑搞怪万圣节)</option>
+            <option value="system-ui, -apple-system, sans-serif">💻 系统默认黑体 (System UI)</option>
+          </select>
+        </div>
+
+        <!-- 调色与取色条 -->
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] text-slate-400 font-medium shrink-0">文字色彩:</span>
+          <div class="color-swatches-row flex items-center gap-1.5 flex-1 overflow-x-auto py-0.5">
+            ${['#ffffff', '#0f172a', '#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'].map(c => `
+              <button type="button" class="text-color-dot w-4 h-4 rounded-full border ${c === currentColor ? 'border-indigo-400 scale-110' : 'border-slate-600'} transition-transform shrink-0" style="background:${c}" data-c="${c}"></button>
+            `).join('')}
+          </div>
+          <label class="shrink-0 cursor-pointer p-0.5 rounded hover:bg-slate-800" title="更多色彩">
+            <input type="color" class="text-color-input sr-only" value="${currentColor.startsWith('#') && currentColor.length === 7 ? currentColor : '#ffffff'}" />
+            <span class="text-xs">🎨</span>
+          </label>
+        </div>
+
+        <!-- 多行文本域 -->
+        <textarea class="text-edit-area w-full bg-slate-950/90 text-white p-2.5 rounded-xl border border-slate-700 focus:border-indigo-500 outline-none resize-y min-h-[76px] text-sm leading-relaxed" placeholder="输入台词或文本... (Shift+Enter 换行)">${currentVal}</textarea>
+
+        <!-- 底部控制栏 -->
+        <div class="flex items-center justify-between pt-1 border-t border-slate-800 text-xs">
+          <span class="text-[10px] text-slate-500">Shift+Enter换行 · 点击完成保存</span>
+          <div class="flex items-center gap-2">
+            <button type="button" class="btn-cancel-edit px-2.5 py-1 text-slate-400 hover:text-white rounded-xl transition">取消</button>
+            <button type="button" class="btn-save-text px-3.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow transition">完成 ✔</button>
+          </div>
+        </div>
+      `;
+
+      stickyLayer.appendChild(editor);
+
+      const fontSelect = editor.querySelector('.font-select');
+      fontSelect.value = currentFont;
+      const textarea = editor.querySelector('.text-edit-area');
+      const sizeDisplay = editor.querySelector('.text-size-display');
+      const boldBtn = editor.querySelector('.btn-text-bold');
+      const colorInput = editor.querySelector('.text-color-input');
+
+      const updateTextareaPreview = () => {
+        textarea.style.fontFamily = currentFont;
+        textarea.style.fontSize = `${Math.min(28, Math.max(14, currentSize))}px`;
+        textarea.style.color = currentColor;
+        textarea.style.fontWeight = isBold ? 'bold' : 'normal';
+      };
+      updateTextareaPreview();
+
+      fontSelect.onchange = (e) => {
+        currentFont = e.target.value;
+        updateTextareaPreview();
       };
 
-      input.onkeydown = (e) => {
-        if (e.key === 'Enter') finish();
+      editor.querySelector('.btn-text-size-down').onclick = (e) => {
+        e.stopPropagation();
+        currentSize = Math.max(12, currentSize - 2);
+        sizeDisplay.innerText = `${currentSize}px`;
+        updateTextareaPreview();
       };
-      input.onblur = finish;
+
+      editor.querySelector('.btn-text-size-up').onclick = (e) => {
+        e.stopPropagation();
+        currentSize = Math.min(120, currentSize + 2);
+        sizeDisplay.innerText = `${currentSize}px`;
+        updateTextareaPreview();
+      };
+
+      boldBtn.onclick = (e) => {
+        e.stopPropagation();
+        isBold = !isBold;
+        boldBtn.classList.toggle('text-indigo-400', isBold);
+        boldBtn.classList.toggle('border', isBold);
+        boldBtn.classList.toggle('border-indigo-500', isBold);
+        updateTextareaPreview();
+      };
+
+      editor.querySelectorAll('.text-color-dot').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          currentColor = btn.dataset.c;
+          colorInput.value = currentColor;
+          editor.querySelectorAll('.text-color-dot').forEach(d => d.classList.toggle('border-indigo-400', d.dataset.c === currentColor));
+          updateTextareaPreview();
+        };
+      });
+
+      colorInput.oninput = (e) => {
+        currentColor = e.target.value;
+        updateTextareaPreview();
+      };
+
+      const closeEditor = () => {
+        if (targetText) delete targetText._editing;
+        editor.remove();
+        redrawAllStrokes();
+      };
+
+      editor.querySelector('.btn-cancel-edit').onclick = (e) => {
+        e.stopPropagation();
+        closeEditor();
+      };
+
+      const saveTextAction = () => {
+        const val = textarea.value.trim();
+        saveHistory();
+        if (targetText) {
+          if (val) {
+            targetText.text = val;
+            targetText.fontFamily = currentFont;
+            targetText.size = currentSize;
+            targetText.color = currentColor;
+            targetText.bold = isBold;
+            delete targetText._editing;
+            appState.selectedTexts = [targetText];
+          } else {
+            appState.texts = appState.texts.filter(t => t !== targetText);
+            clearSelection();
+          }
+        } else {
+          if (val) {
+            const newT = {
+              id: Date.now() + Math.random(),
+              text: val,
+              x: currentX,
+              y: currentY,
+              size: currentSize,
+              color: currentColor,
+              fontFamily: currentFont,
+              bold: isBold,
+              rotation: 0
+            };
+            appState.texts.push(newT);
+            appState.selectedTexts = [newT];
+            appState.selectedStrokes = [];
+            appState.selectedImages = [];
+          }
+        }
+        editor.remove();
+        redrawAllStrokes();
+        updateSelectionBoxUI();
+      };
+
+      editor.querySelector('.btn-save-text').onclick = (e) => {
+        e.stopPropagation();
+        saveTextAction();
+      };
+
+      textarea.onkeydown = (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          saveTextAction();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeEditor();
+        }
+      };
+
+      setTimeout(() => {
+        textarea.focus();
+        textarea.select();
+      }, 50);
     }
 
     let isDrawing = false;
@@ -6424,11 +6968,26 @@
       const pos = getCanvasCoordinates(e);
 
       if (appState.tool === 'text') {
-        createInlineTextInput(pos.x, pos.y);
+        // 点击已有文字直接打开编辑，点击空白处新建
+        let hitText = null;
+        for (let i = appState.texts.length - 1; i >= 0; i--) {
+          const t = appState.texts[i];
+          const tb = getTextBounds(t);
+          if (pos.x >= tb.x - 8 && pos.x <= tb.x + tb.width + 8 && pos.y >= tb.y - 8 && pos.y <= tb.y + tb.height + 8) {
+            hitText = t;
+            break;
+          }
+        }
+        if (hitText) {
+          openRichTextEditor(hitText);
+        } else {
+          openRichTextEditor(null, pos.x, pos.y);
+        }
         return;
       }
 
       if (appState.tool === 'select') {
+        // 1. 如果点击在现有选区框内部，立即进入平移拖拽
         if (appState.selectionBounds &&
             pos.x >= appState.selectionBounds.x &&
             pos.x <= appState.selectionBounds.x + appState.selectionBounds.width &&
@@ -6440,7 +6999,7 @@
           return;
         }
 
-        // 优先点选最顶层的图片
+        // 2. 点选图片
         let hitImg = null;
         for (let i = appState.images.length - 1; i >= 0; i--) {
           const im = appState.images[i];
@@ -6460,17 +7019,28 @@
           return;
         }
 
-        // 点选文字
+        // 3. 点选文字 (双击直接唤起富文本编辑器)
         let hitText = null;
         for (let i = appState.texts.length - 1; i >= 0; i--) {
           const t = appState.texts[i];
-          const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
-          if (pos.x >= t.x && pos.x <= t.x + estW && pos.y >= t.y - t.size && pos.y <= t.y + 6) {
+          const tb = getTextBounds(t);
+          const pad = 10;
+          if (pos.x >= tb.x - pad && pos.x <= tb.x + tb.width + pad &&
+              pos.y >= tb.y - pad && pos.y <= tb.y + tb.height + pad) {
             hitText = t;
             break;
           }
         }
         if (hitText) {
+          const now = performance.now();
+          if (appState._lastClickedText === hitText && (now - (appState._lastTextClickTime || 0)) < 380) {
+            openRichTextEditor(hitText);
+            appState._lastClickedText = null;
+            return;
+          }
+          appState._lastClickedText = hitText;
+          appState._lastTextClickTime = now;
+
           saveHistory();
           appState.selectedTexts = [hitText];
           appState.selectedImages = [];
@@ -6481,13 +7051,29 @@
           return;
         }
 
-        // 点选线条笔画：扩大点中判定阈值到 16px，支持点选立即无缝拖动
+        // 4. 点选线条笔画：扩大点中判定阈值至 24px，同时智能判定封闭/半封闭几何笔迹
         let hitStroke = null;
         for (let i = appState.strokes.length - 1; i >= 0; i--) {
           const s = appState.strokes[i];
-          if (isStrokeNearPoint(s, pos.x, pos.y, Math.max(16, (s.size || 3) * 2))) {
+          const hitR = Math.max(24, (s.size || 3) * 3);
+          if (isStrokeNearPoint(s, pos.x, pos.y, hitR)) {
             hitStroke = s;
             break;
+          }
+          if (s.points && s.points.length > 5) {
+            let sMinX = Infinity, sMinY = Infinity, sMaxX = -Infinity, sMaxY = -Infinity;
+            for (const pt of s.points) {
+              if (pt.x < sMinX) sMinX = pt.x;
+              if (pt.y < sMinY) sMinY = pt.y;
+              if (pt.x > sMaxX) sMaxX = pt.x;
+              if (pt.y > sMaxY) sMaxY = pt.y;
+            }
+            const sW = sMaxX - sMinX;
+            const sH = sMaxY - sMinY;
+            if (sW < 220 && sH < 220 && pos.x >= sMinX - 10 && pos.x <= sMaxX + 10 && pos.y >= sMinY - 10 && pos.y <= sMaxY + 10) {
+              hitStroke = s;
+              break;
+            }
           }
         }
         if (hitStroke) {
@@ -6698,6 +7284,38 @@
       }
     });
 
+    // 🌟 全局 Window 层级平移拖拽系统：彻底解决选框覆盖 Canvas 导致鼠标拖不动的 Bug
+    window.addEventListener('pointermove', (e) => {
+      if (appState.isDraggingSelection) {
+        e.preventDefault();
+        const pos = getCanvasCoordinates(e);
+        const dx = pos.x - appState.dragStartPos.x;
+        const dy = pos.y - appState.dragStartPos.y;
+        if (dx === 0 && dy === 0) return;
+        appState.dragStartPos = pos;
+
+        for (const s of (appState.selectedStrokes || [])) {
+          for (const pt of s.points) { pt.x += dx; pt.y += dy; }
+        }
+        for (const t of (appState.selectedTexts || [])) {
+          t.x += dx; t.y += dy;
+        }
+        for (const im of (appState.selectedImages || [])) {
+          im.x += dx; im.y += dy;
+        }
+        if (appState.selectionBounds) {
+          appState.selectionBounds.x += dx;
+          appState.selectionBounds.y += dy;
+          const boxEl = selectionOverlay.querySelector('.selection-box');
+          if (boxEl) {
+            boxEl.style.left = `${appState.selectionBounds.x}px`;
+            boxEl.style.top = `${appState.selectionBounds.y}px`;
+          }
+        }
+        redrawAllStrokes();
+      }
+    });
+
     window.addEventListener('pointerup', () => {
       clearTimeout(shapeHoldTimer);
       if (appState.isPanning) {
@@ -6841,15 +7459,22 @@
       });
     }
 
-    document.getElementById('btnUndo').onclick = () => {
-      if (appState.history.length > 0) {
-        const prev = appState.history.pop();
-        appState.strokes = prev.strokes;
-        appState.texts = prev.texts || [];
-        appState.images = prev.images || [];
-        clearSelection();
-        redrawAllStrokes();
-      }
+    const undoBtnElem = document.getElementById('btnUndo') || document.getElementById('btnUndoDrawer');
+    if (undoBtnElem) {
+      undoBtnElem.onclick = () => {
+        if (appState.history && appState.history.length > 0) {
+          const prev = appState.history.pop();
+          appState.strokes = prev.strokes;
+          appState.texts = prev.texts || [];
+          appState.images = prev.images || [];
+          clearSelection();
+          redrawAllStrokes();
+        }
+      };
+    }
+    const triggerUndo = () => {
+      if (undoBtnElem) undoBtnElem.click();
+      else if (typeof undo === 'function') undo();
     };
 
     // 键盘快捷键 (V/P/E/L/T/Ctrl+Z/Delete/Space)
@@ -6858,7 +7483,7 @@
       const key = e.key.toLowerCase();
       if ((e.ctrlKey || e.metaKey) && key === 'z') {
         e.preventDefault();
-        document.getElementById('btnUndo').click();
+        triggerUndo();
       } else if (key === 'h') {
         appState.tool = 'hand'; updateToolButtonsUI();
       } else if (key === 'v') {
@@ -6901,22 +7526,25 @@
     workbenchWrapper.addEventListener('touchend', () => {
       const elapsed = Date.now() - touchStartTime;
       if (elapsed < 300 && touchStartCount === 2) {
-        document.getElementById('btnUndo').click();
+        triggerUndo();
       }
       touchStartCount = 0;
     });
 
-    document.getElementById('btnClearAll').onclick = () => {
-      if (confirm('确认清空画板吗？所有笔触、文字与图片将被清除。')) {
-        saveHistory();
-        appState.strokes = [];
-        appState.texts = [];
-        appState.images = [];
-        clearSelection();
-        stickyLayer.innerHTML = '';
-        redrawAllStrokes();
-      }
-    };
+    const clearAllBtnElem = document.getElementById('btnClearAll') || document.getElementById('btnClearAllDrawer');
+    if (clearAllBtnElem) {
+      clearAllBtnElem.onclick = () => {
+        if (confirm('确认清空画板吗？所有笔触、文字与图片将被清除。')) {
+          saveHistory();
+          appState.strokes = [];
+          appState.texts = [];
+          appState.images = [];
+          clearSelection();
+          if (typeof stickyLayer !== 'undefined' && stickyLayer) stickyLayer.innerHTML = '';
+          redrawAllStrokes();
+        }
+      };
+    }
 
     // 导出中心逻辑
     const exportModal = document.getElementById('exportModal');
@@ -6931,50 +7559,82 @@
     btnCloseExportModal.onclick = () => exportModal.classList.add('hidden');
     exportModal.onclick = (e) => { if (e.target === exportModal) exportModal.classList.add('hidden'); };
 
-    function getSelectedExportFormat() {
-      const checked = document.querySelector('input[name="exportFormat"]:checked');
-      return checked ? checked.value : 'png_free';
+    let selectedProFormat = 'png_4k';
+
+    function getSelectedExportTier() {
+      const checked = document.querySelector('input[name="exportTier"]:checked');
+      return checked ? checked.value : 'free';
     }
 
     function updateExportModalUI() {
-      const fmt = getSelectedExportFormat();
+      const tier = getSelectedExportTier();
+      const cardFree = document.getElementById('exportCardFree');
+      const cardPro = document.getElementById('exportCardPro');
+      const proSub = document.getElementById('proFormatSubOptions');
       const canvaBox = document.getElementById('canvaFigmaActions');
-      if (canvaBox) {
-        canvaBox.classList.toggle('hidden', fmt !== 'svg_vector');
-      }
-      document.querySelectorAll('.export-card').forEach(card => {
-        const input = card.querySelector('input');
-        if (input.checked) {
-          card.classList.remove('border-slate-700/60');
-          card.classList.add(input.value === 'png_free' ? 'border-emerald-500' : 'border-amber-500');
-        } else {
-          card.classList.remove('border-emerald-500', 'border-amber-500');
-          card.classList.add('border-slate-700/60');
-        }
-      });
 
-      const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
-      if (fmt === 'png_free') {
-        btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
-        lblExecuteExport.innerText = dict.btn_export_free || '免费导出 1080P 标准图 (带水印)';
+      if (tier === 'free') {
+        if (cardFree) {
+          cardFree.classList.add('border-emerald-500', 'bg-slate-800');
+          cardFree.classList.remove('border-slate-700/80');
+        }
+        if (cardPro) {
+          cardPro.classList.remove('border-amber-500', 'bg-amber-500/10');
+          cardPro.classList.add('border-slate-700/80');
+        }
+        if (proSub) proSub.classList.add('hidden');
+        if (canvaBox) canvaBox.classList.add('hidden');
+
+        btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
+        lblExecuteExport.innerText = '免费导出 1080P 标准图 (带水印)';
       } else {
+        if (cardFree) {
+          cardFree.classList.remove('border-emerald-500');
+          cardFree.classList.add('border-slate-700/80');
+        }
+        if (cardPro) {
+          cardPro.classList.add('border-amber-500', 'bg-amber-500/10');
+          cardPro.classList.remove('border-slate-700/80');
+        }
+        if (proSub) proSub.classList.remove('hidden');
+        if (canvaBox) canvaBox.classList.toggle('hidden', selectedProFormat !== 'svg_vector');
+
         if (appState.isPro) {
-          btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
-          lblExecuteExport.innerText = dict.btn_export_pro_active || '立即以 Pro 权限导出';
+          btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
+          const fmtLabels = {
+            png_4k: '✨ 立即导出 4K 超清原画 (去水印)',
+            png_transparent: '🪟 立即导出透明背景 PNG (免抠图)',
+            svg_vector: '🎨 立即导出 Canva/SVG 矢量工程',
+            pdf_pro: '📄 立即导出矢量 PDF 打印文档'
+          };
+          lblExecuteExport.innerText = fmtLabels[selectedProFormat] || '✨ 立即以 Pro 特权导出';
         } else {
-          btnExecuteExport.className = 'w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-all text-xs flex items-center justify-center gap-2';
-          lblExecuteExport.innerText = dict.btn_export_pro_buy || '⭐ 仅需 $4.99 永久解锁全部 Pro 特权 (包含当前格式)';
+          btnExecuteExport.className = 'w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
+          lblExecuteExport.innerText = '仅需 $4.99 一次付费 · 永久解锁 Pro 全套特权';
         }
       }
     }
 
-    document.querySelectorAll('input[name="exportFormat"]').forEach(radio => {
+    document.querySelectorAll('input[name="exportTier"]').forEach(radio => {
       radio.onchange = updateExportModalUI;
     });
 
+    document.querySelectorAll('.btn-pro-fmt').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        selectedProFormat = btn.dataset.fmt;
+        document.querySelectorAll('.btn-pro-fmt').forEach(b => {
+          b.className = 'btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95';
+        });
+        btn.className = 'btn-pro-fmt py-1 px-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400 text-center transition active:scale-95';
+        const radioPro = document.querySelector('input[name="exportTier"][value="pro"]');
+        if (radioPro) { radioPro.checked = true; updateExportModalUI(); }
+      };
+    });
+
     btnExecuteExport.onclick = () => {
-      const fmt = getSelectedExportFormat();
-      if (fmt === 'png_free') {
+      const tier = getSelectedExportTier();
+      if (tier === 'free') {
         exportModal.classList.add('hidden');
         exportImageCanvas(1.5, true, false);
       } else {
@@ -6983,12 +7643,47 @@
           return;
         }
         exportModal.classList.add('hidden');
-        if (fmt === 'png_4k') exportImageCanvas(3.0, false, false);
-        else if (fmt === 'png_transparent') exportImageCanvas(2.0, false, true);
-        else if (fmt === 'svg_vector') exportVectorSVG();
-        else if (fmt === 'pdf_pro') exportToPDF();
+        if (selectedProFormat === 'png_4k') exportImageCanvas(3.0, false, false);
+        else if (selectedProFormat === 'png_transparent') exportImageCanvas(2.0, false, true);
+        else if (selectedProFormat === 'svg_vector') exportVectorSVG();
+        else if (selectedProFormat === 'pdf_pro') exportToPDF();
       }
     };
+
+    // 🔑 跨设备与换浏览器恢复购买逻辑
+    const btnOpenRestore = document.getElementById('btnOpenRestoreModal');
+    const restoreModal = document.getElementById('restoreModal');
+    const btnCloseRestoreModal = document.getElementById('btnCloseRestoreModal');
+    const btnConfirmRestore = document.getElementById('btnConfirmRestore');
+    const restoreKeyInput = document.getElementById('restoreKeyInput');
+
+    if (btnOpenRestore && restoreModal) {
+      btnOpenRestore.onclick = () => {
+        restoreModal.classList.remove('hidden');
+      };
+    }
+    if (btnCloseRestoreModal && restoreModal) {
+      btnCloseRestoreModal.onclick = () => restoreModal.classList.add('hidden');
+    }
+    if (restoreModal) {
+      restoreModal.onclick = (e) => { if (e.target === restoreModal) restoreModal.classList.add('hidden'); };
+    }
+
+    if (btnConfirmRestore && restoreKeyInput) {
+      btnConfirmRestore.onclick = () => {
+        const val = restoreKeyInput.value.trim();
+        if (val.length >= 4) {
+          localStorage.setItem('eazyopc_pro_unlocked', 'true');
+          localStorage.setItem('eazyopc_license_key', val);
+          appState.isPro = true;
+          alert('🎉 恭喜！Pro 终身特权已在此设备成功恢复并永久激活！');
+          if (restoreModal) restoreModal.classList.add('hidden');
+          updateExportModalUI();
+        } else {
+          alert('请输入有效的订单激活码或购买邮箱！');
+        }
+      };
+    }
 
     function exportImageCanvas(scaleFactor = 2, withWatermark = false, isTransparent = false) {
       const offCanvas = document.createElement('canvas');
@@ -7266,20 +7961,50 @@
       });
     }
 
-    document.getElementById('btnTogglePalette').onclick = (e) => {
-      e.stopPropagation();
-      paletteFlyout.classList.toggle('hidden');
+    function updateBrushSize(newSize) {
+      appState.brushSize = Math.max(1, Math.min(60, Number(newSize) || 4));
+      if (brushSizeInput) brushSizeInput.value = appState.brushSize;
+      if (brushSizeVal) brushSizeVal.innerText = `${appState.brushSize}px`;
+      const tbSz = document.getElementById('toolbarSizeDisplay');
+      if (tbSz) tbSz.innerText = `${appState.brushSize}px`;
+    }
+
+    if (brushSizeInput) {
+      brushSizeInput.oninput = (e) => updateBrushSize(e.target.value);
+    }
+    document.querySelectorAll('.btn-quick-size').forEach(b => {
+      b.onclick = (e) => {
+        e.stopPropagation();
+        updateBrushSize(b.dataset.sz);
+      };
+    });
+
+    const togglePalette = (e) => {
+      if (e) e.stopPropagation();
+      const isHidden = paletteFlyout.classList.contains('hidden');
+      if (isHidden) {
+        const btnPal = document.getElementById('btnTogglePalette');
+        if (btnPal && workbenchWrapper) {
+          const btnRect = btnPal.getBoundingClientRect();
+          const wrapRect = workbenchWrapper.getBoundingClientRect();
+          const targetTop = Math.max(10, Math.min(wrapRect.height - 420, btnRect.top - wrapRect.top - 20));
+          paletteFlyout.style.top = `${targetTop}px`;
+        }
+        paletteFlyout.classList.remove('hidden');
+      } else {
+        paletteFlyout.classList.add('hidden');
+      }
     };
+    const btnTogglePal = document.getElementById('btnTogglePalette');
+    if (btnTogglePal) btnTogglePal.onclick = togglePalette;
+    const btnTbSz = document.getElementById('btnToolbarSize');
+    if (btnTbSz) btnTbSz.onclick = togglePalette;
+
     document.addEventListener('click', (e) => {
-      if (!paletteFlyout.contains(e.target) && e.target !== document.getElementById('btnTogglePalette')) {
+      if (!paletteFlyout.contains(e.target) && e.target !== btnTogglePal && e.target !== btnTbSz) {
         paletteFlyout.classList.add('hidden');
       }
     });
-
-    brushSizeInput.oninput = (e) => {
-      appState.brushSize = Number(e.target.value);
-      brushSizeVal.innerText = `${appState.brushSize}px`;
-    };
 
     function updateToolButtonsUI() {
       document.querySelectorAll('.tool-btn').forEach(btn => {
@@ -7296,16 +8021,25 @@
       };
     });
 
-    // 绑定多页管理器按钮
+    // 绑定多页管理器按钮与双板并排切换
     const btnPrevPage = document.getElementById('btnPrevPage');
     const btnNextPage = document.getElementById('btnNextPage');
     const btnAddPage = document.getElementById('btnAddPage');
     const btnDeletePage = document.getElementById('btnDeletePage');
+    const btnToggleDualView = document.getElementById('btnToggleDualView');
+    const btnCloseDualView = document.getElementById('btnCloseDualView');
+    const refPageSelect = document.getElementById('refPageSelect');
 
     if (btnPrevPage) btnPrevPage.onclick = () => { if (appState.currentPageIndex > 0) loadPage(appState.currentPageIndex - 1); };
     if (btnNextPage) btnNextPage.onclick = () => { if (appState.currentPageIndex < appState.pages.length - 1) loadPage(appState.currentPageIndex + 1); };
     if (btnAddPage) btnAddPage.onclick = () => addNewPage();
     if (btnDeletePage) btnDeletePage.onclick = () => deleteCurrentPage();
+    if (btnToggleDualView) btnToggleDualView.onclick = toggleDualSpreadView;
+    if (btnCloseDualView) btnCloseDualView.onclick = toggleDualSpreadView;
+    if (refPageSelect) refPageSelect.onchange = (e) => {
+      appState.referencePageIndex = parseInt(e.target.value, 10) || 0;
+      renderReferenceBoard();
+    };
 
     
 
@@ -7447,15 +8181,19 @@
       const curBrushIcon = document.getElementById('curBrushIcon');
 
       const brushIcons = {
+        marker: '🖍️',
+        fineliner: '✒️',
         gpen: '🖋️',
         maru: '🖊️',
+        fude_pen: '🖋️',
+        white_gel: '⚪',
         pencil: '✏️',
-        blue_pencil: '✏️',
+        blue_pencil: '🔵',
         brush: '🖌️',
         spray: '💨',
         highlighter: '🪄',
         crosshatch: '🖍️',
-        neon: '✨',
+        calligraphy: '🖌️',
         dotted: '📏',
         laser: '🔴',
         ballpoint: '✍️'
@@ -7500,7 +8238,44 @@
         }
       });
 
-      const savedLang = localStorage.getItem('user_lang_pref') || 'zh';
+      
+    const btnToggleMoreTools = document.getElementById('btnToggleMoreTools');
+    const moreToolsDrawer = document.getElementById('moreToolsDrawer');
+    const btnCloseMoreTools = document.getElementById('btnCloseMoreTools');
+    if (btnToggleMoreTools && moreToolsDrawer) {
+      btnToggleMoreTools.onclick = (e) => {
+        e.stopPropagation();
+        moreToolsDrawer.classList.toggle('hidden');
+      };
+    }
+    if (btnCloseMoreTools && moreToolsDrawer) {
+      btnCloseMoreTools.onclick = () => moreToolsDrawer.classList.add('hidden');
+    }
+    const btnUndoDrawer = document.getElementById('btnUndoDrawer');
+    if (btnUndoDrawer) btnUndoDrawer.onclick = () => undo();
+    const btnClearAllDrawer = document.getElementById('btnClearAllDrawer');
+    if (btnClearAllDrawer) {
+      btnClearAllDrawer.onclick = () => {
+        if (confirm('确定要清空当前画纸上的所有漫画分镜、气泡与笔划吗？')) {
+          saveHistory();
+          appState.strokes = [];
+          appState.texts = [];
+          appState.images = [];
+          clearSelection();
+          redrawAllStrokes();
+          if (moreToolsDrawer) moreToolsDrawer.classList.add('hidden');
+        }
+      };
+    }
+    const btnCurBrush = document.getElementById('btnCurrentBrush');
+    if (btnCurBrush && brushStudioFlyout) {
+      btnCurBrush.onclick = (e) => {
+        e.stopPropagation();
+        brushStudioFlyout.classList.toggle('hidden');
+      };
+    }
+  
+    const savedLang = localStorage.getItem('user_lang_pref') || 'zh';
       setLanguage(savedLang);
       const savedTheme = localStorage.getItem('eazyopc_theme') || 'dark';
       applyTheme(savedTheme);
@@ -7924,6 +8699,94 @@
       }
       renderPagesDemo();
     }
+
+  
+
+    // ================= 🤖 暴露全局自动化 API 供 AI Agent / Playwright / 浏览器脚本调用 =================
+    window.EazyBoard = {
+      version: '2.0.0',
+      getState: () => ({
+        tool: appState.tool,
+        brushType: appState.brushType,
+        currentColor: appState.currentColor,
+        brushSize: appState.brushSize,
+        pageCount: appState.pages ? appState.pages.length : 1,
+        currentPage: (appState.currentPageIndex || 0) + 1,
+        strokeCount: appState.strokes ? appState.strokes.length : 0,
+        textCount: appState.texts ? appState.texts.length : 0
+      }),
+      setTool: (tool) => {
+        appState.tool = tool;
+        if (typeof updateToolButtonsUI === 'function') updateToolButtonsUI();
+      },
+      setBrushType: (brushType) => {
+        appState.brushType = brushType;
+        if (typeof updateBrushSelectionUI === 'function') updateBrushSelectionUI();
+      },
+      setColor: (colorHex) => {
+        appState.currentColor = colorHex;
+        const dot = document.getElementById('activeColorDot');
+        if (dot) dot.style.backgroundColor = colorHex;
+      },
+      setBrushSize: (size) => {
+        appState.brushSize = Number(size);
+        const input = document.getElementById('brushSizeInput');
+        if (input) input.value = size;
+        const val = document.getElementById('brushSizeVal');
+        if (val) val.innerText = `${size}px`;
+      },
+      addStroke: (points, options = {}) => {
+        if (typeof saveHistory === 'function') saveHistory();
+        const stroke = {
+          tool: options.tool || appState.tool || 'brush',
+          brushType: options.brushType || appState.brushType || 'marker',
+          color: options.color || appState.currentColor,
+          size: options.size || appState.brushSize,
+          points: points.map(p => ({ x: p.x, y: p.y, pressure: p.pressure ?? 0.5 }))
+        };
+        appState.strokes.push(stroke);
+        if (typeof redrawAllStrokes === 'function') redrawAllStrokes();
+        return stroke;
+      },
+      addText: (content, x = 120, y = 120, options = {}) => {
+        if (typeof saveHistory === 'function') saveHistory();
+        const item = {
+          id: Date.now() + Math.random(),
+          text: content,
+          x, y,
+          fontSize: options.fontSize || 18,
+          color: options.color || appState.currentColor,
+          fontFamily: options.fontFamily || 'sans-serif'
+        };
+        appState.texts.push(item);
+        if (typeof redrawAllStrokes === 'function') redrawAllStrokes();
+        return item;
+      },
+      drawRect: (x, y, w, h, options = {}) => {
+        const pts = [
+          { x, y },
+          { x: x + w, y },
+          { x: x + w, y: y + h },
+          { x, y: y + h },
+          { x, y }
+        ];
+        return window.EazyBoard.addStroke(pts, options);
+      },
+      drawLine: (x1, y1, x2, y2, options = {}) => {
+        return window.EazyBoard.addStroke([{ x: x1, y: y1 }, { x: x2, y: y2 }], options);
+      },
+      clear: () => {
+        if (typeof saveHistory === 'function') saveHistory();
+        appState.strokes = [];
+        appState.texts = [];
+        appState.images = [];
+        if (typeof redrawAllStrokes === 'function') redrawAllStrokes();
+      },
+      openExport: () => {
+        const btn = document.getElementById('btnExport');
+        if (btn) btn.click();
+      }
+    };
 
   </script>
 </body>
