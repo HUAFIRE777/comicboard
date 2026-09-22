@@ -6221,6 +6221,34 @@
     Object.keys(TR_R4).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R4[l]); });
     // ==== R4 i18n END ====
 
+    // ==== R5 i18n BEGIN (Round 5：文字编辑器 / 选区胶囊栏文案，其它语言回落到英文) ====
+    const TR_R5 = {
+      zh: {
+        te_size_down: "字号缩小", te_size_up: "字号放大", te_bold: "加粗", te_color: "文字色彩", te_done: "完成",
+        te_placeholder: "在此直接打字...",
+        te_font_sans: "📐 思源黑体 (标准黑体)", te_font_serif: "📖 思源宋体 (典雅经典)", te_font_kuaile: "🎈 站酷快乐体 (卡通可爱)",
+        te_font_huangyou: "🧈 站酷黄油体 (醒目粗体)", te_font_kai: "🖌️ 马善政楷书 (国风书法)", te_font_comic: "💬 Comic Neue (欧美漫画)",
+        te_font_bangers: "💥 Bangers (英雄特效)", te_font_system: "💻 系统黑体 (System)",
+        sel_rotate_free: "按住拖拽 360° 自由旋转", sel_scale: "等比缩放", sel_stretch_v: "垂直拉伸", sel_stretch_h: "水平拉伸",
+        sel_edit_text: "编辑文字", sel_edit_text_tip: "编辑文字内容、更换字体与字号 (也可双击文字)",
+        sel_rot_l: "逆时针旋转 90°", sel_rot_r: "顺时针旋转 90°",
+        sel_copy: "复制", sel_copy_tip: "复制副本", sel_delete: "删除", sel_delete_tip: "删除 (Delete)"
+      },
+      en: {
+        te_size_down: "Smaller text", te_size_up: "Larger text", te_bold: "Bold", te_color: "Text colour", te_done: "Done",
+        te_placeholder: "Type here...",
+        te_font_sans: "📐 Noto Sans (standard)", te_font_serif: "📖 Noto Serif (classic)", te_font_kuaile: "🎈 ZCOOL KuaiLe (cute)",
+        te_font_huangyou: "🧈 ZCOOL HuangYou (bold)", te_font_kai: "🖌️ Ma Shan Zheng (brush script)", te_font_comic: "💬 Comic Neue (comic)",
+        te_font_bangers: "💥 Bangers (action)", te_font_system: "💻 System font",
+        sel_rotate_free: "Drag to rotate freely (360°)", sel_scale: "Scale proportionally", sel_stretch_v: "Stretch vertically", sel_stretch_h: "Stretch horizontally",
+        sel_edit_text: "Edit text", sel_edit_text_tip: "Edit the text, font and size (or double-click the text)",
+        sel_rot_l: "Rotate 90° counter-clockwise", sel_rot_r: "Rotate 90° clockwise",
+        sel_copy: "Duplicate", sel_copy_tip: "Duplicate", sel_delete: "Delete", sel_delete_tip: "Delete (Delete key)"
+      }
+    };
+    Object.keys(TR_R5).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R5[l]); });
+    // ==== R5 i18n END ====
+
     const appState = {
       lang: 'zh',
       tool: 'pen',        // 'select' | 'pen' | 'ballpoint' | 'pencil' | 'brush' | 'crayon' | 'highlighter' | 'spray' | 'text' | 'eraser' | 'lasso' | 'laser'
@@ -8338,40 +8366,82 @@
       wrapper.id = 'inlineCanvasTextWrapper';
       wrapper.className = 'absolute z-50 flex flex-col gap-1.5 select-none pointer-events-auto';
       
-      const clampX = Math.max(10, Math.min(cssWidth - 280, currentX));
-      const clampY = Math.max(8, currentY - 48);
+      const clampX = Math.max(6, Math.min(cssWidth - 280, currentX));
+      const clampY = Math.max(6, currentY - 48);
       wrapper.style.left = `${clampX}px`;
       wrapper.style.top = `${clampY}px`;
+      // 工具条按真实宽度排版 (窄屏自动换行)，整体不超过画板宽度
+      wrapper.style.width = 'max-content';
+      // 屏幕上真正可见、可点的区域：画板 ∩ 工作台 ∩ 视口，并让开左侧工具坞 / 顶栏
+      const editorVisibleRect = () => {
+        const cr = canvasCard.getBoundingClientRect();
+        let l = Math.max(cr.left, 0), t = Math.max(cr.top, 0);
+        let r = Math.min(cr.right, window.innerWidth), b = Math.min(cr.bottom, window.innerHeight);
+        const wb = workbenchWrapper.getBoundingClientRect();
+        l = Math.max(l, wb.left); t = Math.max(t, wb.top); r = Math.min(r, wb.right); b = Math.min(b, wb.bottom);
+        const sb = document.getElementById('leftSidebar');
+        if (sb && sb.offsetWidth) { const sr = sb.getBoundingClientRect(); if (sr.right > l && sr.right < r - 160) l = sr.right + 2; }
+        const nav = document.getElementById('topNavbar');
+        if (nav && nav.offsetHeight) { const nr = nav.getBoundingClientRect(); if (nr.bottom > t && nr.bottom < b - 80) t = nr.bottom; }
+        return { cr, l, t, r, b };
+      };
+      const viewK = (canvasCard.getBoundingClientRect().width / (cssWidth || 1)) || 1;
+      const vis0 = editorVisibleRect();
+      const editorMaxW = Math.max(120, Math.min(cssWidth - 12, (vis0.r - vis0.l - 12) / viewK));
+      wrapper.style.maxWidth = `${editorMaxW}px`;
 
       wrapper.innerHTML = `
         <!-- 迷你悬浮属性栏 (Figma / Photoshop 紧凑规格) -->
-        <div class="inline-text-toolbar flex items-center gap-1.5 px-2 py-1 bg-slate-900/95 border border-indigo-500/80 rounded-xl shadow-xl text-white text-xs backdrop-blur-md">
+        <div class="inline-text-toolbar flex flex-wrap items-center gap-1.5 px-2 py-1 bg-slate-900/95 border border-indigo-500/80 rounded-xl shadow-xl text-white text-xs backdrop-blur-md">
           <select class="inline-font-select bg-slate-800 text-white text-[11px] px-1.5 py-0.5 rounded border border-slate-700 outline-none cursor-pointer">
-            <option value="'Noto Sans SC', sans-serif">📐 思源黑体 (标准黑体)</option>
-            <option value="'Noto Serif SC', serif">📖 思源宋体 (典雅经典)</option>
-            <option value="'ZCOOL KuaiLe', cursive, sans-serif">🎈 站酷快乐体 (卡通可爱)</option>
-            <option value="'ZCOOL QingKe HuangYou', cursive, sans-serif">🧈 站酷黄油体 (醒目粗体)</option>
-            <option value="'Ma Shan Zheng', cursive">🖌️ 马善政楷书 (国风书法)</option>
-            <option value="'Comic Neue', cursive, sans-serif">💬 Comic Neue (欧美漫画)</option>
-            <option value="'Bangers', cursive">💥 Bangers (英雄特效)</option>
-            <option value="system-ui, -apple-system, sans-serif">💻 系统黑体 (System)</option>
+            <option value="'Noto Sans SC', sans-serif">${tr('te_font_sans')}</option>
+            <option value="'Noto Serif SC', serif">${tr('te_font_serif')}</option>
+            <option value="'ZCOOL KuaiLe', cursive, sans-serif">${tr('te_font_kuaile')}</option>
+            <option value="'ZCOOL QingKe HuangYou', cursive, sans-serif">${tr('te_font_huangyou')}</option>
+            <option value="'Ma Shan Zheng', cursive">${tr('te_font_kai')}</option>
+            <option value="'Comic Neue', cursive, sans-serif">${tr('te_font_comic')}</option>
+            <option value="'Bangers', cursive">${tr('te_font_bangers')}</option>
+            <option value="system-ui, -apple-system, sans-serif">${tr('te_font_system')}</option>
           </select>
-          <button type="button" class="btn-sz-minus px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] font-bold" title="字号缩小">A−</button>
+          <button type="button" class="btn-sz-minus px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] font-bold" title="${tr('te_size_down')}">A−</button>
           <span class="inline-sz-val font-mono text-[11px] text-indigo-300 w-8 text-center font-bold">${currentSize}px</span>
-          <button type="button" class="btn-sz-plus px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] font-bold" title="字号放大">A+</button>
-          <button type="button" class="btn-bold-toggle px-2 py-0.5 rounded text-[11px] font-bold ${isBold ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}" title="加粗">B</button>
-          <input type="color" class="inline-color-input w-5 h-5 rounded cursor-pointer border-0 bg-transparent" value="${/^#[0-9a-fA-F]{6}$/.test(currentColor) ? currentColor : '#18181b'}" title="文字色彩" />
-          <button type="button" class="btn-inline-done px-2.5 py-0.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[11px] font-bold shadow transition">完成 ✔</button>
+          <button type="button" class="btn-sz-plus px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] font-bold" title="${tr('te_size_up')}">A+</button>
+          <button type="button" class="btn-bold-toggle px-2 py-0.5 rounded text-[11px] font-bold ${isBold ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}" title="${tr('te_bold')}">B</button>
+          <input type="color" class="inline-color-input w-5 h-5 rounded cursor-pointer border-0 bg-transparent" value="${/^#[0-9a-fA-F]{6}$/.test(currentColor) ? currentColor : '#18181b'}" title="${tr('te_color')}" />
+          <button type="button" class="btn-inline-done px-2.5 py-0.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[11px] font-bold shadow transition">${tr('te_done')} ✔</button>
         </div>
         <!-- 沉浸式行内自适应输入框：所见即所得，零干扰打字 -->
-        <textarea id="inlineCanvasTextArea" class="bg-white/90 dark:bg-slate-900/90 border-2 border-dashed border-indigo-500 rounded-lg p-2 outline-none resize-none overflow-hidden shadow-2xl transition" placeholder="在此直接打字..." style="line-height:1.25; min-width:160px;"></textarea>
+        <textarea id="inlineCanvasTextArea" class="bg-white/90 dark:bg-slate-900/90 border-2 border-dashed border-indigo-500 rounded-lg p-2 outline-none resize-none overflow-hidden shadow-2xl transition" placeholder="${tr('te_placeholder')}" style="line-height:1.25; min-width:160px;"></textarea>
       `;
 
       canvasCard.appendChild(wrapper);
+      // 触屏"幽灵点击"防护：打开编辑器的那一下点按抬起时，浏览器会在同一位置补发 click，
+      // 若恰好落在「完成」等按钮上会把刚打开的编辑器立刻关掉
+      const editorOpenedAt = performance.now();
+      const swallowGhost = (ev) => {
+        if (ev.isTrusted && performance.now() - editorOpenedAt < 500) { ev.preventDefault(); ev.stopPropagation(); }
+      };
+      wrapper.addEventListener('click', swallowGhost, true);
+      wrapper.addEventListener('mousedown', swallowGhost, true);
 
-      // 放进画布后按实际宽度再夹一次，避免文字工具条超出画板右边
-
-      { const ww = wrapper.offsetWidth; const left = parseFloat(wrapper.style.left) || 0; if (ww && left + ww > cssWidth - 6) wrapper.style.left = `${Math.max(6, cssWidth - ww - 6)}px`; }
+      // 放进画布后按实际尺寸把编辑器夹在画板内，并在放大时夹在屏幕可见区域内 (不会跑出屏幕)
+      const keepEditorVisible = () => {
+        if (!wrapper.isConnected) return;
+        const ww = wrapper.offsetWidth, wh = wrapper.offsetHeight;
+        let left = parseFloat(wrapper.style.left) || 0, top = parseFloat(wrapper.style.top) || 0;
+        if (left + ww > cssWidth - 6) left = Math.max(6, cssWidth - ww - 6);
+        if (top + wh > cssHeight - 6) top = Math.max(6, cssHeight - wh - 6);
+        const { cr, l: visL, t: visT, r: visR, b: visB } = editorVisibleRect();
+        const k = cr.width / (cssWidth || 1) || 1;
+        const sx = cr.left + left * k, sy = cr.top + top * k;
+        if (sx + ww * k > visR - 6) left -= (sx + ww * k - (visR - 6)) / k;
+        if (sy + wh * k > visB - 6) top -= (sy + wh * k - (visB - 6)) / k;
+        if (cr.left + left * k < visL + 6) left = (visL + 6 - cr.left) / k;
+        if (cr.top + top * k < visT + 6) top = (visT + 6 - cr.top) / k;
+        wrapper.style.left = `${Math.round(left)}px`;
+        wrapper.style.top = `${Math.round(top)}px`;
+      };
+      keepEditorVisible();
 
       const textarea = wrapper.querySelector('#inlineCanvasTextArea');
       const fontSelect = wrapper.querySelector('.inline-font-select');
@@ -8396,12 +8466,16 @@
         textarea.style.height = `${Math.max(currentSize * 1.5, textarea.scrollHeight)}px`;
         textarea.style.width = 'auto';
         textarea.style.width = `${Math.max(160, textarea.scrollWidth + 24)}px`;
+        keepEditorVisible();
       };
 
+      textarea.style.maxWidth = `${editorMaxW}px`;
       textarea.addEventListener('input', autoResize);
       autoResize();
+      // 同步聚焦：iOS / iPadOS 只在用户手势内调用 focus() 时才弹出键盘
+      try { textarea.focus({ preventScroll: true }); } catch (err) { textarea.focus(); }
       setTimeout(() => {
-        textarea.focus();
+        if (document.activeElement !== textarea) textarea.focus();
         if (currentVal) textarea.select();
       }, 30);
 
@@ -8715,6 +8789,13 @@
       const pos = getCanvasCoordinates(e);
 
       if (appState.tool === 'text') {
+        // 正在编辑时点画布其他位置 = 完成当前文字 (不立刻再开一个空编辑框)
+        const openEditor = document.getElementById('inlineCanvasTextWrapper');
+        if (openEditor) {
+          const done = openEditor.querySelector('.btn-inline-done');
+          if (done) done.click(); else openEditor.remove();
+          return;
+        }
         // 点击已有文字直接打开编辑，点击空白处新建
         let hitText = null;
         for (let i = appState.texts.length - 1; i >= 0; i--) {
