@@ -6275,10 +6275,10 @@
         const total = appState.pages.length;
         if (appState.isDualSpread) {
           const tpl = dict.page_indicator_dual || TRANSLATIONS.zh.page_indicator_dual || '第 1 - {cur} / {total} 页 (双板)';
-          indicator.innerText = tpl.replace('{cur}', cur).replace('{total}', total);
+          indicator.textContent = tpl.replace('{cur}', cur).replace('{total}', total);
         } else {
           const tpl = dict.page_indicator || TRANSLATIONS.zh.page_indicator || '第 {cur} / {total} 页';
-          indicator.innerText = tpl.replace('{cur}', cur).replace('{total}', total);
+          indicator.textContent = tpl.replace('{cur}', cur).replace('{total}', total);
         }
       }
       updateDualViewUI();
@@ -7071,6 +7071,7 @@
         if (pts.length <= 12 || age < 350) {
           appState.strokes = appState.strokes.filter(st => st !== currentStroke);
           if (appState.history && appState.history.length) appState.history.pop();
+          if (appState._lastClearedRedo) appState.redoStack = appState._lastClearedRedo;
           redrawAllStrokes();
         }
       }
@@ -7081,6 +7082,7 @@
         if (p0 && (pts.length <= 12 || age < 350)) {
           p0.strokes = (p0.strokes || []).filter(st => st !== currentRefStroke);
           if (p0.history && p0.history.length) p0.history.pop();
+          if (p0._lastClearedRedo) p0.redoStack = p0._lastClearedRedo;
           renderReferenceBoard();
         }
       }
@@ -7089,6 +7091,16 @@
       isRefDrawing = false;
       currentRefStroke = null;
       appState.isPanning = false;
+      appState.isRefPanning = false;
+      appState.lassoPath = [];
+      if (appState.isMarqueeSelecting) {
+        appState.isMarqueeSelecting = false;
+        removeMarqueeBoxUI();
+      }
+      if (appState.isDraggingSelection) {
+        appState.isDraggingSelection = false;
+        updateSelectionBoxUI();
+      }
     }
 
     // 记录当前按下的触控点 (捕获阶段，先于画板监听器执行)
@@ -7661,6 +7673,7 @@
       if (!appState.history) appState.history = [];
       appState.history.push(snapshotBoard(appState));
       if (appState.history.length > HISTORY_LIMIT) appState.history.shift();
+      appState._lastClearedRedo = appState.redoStack || [];
       appState.redoStack = [];
       if (typeof scheduleAutosave === 'function') scheduleAutosave();
     }
@@ -7672,6 +7685,7 @@
       if (!p.history) p.history = [];
       p.history.push(snapshotBoard(p));
       if (p.history.length > HISTORY_LIMIT) p.history.shift();
+      p._lastClearedRedo = p.redoStack || [];
       p.redoStack = [];
       if (typeof scheduleAutosave === 'function') scheduleAutosave();
     }
