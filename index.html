@@ -1087,6 +1087,126 @@
     body.theme-light #pageManagerDock button#btnToggleDualView.dual-active * {
       color: #ffffff !important;
     }
+    /* ================= Round 4 · 设计系统 (间距 4/8/12/16/24 · 圆角 8/12/16/24 · 阴影 sm/md/lg · 按钮 32/36/40) ================= */
+    :root {
+      --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px;
+      --btn-sm: 32px; --btn-md: 36px; --btn-lg: 40px;
+      --accent: #6366f1; --accent-strong: #4f46e5; --accent-soft: rgba(99, 102, 241, 0.16);
+      --surface-glass: rgba(15, 23, 42, 0.80); --surface-solid: #0f172a; --surface-2: #1e293b; --surface-3: #273449;
+      --hairline: rgba(148, 163, 184, 0.20); --hairline-strong: rgba(148, 163, 184, 0.36);
+      --text-1: #f1f5f9; --text-2: #cbd5e1; --text-3: #94a3b8;
+      --sh-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+      --sh-md: 0 6px 18px rgba(0, 0, 0, 0.32), 0 1px 3px rgba(0, 0, 0, 0.2);
+      --sh-lg: 0 18px 48px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25);
+      --ring: 0 0 0 2px #0b1020, 0 0 0 4px rgba(129, 140, 248, 0.95);
+    }
+    body.theme-light {
+      --surface-glass: rgba(255, 255, 255, 0.88); --surface-solid: #ffffff; --surface-2: #f1f5f9; --surface-3: #e2e8f0;
+      --hairline: rgba(15, 23, 42, 0.12); --hairline-strong: rgba(15, 23, 42, 0.24);
+      --text-1: #0f172a; --text-2: #1e293b; --text-3: #475569;
+      --sh-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+      --sh-md: 0 6px 18px rgba(15, 23, 42, 0.10), 0 1px 3px rgba(15, 23, 42, 0.06);
+      --sh-lg: 0 18px 44px rgba(15, 23, 42, 0.14), 0 4px 12px rgba(15, 23, 42, 0.06);
+      --ring: 0 0 0 2px #ffffff, 0 0 0 4px rgba(79, 70, 229, 0.9);
+    }
+
+    /* 悬浮坞与浮窗：暗色 = 深色毛玻璃；白天 = 白色毛玻璃 (+ 发丝边框) */
+    #leftSidebar, #zoomDock, #pageManagerDock, #moreToolsDrawer, #panelsMenu, #balloonsMenu,
+    #brushStudioFlyout, #paletteFlyout, #layersPanel, #toolOptionsBar, #pageMenu {
+      background: var(--surface-glass) !important;
+      -webkit-backdrop-filter: blur(14px) saturate(1.3);
+      backdrop-filter: blur(14px) saturate(1.3);
+      border: 1px solid var(--hairline) !important;
+      box-shadow: var(--sh-lg) !important;
+      color: var(--text-1);
+    }
+    body.theme-light #leftSidebar, body.theme-light #zoomDock, body.theme-light #pageManagerDock, body.theme-light #moreToolsDrawer,
+    body.theme-light #panelsMenu, body.theme-light #balloonsMenu, body.theme-light #brushStudioFlyout, body.theme-light #paletteFlyout,
+    body.theme-light #layersPanel, body.theme-light #toolOptionsBar, body.theme-light #pageMenu {
+      background: var(--surface-glass) !important;
+      border-color: var(--hairline-strong) !important;
+      box-shadow: var(--sh-lg) !important;
+      color: var(--text-1) !important;
+    }
+    #leftSidebar { border-radius: var(--r-lg) !important; padding: var(--sp-1) !important; gap: 2px !important; max-height: calc(100% - 88px); overflow-y: auto; scrollbar-width: none; }
+    #leftSidebar::-webkit-scrollbar { display: none; }
+    #leftSidebar > button, #leftSidebar .tool-btn { width: var(--btn-md); height: var(--btn-md); min-width: var(--btn-md); padding: 0 !important; border-radius: var(--r-sm) !important; flex-shrink: 0; }
+    #leftSidebar > button svg { width: 18px; height: 18px; }
+    #leftSidebar > button:hover:not(.tool-btn-active) { background: rgba(148, 163, 184, 0.16); color: var(--text-1); }
+    #leftSidebar .tool-btn-active, #moreToolsDrawer .tool-btn-active { background: var(--accent-strong) !important; color: #ffffff !important; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.38) !important; }
+    #leftSidebar .tool-btn-active svg, #moreToolsDrawer .tool-btn-active * { color: #ffffff !important; }
+    #leftSidebar .dock-sep { width: 22px; height: 1px; background: var(--hairline-strong); margin: 3px 0; flex-shrink: 0; }
+    #zoomDock button, #pageManagerDock button { min-height: 28px; border-radius: var(--r-sm); }
+    #moreToolsDrawer, #panelsMenu, #balloonsMenu, #brushStudioFlyout, #paletteFlyout, #layersPanel, #pageMenu { border-radius: var(--r-lg) !important; }
+
+    body.theme-light #btnToolbarSize { background: #f1f5f9 !important; color: #0f172a !important; border-color: #cbd5e1 !important; font-weight: 800 !important; }
+    #btnToolbarSize { width: auto !important; height: auto !important; min-width: 0 !important; padding: 2px 6px !important; }
+    #leftSidebar #btnTogglePalette { width: 32px; height: 32px; min-width: 32px; }
+    /* 焦点可见环 (键盘操作) */
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+      outline: none !important;
+      box-shadow: var(--ring) !important;
+    }
+
+    /* 顶栏：品牌在左；导出=主按钮；Pro=金色；其余为幽灵按钮 */
+    .nav-ghost-btn { height: var(--btn-sm); padding: 0 10px; border-radius: 10px; color: var(--text-2); border: 1px solid var(--hairline-strong); background: transparent; }
+    .nav-ghost-btn:hover { background: rgba(148, 163, 184, 0.14); color: var(--text-1); }
+    body.theme-light .nav-ghost-btn { background: #ffffff !important; border-color: rgba(15, 23, 42, 0.18) !important; }
+    body.theme-light .nav-ghost-btn:hover { background: #f1f5f9 !important; }
+    #btnExport { height: var(--btn-sm); border-radius: 10px; box-shadow: var(--sh-md); }
+    #btnTopProBadge { height: var(--btn-sm); border-radius: 10px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(251, 191, 36, 0.14)) !important; border-color: rgba(245, 158, 11, 0.55) !important; color: #fcd34d !important; }
+    body.theme-light #btnTopProBadge { background: linear-gradient(135deg, #fbbf24, #f59e0b) !important; border-color: #d97706 !important; color: #1c1917 !important; }
+    body.theme-light #btnTopProBadge * { color: #1c1917 !important; }
+
+    /* 工具提示 (带快捷键) */
+    #uiTooltip { position: fixed; z-index: 90; pointer-events: none; padding: 6px 8px; border-radius: var(--r-sm); background: #0b1020; color: #f8fafc; font-size: 12px; font-weight: 600; line-height: 1.3; box-shadow: var(--sh-md); border: 1px solid rgba(148, 163, 184, 0.25); max-width: 260px; opacity: 0; transform: translateX(-4px); transition: opacity 0.12s ease, transform 0.12s ease; }
+    #uiTooltip.show { opacity: 1; transform: none; }
+    #uiTooltip kbd { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 6px; background: rgba(148, 163, 184, 0.2); border: 1px solid rgba(148, 163, 184, 0.35); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+    body.theme-light #uiTooltip { background: #0f172a; color: #ffffff; }
+
+    /* 弹窗：统一入场动画 (150ms)，尊重减少动态效果设置 */
+    @keyframes r4Fade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes r4ModalIn { from { opacity: 0; transform: translateY(6px) scale(0.97); } to { opacity: 1; transform: none; } }
+    #exportModal:not(.hidden), #restoreModal:not(.hidden), #feedbackModal:not(.hidden), #mobileSaveModal:not(.hidden), #proModal:not(.hidden), #shortcutsModal:not(.hidden) { animation: r4Fade 150ms ease-out both; }
+    #exportModal:not(.hidden) > div, #restoreModal:not(.hidden) > div, #feedbackModal:not(.hidden) > div, #mobileSaveModal:not(.hidden) > div, #proModal:not(.hidden) > div, #shortcutsModal:not(.hidden) > div { animation: r4ModalIn 150ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .modal-x { width: var(--btn-sm); height: var(--btn-sm); display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-sm); color: var(--text-3); transition: background 0.15s ease, color 0.15s ease; }
+    .modal-x:hover { background: rgba(148, 163, 184, 0.16); color: var(--text-1); }
+    body.theme-light .modal-x { color: #0f172a !important; }
+    @media (prefers-reduced-motion: reduce) {
+      #exportModal, #restoreModal, #feedbackModal, #mobileSaveModal, #proModal, #shortcutsModal,
+      #exportModal > div, #restoreModal > div, #feedbackModal > div, #mobileSaveModal > div, #proModal > div, #shortcutsModal > div { animation: none !important; }
+      #uiTooltip, #creatorToast { transition: none !important; }
+    }
+
+    /* 快捷键面板 */
+    #shortcutsModal .kbd-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: 7px var(--sp-3); border-radius: var(--r-sm); }
+    #shortcutsModal .kbd-row:nth-child(odd) { background: rgba(148, 163, 184, 0.08); }
+    #shortcutsModal kbd { display: inline-block; min-width: 22px; text-align: center; padding: 2px 7px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--hairline-strong); border-bottom-width: 2px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 700; color: var(--text-1); }
+    body.theme-light #shortcutsModal > div { background: #ffffff !important; color: #0f172a !important; }
+    body.theme-light #shortcutsModal > div * { color: #0f172a !important; }
+    body.theme-light #shortcutsModal > div :is(span, p, h3, div) { font-weight: 700; }
+    body.theme-light #shortcutsModal .border-slate-800 { border-color: #e2e8f0 !important; }
+    body.theme-light #shortcutsModal kbd { background: #f8fafc !important; border-color: #94a3b8 !important; }
+
+    /* 空画布提示 */
+    #emptyCanvasHint { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 5; padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #64748b; background: rgba(248, 250, 252, 0.85); border: 1px dashed rgba(100, 116, 139, 0.35); white-space: nowrap; transition: opacity 0.2s ease; }
+    #emptyCanvasHint.is-dark { color: #cbd5e1; background: rgba(15, 23, 42, 0.7); border-color: rgba(203, 213, 225, 0.3); }
+    #emptyCanvasHint.hidden-hint { opacity: 0; }
+
+    /* 吐司提示 */
+    #creatorToast { border-radius: var(--r-md) !important; box-shadow: var(--sh-lg) !important; max-width: min(92vw, 520px); white-space: normal; line-height: 1.5; font-weight: 600; }
+
+    /* SEO / 介绍区排版 */
+    #seoArticleSection p { line-height: 1.7; }
+    #seoArticleSection > div:first-child p { max-width: 68ch; margin-left: auto; margin-right: auto; }
+    #seoArticleSection .feature-card { display: flex; flex-direction: column; border-radius: var(--r-lg); }
+    #seoArticleSection section h3 { letter-spacing: -0.01em; }
+
+    @media (max-width: 639px) {
+      #leftSidebar { max-height: calc(100% - 84px); }
+      #pageManagerDock button { min-height: 32px; min-width: 32px; }
+    }
 </style>
   <!-- Open-Source Typography (Google Fonts - 16 Master Typographic Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1331,11 +1451,11 @@
       </div>
       <input type="file" id="workFileInput" accept=".eazyopc,application/json" class="hidden" />
       <!-- 白天/黑夜模式切换 -->
-      <button id="btnThemeToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)">
+      <button id="btnThemeToggle" type="button" class="nav-ghost-btn" data-i18n-title="tip_theme" title="切换白天 / 夜间模式">
         <span id="themeIcon">🌙</span> <span id="themeLabel" class="hidden sm:inline">夜间</span>
       </button>
 
-      <button id="btnToggleFullscreen" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1.5 transition" title="全屏沉浸创作">
+      <button id="btnToggleFullscreen" type="button" class="nav-ghost-btn" data-i18n-title="tip_fullscreen" title="全屏沉浸创作">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
         <span class="hidden sm:inline" data-i18n="fullscreen">全屏</span>
       </button>
@@ -1346,7 +1466,7 @@
       </button>
 
       <div class="relative">
-        <button id="btnLangDropdown" class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs cursor-pointer border border-slate-700">
+        <button id="btnLangDropdown" type="button" class="nav-ghost-btn" data-i18n-title="tip_lang" title="切换语言 / Language">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
           <span id="currentLangLabel">中</span> <span class="hidden sm:inline">▾</span>
         </button>
@@ -1387,7 +1507,7 @@
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
       </button>
 
-      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+      <div class="dock-sep" aria-hidden="true"></div>
 
       <!-- 3. 当前主画笔 (点击画画，长按或点右下角三角弹出 12 款笔刷工坊) -->
       <button id="btnCurrentBrush" class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center tool-btn-active relative group" data-tool="gpen" data-i18n-title="tip_gpen" title="🖋️ 漫画 G 笔 (快捷键 P，点击绘制，点击右下角三角切换 12 种大师笔刷)">
@@ -1405,7 +1525,7 @@
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
       </button>
 
-      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+      <div class="dock-sep" aria-hidden="true"></div>
 
       <!-- 6. 📐 漫画分镜格菜单 -->
       <button id="btnTogglePanels" class="p-2 rounded-xl text-indigo-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_panels" title="📐 插入漫画分镜格 (四格漫画/日漫6格/条漫)">
@@ -1423,7 +1543,7 @@
       </button>
       <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
 
-      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+      <div class="dock-sep" aria-hidden="true"></div>
 
       <!-- 9. 🎨 Photoshop 风格主画笔前景色块与调色工坊入口 -->
       <div class="flex flex-col items-center gap-1 my-0.5">
@@ -1436,7 +1556,7 @@
         </button>
       </div>
 
-      <div class="w-6 h-px bg-slate-700 my-0.5"></div>
+      <div class="dock-sep" aria-hidden="true"></div>
 
       <!-- 10. ⋯ 更多工具抽屉 (包含套索、激光笔、撤销、清屏) -->
       <button id="btnToggleMoreTools" class="p-2 rounded-xl text-slate-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_more_tools" title="⋯ 更多工具 (套索、激光教鞭、撤销、清屏)">
@@ -1447,8 +1567,8 @@
     <!-- 🗄️ PS 式「更多工具」二级收拢抽屉 (Secondary Tools Drawer) -->
     <div id="moreToolsDrawer" class="hidden absolute left-14 sm:left-18 top-16 sm:top-20 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-2.5 shadow-2xl space-y-2 w-56 text-white transition-all">
       <div class="flex items-center justify-between pb-1.5 border-b border-slate-800 text-xs font-bold text-slate-300">
-        <span class="flex items-center gap-1"><span>🧰</span> <span>更多工具 · Tools</span></span>
-        <button id="btnCloseMoreTools" class="text-slate-400 hover:text-white text-xs">✕</button>
+        <span class="flex items-center gap-1"><span>🧰</span> <span data-i18n="more_tools_title">更多工具</span></span>
+        <button id="btnCloseMoreTools" type="button" class="modal-x" data-i18n-title="close" title="关闭" aria-label="关闭">✕</button>
       </div>
       <div class="grid grid-cols-2 gap-1.5 text-xs">
         <button type="button" data-action="save-work" class="drawer-file-btn flex items-center gap-2 p-1.5 rounded-xl border border-indigo-500/40 bg-indigo-500/10 hover:bg-indigo-500/20 transition text-left" data-i18n-title="tip_save_work" title="保存作品为 .eazyopc 文件 (Ctrl+S)">
@@ -1460,10 +1580,10 @@
           <span class="text-[11px] font-semibold" data-i18n="open_work">打开作品</span>
         </button>
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="lasso">
-          <span>⭕</span> <span class="text-[11px] font-medium">自由套索 (L)</span>
+          <span>⭕</span> <span class="text-[11px] font-medium" data-i18n="tool_lasso">自由套索 (L)</span>
         </button>
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="laser">
-          <span>🔴</span> <span class="text-[11px] font-medium">激光教鞭</span>
+          <span>🔴</span> <span class="text-[11px] font-medium" data-i18n="tool_laser">激光笔</span>
         </button>
         <button id="btnUndoDrawer" class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left">
           <span>↩️</span> <span class="text-[11px] font-medium" data-i18n="undo_btn">撤销 (Ctrl+Z)</span>
@@ -1471,9 +1591,12 @@
         <button id="btnRedoDrawer" class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left">
           <span>↪️</span> <span class="text-[11px] font-medium" data-i18n="redo_btn">重做 (Ctrl+Shift+Z)</span>
         </button>
+        <button id="btnShortcutsDrawer" type="button" class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left col-span-2">
+          <span>⌨️</span> <span class="text-[11px] font-medium" data-i18n="shortcuts_btn">键盘快捷键 (?)</span>
+        </button>
       </div>
       <div class="pt-1.5 border-t border-slate-800 flex justify-between">
-        <button id="btnClearAllDrawer" class="w-full py-1 text-center text-xs text-rose-400 hover:bg-rose-950/40 rounded-lg transition">🗑️ 清空画纸所有笔迹</button>
+        <button id="btnClearAllDrawer" class="w-full py-1 text-center text-xs text-rose-400 hover:bg-rose-950/40 rounded-lg transition" data-i18n="clear_page_btn">🗑️ 清空本页（未锁定图层）</button>
       </div>
     </div>
 
@@ -1783,6 +1906,8 @@
       <button id="btnZoomIn" class="w-6 h-6 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" title="放大 (Ctrl+滚轮)">+</button>
       <span class="text-slate-600">|</span>
       <button id="btnZoomFit" class="px-1.5 py-0.5 hover:bg-slate-800 rounded-lg text-[11px]" data-i18n-title="tip_fit" title="适应居中">📐 <span data-i18n="fit">适中</span></button>
+      <span class="text-slate-600">|</span>
+      <button id="btnShortcutsHelp" type="button" class="w-7 h-7 flex items-center justify-center hover:bg-slate-800 rounded-lg font-bold" data-i18n-title="tip_shortcuts" title="键盘快捷键 (?)">?</button>
     </div>
 
     <!-- 中下方悬浮多页/漫画纸张管理器 (Page Manager Dock) -->
@@ -1813,6 +1938,7 @@
         <div id="stickyLayer" class="absolute inset-0 pointer-events-none"></div>
         <!-- 套索拖动选区层 -->
         <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
+        <div id="emptyCanvasHint" class="hidden-hint" aria-hidden="true"></div>
         <div id="rightPageBadge" class="hidden absolute bottom-2 right-3 px-2 py-0.5 rounded-md bg-stone-900/60 text-[10px] text-slate-300 font-mono select-none pointer-events-none border border-slate-700/50 backdrop-blur-sm">第 2 页</div>
       </div>
     </div>
@@ -2332,7 +2458,7 @@
             <p class="text-[11px] text-slate-400" data-i18n="export_modal_desc">请选择适合您的导出规格 (二选一)</p>
           </div>
         </div>
-        <button id="btnCloseExportModal" class="text-slate-400 hover:text-white text-lg px-2">✕</button>
+        <button id="btnCloseExportModal" type="button" data-i18n-title="close" title="关闭" aria-label="关闭" class="modal-x">✕</button>
       </div>
 
       <!-- 选项二选一卡片容器 -->
@@ -2465,7 +2591,7 @@
             <p class="text-[11px] text-slate-400">一次付费 · 永久使用 · 支持电脑、手机与平板</p>
           </div>
         </div>
-        <button id="btnCloseRestoreModal" class="text-slate-400 hover:text-white text-base px-2">✕</button>
+        <button id="btnCloseRestoreModal" type="button" data-i18n-title="close" title="关闭" aria-label="关闭" class="modal-x">✕</button>
       </div>
 
       <!-- 激活输入区 (直接展示，杜绝繁琐教学卡片) -->
@@ -2513,7 +2639,7 @@
             <p class="text-[11px] text-slate-400">帮助作者打磨出更好用的免费工具</p>
           </div>
         </div>
-        <button id="btnCloseFeedbackModal" class="text-slate-400 hover:text-white text-lg p-1.5 rounded-lg hover:bg-slate-800 transition">✕</button>
+        <button id="btnCloseFeedbackModal" type="button" data-i18n-title="close" title="关闭" aria-label="关闭" class="modal-x">✕</button>
       </div>
 
       <!-- 开发者寄语 -->
@@ -2571,6 +2697,23 @@
       </form>
     </div>
   </div>
+  <!-- ⌨️ 键盘快捷键面板 (按 ? 打开) -->
+  <div id="shortcutsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[88vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 flex items-center justify-center">⌨️</div>
+          <div>
+            <h3 id="shortcutsTitle" class="text-base font-bold tracking-tight" data-i18n="shortcuts_title">键盘快捷键</h3>
+            <p class="text-[11px] text-slate-400" data-i18n="shortcuts_desc">输入文字时快捷键不会生效</p>
+          </div>
+        </div>
+        <button id="btnCloseShortcuts" type="button" class="modal-x" data-i18n-title="close" title="关闭" aria-label="关闭">✕</button>
+      </div>
+      <div id="shortcutsList" class="text-xs space-y-0.5"></div>
+    </div>
+  </div>
+
   <!-- 🍞 独立开发者反馈与交互吐司提示 -->
   <div id="creatorToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900/95 text-white text-xs border border-slate-700 shadow-2xl flex items-center gap-2 transition-all duration-300 pointer-events-none opacity-0 translate-y-4"></div>
 
@@ -2580,7 +2723,7 @@
     <div class="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-3xl p-5 shadow-2xl text-white text-center space-y-3">
       <div class="flex justify-between items-center">
         <h4 class="text-sm font-bold flex items-center gap-1">📸 <span data-i18n="mobile_save_title">手机保存到相册</span></h4>
-        <button id="btnCloseMobileSave" class="text-slate-400 hover:text-white text-base">✕</button>
+        <button id="btnCloseMobileSave" type="button" data-i18n-title="close" title="关闭" aria-label="关闭" class="modal-x">✕</button>
       </div>
       <p class="text-[11px] text-amber-300 bg-amber-500/15 p-2 rounded-xl border border-amber-500/30" data-i18n="mobile_save_hint">
         👉 <strong>长按下方图片 1 秒</strong>，在系统菜单中选择<strong>「存储图像」</strong>或<strong>「保存到相册」</strong>即可！
@@ -2597,7 +2740,8 @@
   <!-- ================= 8. Creem $4.99 永久使用授权结账弹窗 ================= -->
   <!-- ================= 8. Creem $4.99 永久使用授权结账弹窗 ================= -->
   <div id="proModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4">
+    <div class="relative bg-slate-900 border border-slate-700 w-full max-w-md rounded-3xl p-6 shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
+      <button id="btnProModalX" type="button" class="modal-x absolute top-3 right-3" data-i18n-title="close" title="关闭" aria-label="关闭">✕</button>
       <div class="text-center space-y-1.5">
         <div class="inline-flex p-3 bg-amber-500/15 text-amber-400 rounded-2xl mb-1 items-center justify-center">
           <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -5320,7 +5464,49 @@
         fmtbtn_pdf_pro: "打印 PDF",
         hero_title: "在浏览器里完成漫画分镜：分格、图层、对白与多页排版",
         hero_desc: "内置日漫原稿纸、四格网格、拖拽分格工具、对白气泡框、图层、油漆桶与 16 款漫画笔刷；支持多页管理、复制与调整页序、双页并排对照。可导出 PNG（4K）/ SVG / 300 DPI 打印 PDF，作品可保存为 .eazyopc 文件随时继续，全部在浏览器本地运行。",
-        demos_badge: "浏览器本地实时渲染"
+        demos_badge: "浏览器本地实时渲染",
+        tip_select: "选择与变换 (V)",
+        tip_hand: "抓手平移 · 按住空格临时平移 (H)",
+        tip_gpen: "画笔 · 点击切换 16 款笔刷 (P)",
+        tip_eraser: "整笔橡皮 · 点中整条笔画删除 (E)",
+        tip_text: "文字 / 对白 (T)",
+        tip_panels: "分镜格：模板与拖拽分格",
+        tip_balloons: "对白气泡框",
+        tip_image: "插入参考图 · 支持 Ctrl+V 粘贴",
+        tip_palette: "颜色与粗细",
+        tip_more_tools: "更多工具 · 保存 / 打开作品",
+        tip_fit: "适应窗口",
+        tip_theme: "切换白天 / 夜间模式",
+        tip_fullscreen: "全屏",
+        tip_lang: "语言 / Language",
+        tip_shortcuts: "键盘快捷键 (?)",
+        close: "关闭",
+        more_tools_title: "更多工具",
+        tool_lasso: "自由套索 (L)",
+        tool_laser: "激光笔",
+        clear_page_btn: "🗑️ 清空本页（未锁定图层）",
+        shortcuts_btn: "键盘快捷键 (?)",
+        shortcuts_title: "键盘快捷键",
+        shortcuts_desc: "正在输入文字时，单键快捷键不会生效",
+        sc_select: "选择 / 移动",
+        sc_hand: "抓手平移",
+        sc_brush: "画笔（当前笔刷）",
+        sc_eraser: "整笔橡皮",
+        sc_text: "文字",
+        sc_lasso: "套索选择",
+        sc_size: "画笔变细 / 变粗",
+        sc_undo: "撤销",
+        sc_redo: "重做 (也可 Ctrl+Y)",
+        sc_delete: "删除选中内容",
+        sc_save: "保存作品 (.eazyopc)",
+        sc_open: "打开作品",
+        sc_zoom: "滚轮缩放画布",
+        sc_space: "按住空格拖动平移",
+        sc_help: "打开本面板",
+        sc_esc: "关闭弹窗 / 浮窗",
+        empty_hint: "拿起画笔开始画吧 · 按 ? 查看快捷键",
+        empty_hint_touch: "拿起画笔开始画吧 · 点「⋯」查看更多工具",
+        kbd_wheel: "滚轮"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5376,7 +5562,49 @@
         fmtbtn_pdf_pro: "Print PDF",
         hero_title: "Storyboard your comic in the browser: panels, layers, dialogue and multi-page layout",
         hero_desc: "Manga manuscript paper, 4-koma grid, drag-to-split panel tool, speech balloons, layers, paint bucket and 16 comic brushes; multi-page management with duplicate/reorder and a side-by-side two-page view. Export PNG (4K) / SVG / 300 DPI print PDF, and save your work as an .eazyopc file to continue later — everything runs locally in your browser.",
-        demos_badge: "Rendered live in your browser"
+        demos_badge: "Rendered live in your browser",
+        tip_select: "Select & transform (V)",
+        tip_hand: "Pan · hold Space to pan temporarily (H)",
+        tip_gpen: "Brush · click to pick from 16 brushes (P)",
+        tip_eraser: "Stroke eraser · removes whole strokes (E)",
+        tip_text: "Text / dialogue (T)",
+        tip_panels: "Panels: templates & drag-to-split",
+        tip_balloons: "Speech balloons",
+        tip_image: "Insert reference image · Ctrl+V to paste",
+        tip_palette: "Color & size",
+        tip_more_tools: "More tools · save / open work",
+        tip_fit: "Fit to window",
+        tip_theme: "Toggle light / dark mode",
+        tip_fullscreen: "Full screen",
+        tip_lang: "Language",
+        tip_shortcuts: "Keyboard shortcuts (?)",
+        close: "Close",
+        more_tools_title: "More tools",
+        tool_lasso: "Lasso (L)",
+        tool_laser: "Laser pointer",
+        clear_page_btn: "🗑️ Clear page (unlocked layers)",
+        shortcuts_btn: "Keyboard shortcuts (?)",
+        shortcuts_title: "Keyboard shortcuts",
+        shortcuts_desc: "Single-key shortcuts are ignored while you are typing",
+        sc_select: "Select / move",
+        sc_hand: "Pan",
+        sc_brush: "Brush (current brush)",
+        sc_eraser: "Stroke eraser",
+        sc_text: "Text",
+        sc_lasso: "Lasso select",
+        sc_size: "Brush smaller / larger",
+        sc_undo: "Undo",
+        sc_redo: "Redo (or Ctrl+Y)",
+        sc_delete: "Delete selection",
+        sc_save: "Save work (.eazyopc)",
+        sc_open: "Open work",
+        sc_zoom: "Wheel to zoom",
+        sc_space: "Hold Space and drag to pan",
+        sc_help: "Open this panel",
+        sc_esc: "Close dialog / popover",
+        empty_hint: "Pick up a brush and start drawing · press ? for shortcuts",
+        empty_hint_touch: "Pick up a brush and start drawing · tap “⋯” for more tools",
+        kbd_wheel: "Wheel"
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -5397,7 +5625,11 @@
         btn_export_free: "無料で PNG 保存（長辺 1920px・透かしあり）",
         fmt_png_free: "🖼️ HD PNG（長辺 1920px）",
         fmt_png_4k_desc: "長辺 3840px、透かしなし",
-        btn_copy_svg: "SVG コードをコピー"
+        btn_copy_svg: "SVG コードをコピー",
+        empty_hint: "ペンを持って描き始めましょう · ? でショートカット一覧",
+        empty_hint_touch: "ペンを持って描き始めましょう · 「⋯」でその他のツール",
+        shortcuts_title: "キーボードショートカット",
+        close: "閉じる"
       },
       ko: {
         site_subtitle: "온라인 만화 콘티 · 웹툰 보드",
@@ -5418,7 +5650,11 @@
         btn_export_free: "무료 PNG 저장 (긴 변 1920px, 워터마크)",
         fmt_png_free: "🖼️ HD PNG (긴 변 1920px)",
         fmt_png_4k_desc: "긴 변 3840px, 워터마크 없음",
-        btn_copy_svg: "SVG 코드 복사"
+        btn_copy_svg: "SVG 코드 복사",
+        empty_hint: "펜을 들고 그리기 시작하세요 · ? 키로 단축키 보기",
+        empty_hint_touch: "펜을 들고 그리기 시작하세요 · “⋯”에서 더 많은 도구",
+        shortcuts_title: "키보드 단축키",
+        close: "닫기"
       },
       de: {
         site_subtitle: "Online-Manga-Storyboard & Comic-Board",
@@ -5439,7 +5675,11 @@
         btn_export_free: "Kostenlos: PNG, lange Seite 1920 px (Wasserzeichen)",
         fmt_png_free: "🖼️ HD-PNG (lange Seite 1920 px)",
         fmt_png_4k_desc: "Lange Seite 3840 px, ohne Wasserzeichen",
-        btn_copy_svg: "SVG-Code kopieren"
+        btn_copy_svg: "SVG-Code kopieren",
+        empty_hint: "Greif zum Pinsel und leg los · ? zeigt die Tastenkürzel",
+        empty_hint_touch: "Greif zum Pinsel und leg los · „⋯“ für weitere Werkzeuge",
+        shortcuts_title: "Tastenkürzel",
+        close: "Schließen"
       },
       es: {
         site_subtitle: "Tablero online de storyboard manga y cómic",
@@ -5460,7 +5700,11 @@
         btn_export_free: "Exportar gratis: PNG, lado largo 1920 px (con marca)",
         fmt_png_free: "🖼️ PNG HD (lado largo 1920 px)",
         fmt_png_4k_desc: "Lado largo 3840 px, sin marca de agua",
-        btn_copy_svg: "Copiar código SVG"
+        btn_copy_svg: "Copiar código SVG",
+        empty_hint: "Toma un pincel y empieza a dibujar · pulsa ? para ver atajos",
+        empty_hint_touch: "Toma un pincel y empieza a dibujar · toca «⋯» para más herramientas",
+        shortcuts_title: "Atajos de teclado",
+        close: "Cerrar"
       },
       fr: {
         site_subtitle: "Planche en ligne pour storyboard manga et BD",
@@ -5481,7 +5725,11 @@
         btn_export_free: "Export gratuit : PNG, grand côté 1920 px (filigrane)",
         fmt_png_free: "🖼️ PNG HD (grand côté 1920 px)",
         fmt_png_4k_desc: "Grand côté 3840 px, sans filigrane",
-        btn_copy_svg: "Copier le code SVG"
+        btn_copy_svg: "Copier le code SVG",
+        empty_hint: "Prenez un pinceau et commencez · appuyez sur ? pour les raccourcis",
+        empty_hint_touch: "Prenez un pinceau et commencez · touchez « ⋯ » pour plus d’outils",
+        shortcuts_title: "Raccourcis clavier",
+        close: "Fermer"
       }
     };
     Object.keys(TR_R4).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R4[l]); });
@@ -8266,6 +8514,29 @@
       return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || !!t.isContentEditable;
     }
 
+    // 单键工具快捷键 (@brush = 当前选中的漫画笔刷)
+    const TOOL_SHORTCUTS = { v: 'select', h: 'hand', p: '@brush', b: '@brush', e: 'eraser', l: 'lasso', t: 'text' };
+    const SHIFT_TOOL_SHORTCUTS = {};
+    function currentBrushTool() {
+      const b = document.getElementById('btnCurrentBrush');
+      return (b && b.dataset.tool) || 'gpen';
+    }
+    function selectTool(tool) {
+      appState.tool = tool;
+      updateToolButtonsUI();
+    }
+
+    // Esc：关闭最上层的弹窗 / 浮窗
+    const ESC_MODALS = ['shortcutsModal', 'exportModal', 'restoreModal', 'feedbackModal', 'mobileSaveModal', 'proModal'];
+    function closeTopOverlay() {
+      for (const id of ESC_MODALS) {
+        const el = document.getElementById(id);
+        if (el && !el.classList.contains('hidden')) { el.classList.add('hidden'); return true; }
+      }
+      closeAllFlyouts();
+      return false;
+    }
+
     window.addEventListener('keydown', (e) => {
       const key = (e.key || '').toLowerCase();
       const mod = e.ctrlKey || e.metaKey;
@@ -8275,6 +8546,7 @@
         return;
       }
       if (isEditableTarget(e.target) || isEditableTarget(document.activeElement)) return;
+      if (key === 'escape') { closeTopOverlay(); return; }
       if (mod && !e.altKey && key === 'z') {
         e.preventDefault();
         if (e.shiftKey) redo(); else undo();
@@ -8297,18 +8569,18 @@
       }
       // 单键快捷键：忽略带修饰键的组合 (Cmd+C / Ctrl+V / Alt+… 等交给浏览器)
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (key === 'h') {
-        appState.tool = 'hand'; updateToolButtonsUI();
-      } else if (key === 'v') {
-        appState.tool = 'select'; updateToolButtonsUI();
-      } else if (key === 'p') {
-        appState.tool = 'pen'; updateToolButtonsUI();
-      } else if (key === 'e') {
-        appState.tool = 'eraser'; updateToolButtonsUI();
-      } else if (key === 'l') {
-        appState.tool = 'lasso'; updateToolButtonsUI();
-      } else if (key === 't') {
-        appState.tool = 'text'; updateToolButtonsUI();
+      if (e.key === '?') {
+        e.preventDefault();
+        openShortcutsModal();
+        return;
+      }
+      if (e.key === '[' || e.key === ']') {
+        updateBrushSize((Number(appState.brushSize) || 4) + (e.key === ']' ? 1 : -1));
+        return;
+      }
+      const toolKey = e.shiftKey ? SHIFT_TOOL_SHORTCUTS[key] : TOOL_SHORTCUTS[key];
+      if (toolKey) {
+        selectTool(toolKey === '@brush' ? currentBrushTool() : toolKey);
       } else if (e.code === 'Space') {
         appState.isSpaceDown = true;
         workbenchWrapper.style.cursor = 'grab';
@@ -8341,6 +8613,115 @@
       if (touchStartCount === 2 && Date.now() - touchStartTime < 300) undo();
       touchStartCount = 0;
     }, { passive: true });
+
+    // ================= ⌨️ 快捷键面板 / 工具提示 / 空画布提示 (Round 4 UI) =================
+    const SHORTCUT_ROWS = [
+      ['V', 'sc_select'], ['H', 'sc_hand'], ['P / B', 'sc_brush'], ['E', 'sc_eraser'],
+      ['T', 'sc_text'], ['L', 'sc_lasso'], ['[  ]', 'sc_size'],
+      ['Ctrl / ⌘ + Z', 'sc_undo'], ['Ctrl / ⌘ + Shift + Z', 'sc_redo'], ['Delete', 'sc_delete'],
+      ['Ctrl / ⌘ + S', 'sc_save'], ['Ctrl / ⌘ + O', 'sc_open'], ['Ctrl / ⌘ + @wheel', 'sc_zoom'],
+      ['Space', 'sc_space'], ['?', 'sc_help'], ['Esc', 'sc_esc']
+    ];
+    function renderShortcutsList() {
+      const list = document.getElementById('shortcutsList');
+      if (!list) return;
+      list.innerHTML = '';
+      for (const [keys, labelKey] of SHORTCUT_ROWS) {
+        const row = document.createElement('div');
+        row.className = 'kbd-row';
+        const label = document.createElement('span');
+        label.textContent = tr(labelKey);
+        const kbds = document.createElement('span');
+        kbds.className = 'flex items-center gap-1 flex-wrap justify-end';
+        keys.split(' + ').forEach((k, i) => {
+          if (i > 0) { const plus = document.createElement('span'); plus.textContent = '+'; plus.className = 'text-slate-500'; kbds.appendChild(plus); }
+          const kb = document.createElement('kbd');
+          kb.textContent = k === '@wheel' ? tr('kbd_wheel') : k;
+          kbds.appendChild(kb);
+        });
+        row.appendChild(label);
+        row.appendChild(kbds);
+        list.appendChild(row);
+      }
+    }
+    function openShortcutsModal() {
+      closeAllFlyouts();
+      renderShortcutsList();
+      const m = document.getElementById('shortcutsModal');
+      if (m) m.classList.remove('hidden');
+    }
+    (function bindShortcutsModal() {
+      const m = document.getElementById('shortcutsModal');
+      const x = document.getElementById('btnCloseShortcuts');
+      if (x && m) x.onclick = () => m.classList.add('hidden');
+      if (m) m.addEventListener('click', (e) => { if (e.target === m) m.classList.add('hidden'); });
+      const b1 = document.getElementById('btnShortcutsHelp');
+      if (b1) b1.onclick = (e) => { e.stopPropagation(); openShortcutsModal(); };
+      const b2 = document.getElementById('btnShortcutsDrawer');
+      if (b2) b2.onclick = (e) => { e.stopPropagation(); openShortcutsModal(); };
+      const px = document.getElementById('btnProModalX');
+      if (px) px.onclick = () => { const pm = document.getElementById('proModal'); if (pm) pm.classList.add('hidden'); };
+    })();
+
+    // 带快捷键的工具提示：仅在可悬停的精确指针设备上启用 (触屏不显示)
+    (function setupTooltips() {
+      if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const tip = document.createElement('div');
+      tip.id = 'uiTooltip';
+      tip.setAttribute('role', 'tooltip');
+      document.body.appendChild(tip);
+      const SCOPE = '#leftSidebar, #zoomDock, #pageManagerDock, #topNavbar, #layersPanel, #toolOptionsBar, #moreToolsDrawer';
+      let cur = null;
+      const hide = () => {
+        tip.classList.remove('show');
+        if (cur && cur.dataset.tipTitle != null) { cur.title = cur.dataset.tipTitle; delete cur.dataset.tipTitle; }
+        cur = null;
+      };
+      document.addEventListener('mouseover', (e) => {
+        const el = e.target.closest ? e.target.closest('[title]') : null;
+        if (!el || el === cur || !el.closest(SCOPE)) return;
+        hide();
+        const text = el.getAttribute('title');
+        if (!text) return;
+        cur = el;
+        el.dataset.tipTitle = text;
+        el.removeAttribute('title');
+        const m = text.match(/^(.*?)[\s]*[（(]([^()（）]{1,18})[)）]\s*$/);
+        tip.textContent = m ? m[1] : text;
+        if (m) { const kb = document.createElement('kbd'); kb.textContent = m[2]; tip.appendChild(kb); }
+        const r = el.getBoundingClientRect();
+        const inSidebar = !!el.closest('#leftSidebar');
+        tip.style.left = '0px'; tip.style.top = '0px';
+        tip.classList.add('show');
+        const tw = tip.offsetWidth, th = tip.offsetHeight;
+        let x = inSidebar ? r.right + 10 : r.left + r.width / 2 - tw / 2;
+        let y = inSidebar ? r.top + r.height / 2 - th / 2 : r.bottom + 8;
+        if (!inSidebar && y + th > window.innerHeight - 4) y = r.top - th - 8;
+        x = Math.max(6, Math.min(window.innerWidth - tw - 6, x));
+        tip.style.left = `${Math.round(x)}px`;
+        tip.style.top = `${Math.round(y)}px`;
+      });
+      document.addEventListener('mouseout', (e) => {
+        if (!cur) return;
+        if (e.relatedTarget && cur.contains(e.relatedTarget)) return;
+        hide();
+      });
+      document.addEventListener('pointerdown', hide, true);
+    })();
+
+    // 空画布提示：当前画板没有任何内容时显示一行提示
+    function updateEmptyHint() {
+      const el = document.getElementById('emptyCanvasHint');
+      if (!el) return;
+      const empty = !(appState.strokes.length || appState.texts.length || appState.images.length);
+      if (empty) {
+        const touch = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+        const txt = tr(touch ? 'empty_hint_touch' : 'empty_hint');
+        if (el.textContent !== txt) el.textContent = txt;
+        el.classList.toggle('is-dark', isDarkPaper(appState.paper));
+      }
+      el.classList.toggle('hidden-hint', !empty);
+    }
 
     // 导出中心逻辑
     const exportModal = document.getElementById('exportModal');
@@ -9294,6 +9675,9 @@ ${body}</svg>`;
       if (typeof updateExportModalUI === 'function') updateExportModalUI();
       // 双板按钮/页码文案依赖当前状态，需在字典刷新后按状态重新渲染
       if (typeof updatePageUI === 'function') updatePageUI();
+      if (typeof updateEmptyHint === 'function') updateEmptyHint();
+      if (typeof renderShortcutsList === 'function') renderShortcutsList();
+      if (typeof refreshCurrentBrushTitle === 'function') refreshCurrentBrushTitle();
     }
 
     // 白天 / 夜间模式控制 (Day/Night Theme)
@@ -9362,6 +9746,18 @@ ${body}</svg>`;
 
     window.addEventListener('resize', resizeCanvas);
 
+    // 当前笔刷按钮的提示文字：笔刷名 + 快捷键
+    function refreshCurrentBrushTitle() {
+      const btn = document.getElementById('btnCurrentBrush');
+      if (!btn) return;
+      const card = document.querySelector(`#brushStudioFlyout .brush-card[data-brush="${btn.dataset.tool}"]`);
+      const nameEl = card ? card.querySelector('div > div') : null;
+      const name = nameEl ? nameEl.textContent.replace(/HOT/g, '').trim() : '';
+      const v = name ? `${name} (P)` : tr('tip_gpen');
+      btn.title = v;
+      btn.setAttribute('aria-label', v);
+    }
+
     function initAppOnLoad() {
       if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }); }
       
@@ -9427,6 +9823,7 @@ ${body}</svg>`;
           }
           document.querySelectorAll('#brushStudioFlyout .brush-card').forEach(c => c.classList.remove('active'));
           card.classList.add('active');
+          refreshCurrentBrushTitle();
           brushStudioFlyout.classList.add('hidden');
           updateToolButtonsUI();
         };
