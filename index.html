@@ -8531,7 +8531,10 @@
     function setLanguage(lang) {
       if (!TRANSLATIONS[lang]) lang = 'en';
       appState.lang = lang;
-      localStorage.setItem('user_lang_pref', lang);
+      try { localStorage.setItem('user_lang_pref', lang); } catch (err) {}
+      // 供 Cloudflare middleware 读取的语言偏好 cookie + <html lang>
+      try { document.cookie = `user_lang_pref=${lang}; path=/; max-age=31536000; SameSite=Lax`; } catch (err) {}
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
       const labels = { zh: '中', en: 'EN', ja: '日', ko: '한', de: 'DE', es: 'ES', fr: 'FR' };
       document.getElementById('currentLangLabel').textContent = labels[lang] || 'EN';
       const dict = TRANSLATIONS[lang];
@@ -8753,8 +8756,16 @@
       if (initRatioSel && initRatioSel.value) appState.ratio = initRatioSel.value;
       try { restoreDocumentFromAutosave(); } catch (err) {}
 
-    const savedLang = localStorage.getItem('user_lang_pref') || 'zh';
-      setLanguage(savedLang);
+      // 语言优先级：?lang= (受支持时) > localStorage > 默认中文
+      let startLang = 'zh';
+      try {
+        const urlLang = (new URLSearchParams(window.location.search).get('lang') || '').toLowerCase();
+        let storedLang = null;
+        try { storedLang = localStorage.getItem('user_lang_pref'); } catch (err) {}
+        if (urlLang && TRANSLATIONS[urlLang]) startLang = urlLang;
+        else if (storedLang && TRANSLATIONS[storedLang]) startLang = storedLang;
+      } catch (err) {}
+      setLanguage(startLang);
       const savedTheme = localStorage.getItem('eazyopc_theme') || 'dark';
       applyTheme(savedTheme);
       activeColorDot.style.backgroundColor = appState.currentColor;
