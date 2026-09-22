@@ -5064,26 +5064,20 @@
       if (wasDark && !isNowDark) {
         const whiteColors = new Set(['#ffffff', '#f8fafc', '#f1f5f9', '#e2e8f0', '#cbd5e1']);
         const convertItem = (item) => {
-          if (!item.color) return;
+          if (!item || !item.color) return;
           const c = item.color.toLowerCase();
           if (whiteColors.has(c) || isColorTooLight(c)) {
             item.color = '#0f172a'; // 深石板黑
           }
-          appState.currentColor = '#ffffff';
-          const dot = document.getElementById('activeColorDot');
-          if (dot) dot.style.backgroundColor = '#ffffff';
+        };
+
+        for (const pg of (appState.pages || [])) {
+          for (const s of (pg.strokes || [])) convertItem(s);
+          for (const t of (pg.texts || [])) convertItem(t);
         }
-      } else {
-        for (const s of appState.strokes) {
-          if (whiteColors.has(s.color.toLowerCase()) || isColorTooLight(s.color)) {
-            s.color = '#0f172a';
-          }
-        }
-        for (const t of appState.texts) {
-          if (whiteColors.has(t.color.toLowerCase()) || isColorTooLight(t.color)) {
-            t.color = '#0f172a';
-          }
-        }
+        for (const s of appState.strokes) convertItem(s);
+        for (const t of appState.texts) convertItem(t);
+
         if (whiteColors.has(appState.currentColor.toLowerCase()) || isColorTooLight(appState.currentColor)) {
           appState.currentColor = '#0f172a';
           const dot = document.getElementById('activeColorDot');
