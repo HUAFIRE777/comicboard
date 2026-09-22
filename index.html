@@ -1192,6 +1192,11 @@
     body.theme-light #pageMenu .page-menu-item { color: #0f172a !important; font-weight: 700 !important; }
     body.theme-light #pageManagerDock #btnPageMenu { color: #0f172a !important; }
 
+    /* 导出预设选项：白天模式高对比 */
+    body.theme-light #exportModal > div #exportPresetOptions { background: #f8fafc !important; border-color: #d97706 !important; }
+    body.theme-light #exportModal > div #exportPresetOptions select { background: #ffffff !important; border: 1.5px solid #0f172a !important; color: #0f172a !important; font-weight: 700 !important; }
+    #exportPresetOptions select { color: #f1f5f9; }
+
     /* 焦点可见环 (键盘操作) */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       outline: none !important;
@@ -2648,11 +2653,35 @@
                 <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="svg_vector" data-i18n="fmtbtn_svg_vector">SVG 矢量</button>
                 <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="pdf_pro" data-i18n="fmtbtn_pdf_pro">打印 PDF</button>
               </div>
+              <span class="text-[10px] text-amber-300 font-bold block pt-1" data-i18n="pro_print_group">🖨️ 印刷与发布预设：</span>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 text-[11px]">
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="print_b5" data-i18n="fmtbtn_print_b5">B5 投稿原稿</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="webtoon_long" data-i18n="fmtbtn_webtoon_long">条漫长图</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="print_a4" data-i18n="fmtbtn_print_a4">A4 打印</button>
+              </div>
             </div>
           </div>
         </label>
       </div>
 
+      <!-- 预设选项 (随所选格式显示) -->
+      <div id="exportPresetOptions" class="hidden p-3 rounded-2xl bg-slate-800/80 border border-amber-500/40 space-y-2 text-[11px]">
+        <p id="exportPresetDesc" class="text-slate-300 leading-snug"></p>
+        <div class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="print_b5">
+          <label class="flex items-center gap-1"><span data-i18n="opt_dpi">分辨率</span>
+            <select id="expB5Dpi" class="bg-slate-800 border border-slate-600 rounded px-1 py-0.5"><option value="600">600 DPI</option><option value="350">350 DPI</option></select></label>
+          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" id="expB5Gray" checked class="accent-amber-500" /> <span data-i18n="opt_grayscale">灰度</span></label>
+          <label class="flex items-center gap-1"><span data-i18n="opt_scope">范围</span>
+            <select id="expB5Scope" class="bg-slate-800 border border-slate-600 rounded px-1 py-0.5"><option value="current" data-i18n="opt_scope_current">当前页</option><option value="all" data-i18n="opt_scope_all">全部页</option></select></label>
+        </div>
+        <div class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="webtoon_long">
+          <label class="flex items-center gap-1"><span data-i18n="opt_page_gap">页间留白</span>
+            <select id="expWebtoonGap" class="bg-slate-800 border border-slate-600 rounded px-1 py-0.5"><option value="0">0 px</option><option value="20">20 px</option><option value="60">60 px</option></select></label>
+        </div>
+        <div class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="print_b5 webtoon_long print_a4">
+          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" id="expPlainPaper" checked class="accent-amber-500" /> <span data-i18n="opt_plain_paper">隐藏纸张参考线 / 网格</span></label>
+        </div>
+      </div>
       <!-- Canva / Figma 快捷动作坞 (选中 SVG 时展开) -->
       <div id="canvaFigmaActions" class="hidden p-3 bg-slate-800/80 border border-indigo-500/40 rounded-2xl space-y-2 text-xs">
         <div class="font-bold text-indigo-300 flex items-center gap-1.5">
@@ -5692,7 +5721,26 @@
         page_move_right: "向后移一页",
         page_duplicated_toast: "已复制为第 {n} 页。",
         page_moved_toast: "已移到第 {n} 页。",
-        page_move_dual_locked: "双板模式下第 1 页固定在左侧；如需调整第 1 页的位置，请先退出双板。"
+        page_move_dual_locked: "双板模式下第 1 页固定在左侧；如需调整第 1 页的位置，请先退出双板。",
+        pro_print_group: "🖨️ 印刷与发布预设：",
+        fmtbtn_print_b5: "B5 投稿原稿",
+        fmtbtn_webtoon_long: "条漫长图",
+        fmtbtn_print_a4: "A4 打印",
+        opt_dpi: "分辨率",
+        opt_grayscale: "灰度",
+        opt_scope: "范围",
+        opt_scope_current: "当前页",
+        opt_scope_all: "全部页",
+        opt_page_gap: "页间留白",
+        opt_plain_paper: "隐藏纸张参考线 / 网格",
+        exp_desc_print_b5: "日本漫画投稿原稿尺寸 257×364 mm：600 DPI 为 6071×8598 px 的 PNG（已写入 DPI 信息），页面按原比例居中；可选灰度。手机内存不足时自动改用 350 DPI。",
+        exp_desc_webtoon_long: "宽 800 px，按页面顺序把全部 {n} 页纵向拼接成一张长图；超过 16000 px 时按页自动分成多张。",
+        exp_desc_print_a4: "A4 纸（210×297 mm，横向内容用 297×210）多页 PDF，每页 300 DPI，按原比例居中，全部 {n} 页。",
+        exp_btn_print_b5: "🖨️ 导出 B5 投稿原稿 PNG",
+        exp_btn_webtoon_long: "📜 导出条漫长图 (800px 宽)",
+        exp_btn_print_a4: "🖨️ 导出 A4 打印 PDF",
+        export_progress: "正在导出 {i} / {n}…",
+        export_dpi_fallback: "浏览器内存不足以生成 600 DPI 大图，已自动改为 350 DPI。"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5854,7 +5902,26 @@
         page_move_right: "Move page later",
         page_duplicated_toast: "Duplicated as page {n}.",
         page_moved_toast: "Moved to page {n}.",
-        page_move_dual_locked: "In dual view page 1 stays on the left; exit dual view to move page 1."
+        page_move_dual_locked: "In dual view page 1 stays on the left; exit dual view to move page 1.",
+        pro_print_group: "🖨️ Print & publishing presets:",
+        fmtbtn_print_b5: "B5 manuscript",
+        fmtbtn_webtoon_long: "Webtoon strip",
+        fmtbtn_print_a4: "A4 print",
+        opt_dpi: "Resolution",
+        opt_grayscale: "Grayscale",
+        opt_scope: "Pages",
+        opt_scope_current: "Current page",
+        opt_scope_all: "All pages",
+        opt_page_gap: "Gap between pages",
+        opt_plain_paper: "Hide paper guides / grid",
+        exp_desc_print_b5: "Japanese manga submission size 257×364 mm: at 600 DPI a 6071×8598 px PNG (DPI written into the file), page centered at its aspect ratio; optional grayscale. Falls back to 350 DPI when the browser lacks memory.",
+        exp_desc_webtoon_long: "800 px wide: stacks all {n} pages top to bottom in page order into one long image; split into several images at page boundaries beyond 16000 px.",
+        exp_desc_print_a4: "Multi-page PDF on A4 (210×297 mm, 297×210 for landscape content), 300 DPI per page, centered at original aspect, all {n} pages.",
+        exp_btn_print_b5: "🖨️ Export B5 manuscript PNG",
+        exp_btn_webtoon_long: "📜 Export webtoon strip (800px wide)",
+        exp_btn_print_a4: "🖨️ Export A4 print PDF",
+        export_progress: "Exporting {i} / {n}…",
+        export_dpi_fallback: "Not enough browser memory for 600 DPI; switched to 350 DPI."
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -9895,6 +9962,21 @@
       return checked ? checked.value : 'free';
     }
 
+    // Pro 印刷预设的选项面板
+    const PRESET_FORMATS = new Set(['print_b5', 'webtoon_long', 'print_a4', 'book_pdf']);
+    function updateExportPresetOptions(isProTier) {
+      const box = document.getElementById('exportPresetOptions');
+      if (!box) return;
+      const show = isProTier && PRESET_FORMATS.has(selectedProFormat);
+      box.classList.toggle('hidden', !show);
+      if (!show) return;
+      const desc = document.getElementById('exportPresetDesc');
+      if (desc) desc.textContent = tr('exp_desc_' + selectedProFormat, { n: appState.pages.length });
+      box.querySelectorAll('.exp-opt').forEach(el => {
+        el.classList.toggle('hidden', !(el.dataset.for || '').split(' ').includes(selectedProFormat));
+      });
+    }
+
     function updateExportModalUI() {
       const tier = getSelectedExportTier();
       const cardFree = document.getElementById('exportCardFree');
@@ -9913,6 +9995,7 @@
         }
         if (proSub) proSub.classList.add('hidden');
         if (canvaBox) canvaBox.classList.add('hidden');
+        updateExportPresetOptions(false);
 
         btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
         lblExecuteExport.innerText = tr('lbl_export_default');
@@ -9927,6 +10010,7 @@
         }
         if (proSub) proSub.classList.remove('hidden');
         if (canvaBox) canvaBox.classList.toggle('hidden', selectedProFormat !== 'svg_vector');
+        updateExportPresetOptions(true);
 
         if (appState.isPro) {
           btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
@@ -9970,6 +10054,20 @@
         else if (selectedProFormat === 'png_transparent') exportImageCanvas(EXPORT_4K_LONG_SIDE, false, true);
         else if (selectedProFormat === 'svg_vector') exportVectorSVG();
         else if (selectedProFormat === 'pdf_pro') exportToPDF();
+        else if (selectedProFormat === 'print_b5') exportPrintB5({
+          dpi: (document.getElementById('expB5Dpi') || {}).value || 600,
+          grayscale: !!(document.getElementById('expB5Gray') || {}).checked,
+          scope: (document.getElementById('expB5Scope') || {}).value || 'current',
+          plainPaper: !!(document.getElementById('expPlainPaper') || {}).checked
+        });
+        else if (selectedProFormat === 'webtoon_long') exportWebtoonLong({
+          gap: (document.getElementById('expWebtoonGap') || {}).value || 0,
+          plainPaper: !!(document.getElementById('expPlainPaper') || {}).checked
+        });
+        else if (selectedProFormat === 'print_a4') exportPrintA4({
+          plainPaper: !!(document.getElementById('expPlainPaper') || {}).checked
+        });
+        else if (selectedProFormat === 'book_pdf' && typeof exportBookPDF === 'function') exportBookPDF(readBookOptions());
       }
     };
 
@@ -10345,6 +10443,140 @@ ${body}</svg>`;
         const size = getPdfPageSizeMM();
         const pdf = await buildPdfDocument({ pageW: size.w, pageH: size.h });
         handleFileDownloadOrShare(pdf.output('blob'), `ComicBoard-${exportStamp()}.pdf`, 'application/pdf');
+      } catch (err) {
+        toast(tr('export_failed'));
+      }
+    }
+
+    // ================= 🖨️ Pro 印刷预设：B5 投稿原稿 / 条漫长图 / A4 打印 (物理尺寸如实) =================
+    const B5_SUBMISSION_MM = [257, 364];   // 日本漫画投稿原稿用纸 (B4 纸，B5 成书)
+    const WEBTOON_WIDTH = 800;             // 条漫长图宽度 (px)
+    const WEBTOON_MAX_SEGMENT = 16000;     // 单张长图高度上限：超过后自动按页分段 (兼容手机浏览器画布上限)
+    const mmToPx = (mm, dpi) => Math.round(mm / 25.4 * dpi);
+    const isMobileUA = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // 多个文件：手机上一次性调起系统分享；桌面端依次下载
+    async function deliverFiles(files) {
+      if (!files.length) return;
+      if (files.length === 1) { handleFileDownloadOrShare(files[0].blob, files[0].name, files[0].type); return; }
+      if (isMobileUA() && navigator.canShare) {
+        const fs = files.map(f => new File([f.blob], f.name, { type: f.type }));
+        try {
+          if (navigator.canShare({ files: fs })) { await navigator.share({ files: fs, title: 'ComicBoard' }); return; }
+        } catch (err) { if (err && err.name === 'AbortError') return; }
+      }
+      for (const f of files) {
+        const url = URL.createObjectURL(f.blob);
+        triggerNativeDownload(url, f.name);
+        setTimeout(() => URL.revokeObjectURL(url), 8000);
+        await new Promise(r => setTimeout(r, 450));
+      }
+    }
+
+    function getExportScopeIndices(scope) {
+      if (scope === 'all') return appState.pages.map((_, i) => i);
+      return [isLeftBoardActive() ? 0 : appState.currentPageIndex];
+    }
+
+    // 把一页按原比例居中放进 W×H 的纸面 (白底)，返回是否成功分配画布
+    function paintPageOnSheet(c2, cv, data, opts) {
+      c2.setTransform(1, 0, 0, 1, 0, 0);
+      c2.globalCompositeOperation = 'source-over';
+      c2.globalAlpha = 1;
+      c2.fillStyle = '#ffffff';
+      c2.fillRect(0, 0, cv.width, cv.height);
+      const sc = Math.min(cv.width / cssWidth, cv.height / cssHeight);
+      const ox = Math.round((cv.width - cssWidth * sc) / 2), oy = Math.round((cv.height - cssHeight * sc) / 2);
+      redrawAllStrokes(c2, sc, false, data, { offsetX: ox, offsetY: oy, clip: true, plainPaper: !!opts.plainPaper });
+      if (opts.grayscale) applyGrayscale(c2, cv);
+    }
+
+    async function exportPrintB5(opts) {
+      syncCurrentPageToState();
+      const idxs = getExportScopeIndices(opts.scope);
+      let dpi = Number(opts.dpi) || 600;
+      const files = [];
+      const cv = document.createElement('canvas');
+      const setSize = () => { cv.width = mmToPx(B5_SUBMISSION_MM[0], dpi); cv.height = mmToPx(B5_SUBMISSION_MM[1], dpi); };
+      setSize();
+      const stamp = exportStamp();
+      for (let k = 0; k < idxs.length; k++) {
+        toast(tr('export_progress', { i: k + 1, n: idxs.length }), 6000);
+        await nextTick();
+        let blob = null;
+        for (let attempt = 0; attempt < 2 && !blob; attempt++) {
+          const c2 = cv.getContext('2d');
+          if (c2) {
+            paintPageOnSheet(c2, cv, getPageData(idxs[k]), opts);
+            blob = await canvasToBlob(cv, 'image/png');
+          }
+          if (!blob && dpi > 350) {
+            // 浏览器画布内存不足 (常见于手机)：自动降到 350 DPI 重试
+            dpi = 350;
+            setSize();
+            toast(tr('export_dpi_fallback'), 6000);
+          } else if (!blob) break;
+        }
+        if (!blob) { toast(tr('export_failed')); cv.width = cv.height = 0; return; }
+        blob = await withPngDpi(blob, dpi);
+        files.push({ blob, name: `ComicBoard-B5-${String(idxs[k] + 1).padStart(2, '0')}-${dpi}dpi-${stamp}.png`, type: 'image/png' });
+      }
+      cv.width = cv.height = 0;
+      await deliverFiles(files);
+    }
+
+    async function exportWebtoonLong(opts) {
+      syncCurrentPageToState();
+      const scale = WEBTOON_WIDTH / Math.max(1, cssWidth);
+      const pageH = Math.round(cssHeight * scale);
+      const gap = Math.max(0, Number(opts.gap) || 0);
+      const n = appState.pages.length;
+      // 按页分段：每段高度不超过上限 (每段至少一页)
+      const segs = [];
+      let cur = [], h = 0;
+      for (let i = 0; i < n; i++) {
+        const add = (cur.length ? gap : 0) + pageH;
+        if (cur.length && h + add > WEBTOON_MAX_SEGMENT) { segs.push(cur); cur = []; h = 0; }
+        h += (cur.length ? gap : 0) + pageH;
+        cur.push(i);
+      }
+      if (cur.length) segs.push(cur);
+      const files = [];
+      const stamp = exportStamp();
+      for (let si = 0; si < segs.length; si++) {
+        toast(tr('export_progress', { i: si + 1, n: segs.length }), 6000);
+        await nextTick();
+        const idxs = segs[si];
+        const cv = document.createElement('canvas');
+        cv.width = WEBTOON_WIDTH;
+        cv.height = idxs.length * pageH + (idxs.length - 1) * gap;
+        const c2 = cv.getContext('2d');
+        if (!c2) { toast(tr('export_failed')); return; }
+        c2.fillStyle = '#ffffff';
+        c2.fillRect(0, 0, cv.width, cv.height);
+        let y = 0;
+        for (const i of idxs) {
+          redrawAllStrokes(c2, scale, false, getPageData(i), { offsetX: 0, offsetY: y, clip: true, plainPaper: !!opts.plainPaper });
+          y += pageH + gap;
+        }
+        const blob = await canvasToBlob(cv, 'image/png');
+        cv.width = cv.height = 0;
+        if (!blob) { toast(tr('export_failed')); return; }
+        const suffix = segs.length > 1 ? `-part${si + 1}of${segs.length}` : '';
+        files.push({ blob, name: `ComicBoard-webtoon-${WEBTOON_WIDTH}w${suffix}-${stamp}.png`, type: 'image/png' });
+      }
+      await deliverFiles(files);
+    }
+
+    async function exportPrintA4(opts) {
+      if (!window.jspdf) { toast(tr('pdf_lib_loading')); return; }
+      syncCurrentPageToState();
+      toast(tr('export_working'), 2400);
+      await nextTick();
+      try {
+        const landscape = cssWidth > cssHeight;
+        const pdf = await buildPdfDocument({ pageW: landscape ? 297 : 210, pageH: landscape ? 210 : 297, plainPaper: !!opts.plainPaper });
+        handleFileDownloadOrShare(pdf.output('blob'), `ComicBoard-A4-${exportStamp()}.pdf`, 'application/pdf');
       } catch (err) {
         toast(tr('export_failed'));
       }
