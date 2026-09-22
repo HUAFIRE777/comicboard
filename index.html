@@ -6439,7 +6439,8 @@
         if (!currentRefStroke) return;
 
         const refCtx = refCanvas.getContext('2d');
-        const events = (e.getCoalescedEvents && typeof e.getCoalescedEvents === 'function') ? e.getCoalescedEvents() : [e];
+        let events = (e.getCoalescedEvents && typeof e.getCoalescedEvents === 'function') ? e.getCoalescedEvents() : [e];
+        if (!events || !events.length) events = [e];
         for (const ce of (events.length ? events : [e])) {
           const cPos = getRefCanvasCoordinates(ce);
           const pts = currentRefStroke.points;
@@ -7393,9 +7394,10 @@
 
       // 🌟 高频触控板采样：利用 e.getCoalescedEvents 获取细腻子像素点流
       if (currentStroke && !isShapeSnapped) {
-        const events = (e.getCoalescedEvents && typeof e.getCoalescedEvents === 'function')
+        let events = (e.getCoalescedEvents && typeof e.getCoalescedEvents === 'function')
           ? e.getCoalescedEvents()
           : [e];
+        if (!events || !events.length) events = [e];
 
         for (const ce of events) {
           const cPos = getCanvasCoordinates(ce);
@@ -7770,7 +7772,7 @@
       return {
         v: 1,
         savedAt: Date.now(),
-        currentPageIndex: cur,
+        currentPageIndex: appState.isDualSpread ? 0 : cur, // 双板状态下刷新回到第 1 页
         paper: appState.paper,
         ratio: appState.ratio,
         pages: appState.pages.map((p, i) => {
