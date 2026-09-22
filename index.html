@@ -1197,6 +1197,22 @@
     body.theme-light #exportModal > div #exportPresetOptions select { background: #ffffff !important; border: 1.5px solid #0f172a !important; color: #0f172a !important; font-weight: 700 !important; }
     #exportPresetOptions select { color: #f1f5f9; }
 
+    /* 白天模式：更多工具抽屉 / 分镜格 / 气泡菜单 (旧规则写的是不存在的 #panelsFlyout，这里补齐) */
+    body.theme-light #moreToolsDrawer, body.theme-light #panelsMenu, body.theme-light #balloonsMenu { color: #0f172a !important; }
+    body.theme-light #moreToolsDrawer :is(span, label), body.theme-light #panelsMenu :is(span, label, button), body.theme-light #balloonsMenu :is(span, label, button) { color: #0f172a !important; font-weight: 700; }
+    body.theme-light #moreToolsDrawer .border-slate-800, body.theme-light #panelsMenu .border-slate-800, body.theme-light #balloonsMenu .border-slate-800 { border-color: #e2e8f0 !important; }
+    body.theme-light #moreToolsDrawer button:hover:not(.tool-btn-active) { background: #f1f5f9 !important; }
+    body.theme-light #moreToolsDrawer #btnClearAllDrawer { color: #be123c !important; font-weight: 700; }
+    body.theme-light #moreToolsDrawer #btnClearAllDrawer:hover { background: #ffe4e6 !important; }
+    body.theme-light #moreToolsDrawer .drawer-file-btn { background: #eef2ff !important; border-color: #4f46e5 !important; }
+    body.theme-light #panelsMenu .panel-tpl-btn, body.theme-light #balloonsMenu .balloon-tpl-btn, body.theme-light #panelsMenu #btnInsertCustomBox {
+      background: #f8fafc !important; border-color: #cbd5e1 !important; color: #0f172a !important;
+    }
+    body.theme-light #panelsMenu .panel-tpl-btn:hover, body.theme-light #balloonsMenu .balloon-tpl-btn:hover, body.theme-light #panelsMenu #btnInsertCustomBox:hover { background: #e0e7ff !important; border-color: #4f46e5 !important; }
+    body.theme-light #panelsMenu #btnPanelCutTool { background: #0f172a !important; border-color: #0f172a !important; }
+    body.theme-light #panelsMenu #btnPanelCutTool * { color: #ffffff !important; }
+    body.theme-light #panelsMenu .border-slate-400, body.theme-light #balloonsMenu .border-white { border-color: #64748b !important; }
+
     /* 焦点可见环 (键盘操作) */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       outline: none !important;
@@ -6390,6 +6406,7 @@
         const darkColors = new Set(['#000000', '#0f172a', '#18181b', '#1e293b', '#334155', '#475569', '#111827', '#020617', '#27272a']);
         const convertItem = (item) => {
           if (!item.color) return;
+          if (item.fill) return; // 白底气泡保持深色描边，否则会变成白底白边
           const c = item.color.toLowerCase();
           if (darkColors.has(c) || isColorTooDark(c)) {
             item.color = '#f8fafc'; // 粉笔白
