@@ -1131,6 +1131,13 @@
     }
     #leftSidebar { border-radius: var(--r-lg) !important; padding: var(--sp-1) !important; gap: 2px !important; max-height: calc(100% - 88px); overflow-y: auto; scrollbar-width: none; }
     #leftSidebar::-webkit-scrollbar { display: none; }
+    /* 768px 高的笔记本 (1024×768 / 1366×768) 与矮手机：工具坞贴近顶部，保证最下面的「⋯ 更多工具」不被工作台裁掉 */
+    @media (max-height: 820px) {
+      #leftSidebar { top: 8px !important; max-height: calc(100% - 16px) !important; }
+    }
+    @media (max-height: 700px) {
+      #leftSidebar > button, #leftSidebar .tool-btn { width: var(--btn-sm); height: var(--btn-sm); min-width: var(--btn-sm); }
+    }
     #leftSidebar > button, #leftSidebar .tool-btn { width: var(--btn-md); height: var(--btn-md); min-width: var(--btn-md); padding: 0 !important; border-radius: var(--r-sm) !important; flex-shrink: 0; }
     #leftSidebar > button svg { width: 18px; height: 18px; }
     #leftSidebar > button:hover:not(.tool-btn-active) { background: rgba(148, 163, 184, 0.16); color: var(--text-1); }
@@ -8652,6 +8659,23 @@
       }
       c.restore();
     }
+
+    // 浮窗打开时限制在工作台可见高度内并可滚动 (1024×768 等矮屏上笔刷工坊最后一排、调色盘底部不会被裁掉)
+    (function fitFlyoutsInWorkbench() {
+      const ids = ['brushStudioFlyout', 'paletteFlyout', 'panelsMenu', 'balloonsMenu', 'moreToolsDrawer', 'layersPanel'];
+      const fit = (el) => {
+        if (!el || el.classList.contains('hidden')) return;
+        el.style.maxHeight = '';
+        requestAnimationFrame(() => {
+          const wb = workbenchWrapper.getBoundingClientRect(), r = el.getBoundingClientRect();
+          const bottom = Math.min(wb.bottom, window.innerHeight);
+          const room = Math.floor(bottom - Math.max(r.top, wb.top) - 8);
+          if (room > 120 && r.height > room) { el.style.maxHeight = `${room}px`; el.style.overflowY = 'auto'; }
+        });
+      };
+      const mo = new MutationObserver((muts) => muts.forEach(m => fit(m.target)));
+      ids.forEach(id => { const el = document.getElementById(id); if (el) mo.observe(el, { attributes: true, attributeFilter: ['class'] }); });
+    })();
 
     // 🌟 全局弹窗/浮动面板互斥管理器：打开任何一个功能，其他功能自动退出
     function closeAllFlyouts(exceptId = null) {
