@@ -6563,11 +6563,11 @@
           <span class="inline-sz-val font-mono text-[11px] text-indigo-300 w-8 text-center font-bold">${currentSize}px</span>
           <button type="button" class="btn-sz-plus px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] font-bold" title="字号放大">A+</button>
           <button type="button" class="btn-bold-toggle px-2 py-0.5 rounded text-[11px] font-bold ${isBold ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}" title="加粗">B</button>
-          <input type="color" class="inline-color-input w-5 h-5 rounded cursor-pointer border-0 bg-transparent" value="${currentColor.startsWith('#') && currentColor.length === 7 ? currentColor : '#18181b'}" title="文字色彩" />
+          <input type="color" class="inline-color-input w-5 h-5 rounded cursor-pointer border-0 bg-transparent" value="${/^#[0-9a-fA-F]{6}$/.test(currentColor) ? currentColor : '#18181b'}" title="文字色彩" />
           <button type="button" class="btn-inline-done px-2.5 py-0.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[11px] font-bold shadow transition">完成 ✔</button>
         </div>
         <!-- 沉浸式行内自适应输入框：所见即所得，零干扰打字 -->
-        <textarea id="inlineCanvasTextArea" class="bg-white/90 dark:bg-slate-900/90 border-2 border-dashed border-indigo-500 rounded-lg p-2 outline-none resize-none overflow-hidden shadow-2xl transition" placeholder="在此直接打字..." style="font-size:${currentSize}px; font-family:${currentFont}; color:${currentColor}; font-weight:${isBold ? 'bold' : 'normal'}; line-height:1.25; min-width:160px; min-height:${currentSize * 1.5}px;">${currentVal}</textarea>
+        <textarea id="inlineCanvasTextArea" class="bg-white/90 dark:bg-slate-900/90 border-2 border-dashed border-indigo-500 rounded-lg p-2 outline-none resize-none overflow-hidden shadow-2xl transition" placeholder="在此直接打字..." style="line-height:1.25; min-width:160px;"></textarea>
       `;
 
       canvasCard.appendChild(wrapper);
@@ -6581,6 +6581,13 @@
       const colorInput = wrapper.querySelector('.inline-color-input');
       const btnDone = wrapper.querySelector('.btn-inline-done');
 
+      // 文本内容与样式通过属性赋值，绝不拼接进 innerHTML (防止 < & 等字符破坏结构或注入)
+      textarea.value = currentVal;
+      textarea.style.fontSize = `${currentSize}px`;
+      textarea.style.fontFamily = currentFont;
+      textarea.style.color = currentColor;
+      textarea.style.fontWeight = isBold ? 'bold' : 'normal';
+      textarea.style.minHeight = `${currentSize * 1.5}px`;
       fontSelect.value = currentFont;
 
       const autoResize = () => {
