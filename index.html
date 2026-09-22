@@ -1658,12 +1658,21 @@
 
     <!-- 🎛️ 工具属性条 (油漆桶容差 / 像素橡皮大小 / 分格间距)：选中对应工具时出现 -->
     <div id="toolOptionsBar" class="hidden absolute top-2 sm:top-3 left-1/2 -translate-x-1/2 z-30 rounded-2xl px-3 py-1.5 flex items-center gap-3 text-xs max-w-[92%] flex-wrap justify-center">
-      <div data-opt="bucket" class="tool-opt hidden items-center gap-2">
+      <div data-opt="bucket" class="tool-opt hidden items-center gap-2" data-i18n-title="opt_bucket_hint" title="点击封闭区域，用当前颜色填充到当前图层">
         <span class="font-bold" data-i18n="opt_bucket">🪣 油漆桶</span>
         <label class="flex items-center gap-1.5"><span data-i18n="opt_tolerance">容差</span>
           <input id="optBucketTolerance" type="range" min="0" max="100" value="15" class="w-24 accent-indigo-500" />
           <span id="optBucketToleranceVal" class="font-mono w-8">15%</span></label>
-        <span class="opt-hint" data-i18n="opt_bucket_hint">点击封闭区域，用当前颜色填充当前图层</span>
+      </div>
+      <div data-opt="panel_cut" class="tool-opt hidden items-center gap-2" data-i18n-title="opt_panel_hint" title="在格子上拖一条横线或竖线即可切分；空白页会先自动生成外框">
+        <span class="font-bold" data-i18n="opt_panel_cut">✂️ 分格</span>
+        <label class="flex items-center gap-1.5"><span data-i18n="opt_gutter">格间距</span>
+          <input id="optPanelGutter" type="range" min="4" max="48" value="12" class="w-20 accent-indigo-500" />
+          <span id="optPanelGutterVal" class="font-mono w-9">12px</span></label>
+        <label class="flex items-center gap-1.5"><span data-i18n="opt_border">边框</span>
+          <input id="optPanelBorder" type="range" min="1" max="8" value="3" class="w-16 accent-indigo-500" />
+          <span id="optPanelBorderVal" class="font-mono w-7">3px</span></label>
+        <button id="btnPanelFrame" type="button" class="opt-btn" data-i18n="opt_frame">外框</button>
       </div>
       <div data-opt="pixel_eraser" class="tool-opt hidden items-center gap-2">
         <span class="font-bold" data-i18n="opt_pixel_eraser">🧽 像素橡皮</span>
@@ -1693,54 +1702,62 @@
     <!-- 漫画分镜格选择浮动弹窗 (Panel Templates Popover) -->
     <div id="panelsMenu" class="hidden absolute left-16 sm:left-20 top-1/3 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-56 text-white">
       <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
-        <span class="text-xs font-bold text-slate-200">📐 选择漫画分镜格模板</span>
-        <button id="btnClosePanelsMenu" class="text-slate-400 hover:text-white text-xs">✕</button>
+        <span class="text-xs font-bold text-slate-200" data-i18n="panels_title">📐 分镜格</span>
+        <button id="btnClosePanelsMenu" type="button" class="modal-x" data-i18n-title="close" title="关闭" aria-label="关闭">✕</button>
       </div>
       <div class="grid grid-cols-2 gap-2 text-xs">
         <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="4koma">
           <div class="w-full h-8 border border-dashed border-slate-400 rounded flex flex-col justify-between p-0.5"><div class="w-full h-1 bg-slate-400"></div><div class="w-full h-1 bg-slate-400"></div></div>
-          <span class="text-[11px] font-bold block">四格漫画 (4-Koma)</span>
+          <span class="text-[11px] font-bold block" data-i18n="tpl_4koma">四格漫画 (4-Koma)</span>
         </button>
         <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="6panel">
           <div class="w-full h-8 border border-dashed border-slate-400 rounded grid grid-cols-2 gap-0.5 p-0.5"><div class="bg-slate-400/40"></div><div class="bg-slate-400/40"></div></div>
-          <span class="text-[11px] font-bold block">日漫标准 6 格</span>
+          <span class="text-[11px] font-bold block" data-i18n="tpl_6panel">日漫标准 6 格</span>
         </button>
         <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="3panel">
           <div class="w-full h-8 border border-dashed border-slate-400 rounded flex flex-col gap-0.5 p-0.5"><div class="bg-slate-400/40 h-2"></div><div class="bg-slate-400/40 h-2"></div></div>
-          <span class="text-[11px] font-bold block">经典 3 格分镜</span>
+          <span class="text-[11px] font-bold block" data-i18n="tpl_3panel">经典 3 格分镜</span>
         </button>
         <button class="panel-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-left space-y-1 transition" data-tpl="webtoon">
           <div class="w-full h-8 border border-dashed border-slate-400 rounded flex flex-col gap-1 p-0.5"><div class="bg-indigo-400/40 h-3"></div><div class="bg-indigo-400/40 h-3"></div></div>
-          <span class="text-[11px] font-bold block">条漫竖屏流</span>
+          <span class="text-[11px] font-bold block" data-i18n="tpl_webtoon">条漫竖屏流</span>
         </button>
       </div>
-      <button id="btnInsertCustomBox" class="w-full py-1.5 bg-slate-800 hover:bg-indigo-600 rounded-xl text-xs font-semibold border border-slate-700 transition">
+      <button id="btnInsertCustomBox" class="w-full py-1.5 bg-slate-800 hover:bg-indigo-600 rounded-xl text-xs font-semibold border border-slate-700 transition" data-i18n="tpl_custom_box">
         ➕ 插入自定义单格框
       </button>
+      <button id="btnPanelCutTool" type="button" class="tool-btn w-full py-1.5 bg-indigo-600/20 hover:bg-indigo-600 rounded-xl text-xs font-bold border border-indigo-500/50 transition" data-tool="panel_cut" data-i18n-title="tip_panel_cut" title="分格工具：拖动横线 / 竖线切分格子 (K)">
+        <span data-i18n="tool_panel_cut">✂️ 分格工具 (K)</span>
+      </button>
+      <label class="flex items-center justify-between gap-2 text-[11px] font-semibold pt-1">
+        <span data-i18n="opt_gutter">格间距</span>
+        <input id="panelsGutterRange" type="range" min="4" max="48" value="12" class="w-24 accent-indigo-500" />
+        <span id="panelsGutterVal" class="font-mono w-9 text-right">12px</span>
+      </label>
     </div>
 
     <!-- 漫画对白气泡框选择浮动弹窗 (Speech Balloons Popover) -->
     <div id="balloonsMenu" class="hidden absolute left-16 sm:left-20 top-2/5 -translate-y-1/2 z-40 bg-slate-900/95 border border-slate-700 backdrop-blur-md rounded-2xl p-3 shadow-2xl space-y-2.5 w-56 text-white">
       <div class="flex items-center justify-between pb-1.5 border-b border-slate-800">
-        <span class="text-xs font-bold text-slate-200">💬 插入对白气泡框</span>
-        <button id="btnCloseBalloonsMenu" class="text-slate-400 hover:text-white text-xs">✕</button>
+        <span class="text-xs font-bold text-slate-200" data-i18n="balloons_title">💬 插入对白气泡框</span>
+        <button id="btnCloseBalloonsMenu" type="button" class="modal-x" data-i18n-title="close" title="关闭" aria-label="关闭">✕</button>
       </div>
       <div class="grid grid-cols-2 gap-2 text-xs">
         <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="oval">
           <div class="w-7 h-5 mx-auto rounded-full border border-white flex items-center justify-center text-[9px]">💬</div>
-          <span class="text-[11px] font-bold block">日常对白框</span>
+          <span class="text-[11px] font-bold block" data-i18n="bal_oval">日常对白框</span>
         </button>
         <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="shout">
           <div class="w-7 h-5 mx-auto border border-dashed border-amber-400 flex items-center justify-center text-[9px]">💥</div>
-          <span class="text-[11px] font-bold block">尖角呐喊框</span>
+          <span class="text-[11px] font-bold block" data-i18n="bal_shout">尖角呐喊框</span>
         </button>
         <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="thought">
           <div class="w-7 h-5 mx-auto rounded-xl border border-dotted border-blue-400 flex items-center justify-center text-[9px]">💭</div>
-          <span class="text-[11px] font-bold block">内心思考云</span>
+          <span class="text-[11px] font-bold block" data-i18n="bal_thought">内心思考云</span>
         </button>
         <button class="balloon-tpl-btn p-2 rounded-xl bg-slate-800 hover:bg-indigo-600 border border-slate-700/80 text-center space-y-1 transition" data-btype="rect">
           <div class="w-7 h-5 mx-auto border border-slate-300 flex items-center justify-center text-[9px]">📜</div>
-          <span class="text-[11px] font-bold block">旁白讲解框</span>
+          <span class="text-[11px] font-bold block" data-i18n="bal_rect">旁白讲解框</span>
         </button>
       </div>
     </div>
@@ -5631,7 +5648,29 @@
         bucket_failed: "无法读取画面像素，填充失败。",
         bucket_open_area: "没有找到封闭区域，已填满整个空白处（可撤销）。先用线条围出封闭区域再填充。",
         sc_pixel_eraser: "像素橡皮（局部擦除）",
-        sc_bucket: "油漆桶填充"
+        sc_bucket: "油漆桶填充",
+        panels_title: "📐 分镜格",
+        tpl_4koma: "四格漫画 (4-Koma)",
+        tpl_6panel: "日漫标准 6 格",
+        tpl_3panel: "经典 3 格分镜",
+        tpl_webtoon: "条漫竖屏流",
+        tpl_custom_box: "➕ 插入自定义单格框",
+        tip_panel_cut: "分格工具：拖动横线 / 竖线切分格子 (K)",
+        tool_panel_cut: "✂️ 分格工具 (K)",
+        opt_gutter: "格间距",
+        opt_panel_cut: "✂️ 分格",
+        opt_border: "边框",
+        opt_frame: "外框",
+        opt_panel_hint: "在格子上拖一条横线或竖线即可切分；空白页会先自动生成外框",
+        panel_cut_none: "这条线没有穿过可以切分的格子（格子太小，或所在图层被锁定/隐藏）。",
+        panel_frame_exists: "本页已经有分镜格了，直接用分格工具在格子上拖线切分即可。",
+        balloons_title: "💬 插入对白气泡框",
+        bal_oval: "日常对白框",
+        bal_shout: "尖角呐喊框",
+        bal_thought: "内心思考云",
+        bal_rect: "旁白讲解框",
+        balloon_inserted_toast: "已插入气泡：拖动调整位置和大小，再用文字工具 (T) 点击气泡输入台词。",
+        sc_panel_cut: "分格工具"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5763,7 +5802,29 @@
         bucket_failed: "Could not read the canvas pixels; fill failed.",
         bucket_open_area: "No closed area found, so the whole empty area was filled (undo available). Close the shape with lines first.",
         sc_pixel_eraser: "Pixel eraser (partial erase)",
-        sc_bucket: "Paint bucket"
+        sc_bucket: "Paint bucket",
+        panels_title: "📐 Panels",
+        tpl_4koma: "4-koma strip",
+        tpl_6panel: "Manga 6-panel page",
+        tpl_3panel: "Classic 3 panels",
+        tpl_webtoon: "Webtoon flow",
+        tpl_custom_box: "➕ Insert a single panel",
+        tip_panel_cut: "Panel cutter: drag a horizontal / vertical line to split panels (K)",
+        tool_panel_cut: "✂️ Panel cutter (K)",
+        opt_gutter: "Gutter",
+        opt_panel_cut: "✂️ Panels",
+        opt_border: "Border",
+        opt_frame: "Frame",
+        opt_panel_hint: "Drag a horizontal or vertical line across panels to split them; an empty page gets a frame first",
+        panel_cut_none: "That line does not cross a panel that can be split (panel too small, or its layer is locked/hidden).",
+        panel_frame_exists: "This page already has panels — drag across a panel with the cutter to split it.",
+        balloons_title: "💬 Speech balloons",
+        bal_oval: "Speech",
+        bal_shout: "Shout",
+        bal_thought: "Thought",
+        bal_rect: "Caption box",
+        balloon_inserted_toast: "Balloon added: drag to move or resize it, then use the Text tool (T) and click inside to write the line.",
+        sc_panel_cut: "Panel cutter"
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -5797,7 +5858,8 @@
         tip_layers: "レイヤー",
         tip_layers_active: "レイヤー · 現在：{name}",
         tip_bucket: "塗りつぶし (G)",
-        tip_pixel_eraser: "部分消しゴム (Shift+E)"
+        tip_pixel_eraser: "部分消しゴム (Shift+E)",
+        tip_panel_cut: "コマ割りツール (K)"
       },
       ko: {
         site_subtitle: "온라인 만화 콘티 · 웹툰 보드",
@@ -5831,7 +5893,8 @@
         tip_layers: "레이어",
         tip_layers_active: "레이어 · 현재: {name}",
         tip_bucket: "페인트 통 (G)",
-        tip_pixel_eraser: "부분 지우개 (Shift+E)"
+        tip_pixel_eraser: "부분 지우개 (Shift+E)",
+        tip_panel_cut: "칸 나누기 도구 (K)"
       },
       de: {
         site_subtitle: "Online-Manga-Storyboard & Comic-Board",
@@ -5865,7 +5928,8 @@
         tip_layers: "Ebenen",
         tip_layers_active: "Ebenen · aktuell: {name}",
         tip_bucket: "Farbeimer (G)",
-        tip_pixel_eraser: "Pixel-Radierer (Shift+E)"
+        tip_pixel_eraser: "Pixel-Radierer (Shift+E)",
+        tip_panel_cut: "Panel-Schneider (K)"
       },
       es: {
         site_subtitle: "Tablero online de storyboard manga y cómic",
@@ -5899,7 +5963,8 @@
         tip_layers: "Capas",
         tip_layers_active: "Capas · actual: {name}",
         tip_bucket: "Bote de pintura (G)",
-        tip_pixel_eraser: "Borrador de píxeles (Shift+E)"
+        tip_pixel_eraser: "Borrador de píxeles (Shift+E)",
+        tip_panel_cut: "Cortador de viñetas (K)"
       },
       fr: {
         site_subtitle: "Planche en ligne pour storyboard manga et BD",
@@ -5933,7 +5998,8 @@
         tip_layers: "Calques",
         tip_layers_active: "Calques · actuel : {name}",
         tip_bucket: "Pot de peinture (G)",
-        tip_pixel_eraser: "Gomme pixel (Shift+E)"
+        tip_pixel_eraser: "Gomme pixel (Shift+E)",
+        tip_panel_cut: "Découpe de cases (K)"
       }
     };
     Object.keys(TR_R4).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R4[l]); });
@@ -5972,6 +6038,8 @@
       ],
       activeLayerId: 'line',
       bucketTolerance: 15,   // 油漆桶容差 (%)
+      panelGutter: 12,       // 分镜格间距 (px)
+      panelBorderWidth: 3,   // 分镜格边框粗细 (px)
       pixelEraserSize: 16,   // 像素橡皮直径 (px)
       lassoPath: [],
       selectedStrokes: [],
@@ -6808,6 +6876,235 @@
       ring.style.width = ring.style.height = `${d}px`;
       ring.style.left = `${e.clientX - d / 2}px`;
       ring.style.top = `${e.clientY - d / 2}px`;
+    }
+
+    // ================= ✂️ 分镜格：外框 / 模板 / 拖拽分格 (格子 = 带 panelBorder 标记的矩形笔画，可撤销、可导出) =================
+    const PANEL_MIN = 14; // 切分后单格的最小边长 (px)
+    function panelLineColor() { return isDarkPaper(appState.paper) ? '#f8fafc' : '#111111'; }
+    function panelFrameRect() {
+      if (appState.paper === 'manga_manuscript') {
+        const padX = Math.round(cssWidth * 0.08), padY = Math.round(cssHeight * 0.08);
+        return { x: padX, y: padY, w: cssWidth - padX * 2, h: cssHeight - padY * 2 };
+      }
+      const m = Math.round(Math.min(cssWidth, cssHeight) * 0.06);
+      return { x: m, y: m, w: cssWidth - m * 2, h: cssHeight - m * 2 };
+    }
+    function makePanelStroke(r, layerId, proto) {
+      const x0 = Math.round(r.x * 10) / 10, y0 = Math.round(r.y * 10) / 10;
+      const x1 = Math.round((r.x + r.w) * 10) / 10, y1 = Math.round((r.y + r.h) * 10) / 10;
+      return {
+        id: Date.now() + Math.random(),
+        tool: 'panel',
+        color: (proto && proto.color) || panelLineColor(),
+        size: (proto && proto.size) || Number(appState.panelBorderWidth) || 3,
+        polyline: true, closed: true, panelBorder: true,
+        layerId: (proto && proto.layerId) || layerId,
+        points: [{ x: x0, y: y0 }, { x: x1, y: y0 }, { x: x1, y: y1 }, { x: x0, y: y1 }, { x: x0, y: y0 }]
+      };
+    }
+    function strokeBBox(st) {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const p of st.points) { if (p.x < minX) minX = p.x; if (p.y < minY) minY = p.y; if (p.x > maxX) maxX = p.x; if (p.y > maxY) maxY = p.y; }
+      return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+    }
+    function getPanelRects(board) {
+      return (board.strokes || []).filter(st => st.panelBorder && st.points && st.points.length >= 4 && isElEditable(st, 'stroke'))
+        .map(st => Object.assign(strokeBBox(st), { stroke: st }));
+    }
+
+    // 把格子矩形按网格切分：rows = [每行高度权重], cols = 每行的列数
+    function layoutGrid(frame, rows, cols, gutter, rowGutter) {
+      const out = [];
+      const rg = rowGutter != null ? rowGutter : gutter;
+      const totalW = rows.reduce((a, b) => a + b, 0);
+      const usableH = frame.h - rg * (rows.length - 1);
+      let y = frame.y;
+      rows.forEach((wt, ri) => {
+        const h = usableH * wt / totalW;
+        const n = Array.isArray(cols) ? cols[ri] : cols;
+        const cw = (frame.w - gutter * (n - 1)) / n;
+        for (let ci = 0; ci < n; ci++) out.push({ x: frame.x + ci * (cw + gutter), y, w: cw, h });
+        y += h + rg;
+      });
+      return out;
+    }
+
+    function insertPanelStrokes(rects, opts) {
+      const left = isLeftBoardActive();
+      const board = left ? appState.pages[0] : appState;
+      const layerId = targetLayerForNew('stroke');
+      if (!layerId) return [];
+      if (left) saveLeftHistory(); else saveHistory();
+      const made = rects.map(r => makePanelStroke(r, layerId));
+      board.strokes = (board.strokes || []).concat(made);
+      if (left) renderReferenceBoard();
+      else {
+        clearSelection();
+        if (opts && opts.select) {
+          appState.tool = 'select';
+          updateToolButtonsUI();
+          appState.selectedStrokes = made;
+        }
+        redrawAllStrokes();
+        updateSelectionBoxUI();
+      }
+      return made;
+    }
+
+    function insertPanelTemplate(tpl) {
+      const f = panelFrameRect();
+      const g = Number(appState.panelGutter) || 12;
+      let rects;
+      if (tpl === '4koma') rects = layoutGrid(f, [1, 1, 1, 1], 1, g);
+      else if (tpl === '6panel') rects = layoutGrid(f, [1, 1, 1], 2, g, g * 1.6);
+      else if (tpl === '3panel') rects = layoutGrid(f, [1, 1.3, 1], 1, g, g * 1.6);
+      else if (tpl === 'webtoon') rects = layoutGrid(f, [1.1, 0.8, 1.3], 1, g, Math.max(g * 4, 48));
+      else if (tpl === 'custom') {
+        const w = Math.round(cssWidth * 0.46), h = Math.round(cssHeight * 0.34);
+        rects = [{ x: Math.round((cssWidth - w) / 2), y: Math.round((cssHeight - h) / 2), w, h }];
+      } else return;
+      insertPanelStrokes(rects, { select: tpl === 'custom' });
+    }
+
+    // 计算一次切分：返回 [{ stroke, parts:[rectA, rectB] }]
+    function computePanelCut(rects, a, b, gutter) {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const horizontal = Math.abs(dx) >= Math.abs(dy);
+      const g2 = gutter / 2;
+      const res = [];
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 16) return { horizontal, cuts: res };
+      if (horizontal) {
+        const c = (a.y + b.y) / 2, x0 = Math.min(a.x, b.x), x1 = Math.max(a.x, b.x);
+        for (const r of rects) {
+          if (r.x >= x1 || r.x + r.w <= x0) continue;
+          if (c - g2 - r.y < PANEL_MIN || r.y + r.h - (c + g2) < PANEL_MIN) continue;
+          res.push({ stroke: r.stroke, parts: [{ x: r.x, y: r.y, w: r.w, h: c - g2 - r.y }, { x: r.x, y: c + g2, w: r.w, h: r.y + r.h - (c + g2) }] });
+        }
+      } else {
+        const c = (a.x + b.x) / 2, y0 = Math.min(a.y, b.y), y1 = Math.max(a.y, b.y);
+        for (const r of rects) {
+          if (r.y >= y1 || r.y + r.h <= y0) continue;
+          if (c - g2 - r.x < PANEL_MIN || r.x + r.w - (c + g2) < PANEL_MIN) continue;
+          res.push({ stroke: r.stroke, parts: [{ x: r.x, y: r.y, w: c - g2 - r.x, h: r.h }, { x: c + g2, y: r.y, w: r.x + r.w - (c + g2), h: r.h }] });
+        }
+      }
+      return { horizontal, cuts: res };
+    }
+
+    let panelCutStart = null;
+    let panelCutFrameCreated = false;
+    function ensurePanelFrame(board) {
+      if (getPanelRects(board).length) return false;
+      const layerId = targetLayerForNew('stroke');
+      if (!layerId) return false;
+      board.strokes = (board.strokes || []).concat([makePanelStroke(panelFrameRect(), layerId)]);
+      return true;
+    }
+    function drawPanelCutPreview(a, b) {
+      redrawAllStrokes();
+      let rects = getPanelRects(appState);
+      if (!rects.length) rects = [Object.assign(panelFrameRect(), { stroke: null })];
+      const { cuts } = computePanelCut(rects, a, b, Number(appState.panelGutter) || 12);
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = '#6366f1';
+      ctx.fillStyle = 'rgba(99, 102, 241, 0.12)';
+      for (const c of cuts) for (const r of c.parts) { ctx.fillRect(r.x, r.y, r.w, r.h); ctx.strokeRect(r.x, r.y, r.w, r.h); }
+      ctx.setLineDash([6, 4]);
+      ctx.strokeStyle = cuts.length ? '#4f46e5' : '#ef4444';
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+      ctx.restore();
+    }
+    function applyPanelCut(a, b) {
+      saveHistory();
+      const created = ensurePanelFrame(appState);
+      const rects = getPanelRects(appState);
+      const { cuts } = computePanelCut(rects, a, b, Number(appState.panelGutter) || 12);
+      if (!cuts.length) {
+        if (!created) { appState.history.pop(); if (appState._lastClearedRedo) appState.redoStack = appState._lastClearedRedo; }
+        redrawAllStrokes();
+        if (!created && Math.hypot(b.x - a.x, b.y - a.y) >= 16) toast(tr('panel_cut_none'));
+        return;
+      }
+      for (const c of cuts) {
+        const i = appState.strokes.indexOf(c.stroke);
+        const parts = c.parts.map(r => makePanelStroke(r, null, c.stroke));
+        if (i >= 0) appState.strokes.splice(i, 1, ...parts);
+        else appState.strokes.push(...parts);
+      }
+      redrawAllStrokes();
+    }
+
+    // ================= 💬 对白气泡框 (白底描边的封闭图形，可移动 / 缩放 / 填色 / 导出) =================
+    function insertBalloon(type) {
+      const left = isLeftBoardActive();
+      const board = left ? appState.pages[0] : appState;
+      const layerId = targetLayerForNew('stroke');
+      if (!layerId) return;
+      const w = Math.max(90, Math.min(280, cssWidth * 0.34));
+      const h = w * (type === 'rect' ? 0.42 : 0.62);
+      // 连续插入时错开位置，避免气泡叠在一起
+      const slots = [[0.5, 0.3], [0.3, 0.52], [0.7, 0.52], [0.5, 0.74]];
+      const nBalloons = (board.strokes || []).filter(st => !st.balloonPart && (st.tool === 'balloon' || (st.tool === 'panel' && st.fill))).length;
+      const slot = slots[nBalloons % slots.length];
+      const cx = cssWidth * slot[0], cy = cssHeight * slot[1];
+      const rx = w / 2, ry = h / 2;
+      const color = '#111111';
+      const base = { tool: 'balloon', color, size: 2.5, fill: '#ffffff', closed: true, polyline: true, layerId };
+      const made = [];
+      const ell = (fn, n) => { const pts = []; for (let i = 0; i <= n; i++) { const t = (i / n) * Math.PI * 2; const k = fn ? fn(t, i) : 1; pts.push({ x: cx + Math.cos(t) * rx * k, y: cy + Math.sin(t) * ry * k }); } return pts; };
+      if (type === 'oval') {
+        // 椭圆 + 指向左下方的尖尾巴
+        const pts = [];
+        const n = 72, t1 = 0.58 * Math.PI, t2 = 0.72 * Math.PI;
+        let tipDone = false;
+        for (let i = 0; i <= n; i++) {
+          const t = (i / n) * Math.PI * 2;
+          if (t > t1 && t < t2) {
+            if (!tipDone) { pts.push({ x: cx - rx * 0.42, y: cy + ry * 1.75 }); tipDone = true; }
+            continue;
+          }
+          pts.push({ x: cx + Math.cos(t) * rx, y: cy + Math.sin(t) * ry });
+        }
+        made.push({ ...base, points: pts });
+      } else if (type === 'shout') {
+        const spikes = 16;
+        const pts = [];
+        for (let i = 0; i <= spikes * 2; i++) {
+          const t = (i / (spikes * 2)) * Math.PI * 2;
+          const k = i % 2 === 0 ? 1.18 : 0.86;
+          pts.push({ x: cx + Math.cos(t) * rx * k, y: cy + Math.sin(t) * ry * k });
+        }
+        made.push({ ...base, size: 3, points: pts });
+      } else if (type === 'thought') {
+        made.push({ ...base, points: ell((t) => 1 + 0.07 * Math.abs(Math.sin(t * 6)), 144) });
+        made.push({ ...base, balloonPart: true, points: (() => { const p = []; const r = w * 0.07, bx = cx - rx * 0.55, by = cy + ry * 1.28; for (let i = 0; i <= 24; i++) { const t = i / 24 * Math.PI * 2; p.push({ x: bx + Math.cos(t) * r, y: by + Math.sin(t) * r * 0.8 }); } return p; })() });
+        made.push({ ...base, balloonPart: true, points: (() => { const p = []; const r = w * 0.04, bx = cx - rx * 0.78, by = cy + ry * 1.62; for (let i = 0; i <= 20; i++) { const t = i / 20 * Math.PI * 2; p.push({ x: bx + Math.cos(t) * r, y: by + Math.sin(t) * r * 0.8 }); } return p; })() });
+      } else {
+        made.push({ ...base, tool: 'panel', points: [{ x: cx - rx, y: cy - ry }, { x: cx + rx, y: cy - ry }, { x: cx + rx, y: cy + ry }, { x: cx - rx, y: cy + ry }, { x: cx - rx, y: cy - ry }] });
+      }
+      made.forEach(m => { m.id = Date.now() + Math.random(); });
+      if (left) {
+        saveLeftHistory();
+        board.strokes = (board.strokes || []).concat(made);
+        renderReferenceBoard();
+      } else {
+        saveHistory();
+        appState.strokes = appState.strokes.concat(made);
+        appState.tool = 'select';
+        updateToolButtonsUI();
+        appState.selectedStrokes = made;
+        appState.selectedTexts = [];
+        appState.selectedImages = [];
+        redrawAllStrokes();
+        updateSelectionBoxUI();
+      }
+      toast(tr('balloon_inserted_toast'), 3600);
     }
 
     function pointInPolygon(point, vs) {
@@ -7992,7 +8289,7 @@
 
     // 🌟 全局弹窗/浮动面板互斥管理器：打开任何一个功能，其他功能自动退出
     function closeAllFlyouts(exceptId = null) {
-      const flyoutIds = ['paletteFlyout', 'brushStudioFlyout', 'panelsFlyout', 'balloonsFlyout', 'langMenu', 'moreToolsDrawer'];
+      const flyoutIds = ['paletteFlyout', 'brushStudioFlyout', 'panelsMenu', 'balloonsMenu', 'langMenu', 'moreToolsDrawer', 'pageMenu'];
       for (const id of flyoutIds) {
         if (id !== exceptId) {
           const el = document.getElementById(id);
@@ -8291,6 +8588,14 @@
         return;
       }
 
+      if (appState.tool === 'panel_cut') {
+        if (!targetLayerForNew('stroke')) return;
+        panelCutStart = pos;
+        isDrawing = true;
+        drawPanelCutPreview(pos, pos);
+        return;
+      }
+
       if (appState.tool === 'pixel_eraser') {
         if (!targetLayerForNew('stroke')) return;
         saveHistory();
@@ -8409,6 +8714,11 @@
 
       if (appState.tool === 'eraser') {
         eraseStrokesAt(pos.x, pos.y);
+        return;
+      }
+
+      if (appState.tool === 'panel_cut') {
+        if (panelCutStart) drawPanelCutPreview(panelCutStart, pos);
         return;
       }
 
@@ -8569,6 +8879,14 @@
         return;
       }
 
+      if (isDrawing && appState.tool === 'panel_cut' && panelCutStart) {
+        const endPos = (e && typeof e.clientX === 'number') ? getCanvasCoordinates(e) : panelCutStart;
+        const startPos = panelCutStart;
+        panelCutStart = null;
+        isDrawing = false;
+        applyPanelCut(startPos, endPos);
+        return;
+      }
       const hadStroke = !!currentStroke;
       isDrawing = false;
       currentStroke = null;
@@ -9047,7 +9365,7 @@
     }
 
     // 单键工具快捷键 (@brush = 当前选中的漫画笔刷)
-    const TOOL_SHORTCUTS = { v: 'select', h: 'hand', p: '@brush', b: '@brush', e: 'eraser', l: 'lasso', t: 'text', g: 'bucket' };
+    const TOOL_SHORTCUTS = { v: 'select', h: 'hand', p: '@brush', b: '@brush', e: 'eraser', l: 'lasso', t: 'text', g: 'bucket', k: 'panel_cut' };
     const SHIFT_TOOL_SHORTCUTS = { e: 'pixel_eraser' };
     function currentBrushTool() {
       const b = document.getElementById('btnCurrentBrush');
@@ -9149,7 +9467,7 @@
 
     // ================= ⌨️ 快捷键面板 / 工具提示 / 空画布提示 (Round 4 UI) =================
     const SHORTCUT_ROWS = [
-      ['V', 'sc_select'], ['H', 'sc_hand'], ['P / B', 'sc_brush'], ['E', 'sc_eraser'], ['Shift + E', 'sc_pixel_eraser'], ['G', 'sc_bucket'],
+      ['V', 'sc_select'], ['H', 'sc_hand'], ['P / B', 'sc_brush'], ['E', 'sc_eraser'], ['Shift + E', 'sc_pixel_eraser'], ['G', 'sc_bucket'], ['K', 'sc_panel_cut'],
       ['T', 'sc_text'], ['L', 'sc_lasso'], ['[  ]', 'sc_size'],
       ['Ctrl / ⌘ + Z', 'sc_undo'], ['Ctrl / ⌘ + Shift + Z', 'sc_redo'], ['Delete', 'sc_delete'],
       ['Ctrl / ⌘ + S', 'sc_save'], ['Ctrl / ⌘ + O', 'sc_open'], ['Ctrl / ⌘ + @wheel', 'sc_zoom'],
@@ -10329,6 +10647,67 @@ ${body}</svg>`;
       updateToolOptionsBar();
       if (appState.tool !== 'pixel_eraser') updateEraserRing(null);
     }
+
+    // 分镜格菜单 / 气泡菜单
+    (function bindPanelAndBalloonMenus() {
+      const panelsMenu = document.getElementById('panelsMenu');
+      const balloonsMenu = document.getElementById('balloonsMenu');
+      const toggle = (menu, btn) => (e) => {
+        e.stopPropagation();
+        const willShow = menu.classList.contains('hidden');
+        closeAllFlyouts(willShow ? menu.id : null);
+        menu.classList.toggle('hidden', !willShow);
+        if (willShow && btn) {
+          const wr = workbenchWrapper.getBoundingClientRect(), br = btn.getBoundingClientRect();
+          menu.style.top = `${Math.max(8, Math.min(wr.height - menu.offsetHeight - 8, br.top - wr.top - 12))}px`;
+          menu.style.transform = 'none';
+        }
+      };
+      const bp = document.getElementById('btnTogglePanels');
+      const bb = document.getElementById('btnToggleBalloons');
+      if (bp && panelsMenu) bp.onclick = toggle(panelsMenu, bp);
+      if (bb && balloonsMenu) bb.onclick = toggle(balloonsMenu, bb);
+      const cp = document.getElementById('btnClosePanelsMenu');
+      if (cp && panelsMenu) cp.onclick = () => panelsMenu.classList.add('hidden');
+      const cb = document.getElementById('btnCloseBalloonsMenu');
+      if (cb && balloonsMenu) cb.onclick = () => balloonsMenu.classList.add('hidden');
+      [panelsMenu, balloonsMenu].forEach(m => { if (m) m.addEventListener('pointerdown', (e) => e.stopPropagation()); });
+      document.querySelectorAll('.panel-tpl-btn').forEach(b => b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        insertPanelTemplate(b.dataset.tpl);
+        if (panelsMenu) panelsMenu.classList.add('hidden');
+      }));
+      const custom = document.getElementById('btnInsertCustomBox');
+      if (custom) custom.addEventListener('click', (e) => { e.stopPropagation(); insertPanelTemplate('custom'); if (panelsMenu) panelsMenu.classList.add('hidden'); });
+      const cutBtn = document.getElementById('btnPanelCutTool');
+      if (cutBtn) cutBtn.addEventListener('click', () => { if (panelsMenu) panelsMenu.classList.add('hidden'); });
+      document.querySelectorAll('.balloon-tpl-btn').forEach(b => b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        insertBalloon(b.dataset.btype);
+        if (balloonsMenu) balloonsMenu.classList.add('hidden');
+      }));
+      document.addEventListener('click', (e) => {
+        if (panelsMenu && !panelsMenu.contains(e.target) && !(bp && bp.contains(e.target))) panelsMenu.classList.add('hidden');
+        if (balloonsMenu && !balloonsMenu.contains(e.target) && !(bb && bb.contains(e.target))) balloonsMenu.classList.add('hidden');
+      });
+      // 格间距 / 边框粗细 (分镜菜单与工具属性条共用同一状态)
+      const syncGutter = (v) => {
+        appState.panelGutter = Math.max(4, Math.min(48, Number(v) || 12));
+        ['panelsGutterRange', 'optPanelGutter'].forEach(id => { const el = document.getElementById(id); if (el) el.value = appState.panelGutter; });
+        ['panelsGutterVal', 'optPanelGutterVal'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = `${appState.panelGutter}px`; });
+      };
+      ['panelsGutterRange', 'optPanelGutter'].forEach(id => { const el = document.getElementById(id); if (el) el.oninput = () => syncGutter(el.value); });
+      const bw = document.getElementById('optPanelBorder');
+      const bwV = document.getElementById('optPanelBorderVal');
+      if (bw) bw.oninput = () => { appState.panelBorderWidth = Number(bw.value) || 3; if (bwV) bwV.textContent = `${appState.panelBorderWidth}px`; };
+      const frameBtn = document.getElementById('btnPanelFrame');
+      if (frameBtn) frameBtn.onclick = (e) => {
+        e.stopPropagation();
+        const board = isLeftBoardActive() ? appState.pages[0] : appState;
+        if (getPanelRects(board).length) { toast(tr('panel_frame_exists')); return; }
+        insertPanelStrokes([panelFrameRect()]);
+      };
+    })();
 
     // 工具属性条：油漆桶 / 像素橡皮 / 分格工具
     function updateToolOptionsBar() {
