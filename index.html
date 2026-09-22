@@ -1140,9 +1140,41 @@
     #zoomDock button, #pageManagerDock button { min-height: 28px; border-radius: var(--r-sm); }
     #moreToolsDrawer, #panelsMenu, #balloonsMenu, #brushStudioFlyout, #paletteFlyout, #layersPanel, #pageMenu { border-radius: var(--r-lg) !important; }
 
+    body.theme-light #leftSidebar button.tool-btn-active:hover { background: #4338ca !important; color: #ffffff !important; }
     body.theme-light #btnToolbarSize { background: #f1f5f9 !important; color: #0f172a !important; border-color: #cbd5e1 !important; font-weight: 800 !important; }
     #btnToolbarSize { width: auto !important; height: auto !important; min-width: 0 !important; padding: 2px 6px !important; }
     #leftSidebar #btnTogglePalette { width: 32px; height: 32px; min-width: 32px; }
+    /* 图层面板 */
+    #layersPanel .layer-row { display: flex; align-items: center; gap: 2px; padding: 2px 4px; border-radius: var(--r-sm); cursor: pointer; border: 1px solid transparent; }
+    #layersPanel .layer-row:hover { background: rgba(148, 163, 184, 0.12); }
+    #layersPanel .layer-row.active { background: var(--accent-soft); border-color: rgba(99, 102, 241, 0.6); }
+    #layersPanel .layer-row button { width: 32px; height: 32px; flex-shrink: 0; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: var(--text-3); }
+    #layersPanel .layer-row button svg { width: 16px; height: 16px; }
+    #layersPanel .layer-row button:hover { background: rgba(148, 163, 184, 0.18); color: var(--text-1); }
+    #layersPanel .layer-row button.is-on { color: var(--text-1); }
+    #layersPanel .layer-row button.is-locked { color: #f59e0b; }
+    #layersPanel .layer-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600; color: var(--text-1); padding-left: 2px; }
+    #layersPanel .layer-row.is-hidden .layer-name { opacity: 0.45; text-decoration: line-through; }
+    #layersPanel .layer-count { font-size: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-3); padding: 1px 6px; border-radius: 999px; background: rgba(148, 163, 184, 0.14); }
+    #layersPanel .layer-rename { flex: 1; min-width: 0; height: 28px; padding: 0 6px; border-radius: 6px; font-size: 12px; font-weight: 600; background: var(--surface-solid); color: var(--text-1); border: 1.5px solid var(--accent); outline: none; }
+    #layersPanel .layer-act { flex: 1; height: var(--btn-sm); border-radius: var(--r-sm); border: 1px solid var(--hairline-strong); color: var(--text-2); font-weight: 700; font-size: 14px; background: transparent; }
+    #layersPanel .layer-act:hover { background: rgba(148, 163, 184, 0.16); color: var(--text-1); }
+    #layersPanel .layer-act-danger:hover { background: rgba(239, 68, 68, 0.16); color: #f87171; }
+    #layersPanel .layer-hint { color: var(--text-3); }
+    body.theme-light #layersPanel .border-slate-700\/60 { border-color: #e2e8f0 !important; }
+    body.theme-light #layersPanel .layer-name, body.theme-light #layersPanel .layer-row button.is-on, body.theme-light #layersPanel .layer-act { color: #0f172a !important; font-weight: 700 !important; }
+    body.theme-light #layersPanel .layer-row button { color: #64748b; }
+    body.theme-light #layersPanel .layer-row button.is-locked { color: #b45309 !important; }
+    body.theme-light #layersPanel .layer-row.active { background: #e0e7ff !important; border-color: #4f46e5 !important; }
+    body.theme-light #layersPanel .layer-hint, body.theme-light #layersPanel #layersPanelTitle { color: #0f172a !important; font-weight: 700; }
+    body.theme-light #layersPanel .layer-count { color: #1e293b; background: #e2e8f0; font-weight: 700; }
+    body.theme-light #layersPanel .layer-rename { background: #ffffff; color: #0f172a; border-color: #0f172a; }
+    body.theme-light #layersPanel .layer-act { background: #ffffff; border-color: #cbd5e1; }
+    #activeLayerChip { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 700; color: #334155; background: rgba(248, 250, 252, 0.9); border: 1px solid rgba(100, 116, 139, 0.3); box-shadow: var(--sh-sm); max-width: 45%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    #activeLayerChip.is-dark { color: #e2e8f0; background: rgba(15, 23, 42, 0.8); border-color: rgba(203, 213, 225, 0.28); }
+    #activeLayerChip.is-warn { color: #92400e; background: #fef3c7; border-color: #f59e0b; }
+    #activeLayerChip svg { width: 12px; height: 12px; flex-shrink: 0; }
+
     /* 焦点可见环 (键盘操作) */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       outline: none !important;
@@ -1543,6 +1575,11 @@
       </button>
       <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
 
+      <!-- 🗂️ 图层面板开关 -->
+      <button id="btnToggleLayers" type="button" class="p-2 rounded-xl text-emerald-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-i18n-title="tip_layers" title="图层">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>
+      </button>
+
       <div class="dock-sep" aria-hidden="true"></div>
 
       <!-- 9. 🎨 Photoshop 风格主画笔前景色块与调色工坊入口 -->
@@ -1598,6 +1635,23 @@
       <div class="pt-1.5 border-t border-slate-800 flex justify-between">
         <button id="btnClearAllDrawer" class="w-full py-1 text-center text-xs text-rose-400 hover:bg-rose-950/40 rounded-lg transition" data-i18n="clear_page_btn">🗑️ 清空本页（未锁定图层）</button>
       </div>
+    </div>
+
+    <!-- 🗂️ 图层面板 (Layers)：显示/隐藏、锁定、重命名、上下移动、删除；隐藏的图层不导出 -->
+    <div id="layersPanel" class="hidden absolute right-2 sm:right-4 top-2 sm:top-4 z-40 rounded-2xl p-2.5 w-60 space-y-2" role="dialog" aria-labelledby="layersPanelTitle">
+      <div class="flex items-center justify-between pb-1.5 border-b border-slate-700/60">
+        <span id="layersPanelTitle" class="text-xs font-bold flex items-center gap-1.5"><span class="ui-icon inline-flex text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></span><span data-i18n="layers_title">图层</span></span>
+        <button id="btnCloseLayers" type="button" class="modal-x" data-i18n-title="close" title="关闭" aria-label="关闭">✕</button>
+      </div>
+      <div id="layersList" class="space-y-1 max-h-64 overflow-y-auto no-scrollbar"></div>
+      <div class="flex items-center gap-1">
+        <button id="btnLayerAdd" type="button" class="layer-act" data-i18n-title="layer_add" title="新建图层">＋</button>
+        <button id="btnLayerUp" type="button" class="layer-act" data-i18n-title="layer_up" title="上移图层">↑</button>
+        <button id="btnLayerDown" type="button" class="layer-act" data-i18n-title="layer_down" title="下移图层">↓</button>
+        <button id="btnLayerRename" type="button" class="layer-act" data-i18n-title="layer_rename" title="重命名">✎</button>
+        <button id="btnLayerDelete" type="button" class="layer-act layer-act-danger" data-i18n-title="layer_delete" title="删除图层">🗑</button>
+      </div>
+      <p class="layer-hint text-[10px] leading-snug" data-i18n="layer_hint">图层对所有页面通用；新文字自动放入「文字」层；隐藏的图层不会被导出。</p>
     </div>
 
     <!-- 漫画分镜格选择浮动弹窗 (Panel Templates Popover) -->
@@ -1939,6 +1993,7 @@
         <!-- 套索拖动选区层 -->
         <div id="selectionOverlay" class="absolute inset-0 pointer-events-none"></div>
         <div id="emptyCanvasHint" class="hidden-hint" aria-hidden="true"></div>
+        <button id="activeLayerChip" type="button" class="absolute top-2 right-2 z-20" data-i18n-title="tip_layers" title="图层"></button>
         <div id="rightPageBadge" class="hidden absolute bottom-2 right-3 px-2 py-0.5 rounded-md bg-stone-900/60 text-[10px] text-slate-300 font-mono select-none pointer-events-none border border-slate-700/50 backdrop-blur-sm">第 2 页</div>
       </div>
     </div>
@@ -5506,7 +5561,29 @@
         sc_esc: "关闭弹窗 / 浮窗",
         empty_hint: "拿起画笔开始画吧 · 按 ? 查看快捷键",
         empty_hint_touch: "拿起画笔开始画吧 · 点「⋯」查看更多工具",
-        kbd_wheel: "滚轮"
+        kbd_wheel: "滚轮",
+        layers_title: "图层",
+        layer_draft: "草稿",
+        layer_line: "线稿",
+        layer_text: "文字",
+        layer_new_name: "图层 {n}",
+        layer_add: "新建图层（放在当前图层上方）",
+        layer_up: "上移图层",
+        layer_down: "下移图层",
+        layer_rename: "重命名（也可双击图层名）",
+        layer_delete: "删除当前图层",
+        layer_hide: "隐藏图层",
+        layer_show: "显示图层",
+        layer_lock: "锁定图层",
+        layer_unlock: "解锁图层",
+        layer_count_tip: "本页该图层上的元素数量",
+        layer_locked_toast: "当前图层「{name}」已锁定，请先解锁或切换到其他图层。",
+        layer_hidden_toast: "当前图层「{name}」已隐藏，请先显示或切换到其他图层。",
+        layer_keep_one: "至少需要保留一个图层。",
+        layer_delete_confirm: "删除图层「{name}」？所有页面上这个图层的内容都会被删除（当前页可用撤销找回）。",
+        layer_hint: "图层对所有页面通用；新文字自动放入「文字」层；橡皮与套索只作用于当前图层；隐藏的图层不会被导出。",
+        tip_layers: "图层",
+        tip_layers_active: "图层 · 当前：{name}"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5604,7 +5681,29 @@
         sc_esc: "Close dialog / popover",
         empty_hint: "Pick up a brush and start drawing · press ? for shortcuts",
         empty_hint_touch: "Pick up a brush and start drawing · tap “⋯” for more tools",
-        kbd_wheel: "Wheel"
+        kbd_wheel: "Wheel",
+        layers_title: "Layers",
+        layer_draft: "Sketch",
+        layer_line: "Inks",
+        layer_text: "Text",
+        layer_new_name: "Layer {n}",
+        layer_add: "New layer (above the current one)",
+        layer_up: "Move layer up",
+        layer_down: "Move layer down",
+        layer_rename: "Rename (or double-click the name)",
+        layer_delete: "Delete current layer",
+        layer_hide: "Hide layer",
+        layer_show: "Show layer",
+        layer_lock: "Lock layer",
+        layer_unlock: "Unlock layer",
+        layer_count_tip: "Items on this layer on the current page",
+        layer_locked_toast: "The current layer “{name}” is locked. Unlock it or switch layers first.",
+        layer_hidden_toast: "The current layer “{name}” is hidden. Show it or switch layers first.",
+        layer_keep_one: "At least one layer is required.",
+        layer_delete_confirm: "Delete layer “{name}”? Its content on every page will be removed (undo restores it on the current page).",
+        layer_hint: "Layers are shared by all pages; new text goes to the “Text” layer; erasers and lasso only affect the current layer; hidden layers are not exported.",
+        tip_layers: "Layers",
+        tip_layers_active: "Layers · current: {name}"
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -5629,7 +5728,14 @@
         empty_hint: "ペンを持って描き始めましょう · ? でショートカット一覧",
         empty_hint_touch: "ペンを持って描き始めましょう · 「⋯」でその他のツール",
         shortcuts_title: "キーボードショートカット",
-        close: "閉じる"
+        close: "閉じる",
+        layers_title: "レイヤー",
+        layer_draft: "下書き",
+        layer_line: "線画",
+        layer_text: "文字",
+        layer_new_name: "レイヤー {n}",
+        tip_layers: "レイヤー",
+        tip_layers_active: "レイヤー · 現在：{name}"
       },
       ko: {
         site_subtitle: "온라인 만화 콘티 · 웹툰 보드",
@@ -5654,7 +5760,14 @@
         empty_hint: "펜을 들고 그리기 시작하세요 · ? 키로 단축키 보기",
         empty_hint_touch: "펜을 들고 그리기 시작하세요 · “⋯”에서 더 많은 도구",
         shortcuts_title: "키보드 단축키",
-        close: "닫기"
+        close: "닫기",
+        layers_title: "레이어",
+        layer_draft: "스케치",
+        layer_line: "선화",
+        layer_text: "텍스트",
+        layer_new_name: "레이어 {n}",
+        tip_layers: "레이어",
+        tip_layers_active: "레이어 · 현재: {name}"
       },
       de: {
         site_subtitle: "Online-Manga-Storyboard & Comic-Board",
@@ -5679,7 +5792,14 @@
         empty_hint: "Greif zum Pinsel und leg los · ? zeigt die Tastenkürzel",
         empty_hint_touch: "Greif zum Pinsel und leg los · „⋯“ für weitere Werkzeuge",
         shortcuts_title: "Tastenkürzel",
-        close: "Schließen"
+        close: "Schließen",
+        layers_title: "Ebenen",
+        layer_draft: "Skizze",
+        layer_line: "Tusche",
+        layer_text: "Text",
+        layer_new_name: "Ebene {n}",
+        tip_layers: "Ebenen",
+        tip_layers_active: "Ebenen · aktuell: {name}"
       },
       es: {
         site_subtitle: "Tablero online de storyboard manga y cómic",
@@ -5704,7 +5824,14 @@
         empty_hint: "Toma un pincel y empieza a dibujar · pulsa ? para ver atajos",
         empty_hint_touch: "Toma un pincel y empieza a dibujar · toca «⋯» para más herramientas",
         shortcuts_title: "Atajos de teclado",
-        close: "Cerrar"
+        close: "Cerrar",
+        layers_title: "Capas",
+        layer_draft: "Boceto",
+        layer_line: "Entintado",
+        layer_text: "Texto",
+        layer_new_name: "Capa {n}",
+        tip_layers: "Capas",
+        tip_layers_active: "Capas · actual: {name}"
       },
       fr: {
         site_subtitle: "Planche en ligne pour storyboard manga et BD",
@@ -5729,7 +5856,14 @@
         empty_hint: "Prenez un pinceau et commencez · appuyez sur ? pour les raccourcis",
         empty_hint_touch: "Prenez un pinceau et commencez · touchez « ⋯ » pour plus d’outils",
         shortcuts_title: "Raccourcis clavier",
-        close: "Fermer"
+        close: "Fermer",
+        layers_title: "Calques",
+        layer_draft: "Croquis",
+        layer_line: "Encrage",
+        layer_text: "Texte",
+        layer_new_name: "Calque {n}",
+        tip_layers: "Calques",
+        tip_layers_active: "Calques · actuel : {name}"
       }
     };
     Object.keys(TR_R4).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R4[l]); });
@@ -5760,6 +5894,13 @@
         }
       ],
       currentPageIndex: 0,
+      // 🗂️ 图层 (全文档共用一套图层；数组下标 0 = 最底层)。元素通过 layerId 归属图层
+      layers: [
+        { id: 'draft', nameKey: 'layer_draft', visible: true, locked: false },
+        { id: 'line', nameKey: 'layer_line', visible: true, locked: false },
+        { id: 'text', nameKey: 'layer_text', visible: true, locked: false }
+      ],
+      activeLayerId: 'line',
       lassoPath: [],
       selectedStrokes: [],
       selectedImages: [],
@@ -5780,6 +5921,34 @@
       panStart: { x: 0, y: 0 }
     };
     window.appState = appState;
+
+    // ================= 🗂️ 图层模型 =================
+    const DEFAULT_LAYER_BY_KIND = { stroke: 'line', text: 'text', image: 'draft' };
+    function layerById(id) {
+      const ls = appState.layers;
+      for (let i = 0; i < ls.length; i++) if (ls[i].id === id) return ls[i];
+      return null;
+    }
+    // 元素所属图层：自身 layerId → (旧存档无 layerId) 按类型默认图层 → 最底层
+    function resolveLayerId(el, kind) {
+      if (el && el.layerId && layerById(el.layerId)) return el.layerId;
+      const def = DEFAULT_LAYER_BY_KIND[kind] || 'line';
+      if (layerById(def)) return def;
+      return appState.layers[0].id;
+    }
+    function layerLabel(L) { return (L && (L.name || (L.nameKey ? tr(L.nameKey) : ''))) || ''; }
+    function isLayerEditable(id) { const L = layerById(id); return !!(L && L.visible && !L.locked); }
+    function isElEditable(el, kind) { return isLayerEditable(resolveLayerId(el, kind)); }
+    function isOnActiveLayer(el, kind) { return resolveLayerId(el, kind) === appState.activeLayerId; }
+    function activeLayer() { return layerById(appState.activeLayerId) || appState.layers[appState.layers.length - 1]; }
+    // 新元素要放入的图层：文字优先放入「文字」层，其余放入当前图层；图层不可编辑时返回 null 并提示
+    function targetLayerForNew(kind, silent) {
+      if (kind === 'text' && isLayerEditable('text')) return 'text';
+      const L = activeLayer();
+      if (L && L.visible && !L.locked) return L.id;
+      if (!silent) toast(tr(L && L.locked ? 'layer_locked_toast' : 'layer_hidden_toast', { name: layerLabel(L) }));
+      return null;
+    }
 
     // 取词顺序：当前语言 → (非中文时) 英文 → 中文
     function lookupI18n(lang, key) {
@@ -6293,7 +6462,12 @@
 
     // 渲染分组：按图层自下而上，每层内依次为 图片 → 笔画 → 文字
     function getRenderGroups(src) {
-      return [{ images: src.images || [], strokes: src.strokes || [], texts: src.texts || [] }];
+      const groups = appState.layers.map(L => ({ id: 'layer-' + L.id, label: layerLabel(L), layer: L, images: [], strokes: [], texts: [] }));
+      const byId = new Map(appState.layers.map((L, i) => [L.id, groups[i]]));
+      for (const im of (src.images || [])) byId.get(resolveLayerId(im, 'image')).images.push(im);
+      for (const st of (src.strokes || [])) byId.get(resolveLayerId(st, 'stroke')).strokes.push(st);
+      for (const t of (src.texts || [])) byId.get(resolveLayerId(t, 'text')).texts.push(t);
+      return groups.filter(g => g.layer.visible); // 隐藏的图层不渲染、不导出
     }
 
     // data: 任意页面数据 {strokes, texts, images}，默认渲染当前主画板 (appState)
@@ -6320,6 +6494,7 @@
       if (!data && targetCtx === ctx) {
         if (typeof scheduleAutosave === 'function') scheduleAutosave();
         if (typeof updateEmptyHint === 'function') updateEmptyHint();
+        if (typeof scheduleLayersPanelRefresh === 'function') scheduleLayersPanelRefresh();
       }
     }
     function createLaserBeam(x, y) {
@@ -6357,13 +6532,14 @@
       return false;
     }
 
+    // 整笔橡皮：只擦除当前图层上的笔画与文字
     function eraseStrokesAt(x, y) {
       const hitRadius = Math.max(20, appState.brushSize * 3);
       const initialStrokeCount = appState.strokes.length;
-      appState.strokes = appState.strokes.filter(s => !isStrokeNearPoint(s, x, y, hitRadius));
+      appState.strokes = appState.strokes.filter(s => !(isOnActiveLayer(s, 'stroke') && isStrokeNearPoint(s, x, y, hitRadius)));
       
       const initialTextCount = appState.texts.length;
-      appState.texts = appState.texts.filter(t => Math.hypot(t.x - x, t.y - y) > hitRadius * 1.5);
+      appState.texts = appState.texts.filter(t => !(isOnActiveLayer(t, 'text') && Math.hypot(t.x - x, t.y - y) <= hitRadius * 1.5));
 
       if (appState.strokes.length < initialStrokeCount || appState.texts.length < initialTextCount) {
         redrawAllStrokes();
@@ -6960,8 +7136,8 @@
         const hitRadius = Math.max(20, (Number(appState.brushSize) || 4) * 3);
         const sCount = (p.strokes || []).length;
         const tCount = (p.texts || []).length;
-        p.strokes = (p.strokes || []).filter(st => !isStrokeNearPoint(st, pos.x, pos.y, hitRadius));
-        p.texts = (p.texts || []).filter(t => Math.hypot(t.x - pos.x, t.y - pos.y) > hitRadius * 1.5);
+        p.strokes = (p.strokes || []).filter(st => !(isOnActiveLayer(st, 'stroke') && isStrokeNearPoint(st, pos.x, pos.y, hitRadius)));
+        p.texts = (p.texts || []).filter(t => !(isOnActiveLayer(t, 'text') && Math.hypot(t.x - pos.x, t.y - pos.y) <= hitRadius * 1.5));
         return p.strokes.length < sCount || p.texts.length < tCount;
       }
 
@@ -6989,6 +7165,8 @@
         // 仅笔触工具与橡皮擦作用于左板；选择/套索/文字/激光等工具不在左板生成笔迹
         const isEraser = appState.tool === 'eraser';
         if (!isEraser && !isStrokeTool(appState.tool)) return;
+        const refLayerId = targetLayerForNew('stroke');
+        if (!refLayerId) return;
 
         e.preventDefault();
         activeDrawPointerId = e.pointerId;
@@ -7021,7 +7199,8 @@
           tool: appState.tool,
           color: appState.currentColor,
           size: Math.max(1.5, strokeWidth),
-          points: [pos]
+          points: [pos],
+          layerId: refLayerId
         };
         p.strokes.push(currentRefStroke);
 
@@ -7411,6 +7590,7 @@
           }
         } else if (val) {
           const newT = {
+            layerId: targetLayerForNew('text', true) || appState.activeLayerId,
             id: Date.now() + Math.random(),
             x: currentX,
             y: currentY,
@@ -7666,6 +7846,7 @@
         let hitText = null;
         for (let i = appState.texts.length - 1; i >= 0; i--) {
           const t = appState.texts[i];
+          if (!isElEditable(t, 'text')) continue;
           const tb = getTextBounds(t);
           if (pos.x >= tb.x - 8 && pos.x <= tb.x + tb.width + 8 && pos.y >= tb.y - 8 && pos.y <= tb.y + tb.height + 8) {
             hitText = t;
@@ -7674,7 +7855,7 @@
         }
         if (hitText) {
           openRichTextEditor(hitText);
-        } else {
+        } else if (targetLayerForNew('text')) {
           openRichTextEditor(null, pos.x, pos.y);
         }
         return;
@@ -7697,6 +7878,7 @@
         let hitImg = null;
         for (let i = appState.images.length - 1; i >= 0; i--) {
           const im = appState.images[i];
+          if (!isElEditable(im, 'image')) continue;
           if (pos.x >= im.x && pos.x <= im.x + im.width && pos.y >= im.y && pos.y <= im.y + im.height) {
             hitImg = im;
             break;
@@ -7717,6 +7899,7 @@
         let hitText = null;
         for (let i = appState.texts.length - 1; i >= 0; i--) {
           const t = appState.texts[i];
+          if (!isElEditable(t, 'text')) continue;
           const tb = getTextBounds(t);
           const pad = 10;
           if (pos.x >= tb.x - pad && pos.x <= tb.x + tb.width + pad &&
@@ -7749,6 +7932,7 @@
         let hitStroke = null;
         for (let i = appState.strokes.length - 1; i >= 0; i--) {
           const s = appState.strokes[i];
+          if (!isElEditable(s, 'stroke')) continue;
           const hitR = Math.max(24, (s.size || 3) * 3);
           if (isStrokeNearPoint(s, pos.x, pos.y, hitR)) {
             hitStroke = s;
@@ -7801,6 +7985,7 @@
           return;
         }
         clearSelection();
+        if (!targetLayerForNew('stroke')) return;
         isDrawing = true;
         appState.lassoPath = [pos];
         return;
@@ -7816,12 +8001,15 @@
       }
 
       if (appState.tool === 'eraser') {
+        if (!targetLayerForNew('stroke')) return;
         saveHistory();
         eraseStrokesAt(pos.x, pos.y);
         isDrawing = true;
         return;
       }
 
+      const strokeLayerId = targetLayerForNew('stroke');
+      if (!strokeLayerId) return;
       saveHistory();
       isDrawing = true;
       isShapeSnapped = false;
@@ -7839,7 +8027,8 @@
         tool: appState.tool,
         color: appState.currentColor,
         size: Math.max(1.5, strokeWidth),
-        points: [pos]
+        points: [pos],
+        layerId: strokeLayerId
       };
       appState.strokes.push(currentStroke);
 
@@ -8026,14 +8215,15 @@
         if (appState.marqueeStart && appState.marqueeCurrent) {
           const rect = getNormalizedRect(appState.marqueeStart, appState.marqueeCurrent);
           if (rect.width > 6 && rect.height > 6) {
-            appState.selectedStrokes = appState.strokes.filter(s =>
+            appState.selectedStrokes = appState.strokes.filter(s => isElEditable(s, 'stroke') &&
               s.points && s.points.some(pt => pt.x >= rect.x && pt.x <= rect.x + rect.width && pt.y >= rect.y && pt.y <= rect.y + rect.height)
             );
             appState.selectedTexts = appState.texts.filter(t => {
+              if (!isElEditable(t, 'text')) return false;
               const tb = getTextBounds(t);
               return !(tb.x + tb.width < rect.x || tb.x > rect.x + rect.width || tb.y + tb.height < rect.y || tb.y > rect.y + rect.height);
             });
-            appState.selectedImages = appState.images.filter(im =>
+            appState.selectedImages = appState.images.filter(im => isElEditable(im, 'image') &&
               !(im.x + im.width < rect.x || im.x > rect.x + rect.width || im.y + im.height < rect.y || im.y > rect.y + rect.height)
             );
             updateSelectionBoxUI();
@@ -8051,9 +8241,11 @@
       if (isDrawing && appState.tool === 'lasso') {
         isDrawing = false;
         if (appState.lassoPath.length > 2) {
-          appState.selectedStrokes = appState.strokes.filter(s => s.points.some(pt => pointInPolygon(pt, appState.lassoPath)));
-          appState.selectedTexts = appState.texts.filter(t => pointInPolygon({x: t.x, y: t.y}, appState.lassoPath));
-          appState.selectedImages = appState.images.filter(im => pointInPolygon({x: im.x + im.width/2, y: im.y + im.height/2}, appState.lassoPath));
+          // 套索只作用于当前图层
+          const lassoOk = isLayerEditable(appState.activeLayerId);
+          appState.selectedStrokes = lassoOk ? appState.strokes.filter(s => isOnActiveLayer(s, 'stroke') && s.points.some(pt => pointInPolygon(pt, appState.lassoPath))) : [];
+          appState.selectedTexts = lassoOk ? appState.texts.filter(t => isOnActiveLayer(t, 'text') && pointInPolygon({x: t.x, y: t.y}, appState.lassoPath)) : [];
+          appState.selectedImages = lassoOk ? appState.images.filter(im => isOnActiveLayer(im, 'image') && pointInPolygon({x: im.x + im.width/2, y: im.y + im.height/2}, appState.lassoPath)) : [];
           redrawAllStrokes();
           updateSelectionBoxUI();
         }
@@ -8075,6 +8267,8 @@
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
+        const imgLayerId = targetLayerForNew('image');
+        if (!imgLayerId) return;
         saveHistory();
         const maxDim = Math.min(cssWidth * 0.7, 400);
         let w = img.width, h = img.height;
@@ -8085,6 +8279,7 @@
         const x = posX !== undefined ? posX - w/2 : (cssWidth - w)/2;
         const y = posY !== undefined ? posY - h/2 : (cssHeight - h)/2;
         const newImg = {
+          layerId: imgLayerId,
           id: Date.now() + Math.random(),
           img: img,
           x: Math.max(10, Math.round(x)),
@@ -8304,6 +8499,8 @@
         paper: appState.paper,
         ratio: appState.ratio,
         canvas: { w: cssWidth, h: cssHeight }, // 保存时的画布逻辑尺寸，换设备打开时按比例缩放
+        layers: appState.layers.map(L => ({ id: L.id, name: L.name || '', nameKey: L.nameKey || '', visible: !!L.visible, locked: !!L.locked })),
+        activeLayerId: appState.activeLayerId,
         pages: appState.pages.map((p, i) => {
           const data = serializeBoardForSave(i === cur ? appState : p, withImages);
           data.id = p.id;
@@ -8387,8 +8584,28 @@
         appState.ratio = doc.ratio;
         ratioSel.value = doc.ratio;
       }
+      applyDocumentLayers(doc);
       pendingDocRescale = (doc.canvas && Number(doc.canvas.w) > 0 && Number(doc.canvas.h) > 0) ? { w: Number(doc.canvas.w), h: Number(doc.canvas.h) } : null;
       return true;
+    }
+
+    // 图层：存档里有则校验后使用，否则 (旧存档) 使用默认三层；元素缺 layerId 时按类型归入默认层
+    function applyDocumentLayers(doc) {
+      const list = Array.isArray(doc.layers) ? doc.layers.filter(L => L && typeof L.id === 'string' && L.id) : [];
+      const seen = new Set();
+      const clean = [];
+      for (const L of list) {
+        if (seen.has(L.id)) continue;
+        seen.add(L.id);
+        clean.push({ id: L.id, name: typeof L.name === 'string' ? L.name.slice(0, 40) : '', nameKey: typeof L.nameKey === 'string' ? L.nameKey : '', visible: L.visible !== false, locked: !!L.locked });
+      }
+      appState.layers = clean.length ? clean : [
+        { id: 'draft', nameKey: 'layer_draft', visible: true, locked: false },
+        { id: 'line', nameKey: 'layer_line', visible: true, locked: false },
+        { id: 'text', nameKey: 'layer_text', visible: true, locked: false }
+      ];
+      appState.activeLayerId = layerById(doc.activeLayerId) ? doc.activeLayerId : (layerById('line') ? 'line' : appState.layers[appState.layers.length - 1].id);
+      if (typeof renderLayersPanel === 'function') renderLayersPanel();
     }
 
     // 画布逻辑尺寸与存档时不同 (换设备 / 窗口大小变化)：整体等比缩放内容，保证内容仍落在纸面上
@@ -8455,7 +8672,6 @@
       appState.isDualSpread = false;
       if (!applyDocumentObject(doc)) { toast(tr('file_invalid')); return false; }
       appState.lastActiveBoard = 'right';
-      if (typeof onDocumentLayersLoaded === 'function') onDocumentLayersLoaded(doc);
       resizeCanvas();
       applyPendingDocRescale();
       const idx = appState.currentPageIndex;
@@ -8533,6 +8749,7 @@
         const el = document.getElementById(id);
         if (el && !el.classList.contains('hidden')) { el.classList.add('hidden'); return true; }
       }
+      if (layersPanel && !layersPanel.classList.contains('hidden')) { toggleLayersPanel(false); return true; }
       closeAllFlyouts();
       return false;
     }
@@ -8722,6 +8939,228 @@
       }
       el.classList.toggle('hidden-hint', !empty);
     }
+
+    // ================= 🗂️ 图层面板交互 =================
+    const LAYER_SVG = {
+      eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+      eyeOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6C3.9 8.4 2 12 2 12s3.5 7 10 7c1.6 0 3-.4 4.3-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',
+      lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+      unlock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg>',
+      pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/></svg>'
+    };
+    var layersPanel = document.getElementById('layersPanel');
+    var layersList = document.getElementById('layersList');
+    let renamingLayerId = null;
+    let layersPanelRaf = 0;
+    const lastLayerClick = { id: null, t: 0 };
+
+    function countLayerItems() {
+      const b = getActiveBoardData();
+      const counts = {};
+      for (const L of appState.layers) counts[L.id] = 0;
+      for (const x of (b.strokes || [])) counts[resolveLayerId(x, 'stroke')]++;
+      for (const x of (b.texts || [])) counts[resolveLayerId(x, 'text')]++;
+      for (const x of (b.images || [])) counts[resolveLayerId(x, 'image')]++;
+      return counts;
+    }
+
+    function updateActiveLayerChip() {
+      const chip = document.getElementById('activeLayerChip');
+      const L = activeLayer();
+      const name = layerLabel(L);
+      if (chip) {
+        const warn = !!(L && (L.locked || !L.visible));
+        chip.innerHTML = (L && L.locked ? LAYER_SVG.lock : (L && !L.visible ? LAYER_SVG.eyeOff : LAYER_SVG.pen)) + '<span></span>';
+        chip.querySelector('span').textContent = name;
+        chip.classList.toggle('is-warn', warn);
+        chip.classList.toggle('is-dark', !warn && isDarkPaper(appState.paper));
+      }
+      const t = tr('tip_layers_active', { name });
+      const btn = document.getElementById('btnToggleLayers');
+      if (btn) { btn.title = t; btn.setAttribute('aria-label', t); }
+      if (chip) { chip.title = t; chip.setAttribute('aria-label', t); }
+    }
+
+    function renderLayersPanel() {
+      updateActiveLayerChip();
+      if (!layersPanel || !layersList || layersPanel.classList.contains('hidden')) return;
+      const counts = countLayerItems();
+      layersList.innerHTML = '';
+      for (let i = appState.layers.length - 1; i >= 0; i--) {
+        const L = appState.layers[i];
+        const row = document.createElement('div');
+        row.className = 'layer-row' + (L.id === appState.activeLayerId ? ' active' : '') + (L.visible ? '' : ' is-hidden');
+        row.dataset.id = L.id;
+        row.setAttribute('role', 'button');
+        const eye = document.createElement('button');
+        eye.type = 'button';
+        eye.dataset.act = 'eye';
+        eye.className = L.visible ? 'is-on' : '';
+        eye.innerHTML = L.visible ? LAYER_SVG.eye : LAYER_SVG.eyeOff;
+        eye.title = tr(L.visible ? 'layer_hide' : 'layer_show');
+        eye.setAttribute('aria-label', eye.title);
+        const lock = document.createElement('button');
+        lock.type = 'button';
+        lock.dataset.act = 'lock';
+        lock.className = L.locked ? 'is-locked' : '';
+        lock.innerHTML = L.locked ? LAYER_SVG.lock : LAYER_SVG.unlock;
+        lock.title = tr(L.locked ? 'layer_unlock' : 'layer_lock');
+        lock.setAttribute('aria-label', lock.title);
+        row.appendChild(eye);
+        row.appendChild(lock);
+        if (renamingLayerId === L.id) {
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.className = 'layer-rename';
+          inp.maxLength = 40;
+          inp.value = layerLabel(L);
+          const finish = (commit) => {
+            if (renamingLayerId !== L.id) return;
+            renamingLayerId = null;
+            const v = inp.value.trim();
+            if (commit && v) { L.name = v; scheduleAutosave(); }
+            renderLayersPanel();
+            if (appState.isDualSpread) renderReferenceBoard();
+          };
+          inp.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') finish(true); else if (e.key === 'Escape') finish(false); });
+          inp.addEventListener('blur', () => finish(true));
+          row.appendChild(inp);
+          setTimeout(() => { inp.focus(); inp.select(); }, 0);
+        } else {
+          const name = document.createElement('span');
+          name.className = 'layer-name';
+          name.textContent = layerLabel(L);
+          row.appendChild(name);
+          const cnt = document.createElement('span');
+          cnt.className = 'layer-count';
+          cnt.textContent = String(counts[L.id] || 0);
+          cnt.title = tr('layer_count_tip');
+          row.appendChild(cnt);
+        }
+        layersList.appendChild(row);
+      }
+      const idx = appState.layers.findIndex(L => L.id === appState.activeLayerId);
+      const up = document.getElementById('btnLayerUp');
+      const down = document.getElementById('btnLayerDown');
+      const del = document.getElementById('btnLayerDelete');
+      if (up) up.disabled = idx >= appState.layers.length - 1;
+      if (down) down.disabled = idx <= 0;
+      if (del) del.disabled = appState.layers.length <= 1;
+    }
+    function scheduleLayersPanelRefresh() {
+      if (!layersPanel || layersPanel.classList.contains('hidden') || renamingLayerId) { updateActiveLayerChip(); return; }
+      cancelAnimationFrame(layersPanelRaf);
+      layersPanelRaf = requestAnimationFrame(renderLayersPanel);
+    }
+
+    // 图层可见性 / 锁定变化后：取消不可编辑元素的选中，重绘两块画板
+    function afterLayersChanged() {
+      const keep = (arr, kind) => (arr || []).filter(x => isElEditable(x, kind));
+      appState.selectedStrokes = keep(appState.selectedStrokes, 'stroke');
+      appState.selectedTexts = keep(appState.selectedTexts, 'text');
+      appState.selectedImages = keep(appState.selectedImages, 'image');
+      redrawAllStrokes();
+      updateSelectionBoxUI();
+      if (appState.isDualSpread) renderReferenceBoard();
+      renderLayersPanel();
+      scheduleAutosave();
+    }
+
+    function setActiveLayer(id) {
+      if (!layerById(id)) return;
+      appState.activeLayerId = id;
+      renderLayersPanel();
+      scheduleAutosave();
+    }
+
+    function addLayer() {
+      const n = appState.layers.length + 1;
+      const L = { id: 'L' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36), name: tr('layer_new_name', { n }), nameKey: '', visible: true, locked: false };
+      const idx = appState.layers.findIndex(x => x.id === appState.activeLayerId);
+      appState.layers.splice(idx + 1, 0, L);
+      appState.activeLayerId = L.id;
+      afterLayersChanged();
+    }
+
+    function moveActiveLayer(dir) {
+      const ls = appState.layers;
+      const i = ls.findIndex(x => x.id === appState.activeLayerId);
+      const j = i + dir;
+      if (i < 0 || j < 0 || j >= ls.length) return;
+      const tmp = ls[i]; ls[i] = ls[j]; ls[j] = tmp;
+      afterLayersChanged();
+    }
+
+    function deleteActiveLayer() {
+      const ls = appState.layers;
+      if (ls.length <= 1) { toast(tr('layer_keep_one')); return; }
+      const L = activeLayer();
+      if (!L) return;
+      if (!confirm(tr('layer_delete_confirm', { name: layerLabel(L) }))) return;
+      saveHistory(); // 当前页可撤销找回 (找回的内容归入默认图层)
+      syncCurrentPageToState();
+      const gone = (kind) => (x) => resolveLayerId(x, kind) !== L.id;
+      for (const pg of appState.pages) {
+        pg.strokes = (pg.strokes || []).filter(gone('stroke'));
+        pg.texts = (pg.texts || []).filter(gone('text'));
+        pg.images = (pg.images || []).filter(gone('image'));
+      }
+      const cur = appState.pages[appState.currentPageIndex];
+      appState.strokes = cur.strokes.slice();
+      appState.texts = cur.texts.slice();
+      appState.images = cur.images.slice();
+      const i = ls.indexOf(L);
+      ls.splice(i, 1);
+      appState.activeLayerId = (ls[Math.max(0, i - 1)] || ls[0]).id;
+      clearSelection();
+      afterLayersChanged();
+    }
+
+    function toggleLayersPanel(force) {
+      if (!layersPanel) return;
+      const show = typeof force === 'boolean' ? force : layersPanel.classList.contains('hidden');
+      layersPanel.classList.toggle('hidden', !show);
+      const btn = document.getElementById('btnToggleLayers');
+      if (btn) btn.classList.toggle('tool-btn-active', show);
+      if (show) renderLayersPanel();
+    }
+
+    (function bindLayersPanel() {
+      const btn = document.getElementById('btnToggleLayers');
+      if (btn) btn.onclick = (e) => { e.stopPropagation(); closeAllFlyouts(); toggleLayersPanel(); };
+      const chip = document.getElementById('activeLayerChip');
+      if (chip) chip.onclick = (e) => { e.stopPropagation(); toggleLayersPanel(true); };
+      const x = document.getElementById('btnCloseLayers');
+      if (x) x.onclick = () => toggleLayersPanel(false);
+      if (layersList) {
+        layersList.addEventListener('click', (e) => {
+          const row = e.target.closest('.layer-row');
+          if (!row) return;
+          const L = layerById(row.dataset.id);
+          if (!L) return;
+          const act = e.target.closest('button') ? e.target.closest('button').dataset.act : null;
+          if (act === 'eye') { L.visible = !L.visible; afterLayersChanged(); return; }
+          if (act === 'lock') { L.locked = !L.locked; afterLayersChanged(); return; }
+          if (e.target.closest('input')) return;
+          // 行会在点击后重建，因此手动识别双击 (双击图层名 = 重命名)
+          const now = performance.now();
+          if (lastLayerClick.id === L.id && now - lastLayerClick.t < 420) {
+            lastLayerClick.id = null;
+            renamingLayerId = L.id;
+          } else {
+            lastLayerClick.id = L.id;
+            lastLayerClick.t = now;
+          }
+          setActiveLayer(L.id);
+        });
+      }
+      const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = (e) => { e.stopPropagation(); fn(); }; };
+      on('btnLayerAdd', addLayer);
+      on('btnLayerUp', () => moveActiveLayer(1));
+      on('btnLayerDown', () => moveActiveLayer(-1));
+      on('btnLayerRename', () => { renamingLayerId = appState.activeLayerId; renderLayersPanel(); });
+      on('btnLayerDelete', deleteActiveLayer);
+    })();
 
     // 导出中心逻辑
     const exportModal = document.getElementById('exportModal');
@@ -9678,6 +10117,7 @@ ${body}</svg>`;
       if (typeof updateEmptyHint === 'function') updateEmptyHint();
       if (typeof renderShortcutsList === 'function') renderShortcutsList();
       if (typeof refreshCurrentBrushTitle === 'function') refreshCurrentBrushTitle();
+      if (typeof renderLayersPanel === 'function') renderLayersPanel();
     }
 
     // 白天 / 夜间模式控制 (Day/Night Theme)
@@ -9854,18 +10294,22 @@ ${body}</svg>`;
       btnClearAllDrawer.onclick = () => {
         const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
         if (!confirm(dict.confirm_clear_page || TRANSLATIONS.zh.confirm_clear_page || '确定要清空当前画纸上的所有漫画分镜、气泡与笔划吗？')) return;
+        // 只清空可编辑 (显示且未锁定) 图层上的内容
+        const keepS = (x) => !isElEditable(x, 'stroke');
+        const keepT = (x) => !isElEditable(x, 'text');
+        const keepI = (x) => !isElEditable(x, 'image');
         if (isLeftBoardActive()) {
           const p0 = appState.pages[0];
           saveLeftHistory();
-          p0.strokes = [];
-          p0.texts = [];
-          p0.images = [];
+          p0.strokes = (p0.strokes || []).filter(keepS);
+          p0.texts = (p0.texts || []).filter(keepT);
+          p0.images = (p0.images || []).filter(keepI);
           renderReferenceBoard();
         } else {
           saveHistory();
-          appState.strokes = [];
-          appState.texts = [];
-          appState.images = [];
+          appState.strokes = appState.strokes.filter(keepS);
+          appState.texts = appState.texts.filter(keepT);
+          appState.images = appState.images.filter(keepI);
           clearSelection();
           if (typeof stickyLayer !== 'undefined' && stickyLayer) stickyLayer.innerHTML = '';
           redrawAllStrokes();
@@ -10338,7 +10782,9 @@ ${body}</svg>`;
         pageCount: appState.pages ? appState.pages.length : 1,
         currentPage: (appState.currentPageIndex || 0) + 1,
         strokeCount: appState.strokes ? appState.strokes.length : 0,
-        textCount: appState.texts ? appState.texts.length : 0
+        textCount: appState.texts ? appState.texts.length : 0,
+        layers: appState.layers.map(L => ({ id: L.id, name: layerLabel(L), visible: L.visible, locked: L.locked })),
+        activeLayerId: appState.activeLayerId
       }),
       setTool: (tool) => {
         appState.tool = tool;
@@ -10363,11 +10809,13 @@ ${body}</svg>`;
       addStroke: (points, options = {}) => {
         if (typeof saveHistory === 'function') saveHistory();
         const stroke = {
+          id: Date.now() + Math.random(),
           tool: options.tool || appState.tool || 'brush',
           brushType: options.brushType || appState.brushType || 'marker',
           color: options.color || appState.currentColor,
           size: options.size || appState.brushSize,
-          points: points.map(p => ({ x: p.x, y: p.y, pressure: p.pressure ?? 0.5 }))
+          points: points.map(p => ({ x: p.x, y: p.y, pressure: p.pressure ?? 0.5 })),
+          layerId: (options.layerId && layerById(options.layerId)) ? options.layerId : appState.activeLayerId
         };
         appState.strokes.push(stroke);
         if (typeof redrawAllStrokes === 'function') redrawAllStrokes();
@@ -10379,9 +10827,10 @@ ${body}</svg>`;
           id: Date.now() + Math.random(),
           text: content,
           x, y,
-          fontSize: options.fontSize || 18,
+          size: options.size || options.fontSize || 18,
           color: options.color || appState.currentColor,
-          fontFamily: options.fontFamily || 'sans-serif'
+          fontFamily: options.fontFamily || 'sans-serif',
+          layerId: (options.layerId && layerById(options.layerId)) ? options.layerId : (layerById('text') ? 'text' : appState.activeLayerId)
         };
         appState.texts.push(item);
         if (typeof redrawAllStrokes === 'function') redrawAllStrokes();
