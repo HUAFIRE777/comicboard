@@ -1175,6 +1175,17 @@
     #activeLayerChip.is-warn { color: #92400e; background: #fef3c7; border-color: #f59e0b; }
     #activeLayerChip svg { width: 12px; height: 12px; flex-shrink: 0; }
 
+    /* 工具属性条 */
+    #toolOptionsBar .tool-opt:not(.hidden) { display: flex; flex-wrap: wrap; justify-content: center; }
+    #toolOptionsBar label { color: var(--text-2); font-weight: 600; }
+    #toolOptionsBar .opt-hint { color: var(--text-3); font-size: 11px; }
+    #toolOptionsBar .opt-btn { height: 28px; padding: 0 10px; border-radius: var(--r-sm); border: 1px solid var(--hairline-strong); font-weight: 700; color: var(--text-1); }
+    #toolOptionsBar .opt-btn:hover { background: rgba(148, 163, 184, 0.16); }
+    body.theme-light #toolOptionsBar, body.theme-light #toolOptionsBar * { color: #0f172a !important; }
+    body.theme-light #toolOptionsBar label, body.theme-light #toolOptionsBar .font-bold { font-weight: 700 !important; }
+    body.theme-light #toolOptionsBar .opt-btn { background: #ffffff; border-color: #0f172a; }
+    #eraserRing { position: fixed; z-index: 45; pointer-events: none; border-radius: 50%; border: 1.5px solid rgba(15, 23, 42, 0.85); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9); display: none; }
+
     /* 焦点可见环 (键盘操作) */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       outline: none !important;
@@ -1552,6 +1563,11 @@
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
       </button>
 
+      <!-- 🪣 油漆桶填充 (G) -->
+      <button class="tool-btn p-2 rounded-xl text-cyan-400 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="bucket" data-i18n-title="tip_bucket" title="油漆桶填充 (G)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"/></svg>
+      </button>
+
       <!-- 5. 台词与文本打字 (Text - T) -->
       <button class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center" data-tool="text" data-i18n-title="tip_text" title="🔤 漫画台词文本 (快捷键 T，支持 9 款开源艺术字体与行内二次编辑)">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
@@ -1619,6 +1635,9 @@
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="lasso">
           <span>⭕</span> <span class="text-[11px] font-medium" data-i18n="tool_lasso">自由套索 (L)</span>
         </button>
+        <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="pixel_eraser" data-i18n-title="tip_pixel_eraser" title="像素橡皮：只擦掉经过的部分 (Shift+E)">
+          <span>🧽</span> <span class="text-[11px] font-medium" data-i18n="tool_pixel_eraser">像素橡皮 (⇧E)</span>
+        </button>
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="laser">
           <span>🔴</span> <span class="text-[11px] font-medium" data-i18n="tool_laser">激光笔</span>
         </button>
@@ -1634,6 +1653,23 @@
       </div>
       <div class="pt-1.5 border-t border-slate-800 flex justify-between">
         <button id="btnClearAllDrawer" class="w-full py-1 text-center text-xs text-rose-400 hover:bg-rose-950/40 rounded-lg transition" data-i18n="clear_page_btn">🗑️ 清空本页（未锁定图层）</button>
+      </div>
+    </div>
+
+    <!-- 🎛️ 工具属性条 (油漆桶容差 / 像素橡皮大小 / 分格间距)：选中对应工具时出现 -->
+    <div id="toolOptionsBar" class="hidden absolute top-2 sm:top-3 left-1/2 -translate-x-1/2 z-30 rounded-2xl px-3 py-1.5 flex items-center gap-3 text-xs max-w-[92%] flex-wrap justify-center">
+      <div data-opt="bucket" class="tool-opt hidden items-center gap-2">
+        <span class="font-bold" data-i18n="opt_bucket">🪣 油漆桶</span>
+        <label class="flex items-center gap-1.5"><span data-i18n="opt_tolerance">容差</span>
+          <input id="optBucketTolerance" type="range" min="0" max="100" value="15" class="w-24 accent-indigo-500" />
+          <span id="optBucketToleranceVal" class="font-mono w-8">15%</span></label>
+        <span class="opt-hint" data-i18n="opt_bucket_hint">点击封闭区域，用当前颜色填充当前图层</span>
+      </div>
+      <div data-opt="pixel_eraser" class="tool-opt hidden items-center gap-2">
+        <span class="font-bold" data-i18n="opt_pixel_eraser">🧽 像素橡皮</span>
+        <label class="flex items-center gap-1.5"><span data-i18n="opt_size">大小</span>
+          <input id="optPixelEraserSize" type="range" min="4" max="80" value="16" class="w-24 accent-indigo-500" />
+          <span id="optPixelEraserSizeVal" class="font-mono w-10">16px</span></label>
       </div>
     </div>
 
@@ -5583,7 +5619,19 @@
         layer_delete_confirm: "删除图层「{name}」？所有页面上这个图层的内容都会被删除（当前页可用撤销找回）。",
         layer_hint: "图层对所有页面通用；新文字自动放入「文字」层；橡皮与套索只作用于当前图层；隐藏的图层不会被导出。",
         tip_layers: "图层",
-        tip_layers_active: "图层 · 当前：{name}"
+        tip_layers_active: "图层 · 当前：{name}",
+        tip_bucket: "油漆桶填充 (G)",
+        tip_pixel_eraser: "像素橡皮：只擦掉经过的部分 (Shift+E)",
+        tool_pixel_eraser: "像素橡皮 (⇧E)",
+        opt_bucket: "🪣 油漆桶",
+        opt_tolerance: "容差",
+        opt_bucket_hint: "点击封闭区域，用当前颜色填充到当前图层",
+        opt_pixel_eraser: "🧽 像素橡皮",
+        opt_size: "大小",
+        bucket_failed: "无法读取画面像素，填充失败。",
+        bucket_open_area: "没有找到封闭区域，已填满整个空白处（可撤销）。先用线条围出封闭区域再填充。",
+        sc_pixel_eraser: "像素橡皮（局部擦除）",
+        sc_bucket: "油漆桶填充"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5703,7 +5751,19 @@
         layer_delete_confirm: "Delete layer “{name}”? Its content on every page will be removed (undo restores it on the current page).",
         layer_hint: "Layers are shared by all pages; new text goes to the “Text” layer; erasers and lasso only affect the current layer; hidden layers are not exported.",
         tip_layers: "Layers",
-        tip_layers_active: "Layers · current: {name}"
+        tip_layers_active: "Layers · current: {name}",
+        tip_bucket: "Paint bucket (G)",
+        tip_pixel_eraser: "Pixel eraser: erases only what it touches (Shift+E)",
+        tool_pixel_eraser: "Pixel eraser (⇧E)",
+        opt_bucket: "🪣 Paint bucket",
+        opt_tolerance: "Tolerance",
+        opt_bucket_hint: "Click a closed area to fill it with the current color on the current layer",
+        opt_pixel_eraser: "🧽 Pixel eraser",
+        opt_size: "Size",
+        bucket_failed: "Could not read the canvas pixels; fill failed.",
+        bucket_open_area: "No closed area found, so the whole empty area was filled (undo available). Close the shape with lines first.",
+        sc_pixel_eraser: "Pixel eraser (partial erase)",
+        sc_bucket: "Paint bucket"
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -5735,7 +5795,9 @@
         layer_text: "文字",
         layer_new_name: "レイヤー {n}",
         tip_layers: "レイヤー",
-        tip_layers_active: "レイヤー · 現在：{name}"
+        tip_layers_active: "レイヤー · 現在：{name}",
+        tip_bucket: "塗りつぶし (G)",
+        tip_pixel_eraser: "部分消しゴム (Shift+E)"
       },
       ko: {
         site_subtitle: "온라인 만화 콘티 · 웹툰 보드",
@@ -5767,7 +5829,9 @@
         layer_text: "텍스트",
         layer_new_name: "레이어 {n}",
         tip_layers: "레이어",
-        tip_layers_active: "레이어 · 현재: {name}"
+        tip_layers_active: "레이어 · 현재: {name}",
+        tip_bucket: "페인트 통 (G)",
+        tip_pixel_eraser: "부분 지우개 (Shift+E)"
       },
       de: {
         site_subtitle: "Online-Manga-Storyboard & Comic-Board",
@@ -5799,7 +5863,9 @@
         layer_text: "Text",
         layer_new_name: "Ebene {n}",
         tip_layers: "Ebenen",
-        tip_layers_active: "Ebenen · aktuell: {name}"
+        tip_layers_active: "Ebenen · aktuell: {name}",
+        tip_bucket: "Farbeimer (G)",
+        tip_pixel_eraser: "Pixel-Radierer (Shift+E)"
       },
       es: {
         site_subtitle: "Tablero online de storyboard manga y cómic",
@@ -5831,7 +5897,9 @@
         layer_text: "Texto",
         layer_new_name: "Capa {n}",
         tip_layers: "Capas",
-        tip_layers_active: "Capas · actual: {name}"
+        tip_layers_active: "Capas · actual: {name}",
+        tip_bucket: "Bote de pintura (G)",
+        tip_pixel_eraser: "Borrador de píxeles (Shift+E)"
       },
       fr: {
         site_subtitle: "Planche en ligne pour storyboard manga et BD",
@@ -5863,7 +5931,9 @@
         layer_text: "Texte",
         layer_new_name: "Calque {n}",
         tip_layers: "Calques",
-        tip_layers_active: "Calques · actuel : {name}"
+        tip_layers_active: "Calques · actuel : {name}",
+        tip_bucket: "Pot de peinture (G)",
+        tip_pixel_eraser: "Gomme pixel (Shift+E)"
       }
     };
     Object.keys(TR_R4).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R4[l]); });
@@ -5901,6 +5971,8 @@
         { id: 'text', nameKey: 'layer_text', visible: true, locked: false }
       ],
       activeLayerId: 'line',
+      bucketTolerance: 15,   // 油漆桶容差 (%)
+      pixelEraserSize: 16,   // 像素橡皮直径 (px)
       lassoPath: [],
       selectedStrokes: [],
       selectedImages: [],
@@ -5990,6 +6062,9 @@
         canvas.classList.remove('cursor-pen-nib');
       } else if (appState.tool === 'laser') {
         canvas.style.cursor = 'pointer';
+        canvas.classList.remove('cursor-pen-nib');
+      } else if (appState.tool === 'bucket' || appState.tool === 'pixel_eraser' || appState.tool === 'panel_cut') {
+        canvas.style.cursor = 'crosshair';
         canvas.classList.remove('cursor-pen-nib');
       } else {
         // 🖋️ 真实握笔手感：启用倾斜 45° 拟真笔尖光标
@@ -6359,9 +6434,13 @@
       }
     }
 
-    // 贝塞尔中点二次曲线平滑插值 (与 SVG 导出的 path 完全同构)
-    function traceStrokePath(c, pts) {
+    // 贝塞尔中点二次曲线平滑插值 (与 SVG 导出的 path 完全同构)；polyline=true 时按折线绘制 (分镜框 / 矩形不被圆角化)
+    function traceStrokePath(c, pts, polyline) {
       c.moveTo(pts[0].x, pts[0].y);
+      if (polyline) {
+        for (let i = 1; i < pts.length; i++) c.lineTo(pts[i].x, pts[i].y);
+        return;
+      }
       if (pts.length === 2) {
         c.lineTo(pts[1].x, pts[1].y);
         return;
@@ -6392,7 +6471,7 @@
       if (s.fill && pts.length >= 3) {
         // 气泡框 / 封闭图形的底色 (白底遮挡下方画面)
         c.beginPath();
-        traceStrokePath(c, pts);
+        traceStrokePath(c, pts, !!s.polyline);
         c.closePath();
         c.globalAlpha = 1;
         c.fillStyle = s.fill;
@@ -6405,7 +6484,7 @@
         c.fill();
       } else {
         c.beginPath();
-        traceStrokePath(c, pts);
+        traceStrokePath(c, pts, !!s.polyline);
         if (s.closed) c.closePath();
         c.stroke();
       }
@@ -6546,6 +6625,189 @@
         return true;
       }
       return false;
+    }
+
+    // ================= 🧽 像素橡皮 (部分擦除)：把笔画在橡皮圆内的部分切掉，其余部分拆成新笔画 =================
+    function splitStrokeByCircle(s, cx, cy, R) {
+      const R2 = R * R;
+      const pts = s.points || [];
+      const inside = (p) => (p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy) <= R2;
+      let dense = pts;
+      if (s.tool !== 'spray' && pts.length > 1) {
+        // 只在靠近橡皮的线段上插值加密，保证切口位置准确而不膨胀整条笔画
+        const step = Math.max(0.75, R / 3);
+        dense = [pts[0]];
+        for (let i = 1; i < pts.length; i++) {
+          const a = pts[i - 1], b = pts[i];
+          if (distToSegmentSquared({ x: cx, y: cy }, a, b) <= (R + step) * (R + step)) {
+            const len = Math.hypot(b.x - a.x, b.y - a.y);
+            const n = Math.floor(len / step);
+            for (let j = 1; j < n; j++) {
+              const t = j / n;
+              dense.push({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, pressure: a.pressure, time: a.time });
+            }
+          }
+          dense.push(b);
+        }
+      }
+      const runs = [];
+      let run = [];
+      for (const p of dense) {
+        if (inside(p)) { if (run.length) runs.push(run); run = []; }
+        else run.push(p);
+      }
+      if (run.length) runs.push(run);
+      const minLen = (s.tool === 'spray' || pts.length === 1) ? 1 : 2;
+      const frags = [];
+      for (const r of runs) {
+        if (r.length < minLen) continue;
+        const clone = { ...s, id: Date.now() + Math.random(), points: r };
+        delete clone.panelBorder; delete clone.fill; delete clone.closed;
+        frags.push(clone);
+      }
+      return frags;
+    }
+
+    function pixelEraseAt(board, x, y, r) {
+      let changed = false;
+      const out = [];
+      for (const s of (board.strokes || [])) {
+        if (!s.points || !s.points.length || !isOnActiveLayer(s, 'stroke')) { out.push(s); continue; }
+        const R = r + getStrokeStyle(s).width / 2;
+        if (!isStrokeNearPoint(s, x, y, R)) { out.push(s); continue; }
+        changed = true;
+        for (const f of splitStrokeByCircle(s, x, y, R)) out.push(f);
+      }
+      if (changed) board.strokes = out;
+      return changed;
+    }
+
+    // 沿指针轨迹连续擦除 (两次事件之间按半径的一半取样，快速划过也不会漏擦)
+    function pixelEraseSegment(board, from, to, r) {
+      const d = Math.hypot(to.x - from.x, to.y - from.y);
+      const n = Math.max(1, Math.ceil(d / Math.max(1, r / 2)));
+      let changed = false;
+      for (let i = 1; i <= n; i++) {
+        const t = i / n;
+        if (pixelEraseAt(board, from.x + (to.x - from.x) * t, from.y + (to.y - from.y) * t, r)) changed = true;
+      }
+      return changed;
+    }
+    function pixelEraserRadius() { return Math.max(2, (Number(appState.pixelEraserSize) || 16) / 2); }
+
+    // ================= 🪣 油漆桶：对当前画面 (所有可见图层) 做区域填充，结果作为图片存入当前图层 =================
+    function bucketFillAt(board, pos, isLeft) {
+      const layerId = targetLayerForNew('image');
+      if (!layerId) return false;
+      const k = Math.min(2, 3200 / Math.max(1, cssWidth, cssHeight));
+      const W = Math.max(1, Math.round(cssWidth * k)), H = Math.max(1, Math.round(cssHeight * k));
+      const cv = document.createElement('canvas');
+      cv.width = W; cv.height = H;
+      const c2 = cv.getContext('2d', { willReadFrequently: true });
+      if (!c2) return false;
+      // 透明底渲染：纸张参考线 / 网格不会挡住填充
+      redrawAllStrokes(c2, k, true, board, { clip: true });
+      let data;
+      try { data = c2.getImageData(0, 0, W, H).data; } catch (err) { toast(tr('bucket_failed')); return false; }
+      const sx = Math.max(0, Math.min(W - 1, Math.floor(pos.x * k)));
+      const sy = Math.max(0, Math.min(H - 1, Math.floor(pos.y * k)));
+      const si = (sy * W + sx) * 4;
+      // 预乘 alpha 后比较颜色：透明像素一律视为同色，抗锯齿边缘按可见程度参与容差判断
+      const pr = (i) => data[i] * data[i + 3] / 255, pg = (i) => data[i + 1] * data[i + 3] / 255, pb = (i) => data[i + 2] * data[i + 3] / 255;
+      const r0 = pr(si), g0 = pg(si), b0 = pb(si), a0 = data[si + 3];
+      const tol = Math.max(0, Math.min(255, Math.round((Number(appState.bucketTolerance) || 0) / 100 * 255))) + 0.5;
+      const mask = new Uint8Array(W * H);
+      const match = (p) => {
+        const i = p * 4;
+        return Math.abs(data[i + 3] - a0) <= tol && Math.abs(pr(i) - r0) <= tol && Math.abs(pg(i) - g0) <= tol && Math.abs(pb(i) - b0) <= tol;
+      };
+      // 扫描线填充
+      const stack = [sx, sy];
+      let count = 0, minX = W, minY = H, maxX = -1, maxY = -1;
+      while (stack.length) {
+        const y = stack.pop(), x0 = stack.pop();
+        let x = x0;
+        const row = y * W;
+        while (x >= 0 && !mask[row + x] && match(row + x)) x--;
+        x++;
+        let upOpen = false, downOpen = false;
+        while (x < W && !mask[row + x] && match(row + x)) {
+          mask[row + x] = 1;
+          count++;
+          if (x < minX) minX = x; if (x > maxX) maxX = x;
+          if (y < minY) minY = y; if (y > maxY) maxY = y;
+          if (y > 0) {
+            const up = row - W + x;
+            if (!mask[up] && match(up)) { if (!upOpen) { stack.push(x, y - 1); upOpen = true; } } else upOpen = false;
+          }
+          if (y < H - 1) {
+            const dn = row + W + x;
+            if (!mask[dn] && match(dn)) { if (!downOpen) { stack.push(x, y + 1); downOpen = true; } } else downOpen = false;
+          }
+          x++;
+        }
+      }
+      if (!count) return false;
+      // 向外扩 1 个画布像素，盖住线条边缘的抗锯齿缝隙
+      const e = Math.max(1, Math.round(k));
+      const bx = Math.max(0, minX - e), by = Math.max(0, minY - e);
+      const bw = Math.min(W - 1, maxX + e) - bx + 1, bh = Math.min(H - 1, maxY + e) - by + 1;
+      const tmp = new Uint8Array(bw * bh);
+      for (let y = 0; y < bh; y++) {
+        for (let x = 0; x < bw; x++) {
+          let on = 0;
+          const gx0 = Math.max(0, bx + x - e), gx1 = Math.min(W - 1, bx + x + e);
+          const gy = by + y;
+          for (let gx = gx0; gx <= gx1 && !on; gx++) on = mask[gy * W + gx];
+          tmp[y * bw + x] = on;
+        }
+      }
+      const oc = document.createElement('canvas');
+      oc.width = bw; oc.height = bh;
+      const octx = oc.getContext('2d');
+      const out = octx.createImageData(bw, bh);
+      const rgb = hexToRgb(appState.currentColor) || { r: 0, g: 0, b: 0 };
+      for (let y = 0; y < bh; y++) {
+        for (let x = 0; x < bw; x++) {
+          let on = 0;
+          for (let dy = -e; dy <= e && !on; dy++) {
+            const yy = y + dy;
+            if (yy < 0 || yy >= bh) continue;
+            on = tmp[yy * bw + x];
+          }
+          if (!on) continue;
+          const i = (y * bw + x) * 4;
+          out.data[i] = rgb.r; out.data[i + 1] = rgb.g; out.data[i + 2] = rgb.b; out.data[i + 3] = 255;
+        }
+      }
+      octx.putImageData(out, 0, 0);
+      const img = new Image();
+      const fillEl = { id: Date.now() + Math.random(), layerId, isFill: true, img, x: bx / k, y: by / k, width: bw / k, height: bh / k, rotation: 0 };
+      if (isLeft) saveLeftHistory(); else saveHistory();
+      if (!board.images) board.images = [];
+      board.images.push(fillEl);
+      img.onload = () => { if (isLeft) renderReferenceBoard(); else redrawAllStrokes(); };
+      img.src = oc.toDataURL('image/png');
+      if (a0 < 8 && count > W * H * 0.97) toast(tr('bucket_open_area'), 4200);
+      return true;
+    }
+
+    // 像素橡皮的圆形光标 (跟随指针，直径 = 橡皮大小 × 画板当前显示缩放)
+    function updateEraserRing(e, boardCanvas) {
+      let ring = document.getElementById('eraserRing');
+      if (appState.tool !== 'pixel_eraser' || !e || !boardCanvas) { if (ring) ring.style.display = 'none'; return; }
+      if (!ring) {
+        ring = document.createElement('div');
+        ring.id = 'eraserRing';
+        ring.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(ring);
+      }
+      const rect = boardCanvas.getBoundingClientRect();
+      const d = pixelEraserRadius() * 2 * (rect.width / Math.max(1, cssWidth));
+      ring.style.display = 'block';
+      ring.style.width = ring.style.height = `${d}px`;
+      ring.style.left = `${e.clientX - d / 2}px`;
+      ring.style.top = `${e.clientY - d / 2}px`;
     }
 
     function pointInPolygon(point, vs) {
@@ -7162,6 +7424,25 @@
           return;
         }
 
+        if (appState.tool === 'bucket') {
+          e.preventDefault();
+          bucketFillAt(p, getRefCanvasCoordinates(e), true);
+          return;
+        }
+        if (appState.tool === 'pixel_eraser') {
+          if (!targetLayerForNew('stroke')) return;
+          e.preventDefault();
+          activeDrawPointerId = e.pointerId;
+          try { refCanvas.setPointerCapture(e.pointerId); } catch (err) {}
+          saveLeftHistory();
+          const ppos = getRefCanvasCoordinates(e);
+          refPixelLastPos = ppos;
+          if (pixelEraseAt(p, ppos.x, ppos.y, pixelEraserRadius())) renderReferenceBoard();
+          isRefDrawing = true;
+          currentRefStroke = null;
+          return;
+        }
+
         // 仅笔触工具与橡皮擦作用于左板；选择/套索/文字/激光等工具不在左板生成笔迹
         const isEraser = appState.tool === 'eraser';
         if (!isEraser && !isStrokeTool(appState.tool)) return;
@@ -7226,12 +7507,22 @@
         refCtx.restore();
       });
 
+      refCanvas.addEventListener('pointerleave', () => updateEraserRing(null));
       refCanvas.addEventListener('pointermove', (e) => {
+        updateEraserRing(e, refCanvas);
         if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) return;
         if (!isRefDrawing) return;
         e.preventDefault();
         const p = appState.pages[0];
         if (!p) return;
+
+        if (appState.tool === 'pixel_eraser' && !currentRefStroke) {
+          const ppos = getRefCanvasCoordinates(e);
+          const changed = pixelEraseSegment(p, refPixelLastPos || ppos, ppos, pixelEraserRadius());
+          refPixelLastPos = ppos;
+          if (changed) renderReferenceBoard();
+          return;
+        }
 
         if (appState.tool === 'eraser' && !currentRefStroke) {
           if (eraseOnLeftPage(getRefCanvasCoordinates(e))) renderReferenceBoard();
@@ -7740,7 +8031,9 @@
     }
 
     // 非笔触工具 (不会在任何画板上生成笔迹)
-    const NON_STROKE_TOOLS = new Set(['select', 'hand', 'text', 'lasso', 'laser', 'eraser', 'shape', 'sticky']);
+    const NON_STROKE_TOOLS = new Set(['select', 'hand', 'text', 'lasso', 'laser', 'eraser', 'shape', 'sticky', 'bucket', 'pixel_eraser', 'panel_cut']);
+    let pixelLastPos = null;
+    let refPixelLastPos = null;
     function isStrokeTool(tool) {
       return !!tool && !NON_STROKE_TOOLS.has(tool);
     }
@@ -7993,6 +8286,20 @@
 
       clearSelection();
 
+      if (appState.tool === 'bucket') {
+        bucketFillAt(appState, pos, false);
+        return;
+      }
+
+      if (appState.tool === 'pixel_eraser') {
+        if (!targetLayerForNew('stroke')) return;
+        saveHistory();
+        pixelLastPos = pos;
+        if (pixelEraseAt(appState, pos.x, pos.y, pixelEraserRadius())) redrawAllStrokes();
+        isDrawing = true;
+        return;
+      }
+
       if (appState.tool === 'laser') {
         // 激光笔：按下后持续拖动产生拖尾 (pointermove 需要 isDrawing)
         isDrawing = true;
@@ -8058,7 +8365,9 @@
       clearTimeout(shapeHoldTimer);
     });
 
+    canvas.addEventListener('pointerleave', () => updateEraserRing(null));
     canvas.addEventListener('pointermove', (e) => {
+      updateEraserRing(e, canvas);
       if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) return;
       if (appState.isPanning) {
         appState.panX = e.clientX - appState.panStart.x;
@@ -8100,6 +8409,13 @@
 
       if (appState.tool === 'eraser') {
         eraseStrokesAt(pos.x, pos.y);
+        return;
+      }
+
+      if (appState.tool === 'pixel_eraser') {
+        const changed = pixelEraseSegment(appState, pixelLastPos || pos, pos, pixelEraserRadius());
+        pixelLastPos = pos;
+        if (changed) redrawAllStrokes();
         return;
       }
 
@@ -8731,8 +9047,8 @@
     }
 
     // 单键工具快捷键 (@brush = 当前选中的漫画笔刷)
-    const TOOL_SHORTCUTS = { v: 'select', h: 'hand', p: '@brush', b: '@brush', e: 'eraser', l: 'lasso', t: 'text' };
-    const SHIFT_TOOL_SHORTCUTS = {};
+    const TOOL_SHORTCUTS = { v: 'select', h: 'hand', p: '@brush', b: '@brush', e: 'eraser', l: 'lasso', t: 'text', g: 'bucket' };
+    const SHIFT_TOOL_SHORTCUTS = { e: 'pixel_eraser' };
     function currentBrushTool() {
       const b = document.getElementById('btnCurrentBrush');
       return (b && b.dataset.tool) || 'gpen';
@@ -8833,7 +9149,7 @@
 
     // ================= ⌨️ 快捷键面板 / 工具提示 / 空画布提示 (Round 4 UI) =================
     const SHORTCUT_ROWS = [
-      ['V', 'sc_select'], ['H', 'sc_hand'], ['P / B', 'sc_brush'], ['E', 'sc_eraser'],
+      ['V', 'sc_select'], ['H', 'sc_hand'], ['P / B', 'sc_brush'], ['E', 'sc_eraser'], ['Shift + E', 'sc_pixel_eraser'], ['G', 'sc_bucket'],
       ['T', 'sc_text'], ['L', 'sc_lasso'], ['[  ]', 'sc_size'],
       ['Ctrl / ⌘ + Z', 'sc_undo'], ['Ctrl / ⌘ + Shift + Z', 'sc_redo'], ['Delete', 'sc_delete'],
       ['Ctrl / ⌘ + S', 'sc_save'], ['Ctrl / ⌘ + O', 'sc_open'], ['Ctrl / ⌘ + @wheel', 'sc_zoom'],
@@ -9442,9 +9758,11 @@
       return out;
     }
 
-    function strokePathD(pts, closed) {
+    function strokePathD(pts, closed, polyline) {
       let d = `M ${svgN(pts[0].x)} ${svgN(pts[0].y)}`;
-      if (pts.length === 2) {
+      if (polyline) {
+        for (let i = 1; i < pts.length; i++) d += ` L ${svgN(pts[i].x)} ${svgN(pts[i].y)}`;
+      } else if (pts.length === 2) {
         d += ` L ${svgN(pts[1].x)} ${svgN(pts[1].y)}`;
       } else {
         for (let i = 1; i < pts.length - 1; i++) {
@@ -9470,7 +9788,7 @@
         return r ? `<g fill="${col}" fill-opacity="${st.alpha}">${r}</g>\n` : '';
       }
       let out = '';
-      if (s.fill && pts.length >= 3) out += `<path d="${strokePathD(pts, true)}" fill="${escapeXml(s.fill)}" stroke="none" />\n`;
+      if (s.fill && pts.length >= 3) out += `<path d="${strokePathD(pts, true, !!s.polyline)}" fill="${escapeXml(s.fill)}" stroke="none" />\n`;
       const extra = [];
       if (st.composite === 'multiply') extra.push('style="mix-blend-mode:multiply"');
       if (st.glow) {
@@ -9484,7 +9802,7 @@
         return out;
       }
       const dash = st.dash ? ` stroke-dasharray="${st.dash.map(svgN).join(' ')}"` : '';
-      out += `<path d="${strokePathD(pts, !!s.closed)}" fill="none" stroke="${col}" stroke-width="${svgN(st.width)}" stroke-linecap="${st.cap === 'square' ? 'square' : 'round'}" stroke-linejoin="${st.join}" stroke-opacity="${st.alpha}"${dash}${ex} />\n`;
+      out += `<path d="${strokePathD(pts, !!s.closed, !!s.polyline)}" fill="none" stroke="${col}" stroke-width="${svgN(st.width)}" stroke-linecap="${st.cap === 'square' ? 'square' : 'round'}" stroke-linejoin="${st.join}" stroke-opacity="${st.alpha}"${dash}${ex} />\n`;
       return out;
     }
 
@@ -10008,7 +10326,30 @@ ${body}</svg>`;
       });
       if (appState.tool !== 'lasso' && appState.tool !== 'select') clearSelection();
       updateCanvasCursor();
+      updateToolOptionsBar();
+      if (appState.tool !== 'pixel_eraser') updateEraserRing(null);
     }
+
+    // 工具属性条：油漆桶 / 像素橡皮 / 分格工具
+    function updateToolOptionsBar() {
+      const bar = document.getElementById('toolOptionsBar');
+      if (!bar) return;
+      let any = false;
+      bar.querySelectorAll('.tool-opt').forEach(el => {
+        const on = el.dataset.opt === appState.tool;
+        el.classList.toggle('hidden', !on);
+        if (on) any = true;
+      });
+      bar.classList.toggle('hidden', !any);
+    }
+    (function bindToolOptions() {
+      const tol = document.getElementById('optBucketTolerance');
+      const tolV = document.getElementById('optBucketToleranceVal');
+      if (tol) tol.oninput = () => { appState.bucketTolerance = Number(tol.value) || 0; if (tolV) tolV.textContent = `${appState.bucketTolerance}%`; };
+      const pe = document.getElementById('optPixelEraserSize');
+      const peV = document.getElementById('optPixelEraserSizeVal');
+      if (pe) pe.oninput = () => { appState.pixelEraserSize = Number(pe.value) || 16; if (peV) peV.textContent = `${appState.pixelEraserSize}px`; };
+    })();
 
     document.querySelectorAll('.tool-btn').forEach(btn => {
       btn.onclick = () => {
@@ -10815,6 +11156,7 @@ ${body}</svg>`;
           color: options.color || appState.currentColor,
           size: options.size || appState.brushSize,
           points: points.map(p => ({ x: p.x, y: p.y, pressure: p.pressure ?? 0.5 })),
+          polyline: !!options.polyline,
           layerId: (options.layerId && layerById(options.layerId)) ? options.layerId : appState.activeLayerId
         };
         appState.strokes.push(stroke);
@@ -10844,7 +11186,7 @@ ${body}</svg>`;
           { x, y: y + h },
           { x, y }
         ];
-        return window.EazyBoard.addStroke(pts, options);
+        return window.EazyBoard.addStroke(pts, Object.assign({ polyline: true }, options));
       },
       drawLine: (x1, y1, x2, y2, options = {}) => {
         return window.EazyBoard.addStroke([{ x: x1, y: y1 }, { x: x2, y: y2 }], options);
