@@ -2303,7 +2303,7 @@
         👉 <strong>长按下方图片 1 秒</strong>，在系统菜单中选择<strong>「存储图像」</strong>或<strong>「保存到相册」</strong>即可！
       </p>
       <div class="rounded-xl overflow-hidden border border-slate-700 bg-slate-950 max-h-64 flex items-center justify-center">
-        <img id="mobilePreviewImg" class="max-h-60 max-w-full object-contain" alt="Whiteboard Export Preview" />
+        <img id="mobilePreviewImg" class="max-h-60 max-w-full object-contain" alt="ComicBoard Export Preview" />
       </div>
       <button id="btnMobileFallbackDownload" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-xl font-medium" data-i18n="mobile_download_btn">
         浏览器直接下载文件
@@ -7962,14 +7962,23 @@
         offCtx.font = `600 ${Math.round(13 * scaleFactor)}px sans-serif`;
         offCtx.fillStyle = 'rgba(100, 116, 139, 0.65)';
         offCtx.textAlign = 'right';
-        offCtx.fillText('Made with EazyOPC Whiteboard', offCanvas.width - 16 * scaleFactor, offCanvas.height - 14 * scaleFactor);
+        offCtx.fillText('Made with EazyOPC ComicBoard', offCanvas.width - 16 * scaleFactor, offCanvas.height - 14 * scaleFactor);
         offCtx.restore();
       }
 
       offCanvas.toBlob(blob => {
         if (!blob) return;
-        handleFileDownloadOrShare(blob, `Whiteboard-${Date.now()}.png`, 'image/png');
+        handleFileDownloadOrShare(blob, `ComicBoard-${Date.now()}.png`, 'image/png');
       }, 'image/png');
+    }
+
+    function escapeXml(v) {
+      return String(v == null ? '' : v)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
     }
 
     function generateVectorSVGString() {
@@ -7982,7 +7991,7 @@
           const cy = im.y + im.height / 2;
           const rotDeg = ((im.rotation || 0) * 180 / Math.PI).toFixed(2);
           const transform = im.rotation ? ` transform="rotate(${rotDeg} ${cx} ${cy})"` : '';
-          pathsSvg += `<image href="${im.img.src}" x="${im.x}" y="${im.y}" width="${im.width}" height="${im.height}"${transform} />\n`;
+          pathsSvg += `<image href="${escapeXml(im.img.src)}" x="${im.x}" y="${im.y}" width="${im.width}" height="${im.height}"${transform} />\n`;
         }
       }
 
@@ -7993,14 +8002,14 @@
           for (const pt of s.points) {
             if (pt.sprayDots) {
               for (const dot of pt.sprayDots) {
-                pathsSvg += `<rect x="${pt.x + dot.dx}" y="${pt.y + dot.dy}" width="${dot.r}" height="${dot.r}" fill="${s.color}" opacity="0.45" />\n`;
+                pathsSvg += `<rect x="${pt.x + dot.dx}" y="${pt.y + dot.dy}" width="${dot.r}" height="${dot.r}" fill="${escapeXml(s.color)}" opacity="0.45" />\n`;
               }
             }
           }
           continue;
         }
         if (s.points.length === 1) {
-          pathsSvg += `<circle cx="${s.points[0].x}" cy="${s.points[0].y}" r="${s.size / 2}" fill="${s.color}" />\n`;
+          pathsSvg += `<circle cx="${s.points[0].x}" cy="${s.points[0].y}" r="${s.size / 2}" fill="${escapeXml(s.color)}" />\n`;
           continue;
         }
         let d = `M ${s.points[0].x} ${s.points[0].y}`;
@@ -8012,7 +8021,7 @@
           d += ` Q ${p1.x} ${p1.y} ${midX} ${midY}`;
         }
         const opacity = s.tool === 'highlighter' ? '0.35' : (s.tool === 'pencil' ? '0.78' : '1');
-        pathsSvg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.size}" stroke-linecap="round" stroke-linejoin="round" opacity="${opacity}" />\n`;
+        pathsSvg += `<path d="${d}" fill="none" stroke="${escapeXml(s.color)}" stroke-width="${s.size}" stroke-linecap="round" stroke-linejoin="round" opacity="${opacity}" />\n`;
       }
 
       // 3. 导出自由打字文字 (支持 360° 旋转)
@@ -8022,12 +8031,15 @@
         const cy = t.y - t.size / 2;
         const rotDeg = ((t.rotation || 0) * 180 / Math.PI).toFixed(2);
         const transform = t.rotation ? ` transform="rotate(${rotDeg} ${cx} ${cy})"` : '';
-        pathsSvg += `<text x="${t.x}" y="${t.y}" font-size="${t.size}" fill="${t.color}" font-weight="600" font-family="sans-serif"${transform}>${t.text}</text>\n`;
+        const lines = String(t.text || '').split('\n');
+        const lineH = (Number(t.size) || 24) * 1.25;
+        const tspans = lines.map((ln, li) => `<tspan x="${t.x}" y="${t.y + li * lineH}">${escapeXml(ln)}</tspan>`).join('');
+        pathsSvg += `<text x="${t.x}" y="${t.y}" font-size="${t.size}" fill="${escapeXml(t.color)}" font-weight="${t.bold ? 700 : 600}" font-family="${escapeXml(t.fontFamily || 'sans-serif')}"${transform}>${tspans}</text>\n`;
       }
 
       return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cssWidth} ${cssHeight}" width="${cssWidth}" height="${cssHeight}">
-  <rect width="100%" height="100%" fill="${appState.paper.includes('chalk') ? '#0c241b' : '#ffffff'}" />
+  <rect width="100%" height="100%" fill="${appState.paper === 'dark_comic' ? '#0f172a' : (appState.paper.includes('chalk') ? '#0c241b' : '#ffffff')}" />
   ${pathsSvg}
 </svg>`;
     }
@@ -8035,7 +8047,7 @@
     function exportVectorSVG() {
       const svgContent = generateVectorSVGString();
       const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
-      handleFileDownloadOrShare(blob, `Whiteboard-${Date.now()}.svg`, 'image/svg+xml');
+      handleFileDownloadOrShare(blob, `ComicBoard-${Date.now()}.svg`, 'image/svg+xml');
     }
 
     const btnCopySvg = document.getElementById('btnCopySvgToClipboard');
@@ -8063,34 +8075,30 @@
         alert('PDF 渲染组件加载中，请稍后再试');
         return;
       }
-      syncCurrentPageToState();
       const { jsPDF } = window.jspdf;
       const isLandscape = cssWidth >= cssHeight;
       const pdf = new jsPDF({ orientation: isLandscape ? 'l' : 'p', unit: 'pt', format: 'a4' });
       const pdfW = pdf.internal.pageSize.getWidth();
       const pdfH = pdf.internal.pageSize.getHeight();
 
-      const origIndex = appState.currentPageIndex;
       const offCanvas = document.createElement('canvas');
       offCanvas.width = Math.round(cssWidth * 2);
       offCanvas.height = Math.round(cssHeight * 2);
       const offCtx = offCanvas.getContext('2d');
 
-      // 逐页绘制并打包多页 PDF（漫画分镜本）
+      // 逐页绘制并打包多页 PDF（漫画分镜本）：只读渲染每页数据，绝不改写 appState / pages
+      const curIdx = appState.currentPageIndex;
       appState.pages.forEach((p, idx) => {
         if (idx > 0) pdf.addPage();
-        appState.strokes = p.strokes || [];
-        appState.texts = p.texts || [];
-        appState.images = p.images || [];
+        const pageData = (idx === curIdx) ? appState : p;
+        offCtx.setTransform(1, 0, 0, 1, 0, 0);
         offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
-        redrawAllStrokes(offCtx, 2, false);
+        redrawAllStrokes(offCtx, 2, false, pageData);
         const imgData = offCanvas.toDataURL('image/jpeg', 0.95);
         pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
       });
 
-      // 恢复原激活页
-      loadPage(origIndex);
-      pdf.save(`Whiteboard-Story-${Date.now()}.pdf`);
+      pdf.save(`ComicBoard-Story-${Date.now()}.pdf`);
     }
 
     async function handleFileDownloadOrShare(blob, filename, mimeType) {
@@ -8099,8 +8107,8 @@
         try {
           await navigator.share({
             files: [new File([blob], filename, { type: mimeType })],
-            title: 'Whiteboard 导出作品',
-            text: '通过 EazyOPC 在线白板创建'
+            title: 'ComicBoard 导出作品',
+            text: '通过 EazyOPC ComicBoard 在线漫画分镜板创建'
           });
           return;
         } catch (err) {
