@@ -7447,6 +7447,12 @@
 
       const pad = 6;
       minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+      // 选区框保证一个最小的"屏幕"尺寸：细横线 / 缩小视图 / 双板缩放时，手指按在框中间是拖动，而不是误抓缩放手柄
+      const viewK = (canvasCard.getBoundingClientRect().width / (cssWidth || 1)) || 1;
+      const coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+      const minBox = (coarse ? 44 : 24) / viewK;
+      if (maxX - minX < minBox) { const c = (minX + maxX) / 2; minX = c - minBox / 2; maxX = c + minBox / 2; }
+      if (maxY - minY < minBox) { const c = (minY + maxY) / 2; minY = c - minBox / 2; maxY = c + minBox / 2; }
       const boxW = Math.max(20, maxX - minX);
       const boxH = Math.max(20, maxY - minY);
       appState.selectionBounds = { x: minX, y: minY, width: boxW, height: boxH };
@@ -7461,45 +7467,32 @@
       box.innerHTML = `
         <!-- 360° 顶部旋转杆与旋转球手柄 (Figma 规范) -->
         <div class="selection-rot-stem"></div>
-        <div class="selection-rot-handle" data-rot="true" title="按住拖拽 360° 自由旋转"></div>
+        <div class="selection-rot-handle" data-rot="true" title="${tr('sel_rotate_free')}"></div>
         
         <!-- 8 方向工业级缩放变形手柄 -->
-        <div class="selection-handle selection-handle-nw" data-handle="nw" title="等比缩放"></div>
-        <div class="selection-handle selection-handle-n" data-handle="n" title="垂直拉伸"></div>
-        <div class="selection-handle selection-handle-ne" data-handle="ne" title="等比缩放"></div>
-        <div class="selection-handle selection-handle-e" data-handle="e" title="水平拉伸"></div>
-        <div class="selection-handle selection-handle-se" data-handle="se" title="等比缩放"></div>
-        <div class="selection-handle selection-handle-s" data-handle="s" title="垂直拉伸"></div>
-        <div class="selection-handle selection-handle-sw" data-handle="sw" title="等比缩放"></div>
-        <div class="selection-handle selection-handle-w" data-handle="w" title="水平拉伸"></div>
+        <div class="selection-handle selection-handle-nw" data-handle="nw" title="${tr('sel_scale')}"></div>
+        <div class="selection-handle selection-handle-n" data-handle="n" title="${tr('sel_stretch_v')}"></div>
+        <div class="selection-handle selection-handle-ne" data-handle="ne" title="${tr('sel_scale')}"></div>
+        <div class="selection-handle selection-handle-e" data-handle="e" title="${tr('sel_stretch_h')}"></div>
+        <div class="selection-handle selection-handle-se" data-handle="se" title="${tr('sel_scale')}"></div>
+        <div class="selection-handle selection-handle-s" data-handle="s" title="${tr('sel_stretch_v')}"></div>
+        <div class="selection-handle selection-handle-sw" data-handle="sw" title="${tr('sel_scale')}"></div>
+        <div class="selection-handle selection-handle-w" data-handle="w" title="${tr('sel_stretch_h')}"></div>
 
         <!-- 现代浮动操作胶囊栏 -->
         <div class="selection-action-pill">
           ${(appState.selectedTexts && appState.selectedTexts.length === 1 && (!appState.selectedStrokes || appState.selectedStrokes.length === 0)) ? `
-            <button class="btn-pill-edit-text font-bold text-indigo-300" title="编辑文字内容、更换字体与字号">✏️ 编辑文字</button>
+            <button class="btn-pill-edit-text font-bold text-indigo-300" title="${tr('sel_edit_text_tip')}">✏️ ${tr('sel_edit_text')}</button>
             <span style="color:#64748b; font-size:10px;">|</span>
           ` : ''}
-          <button class="btn-pill-rot-l" title="逆时针旋转 90°">⤾ -90°</button>
-          <button class="btn-pill-rot-r" title="顺时针旋转 90°">⤿ +90°</button>
+          <button class="btn-pill-rot-l" title="${tr('sel_rot_l')}">⤾ -90°</button>
+          <button class="btn-pill-rot-r" title="${tr('sel_rot_r')}">⤿ +90°</button>
           <span style="color:#64748b; font-size:10px;">|</span>
-          <button class="btn-pill-copy" title="复制副本 (Duplicate)">📋 复制</button>
+          <button class="btn-pill-copy" title="${tr('sel_copy_tip')}">📋 ${tr('sel_copy')}</button>
           <span style="color:#64748b; font-size:10px;">|</span>
-          <button class="btn-pill-delete" title="删除 (Delete)">🗑️ 删除</button>
+          <button class="btn-pill-delete" title="${tr('sel_delete_tip')}">🗑️ ${tr('sel_delete')}</button>
         </div>
       `;
-
-      // 🌟 直接在选区框本体上绑定 pointerdown，确保用户鼠标点中选框内部任何区域均可 60fps 平滑拖拽！
-      box.onpointerdown = (e) => {
-        if (e.target.closest('.selection-handle') || e.target.closest('.selection-rot-handle') || e.target.closest('.selection-action-pill')) {
-          return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        saveHistory();
-        const pos = getCanvasCoordinates(e);
-        appState.isDraggingSelection = true;
-        appState.dragStartPos = pos;
-      };
 
       // 绑定动作胶囊事件
       const btnEditText = box.querySelector('.btn-pill-edit-text');
@@ -7604,6 +7597,17 @@
         if (e.target.dataset.handle || e.target.dataset.rot || e.target.closest('.selection-action-pill')) return;
         e.stopPropagation();
         e.preventDefault();
+        // 双击 / 双点选中的单个文字：直接打开文字编辑 (第二下落在选区框上，画布收不到)
+        const onlyText = appState.selectedTexts && appState.selectedTexts.length === 1 &&
+          !(appState.selectedStrokes && appState.selectedStrokes.length) && !(appState.selectedImages && appState.selectedImages.length);
+        const now = performance.now();
+        if (onlyText && appState._lastClickedText === appState.selectedTexts[0] && now - (appState._lastTextClickTime || 0) < 400) {
+          appState._lastClickedText = null;
+          openRichTextEditor(appState.selectedTexts[0]);
+          return;
+        }
+        appState._lastClickedText = onlyText ? appState.selectedTexts[0] : null;
+        appState._lastTextClickTime = now;
         saveHistory();
         appState.isDraggingSelection = true;
         appState.dragStartPos = getCanvasCoordinates(e);
@@ -7754,6 +7758,11 @@
         };
       });
 
+      // 触屏上框很小时隐藏四条边中点手柄，只保留四角 (框中间留给拖动)
+      if (coarse) {
+        if (boxH * viewK < 72) box.querySelectorAll('[data-handle="n"],[data-handle="s"]').forEach(h => h.remove());
+        if (boxW * viewK < 72) box.querySelectorAll('[data-handle="e"],[data-handle="w"]').forEach(h => h.remove());
+      }
       selectionOverlay.appendChild(box);
     }
 
@@ -8749,6 +8758,7 @@
       }
       if (appState.isDraggingSelection) {
         appState.isDraggingSelection = false;
+        appState._dragMoved = false;
         updateSelectionBoxUI();
       }
     }
@@ -9156,6 +9166,7 @@
         const dy = pos.y - appState.dragStartPos.y;
         if (dx === 0 && dy === 0) return;
         appState.dragStartPos = pos;
+        appState._dragMoved = true;
 
         for (const s of (appState.selectedStrokes || [])) {
           for (const pt of s.points) { pt.x += dx; pt.y += dy; }
@@ -9224,6 +9235,12 @@
 
       if (appState.isDraggingSelection) {
         appState.isDraggingSelection = false;
+        // 只点选、没有拖动：撤回按下时预存的撤销步骤，避免"撤销一次没反应"
+        if (!appState._dragMoved && appState.history && appState.history.length) {
+          appState.history.pop();
+          if (appState._lastClearedRedo) appState.redoStack = appState._lastClearedRedo;
+        }
+        appState._dragMoved = false;
         updateSelectionBoxUI();
         return;
       }
