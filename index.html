@@ -2410,6 +2410,7 @@
         tip_clear: '🗑️ 清空白板所有内容',
         tip_fit: '适应居中',
         add_page: 'Add Page',
+        confirm_clear_page: '确定要清空当前画纸上的所有漫画分镜、气泡与笔划吗？',
         single_view: '单板模式',
         page_indicator: '第 {cur} / {total} 页',
         page_indicator_dual: '第 1 - {cur} / {total} 页 (双板)',
@@ -2829,6 +2830,7 @@
         tip_clear: '🗑️ Clear Canvas',
         tip_fit: 'Fit to Screen',
         add_page: 'Add Page',
+        confirm_clear_page: 'Clear everything on this page (strokes, text and images)?',
         single_view: 'Single Page',
         page_indicator: 'Page {cur} / {total}',
         page_indicator_dual: 'Pages 1 - {cur} / {total} (Dual)',
@@ -3248,6 +3250,7 @@
         tip_clear: '🗑️ キャンバスを全消去',
         tip_fit: '画面に合わせる',
         add_page: 'Add Page',
+        confirm_clear_page: 'このページの線・テキスト・画像をすべて消去しますか？',
         dual_view: '見開き表示',
         single_view: '単ページ表示',
         page_indicator: '{cur} / {total} ページ',
@@ -3602,6 +3605,7 @@
         tip_clear: '🗑️ 화이트보드 전체 지우기',
         tip_fit: '화면 맞춤',
         add_page: 'Add Page',
+        confirm_clear_page: '이 페이지의 모든 선, 텍스트, 이미지를 지울까요?',
         dual_view: '양면 보기',
         single_view: '단일 페이지',
         page_indicator: '{cur} / {total} 페이지',
@@ -3956,6 +3960,7 @@
         tip_clear: '🗑️ Whiteboard leeren',
         tip_fit: 'Einpassen',
         add_page: 'Add Page',
+        confirm_clear_page: 'Alles auf dieser Seite löschen (Striche, Text und Bilder)?',
         dual_view: 'Doppelseite',
         single_view: 'Einzelseite',
         page_indicator: 'Seite {cur} / {total}',
@@ -4310,6 +4315,7 @@
         tip_clear: '🗑️ Limpiar pizarra',
         tip_fit: 'Ajustar a pantalla',
         add_page: 'Add Page',
+        confirm_clear_page: '¿Borrar todo en esta página (trazos, texto e imágenes)?',
         dual_view: 'Doble página',
         single_view: 'Página única',
         page_indicator: 'Página {cur} / {total}',
@@ -4664,6 +4670,7 @@
         tip_clear: '🗑️ Tout effacer',
         tip_fit: 'Ajuster à l\'écran',
         add_page: 'Add Page',
+        confirm_clear_page: 'Tout effacer sur cette page (traits, texte et images) ?',
         dual_view: 'Double page',
         single_view: 'Page unique',
         page_indicator: 'Page {cur} / {total}',
@@ -4970,7 +4977,7 @@
     const appState = {
       lang: 'zh',
       tool: 'pen',        // 'select' | 'pen' | 'ballpoint' | 'pencil' | 'brush' | 'crayon' | 'highlighter' | 'spray' | 'text' | 'eraser' | 'lasso' | 'laser'
-      paper: 'dot',
+      paper: 'manga_manuscript', // 与 #paperSelector 默认选项一致
       ratio: 'free',
       currentColor: '#18181b',
       brushSize: 4,
@@ -7594,6 +7601,132 @@
     window.undo = undo;
     window.redo = redo;
 
+    // 💾 本地自动保存 (所有页面 / 当前页 / 纸张 / 比例)，不保存撤销历史
+    const AUTOSAVE_KEY = 'eazyopc_comicboard_doc_v1';
+    let autosaveTimer = null;
+    let autosaveReady = false; // 恢复完成前不写入，避免覆盖已有存档
+
+    function scheduleAutosave() {
+      if (!autosaveReady) return;
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(saveDocumentNow, 800);
+    }
+
+    function serializeBoardForSave(b, withImages) {
+      return {
+        id: b.id,
+        strokes: (b.strokes || []),
+        texts: (b.texts || []).map(t => {
+          const c = { ...t };
+          delete c._editing;
+          return c;
+        }),
+        images: withImages
+          ? (b.images || []).map(im => ({
+              id: im.id,
+              src: (im.img && im.img.src) || '',
+              x: im.x, y: im.y, width: im.width, height: im.height,
+              rotation: im.rotation || 0
+            })).filter(im => im.src)
+          : []
+      };
+    }
+
+    function buildDocumentForSave(withImages) {
+      const cur = appState.currentPageIndex;
+      return {
+        v: 1,
+        savedAt: Date.now(),
+        currentPageIndex: cur,
+        paper: appState.paper,
+        ratio: appState.ratio,
+        pages: appState.pages.map((p, i) => {
+          const data = serializeBoardForSave(i === cur ? appState : p, withImages);
+          data.id = p.id;
+          return data;
+        })
+      };
+    }
+
+    function saveDocumentNow() {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = null;
+      if (!autosaveReady) return;
+      try {
+        localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildDocumentForSave(true)));
+        return;
+      } catch (err) {
+        // 多半是图片太大超出配额：退而求其次，只保存笔迹与文字
+      }
+      try {
+        localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildDocumentForSave(false)));
+      } catch (err) {}
+    }
+
+    function selectHasOption(sel, value) {
+      return !!(sel && Array.from(sel.options).some(o => o.value === value));
+    }
+
+    // 启动时 (首帧渲染前) 恢复存档
+    function restoreDocumentFromAutosave() {
+      let doc = null;
+      try {
+        const raw = localStorage.getItem(AUTOSAVE_KEY);
+        if (raw) doc = JSON.parse(raw);
+      } catch (err) { doc = null; }
+      if (!doc || !Array.isArray(doc.pages) || doc.pages.length === 0) return false;
+
+      const onImgLoad = () => {
+        redrawAllStrokes();
+        if (appState.isDualSpread) renderReferenceBoard();
+      };
+      const pages = doc.pages.map((pg, i) => ({
+        id: pg.id || (Date.now() + i),
+        strokes: Array.isArray(pg.strokes) ? pg.strokes.filter(st => st && Array.isArray(st.points)) : [],
+        texts: Array.isArray(pg.texts) ? pg.texts.filter(t => t && typeof t.text === 'string') : [],
+        images: (Array.isArray(pg.images) ? pg.images : []).filter(im => im && im.src).map(im => {
+          const img = new Image();
+          img.onload = onImgLoad;
+          img.src = im.src;
+          return {
+            id: im.id || (Date.now() + Math.random()),
+            img,
+            x: Number(im.x) || 0, y: Number(im.y) || 0,
+            width: Number(im.width) || 100, height: Number(im.height) || 100,
+            rotation: Number(im.rotation) || 0
+          };
+        }),
+        history: [],
+        redoStack: []
+      }));
+
+      appState.pages = pages;
+      const idx = Math.max(0, Math.min(pages.length - 1, parseInt(doc.currentPageIndex, 10) || 0));
+      appState.currentPageIndex = idx;
+      appState.strokes = pages[idx].strokes.slice();
+      appState.texts = pages[idx].texts.slice();
+      appState.images = pages[idx].images.slice();
+      appState.history = [];
+      appState.redoStack = [];
+
+      const paperSel = document.getElementById('paperSelector');
+      if (doc.paper && selectHasOption(paperSel, doc.paper)) {
+        appState.paper = doc.paper;
+        paperSel.value = doc.paper;
+      }
+      const ratioSel = document.getElementById('ratioSelector');
+      if (doc.ratio && selectHasOption(ratioSel, doc.ratio)) {
+        appState.ratio = doc.ratio;
+        ratioSel.value = doc.ratio;
+      }
+      return true;
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') saveDocumentNow();
+    });
+    window.addEventListener('pagehide', saveDocumentNow);
+
     const btnUndoDrawerEl = document.getElementById('btnUndoDrawer');
     if (btnUndoDrawerEl) btnUndoDrawerEl.onclick = (e) => { e.stopPropagation(); undo(); };
     const btnRedoDrawerEl = document.getElementById('btnRedoDrawer');
@@ -7676,21 +7809,6 @@
       if (touchStartCount === 2 && Date.now() - touchStartTime < 300) undo();
       touchStartCount = 0;
     }, { passive: true });
-
-    const clearAllBtnElem = document.getElementById('btnClearAll') || document.getElementById('btnClearAllDrawer');
-    if (clearAllBtnElem) {
-      clearAllBtnElem.onclick = () => {
-        if (confirm('确认清空画板吗？所有笔触、文字与图片将被清除。')) {
-          saveHistory();
-          appState.strokes = [];
-          appState.texts = [];
-          appState.images = [];
-          clearSelection();
-          if (typeof stickyLayer !== 'undefined' && stickyLayer) stickyLayer.innerHTML = '';
-          redrawAllStrokes();
-        }
-      };
-    }
 
     // 导出中心逻辑
     const exportModal = document.getElementById('exportModal');
@@ -8602,21 +8720,40 @@
     if (btnCloseMoreTools && moreToolsDrawer) {
       btnCloseMoreTools.onclick = () => moreToolsDrawer.classList.add('hidden');
     }
+    // 🗑️ 清空画纸 (双板模式下作用于最后操作的画板；清空后的状态会被自动保存)
     const btnClearAllDrawer = document.getElementById('btnClearAllDrawer');
     if (btnClearAllDrawer) {
       btnClearAllDrawer.onclick = () => {
-        if (confirm('确定要清空当前画纸上的所有漫画分镜、气泡与笔划吗？')) {
+        const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+        if (!confirm(dict.confirm_clear_page || TRANSLATIONS.zh.confirm_clear_page || '确定要清空当前画纸上的所有漫画分镜、气泡与笔划吗？')) return;
+        if (isLeftBoardActive()) {
+          const p0 = appState.pages[0];
+          saveLeftHistory();
+          p0.strokes = [];
+          p0.texts = [];
+          p0.images = [];
+          renderReferenceBoard();
+        } else {
           saveHistory();
           appState.strokes = [];
           appState.texts = [];
           appState.images = [];
           clearSelection();
+          if (typeof stickyLayer !== 'undefined' && stickyLayer) stickyLayer.innerHTML = '';
           redrawAllStrokes();
-          if (moreToolsDrawer) moreToolsDrawer.classList.add('hidden');
         }
+        scheduleAutosave();
+        if (moreToolsDrawer) moreToolsDrawer.classList.add('hidden');
       };
     }
   
+      // 与下拉框同步初始纸张/比例，然后恢复本地存档 (首帧渲染前)
+      const initPaperSel = document.getElementById('paperSelector');
+      if (initPaperSel && initPaperSel.value) appState.paper = initPaperSel.value;
+      const initRatioSel = document.getElementById('ratioSelector');
+      if (initRatioSel && initRatioSel.value) appState.ratio = initRatioSel.value;
+      try { restoreDocumentFromAutosave(); } catch (err) {}
+
     const savedLang = localStorage.getItem('user_lang_pref') || 'zh';
       setLanguage(savedLang);
       const savedTheme = localStorage.getItem('eazyopc_theme') || 'dark';
@@ -8625,6 +8762,8 @@
       initHsvColorWheel();
       setupWritableDualBoard();
       resizeCanvas();
+      updatePageUI();
+      autosaveReady = true;
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initAppOnLoad);
