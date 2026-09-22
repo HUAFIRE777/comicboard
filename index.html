@@ -8303,7 +8303,7 @@
         localStorage.setItem('eazyopc_pro_unlocked', 'true');
         appState.isPro = true;
         window.history.replaceState({}, document.title, window.location.pathname);
-        setTimeout(() => alert('🎉 恭喜！付款已确认，Whiteboard Pro 终身版权益已激活！'), 400);
+        setTimeout(() => alert('🎉 恭喜！付款已确认，ComicBoard Pro 终身版权益已激活！'), 400);
       }
     } catch (e) {}
 
@@ -8312,7 +8312,7 @@
       if ((code.toUpperCase().startsWith('EZPRO-') && code.length >= 10) || code.length >= 8) {
         localStorage.setItem('eazyopc_pro_unlocked', 'true');
         appState.isPro = true;
-        alert('🎉 恭喜！已成功激活 Whiteboard Pro 终身版！');
+        alert('🎉 恭喜！已成功激活 ComicBoard Pro 终身版！');
         document.getElementById('proModal').classList.add('hidden');
       } else {
         alert('激活码无效，请核对购买收据邮件中的卡密。');
