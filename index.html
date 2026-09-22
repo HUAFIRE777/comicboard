@@ -1183,7 +1183,10 @@
           <span>🔴</span> <span class="text-[11px] font-medium">激光教鞭</span>
         </button>
         <button id="btnUndoDrawer" class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left">
-          <span>↩️</span> <span class="text-[11px] font-medium">撤销 (Ctrl+Z)</span>
+          <span>↩️</span> <span class="text-[11px] font-medium" data-i18n="undo_btn">撤销 (Ctrl+Z)</span>
+        </button>
+        <button id="btnRedoDrawer" class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left">
+          <span>↪️</span> <span class="text-[11px] font-medium" data-i18n="redo_btn">重做 (Ctrl+Shift+Z)</span>
         </button>
       </div>
       <div class="pt-1.5 border-t border-slate-800 flex justify-between">
@@ -2407,6 +2410,8 @@
         tip_clear: '🗑️ 清空白板所有内容',
         tip_fit: '适应居中',
         add_page: 'Add Page',
+        redo_btn: '重做 (Ctrl+Shift+Z)',
+        undo_btn: '撤销 (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -2820,6 +2825,8 @@
         tip_clear: '🗑️ Clear Canvas',
         tip_fit: 'Fit to Screen',
         add_page: 'Add Page',
+        redo_btn: 'Redo (Ctrl+Shift+Z)',
+        undo_btn: 'Undo (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -3233,6 +3240,8 @@
         tip_clear: '🗑️ キャンバスを全消去',
         tip_fit: '画面に合わせる',
         add_page: 'Add Page',
+        redo_btn: 'やり直し (Ctrl+Shift+Z)',
+        undo_btn: '元に戻す (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -3580,6 +3589,8 @@
         tip_clear: '🗑️ 화이트보드 전체 지우기',
         tip_fit: '화면 맞춤',
         add_page: 'Add Page',
+        redo_btn: '다시 실행 (Ctrl+Shift+Z)',
+        undo_btn: '실행 취소 (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -3927,6 +3938,8 @@
         tip_clear: '🗑️ Whiteboard leeren',
         tip_fit: 'Einpassen',
         add_page: 'Add Page',
+        redo_btn: 'Wiederholen (Strg+Umschalt+Z)',
+        undo_btn: 'Rückgängig (Strg+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -4274,6 +4287,8 @@
         tip_clear: '🗑️ Limpiar pizarra',
         tip_fit: 'Ajustar a pantalla',
         add_page: 'Add Page',
+        redo_btn: 'Rehacer (Ctrl+Mayús+Z)',
+        undo_btn: 'Deshacer (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -4621,6 +4636,8 @@
         tip_clear: '🗑️ Tout effacer',
         tip_fit: 'Ajuster à l\'écran',
         add_page: 'Add Page',
+        redo_btn: 'Rétablir (Ctrl+Maj+Z)',
+        undo_btn: 'Annuler (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
         tip_maru: '🖊️ Maru-Pen 0.3mm (Ultra-fine Hairline & Precise Detailing)',
         tip_blue_pencil: '✏️ Drafting Blue Pencil (Non-repro Blue Sketching)',
@@ -6081,19 +6098,6 @@
       redrawAllStrokes();
     }
 
-    // 快捷键 Delete / Backspace 删除选中项
-    window.addEventListener('keydown', (e) => {
-      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
-      if (e.key === 'Delete' || e.key === 'Backspace') {
-        if ((appState.selectedStrokes && appState.selectedStrokes.length > 0) ||
-            (appState.selectedTexts && appState.selectedTexts.length > 0) ||
-            (appState.selectedImages && appState.selectedImages.length > 0)) {
-          e.preventDefault();
-          deleteSelectedItems();
-        }
-      }
-    });
-
     // 🌟 漫画多页纸张管理系统 (Multi-Page Comic Book Engine)
     function updatePageUI() {
       const indicator = document.getElementById('pageIndicator');
@@ -7381,42 +7385,131 @@
       }
     }, { passive: false });
 
-    // 撤销/重做历史
-    function saveHistory() {
-      if (appState.history.length > 25) appState.history.shift();
-      appState.history.push({
-        strokes: JSON.parse(JSON.stringify(appState.strokes)),
-        texts: JSON.parse(JSON.stringify(appState.texts)),
-        images: appState.images.slice()
-      });
-    }
+    // 撤销/重做历史 (Undo / Redo — history entries are {strokes, texts, images})
+    const HISTORY_LIMIT = 30;
 
-    const undoBtnElem = document.getElementById('btnUndo') || document.getElementById('btnUndoDrawer');
-    if (undoBtnElem) {
-      undoBtnElem.onclick = () => {
-        if (appState.history && appState.history.length > 0) {
-          const prev = appState.history.pop();
-          appState.strokes = prev.strokes;
-          appState.texts = prev.texts || [];
-          appState.images = prev.images || [];
-          clearSelection();
-          redrawAllStrokes();
-        }
+    function snapshotBoard(src) {
+      return {
+        strokes: JSON.parse(JSON.stringify((src && src.strokes) || [])),
+        texts: ((src && src.texts) || []).map(t => {
+          const c = JSON.parse(JSON.stringify(t));
+          delete c._editing;
+          return c;
+        }),
+        // 图片保留 img 元素引用，仅深拷贝几何属性 (移动/缩放/旋转可撤销)
+        images: ((src && src.images) || []).map(im => ({ ...im }))
       };
     }
-    const triggerUndo = () => {
-      if (undoBtnElem) undoBtnElem.click();
-      else if (typeof undo === 'function') undo();
-    };
 
-    // 键盘快捷键 (V/P/E/L/T/Ctrl+Z/Delete/Space)
+    function applySnapshotTo(target, snap) {
+      const copy = snapshotBoard(snap);
+      target.strokes = copy.strokes;
+      target.texts = copy.texts;
+      target.images = copy.images;
+    }
+
+    function saveHistory() {
+      if (!appState.history) appState.history = [];
+      appState.history.push(snapshotBoard(appState));
+      if (appState.history.length > HISTORY_LIMIT) appState.history.shift();
+      appState.redoStack = [];
+      if (typeof scheduleAutosave === 'function') scheduleAutosave();
+    }
+
+    // 左侧画板 (第 1 页) 的历史记录，格式与主画板一致
+    function saveLeftHistory() {
+      const p = appState.pages[0];
+      if (!p) return;
+      if (!p.history) p.history = [];
+      p.history.push(snapshotBoard(p));
+      if (p.history.length > HISTORY_LIMIT) p.history.shift();
+      p.redoStack = [];
+      if (typeof scheduleAutosave === 'function') scheduleAutosave();
+    }
+
+    function isLeftBoardActive() {
+      return !!(appState.isDualSpread && appState.lastActiveBoard === 'left' && appState.currentPageIndex !== 0 && appState.pages[0]);
+    }
+
+    function undo() {
+      if (isLeftBoardActive()) {
+        const p = appState.pages[0];
+        if (!p.history || p.history.length === 0) return;
+        if (!p.redoStack) p.redoStack = [];
+        p.redoStack.push(snapshotBoard(p));
+        applySnapshotTo(p, p.history.pop());
+        renderReferenceBoard();
+      } else {
+        if (!appState.history || appState.history.length === 0) return;
+        if (!appState.redoStack) appState.redoStack = [];
+        appState.redoStack.push(snapshotBoard(appState));
+        applySnapshotTo(appState, appState.history.pop());
+        clearSelection();
+        redrawAllStrokes();
+      }
+      if (typeof scheduleAutosave === 'function') scheduleAutosave();
+    }
+
+    function redo() {
+      if (isLeftBoardActive()) {
+        const p = appState.pages[0];
+        if (!p.redoStack || p.redoStack.length === 0) return;
+        if (!p.history) p.history = [];
+        p.history.push(snapshotBoard(p));
+        applySnapshotTo(p, p.redoStack.pop());
+        renderReferenceBoard();
+      } else {
+        if (!appState.redoStack || appState.redoStack.length === 0) return;
+        if (!appState.history) appState.history = [];
+        appState.history.push(snapshotBoard(appState));
+        applySnapshotTo(appState, appState.redoStack.pop());
+        clearSelection();
+        redrawAllStrokes();
+      }
+      if (typeof scheduleAutosave === 'function') scheduleAutosave();
+    }
+    window.undo = undo;
+    window.redo = redo;
+
+    const btnUndoDrawerEl = document.getElementById('btnUndoDrawer');
+    if (btnUndoDrawerEl) btnUndoDrawerEl.onclick = (e) => { e.stopPropagation(); undo(); };
+    const btnRedoDrawerEl = document.getElementById('btnRedoDrawer');
+    if (btnRedoDrawerEl) btnRedoDrawerEl.onclick = (e) => { e.stopPropagation(); redo(); };
+
+    // 键盘快捷键 (V/P/E/L/T/H, Ctrl/Cmd+Z 撤销, Ctrl/Cmd+Shift+Z 或 Ctrl+Y 重做, Delete, Space)
+    function isEditableTarget(t) {
+      if (!t || !t.tagName) return false;
+      const tag = t.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || !!t.isContentEditable;
+    }
+
     window.addEventListener('keydown', (e) => {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      const key = e.key.toLowerCase();
-      if ((e.ctrlKey || e.metaKey) && key === 'z') {
+      if (isEditableTarget(e.target) || isEditableTarget(document.activeElement)) return;
+      const key = (e.key || '').toLowerCase();
+      const mod = e.ctrlKey || e.metaKey;
+      if (mod && !e.altKey && key === 'z') {
         e.preventDefault();
-        triggerUndo();
-      } else if (key === 'h') {
+        if (e.shiftKey) redo(); else undo();
+        return;
+      }
+      if (mod && !e.altKey && !e.shiftKey && key === 'y') {
+        e.preventDefault();
+        redo();
+        return;
+      }
+      if (key === 'delete' || key === 'backspace') {
+        if (e.altKey) return;
+        if ((appState.selectedImages && appState.selectedImages.length > 0) ||
+            (appState.selectedTexts && appState.selectedTexts.length > 0) ||
+            (appState.selectedStrokes && appState.selectedStrokes.length > 0)) {
+          e.preventDefault();
+          deleteSelectedItems();
+        }
+        return;
+      }
+      // 单键快捷键：忽略带修饰键的组合 (Cmd+C / Ctrl+V / Alt+… 等交给浏览器)
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (key === 'h') {
         appState.tool = 'hand'; updateToolButtonsUI();
       } else if (key === 'v') {
         appState.tool = 'select'; updateToolButtonsUI();
@@ -7428,13 +7521,6 @@
         appState.tool = 'lasso'; updateToolButtonsUI();
       } else if (key === 't') {
         appState.tool = 'text'; updateToolButtonsUI();
-      } else if (key === 'delete' || key === 'backspace') {
-        if ((appState.selectedImages && appState.selectedImages.length > 0) ||
-            (appState.selectedTexts && appState.selectedTexts.length > 0) ||
-            (appState.selectedStrokes && appState.selectedStrokes.length > 0)) {
-          e.preventDefault();
-          deleteSelectedItems();
-        }
       } else if (e.code === 'Space') {
         appState.isSpaceDown = true;
         workbenchWrapper.style.cursor = 'grab';
@@ -7448,20 +7534,25 @@
       }
     });
 
-    // 移动端双指轻敲撤销手势
+    // 移动端双指轻敲撤销手势 (第二根手指落下时会先取消第一根手指刚画出的误触笔迹，见 cancelStrokeForMultiTouch)
     let touchStartCount = 0;
     let touchStartTime = 0;
     workbenchWrapper.addEventListener('touchstart', (e) => {
-      touchStartCount = e.touches.length;
-      touchStartTime = Date.now();
-    });
-    workbenchWrapper.addEventListener('touchend', () => {
-      const elapsed = Date.now() - touchStartTime;
-      if (elapsed < 300 && touchStartCount === 2) {
-        triggerUndo();
+      touchStartCount = Math.max(touchStartCount, e.touches.length);
+      if (e.touches.length === 1) touchStartTime = Date.now();
+    }, { passive: true });
+    workbenchWrapper.addEventListener('touchend', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        // 还有手指未抬起：仅在两指同时存在时判定
+        if (touchStartCount === 2 && Date.now() - touchStartTime < 300) {
+          touchStartCount = -1; // 本轮已触发，等待全部抬起
+          undo();
+        }
+        return;
       }
+      if (touchStartCount === 2 && Date.now() - touchStartTime < 300) undo();
       touchStartCount = 0;
-    });
+    }, { passive: true });
 
     const clearAllBtnElem = document.getElementById('btnClearAll') || document.getElementById('btnClearAllDrawer');
     if (clearAllBtnElem) {
@@ -8382,8 +8473,6 @@
     if (btnCloseMoreTools && moreToolsDrawer) {
       btnCloseMoreTools.onclick = () => moreToolsDrawer.classList.add('hidden');
     }
-    const btnUndoDrawer = document.getElementById('btnUndoDrawer');
-    if (btnUndoDrawer) btnUndoDrawer.onclick = () => undo();
     const btnClearAllDrawer = document.getElementById('btnClearAllDrawer');
     if (btnClearAllDrawer) {
       btnClearAllDrawer.onclick = () => {
