@@ -1089,6 +1089,160 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@600;700&family=Comic+Neue:wght@400;700&family=Creepster&family=Fredoka:wght@500;700&family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@600;700&family=Orbitron:wght@600;800&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+  <!-- ================= EazyOPC Pro 统一授权（5 站代码相同，修改时请同步 5 个仓库） ================= -->
+  <script>
+    (function () {
+      var API = 'https://comicboard.eazyopc.com/api/pro';
+      var SITES = ['comicboard', 'chalkboard', 'graph', 'whiteboard', 'kidsdraw'];
+      var COOKIE = 'eazyopc_pro';
+      var LS_KEY = 'eazyopc_pro_license';
+      var LS_CHECK = 'eazyopc_pro_checked_at';
+      var RETURN_PARAMS = ['checkout_id', 'order_id', 'customer_id', 'product_id', 'subscription_id', 'request_id', 'signature', 'pro_return', 'success', 'pro'];
+      var MSG = {
+        zh: {
+          verifying: '正在向 Creem 核实付款…',
+          paid: '🎉 付款成功！Pro 已解锁，5 个 EazyOPC 工具全部可用。\n\n请保存下面的卡密，换手机或电脑时输入它即可恢复：',
+          activated: '🎉 激活成功！Pro 已在此设备解锁，5 个 EazyOPC 工具全部可用。',
+          invalid_key: '卡密无效，请核对付款邮件里的 License Key。',
+          revoked: '这个卡密已被停用（可能已退款），如有疑问请联系客服。',
+          activation_limit: '这个卡密激活的设备数已达上限。',
+          not_paid: '暂未查到这笔付款已完成。如果刚付完款，请稍等 1 分钟后刷新页面。',
+          wrong_product: '这笔订单不是 EazyOPC Pro 商品。',
+          network: '网络连接失败，请稍后再试。',
+          empty: '请输入卡密。'
+        },
+        en: {
+          verifying: 'Verifying your payment with Creem…',
+          paid: '🎉 Payment confirmed! Pro is unlocked on all 5 EazyOPC tools.\n\nSave this license key — enter it to restore Pro on another device:',
+          activated: '🎉 Activated! Pro is unlocked on this device for all 5 EazyOPC tools.',
+          invalid_key: 'Invalid license key. Please check the License Key in your receipt email.',
+          revoked: 'This license key has been disabled (possibly refunded). Please contact support.',
+          activation_limit: 'This license key has reached its device limit.',
+          not_paid: 'We could not confirm this payment yet. If you just paid, wait a minute and refresh.',
+          wrong_product: 'This order is not an EazyOPC Pro purchase.',
+          network: 'Network error, please try again later.',
+          empty: 'Please enter your license key.'
+        }
+      };
+      function msg(key) {
+        var lang = (document.documentElement.lang || 'zh').slice(0, 2);
+        var d = MSG[lang] || MSG.en;
+        return d[key] || MSG.en[key] || key;
+      }
+      function site() {
+        var s = location.hostname.split('.')[0];
+        return SITES.indexOf(s) >= 0 ? s : 'comicboard';
+      }
+      function readCookie() {
+        var m = document.cookie.match(new RegExp('(?:^|; )' + COOKIE + '=([^;]*)'));
+        return m ? decodeURIComponent(m[1]) : '';
+      }
+      function writeCookie(value, maxAge) {
+        var c = COOKIE + '=' + encodeURIComponent(value) + '; Path=/; Max-Age=' + maxAge + '; SameSite=Lax';
+        // 写在 .eazyopc.com 上，5 个子站共享同一份授权
+        if (/\.eazyopc\.com$/.test(location.hostname)) c += '; Domain=.eazyopc.com; Secure';
+        document.cookie = c;
+      }
+      function load() {
+        var raw = readCookie();
+        if (!raw) { try { raw = localStorage.getItem(LS_KEY) || ''; } catch (e) {} }
+        if (!raw) return null;
+        try { var v = JSON.parse(raw); return v && v.k ? v : null; } catch (e) { return null; }
+      }
+      function save(key, instanceId) {
+        var raw = JSON.stringify({ k: key, i: instanceId || '' });
+        writeCookie(raw, 315360000);
+        try { localStorage.setItem(LS_KEY, raw); localStorage.setItem(LS_CHECK, String(Date.now())); } catch (e) {}
+      }
+      function clear() {
+        writeCookie('', 0);
+        try { localStorage.removeItem(LS_KEY); localStorage.removeItem(LS_CHECK); } catch (e) {}
+      }
+      function legacy() {
+        // 老买家：旧版本付款后写入的标记，继续保留 Pro
+        try { return localStorage.getItem('eazyopc_pro_unlocked') === 'true'; } catch (e) { return false; }
+      }
+      function isPro() { return !!(load() || legacy()); }
+      function emit() {
+        try { window.dispatchEvent(new CustomEvent('eazypro:change', { detail: { pro: isPro() } })); } catch (e) {}
+      }
+      function post(action, body) {
+        return fetch(API + '/' + action, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(body)
+        }).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            return { status: res.status, data: data || {} };
+          });
+        });
+      }
+      function cleanUrl() {
+        try {
+          var u = new URL(location.href);
+          RETURN_PARAMS.forEach(function (p) { u.searchParams.delete(p); });
+          history.replaceState({}, document.title, u.pathname + (u.search || '') + u.hash);
+        } catch (e) {}
+      }
+      function activate(key) {
+        key = String(key || '').trim();
+        if (!key) return Promise.resolve({ ok: false, reason: 'empty', message: msg('empty') });
+        return post('activate', { key: key }).then(function (r) {
+          if (r.data.ok) { save(r.data.key || key, r.data.instance_id); emit(); return { ok: true, message: msg('activated') }; }
+          var reason = r.data.reason || 'invalid_key';
+          return { ok: false, reason: reason, message: msg(MSG.en[reason] ? reason : 'invalid_key') };
+        }).catch(function () { return { ok: false, reason: 'network', message: msg('network') }; });
+      }
+      function handleReturn() {
+        var params = new URLSearchParams(location.search);
+        var checkoutId = params.get('checkout_id');
+        if (!checkoutId) {
+          // 旧版的 ?success=true / ?pro=true 不再直接解锁，只清理网址
+          if (params.has('success') || params.has('pro') || params.has('pro_return')) cleanUrl();
+          return Promise.resolve(null);
+        }
+        return post('verify', { checkout_id: checkoutId }).then(function (r) {
+          var reason = r.data.reason || 'not_paid';
+          // 付款尚未完成时保留网址参数，刷新即可重新核实
+          if (r.data.ok || reason !== 'not_paid') cleanUrl();
+          if (r.data.ok) {
+            save(r.data.key, r.data.instance_id);
+            emit();
+            return { ok: true, key: r.data.key, message: msg('paid') };
+          }
+          return { ok: false, reason: reason, message: msg(MSG.en[reason] ? reason : 'not_paid') };
+        }).catch(function () {
+          // 网络失败时保留网址参数，刷新即可重试
+          return { ok: false, reason: 'network', message: msg('network') };
+        });
+      }
+      function revalidate() {
+        var lic = load();
+        if (!lic) return Promise.resolve();
+        try {
+          var last = Number(localStorage.getItem(LS_CHECK) || 0);
+          if (Date.now() - last < 24 * 3600 * 1000) return Promise.resolve();
+        } catch (e) {}
+        return post('validate', { key: lic.k, instance_id: lic.i }).then(function (r) {
+          // 只有服务器明确判定失效（403）才收回；网络或 Creem 故障时保持 Pro
+          if (r.status === 403) { clear(); emit(); return; }
+          if (r.data.ok) { try { localStorage.setItem(LS_CHECK, String(Date.now())); } catch (e) {} }
+        }).catch(function () {});
+      }
+      window.addEventListener('storage', function (e) {
+        if (e.key === LS_KEY || e.key === 'eazyopc_pro_unlocked') emit();
+      });
+      window.EazyPro = {
+        isPro: isPro,
+        license: function () { var l = load(); return l ? l.k : ''; },
+        checkoutUrl: function () { return API + '/checkout?site=' + site(); },
+        activate: activate,
+        handleReturn: handleReturn,
+        revalidate: revalidate,
+        msg: msg
+      };
+    })();
+  </script>
 </head>
 <body class="flex flex-col font-sans">
 
@@ -2279,7 +2433,7 @@
           </span>
           <button id="btnOpenRestoreModal" type="button" class="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1.5 hover:underline cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
-            <span data-i18n="btn_open_restore">输入卡密或邮箱直接使用</span>
+            <span data-i18n="btn_open_restore">已有卡密？输入卡密恢复 Pro</span>
           </button>
         </div>
       </div>
@@ -2298,7 +2452,7 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
           </div>
           <div>
-            <h3 class="text-base font-bold text-white tracking-tight" data-i18n="restore_title">输入卡密或购买邮箱直接使用</h3>
+            <h3 class="text-base font-bold text-white tracking-tight" data-i18n="restore_title">输入卡密恢复 Pro</h3>
             <p class="text-[11px] text-slate-400">一次付费 · 永久使用 · 支持电脑、手机与平板</p>
           </div>
         </div>
@@ -2308,10 +2462,10 @@
       <!-- 激活输入区 (直接展示，杜绝繁琐教学卡片) -->
       <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
         <label class="text-[11px] font-semibold text-slate-300 block">
-          授权卡密 (License Key) 或 购买时填写的邮箱
+          授权卡密 (License Key)
         </label>
         <div class="space-y-2">
-          <input type="text" id="restoreKeyInput" placeholder="例如: yourname@email.com 或 OPC-PRO-8899" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none focus:border-amber-500 font-mono" />
+          <input type="text" id="restoreKeyInput" placeholder="粘贴付款后获得的 License Key" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none focus:border-amber-500 font-mono" />
           <button id="btnConfirmRestore" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-1.5 active:scale-95">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             <span data-i18n="btn_confirm_restore">立即验证并激活此设备</span>
@@ -2319,7 +2473,7 @@
         </div>
         <p class="text-[10px] text-slate-400 flex items-start gap-1.5 pt-1">
           <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>卡密已自动发送至您的下单邮箱。换电脑或手机直接输入邮箱/卡密即可解锁。</span>
+          <span>付款成功后卡密会显示在页面上，并发送到您的付款邮箱。换电脑或手机时输入卡密即可恢复，5 个 EazyOPC 工具通用。</span>
         </p>
       </div>
 
@@ -2452,7 +2606,7 @@
       </div>
 
       <div class="space-y-2.5">
-        <a id="creemCheckoutBtn" href="https://www.creem.io/payment/prod_4HLQAqNtCJigYN27XHBKee" target="_blank" class="block w-full text-center py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-xs" data-i18n="buy_btn">
+        <a id="creemCheckoutBtn" href="https://comicboard.eazyopc.com/api/pro/checkout?site=comicboard" class="block w-full text-center py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-xs" data-i18n="buy_btn">
           立即以 $4.99 USD 解锁永久使用
         </a>
         
@@ -2482,7 +2636,7 @@
         lbl_ratio: '画幅', lbl_paper: '纸张', fullscreen: '全屏', exit_fullscreen: '退出全屏',
         export: '导出', palette_title: '画笔颜色', size: '粗细', theme_light: '白天', theme_dark: '夜间', fit: '适中',
         pro_title: '解锁 EazyOPC Pro 永久使用版',
-        pro_desc: '一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套商业特权，无后续订阅费。',
+        pro_desc: '一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套商业特权，无后续订阅费。一次购买，5 个 EazyOPC 工具通用。',
         buy_btn: '立即以 $4.99 USD 解锁永久使用',
         has_license: '已有授权码？', activate: '激活', continue_free: '暂不解锁，继续免费使用',
         export_modal_title: '导出作品 · Export Center', export_modal_desc: '选择输出文件格式与画质规格',
@@ -2893,8 +3047,8 @@
         tier_pro_title: '选项二：Pro 终身版',
         tier_pro_desc: '只需单次 $4.99，永久解锁全部 4 大专业规格与商业授权，跨电脑/手机终身有效，绝无二次收费：',
         pro_choose_format: '👉 选择本次导出的 Pro 文件规格：',
-        restore_title: '输入卡密或购买邮箱直接使用',
-        restore_desc: '如果您曾在其他电脑、手机、平板购买过，或清空了浏览器缓存，无需再次付费！请输入您购买时填写的电子邮箱或订单卡密 (License Key)，系统将立即为您激活。',
+        restore_title: '输入卡密恢复 Pro',
+        restore_desc: '在其他设备买过，或清空了浏览器数据？无需再次付费，输入付款后获得的卡密 (License Key) 即可立即恢复。',
         btn_confirm_restore: '立即验证并激活此设备',
         restore_safe_guarantee: '一次付费 · 永久使用 · 终身无任何重复扣费'
       },
@@ -2903,7 +3057,7 @@
         lbl_ratio: 'Ratio', lbl_paper: 'Paper', fullscreen: 'Fullscreen', exit_fullscreen: 'Exit Fullscreen',
         export: 'Export', palette_title: 'Color Palette', size: 'Size', theme_light: 'Day', theme_dark: 'Night', fit: 'Fit',
         pro_title: 'Unlock EazyOPC Pro Lifetime Access',
-        pro_desc: 'Pay $4.99 once for lifetime access to 4K, Transparent PNG, Canva/Figma Vector SVG, PDF, and all Pro features with zero subscriptions.',
+        pro_desc: 'Pay $4.99 once for lifetime access to 4K, Transparent PNG, Canva/Figma Vector SVG, PDF, and all Pro features with zero subscriptions. One purchase unlocks all 5 EazyOPC tools.',
         buy_btn: 'Unlock Lifetime Access for $4.99 USD',
         has_license: 'Have a license key?', activate: 'Activate', continue_free: 'Continue with free version',
         export_modal_title: 'Export Artwork · Export Center', export_modal_desc: 'Select output format and quality',
@@ -3314,8 +3468,8 @@
         tier_pro_title: 'Option 2: Pro Lifetime Access',
         tier_pro_desc: 'Pay $4.99 once to unlock ALL 4 professional formats below and commercial rights across all your devices with no recurring fees:',
         pro_choose_format: '👉 Choose Pro format to export:',
-        restore_title: '输入卡密或购买邮箱直接使用',
-        restore_desc: 'If you already purchased Pro on another computer, tablet, or phone, or cleared your browser data, you never need to pay twice! Enter your purchase Email or License Key to restore access instantly.',
+        restore_title: 'Restore Pro with your License Key',
+        restore_desc: 'Bought Pro on another device or cleared your browser data? No need to pay twice. Enter the License Key you received after payment to restore access instantly.',
         btn_confirm_restore: '立即验证并激活此设备',
         restore_safe_guarantee: '🛡️ Pay once · Lifetime access across all devices · No hidden fees'
       },
@@ -5108,7 +5262,7 @@
       ratio: 'free',
       currentColor: '#18181b',
       brushSize: 4,
-      isPro: localStorage.getItem('eazyopc_pro_unlocked') === 'true',
+      isPro: !!(window.EazyPro && EazyPro.isPro()),
       strokes: [],
       texts: [],          // [{ id, text, x, y, size, color, rotation }]
       images: [],         // [{ id, img, x, y, width, height, rotation }]
@@ -8069,19 +8223,7 @@
     }
 
     if (btnConfirmRestore && restoreKeyInput) {
-      btnConfirmRestore.onclick = () => {
-        const val = restoreKeyInput.value.trim();
-        if (val.length >= 4) {
-          localStorage.setItem('eazyopc_pro_unlocked', 'true');
-          localStorage.setItem('eazyopc_license_key', val);
-          appState.isPro = true;
-          alert('🎉 恭喜！Pro 终身特权已在此设备成功恢复并永久激活！');
-          if (restoreModal) restoreModal.classList.add('hidden');
-          updateExportModalUI();
-        } else {
-          alert('请输入有效的订单激活码或购买邮箱！');
-        }
-      };
+      btnConfirmRestore.onclick = () => activateProLicense(restoreKeyInput, btnConfirmRestore, restoreModal);
     }
 
     function exportImageCanvas(scaleFactor = 2, withWatermark = false, isTransparent = false) {
@@ -8750,27 +8892,33 @@
       };
     });
 
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('success') === 'true' || urlParams.get('pro') === 'true') {
-        localStorage.setItem('eazyopc_pro_unlocked', 'true');
-        appState.isPro = true;
-        window.history.replaceState({}, document.title, window.location.pathname);
-        setTimeout(() => alert('🎉 恭喜！付款已确认，ComicBoard Pro 终身版权益已激活！'), 400);
-      }
-    } catch (e) {}
+    // 💳 付款回跳：由服务器向 Creem 核实订单后才解锁（不再信任网址参数）
+    window.addEventListener('eazypro:change', (e) => {
+      appState.isPro = !!(e.detail && e.detail.pro);
+      try { updateExportModalUI(); } catch (_) {}
+    });
+    if (window.EazyPro) {
+      EazyPro.handleReturn().then((r) => {
+        if (!r) return EazyPro.revalidate();
+        setTimeout(() => {
+          if (r.ok) window.prompt(r.message, r.key);
+          else alert(r.message);
+        }, 400);
+      });
+    }
 
-    document.getElementById('btnVerifyLicense').onclick = () => {
-      const code = document.getElementById('licenseInput').value.trim();
-      if ((code.toUpperCase().startsWith('EZPRO-') && code.length >= 10) || code.length >= 8) {
-        localStorage.setItem('eazyopc_pro_unlocked', 'true');
-        appState.isPro = true;
-        alert('🎉 恭喜！已成功激活 ComicBoard Pro 终身版！');
-        document.getElementById('proModal').classList.add('hidden');
-      } else {
-        alert('激活码无效，请核对购买收据邮件中的卡密。');
-      }
-    };
+    // 🔑 卡密激活：由服务器核对卡密真伪（Pro 弹窗与「恢复购买」弹窗共用）
+    async function activateProLicense(inputEl, btnEl, modalEl) {
+      if (!window.EazyPro) return;
+      const code = (inputEl && inputEl.value || '').trim();
+      if (btnEl) btnEl.disabled = true;
+      const r = await EazyPro.activate(code);
+      if (btnEl) btnEl.disabled = false;
+      alert(r.message);
+      if (r.ok && modalEl) modalEl.classList.add('hidden');
+    }
+
+    document.getElementById('btnVerifyLicense').onclick = () => activateProLicense(document.getElementById('licenseInput'), document.getElementById('btnVerifyLicense'), document.getElementById('proModal'));
 
     document.getElementById('btnTopProBadge').onclick = () => document.getElementById('proModal').classList.remove('hidden');
     document.getElementById('btnCloseProModal').onclick = () => document.getElementById('proModal').classList.add('hidden');
@@ -9435,7 +9583,7 @@
   <script>
     (function () {
       try {
-        if (localStorage.getItem('eazyopc_pro_unlocked') === 'true') return;
+        if (window.EazyPro ? EazyPro.isPro() : localStorage.getItem('eazyopc_pro_unlocked') === 'true') return;
       } catch (e) {}
       var s = document.createElement('script');
       s.async = true;
