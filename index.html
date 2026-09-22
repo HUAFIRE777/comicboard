@@ -103,7 +103,6 @@
   
   <!-- Google AdSense -->
   <meta name="google-adsense-account" content="ca-pub-6499357447763670" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6499357447763670" crossorigin="anonymous"></script>
 
   <!-- Tailwind CSS & jsPDF CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -151,7 +150,6 @@
       overflow: hidden !important;
     }
     body.is-fullscreen #topNavbar,
-    body.is-fullscreen #adSection,
     body.is-fullscreen #seoArticleSection,
     body.is-fullscreen #globalFooter {
       display: none !important;
@@ -452,10 +450,6 @@
       background: #ffffff !important;
       border-color: #e5e0d8 !important;
       box-shadow: 0 4px 16px rgba(40, 30, 20, 0.04) !important;
-    }
-    body.theme-light #adSection .bg-slate-900\/60 {
-      background: #ffffff !important;
-      border-color: #e5e0d8 !important;
     }
     body.theme-light footer#globalFooter {
       background: #f4efe6 !important;
@@ -1538,19 +1532,6 @@
     </div>
   </main>
 
-  <!-- ================= 3. Google AdSense 广告位 (高展示率横幅) ================= -->
-  <section id="adSection" class="w-full max-w-5xl mx-auto px-4 py-4">
-    <div class="w-full bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 flex flex-col items-center justify-center min-h-[90px] text-center">
-      <span class="text-[10px] text-slate-500 tracking-wider uppercase mb-1">Sponsored Advertisement</span>
-      <ins class="adsbygoogle"
-           style="display:block; min-height: 60px;"
-           data-ad-client="ca-pub-6499357447763670"
-           data-ad-slot="1234567890"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-  </section>
 
   <!-- ================= 4. 漫画分镜教程与核心能力动态演示展厅 ================= -->
   <article id="seoArticleSection" class="w-full max-w-5xl mx-auto px-4 py-8 space-y-12">
@@ -8944,6 +8925,19 @@
       }
     };
 
+  </script>
+  <!-- Google AdSense Auto Ads (free users only; Pro users never load ads) -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('eazyopc_pro_unlocked') === 'true') return;
+      } catch (e) {}
+      var s = document.createElement('script');
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6499357447763670';
+      document.body.appendChild(s);
+    })();
   </script>
 </body>
 </html>
