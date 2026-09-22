@@ -1582,7 +1582,7 @@
       <!-- 3. 当前主画笔 (点击画画，长按或点右下角三角弹出 12 款笔刷工坊) -->
       <button id="btnCurrentBrush" class="tool-btn p-2 rounded-xl text-slate-300 hover:bg-slate-800 text-xs transition flex items-center justify-center tool-btn-active relative group" data-tool="gpen" data-i18n-title="tip_gpen" title="🖋️ 漫画 G 笔 (快捷键 P，点击绘制，点击右下角三角切换 12 种大师笔刷)">
         <span id="curBrushIcon" class="text-sm">🖋️</span>
-        <span class="absolute bottom-0.5 right-0.5 text-[8px] text-slate-400 leading-none">▾</span>
+        <span class="brush-caret absolute bottom-0.5 right-0.5 text-[8px] text-slate-400 leading-none">▾</span>
       </button>
 
       <!-- 4. 智能笔迹橡皮擦 (Eraser - E) -->
@@ -11561,6 +11561,13 @@ ${body}</svg>`;
       if (btnCurrentBrush && brushStudioFlyout) {
         btnCurrentBrush.onclick = (e) => {
           e.stopPropagation();
+          // 当前不是画笔 (如选择 / 文字 / 橡皮)：第一下直接切回当前笔刷去画；已是画笔或点右下角 ▾ 时才打开笔刷工坊
+          const onCaret = e.target && e.target.closest && e.target.closest('.brush-caret');
+          if (!onCaret && appState.tool !== btnCurrentBrush.dataset.tool) {
+            selectTool(btnCurrentBrush.dataset.tool || 'gpen');
+            brushStudioFlyout.classList.add('hidden');
+            return;
+          }
           const isHidden = brushStudioFlyout.classList.contains('hidden');
           if (isHidden) {
             closeAllFlyouts('brushStudioFlyout');
