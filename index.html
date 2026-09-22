@@ -1089,37 +1089,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@600;700&family=Comic+Neue:wght@400;700&family=Creepster&family=Fredoka:wght@500;700&family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@600;700&family=Orbitron:wght@600;800&family=Pacifico&family=Permanent+Marker&family=Press+Start+2P&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
-  <!-- ================= EazyOPC Pro 统一授权（5 站代码相同，修改时请同步 5 个仓库） ================= -->
+  <!-- ================= EazyOPC Pro 授权（5 站代码相同，修改时请同步 5 个仓库；每个站单独购买、单独解锁） ================= -->
   <script>
     (function () {
       var API = 'https://comicboard.eazyopc.com/api/pro';
       var SITES = ['comicboard', 'chalkboard', 'graph', 'whiteboard', 'kidsdraw'];
-      var COOKIE = 'eazyopc_pro';
       var LS_KEY = 'eazyopc_pro_license';
       var LS_CHECK = 'eazyopc_pro_checked_at';
       var RETURN_PARAMS = ['checkout_id', 'order_id', 'customer_id', 'product_id', 'subscription_id', 'request_id', 'signature', 'pro_return', 'success', 'pro'];
       var MSG = {
         zh: {
           verifying: '正在向 Creem 核实付款…',
-          paid: '🎉 付款成功！Pro 已解锁，5 个 EazyOPC 工具全部可用。\n\n请保存下面的卡密，换手机或电脑时输入它即可恢复：',
-          activated: '🎉 激活成功！Pro 已在此设备解锁，5 个 EazyOPC 工具全部可用。',
+          paid: '🎉 付款成功！Pro 已解锁。\n\n请保存下面的卡密，换手机或电脑时输入它即可恢复：',
+          activated: '🎉 激活成功！Pro 已在此设备解锁。',
           invalid_key: '卡密无效，请核对付款邮件里的 License Key。',
           revoked: '这个卡密已被停用（可能已退款），如有疑问请联系客服。',
           activation_limit: '这个卡密激活的设备数已达上限。',
           not_paid: '暂未查到这笔付款已完成。如果刚付完款，请稍等 1 分钟后刷新页面。',
-          wrong_product: '这笔订单不是 EazyOPC Pro 商品。',
+          wrong_product: '这个卡密或订单属于另一个 EazyOPC 工具，不能在本站使用（每个工具需单独购买）。',
           network: '网络连接失败，请稍后再试。',
           empty: '请输入卡密。'
         },
         en: {
           verifying: 'Verifying your payment with Creem…',
-          paid: '🎉 Payment confirmed! Pro is unlocked on all 5 EazyOPC tools.\n\nSave this license key — enter it to restore Pro on another device:',
-          activated: '🎉 Activated! Pro is unlocked on this device for all 5 EazyOPC tools.',
+          paid: '🎉 Payment confirmed! Pro is unlocked.\n\nSave this license key — enter it to restore Pro on another device:',
+          activated: '🎉 Activated! Pro is unlocked on this device.',
           invalid_key: 'Invalid license key. Please check the License Key in your receipt email.',
           revoked: 'This license key has been disabled (possibly refunded). Please contact support.',
           activation_limit: 'This license key has reached its device limit.',
           not_paid: 'We could not confirm this payment yet. If you just paid, wait a minute and refresh.',
-          wrong_product: 'This order is not an EazyOPC Pro purchase.',
+          wrong_product: 'This license key or order belongs to another EazyOPC tool and cannot be used here (each tool is purchased separately).',
           network: 'Network error, please try again later.',
           empty: 'Please enter your license key.'
         }
@@ -1133,29 +1132,17 @@
         var s = location.hostname.split('.')[0];
         return SITES.indexOf(s) >= 0 ? s : 'comicboard';
       }
-      function readCookie() {
-        var m = document.cookie.match(new RegExp('(?:^|; )' + COOKIE + '=([^;]*)'));
-        return m ? decodeURIComponent(m[1]) : '';
-      }
-      function writeCookie(value, maxAge) {
-        var c = COOKIE + '=' + encodeURIComponent(value) + '; Path=/; Max-Age=' + maxAge + '; SameSite=Lax';
-        // 写在 .eazyopc.com 上，5 个子站共享同一份授权
-        if (/\.eazyopc\.com$/.test(location.hostname)) c += '; Domain=.eazyopc.com; Secure';
-        document.cookie = c;
-      }
       function load() {
-        var raw = readCookie();
-        if (!raw) { try { raw = localStorage.getItem(LS_KEY) || ''; } catch (e) {} }
+        var raw = '';
+        try { raw = localStorage.getItem(LS_KEY) || ''; } catch (e) {}
         if (!raw) return null;
         try { var v = JSON.parse(raw); return v && v.k ? v : null; } catch (e) { return null; }
       }
       function save(key, instanceId) {
         var raw = JSON.stringify({ k: key, i: instanceId || '' });
-        writeCookie(raw, 315360000);
         try { localStorage.setItem(LS_KEY, raw); localStorage.setItem(LS_CHECK, String(Date.now())); } catch (e) {}
       }
       function clear() {
-        writeCookie('', 0);
         try { localStorage.removeItem(LS_KEY); localStorage.removeItem(LS_CHECK); } catch (e) {}
       }
       function legacy() {
@@ -1170,7 +1157,7 @@
         return fetch(API + '/' + action, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(body)
+          body: JSON.stringify(Object.assign({ site: site() }, body))
         }).then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) {
             return { status: res.status, data: data || {} };
@@ -2473,7 +2460,7 @@
         </div>
         <p class="text-[10px] text-slate-400 flex items-start gap-1.5 pt-1">
           <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>付款成功后卡密会显示在页面上，并发送到您的付款邮箱。换电脑或手机时输入卡密即可恢复，5 个 EazyOPC 工具通用。</span>
+          <span>付款成功后卡密会显示在页面上，并发送到您的付款邮箱。换电脑或手机时输入卡密即可恢复。</span>
         </p>
       </div>
 
@@ -2636,7 +2623,7 @@
         lbl_ratio: '画幅', lbl_paper: '纸张', fullscreen: '全屏', exit_fullscreen: '退出全屏',
         export: '导出', palette_title: '画笔颜色', size: '粗细', theme_light: '白天', theme_dark: '夜间', fit: '适中',
         pro_title: '解锁 EazyOPC Pro 永久使用版',
-        pro_desc: '一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套商业特权，无后续订阅费。一次购买，5 个 EazyOPC 工具通用。',
+        pro_desc: '一次付费 $4.99，永久解锁 4K 原画、透明图、Canva/Figma 矢量工程、PDF 及全套商业特权，无后续订阅费。',
         buy_btn: '立即以 $4.99 USD 解锁永久使用',
         has_license: '已有授权码？', activate: '激活', continue_free: '暂不解锁，继续免费使用',
         export_modal_title: '导出作品 · Export Center', export_modal_desc: '选择输出文件格式与画质规格',
@@ -3057,7 +3044,7 @@
         lbl_ratio: 'Ratio', lbl_paper: 'Paper', fullscreen: 'Fullscreen', exit_fullscreen: 'Exit Fullscreen',
         export: 'Export', palette_title: 'Color Palette', size: 'Size', theme_light: 'Day', theme_dark: 'Night', fit: 'Fit',
         pro_title: 'Unlock EazyOPC Pro Lifetime Access',
-        pro_desc: 'Pay $4.99 once for lifetime access to 4K, Transparent PNG, Canva/Figma Vector SVG, PDF, and all Pro features with zero subscriptions. One purchase unlocks all 5 EazyOPC tools.',
+        pro_desc: 'Pay $4.99 once for lifetime access to 4K, Transparent PNG, Canva/Figma Vector SVG, PDF, and all Pro features with zero subscriptions.',
         buy_btn: 'Unlock Lifetime Access for $4.99 USD',
         has_license: 'Have a license key?', activate: 'Activate', continue_free: 'Continue with free version',
         export_modal_title: 'Export Artwork · Export Center', export_modal_desc: 'Select output format and quality',

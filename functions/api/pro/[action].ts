@@ -1,27 +1,32 @@
-// EazyOPC Pro 统一授权服务（5 站共用，部署在 comicboard.eazyopc.com）
+// EazyOPC Pro 授权服务（部署在 comicboard.eazyopc.com，5 个站共用这一个服务）
+// 每个站单独售卖：在哪个站购买，就只解锁哪个站（按商品 ID 区分）。
 //
 // 路由：
-//   GET  /api/pro/checkout?site=graph   → 创建 Creem 结账页并 302 跳转（付款后跳回该站）
-//   POST /api/pro/verify   {checkout_id} → 向 Creem 核实订单已付款，返回卡密
-//   POST /api/pro/activate {key}         → 在新设备上激活卡密
-//   POST /api/pro/validate {key, instance_id} → 复查卡密是否仍有效（退款 / 禁用后失效）
+//   GET  /api/pro/checkout?site=graph             → 创建该站商品的 Creem 结账页并 302 跳转（付款后跳回该站）
+//   POST /api/pro/verify   {site, checkout_id}     → 向 Creem 核实订单已付款且是该站商品，返回卡密
+//   POST /api/pro/activate {site, key}             → 在新设备上激活该站卡密
+//   POST /api/pro/validate {site, key, instance_id} → 复查卡密是否仍有效（退款 / 禁用后失效）
 //
 // Cloudflare 环境变量：
-//   CREEM_API_KEY      必填（加密变量）
-//   CREEM_PRODUCT_ID   选填，结账使用的商品，默认 DEFAULT_PRODUCT_ID
-//   CREEM_PRODUCT_IDS  选填，逗号分隔，视为有效 Pro 的全部商品
-//   CREEM_TEST_MODE    选填，"1" 时走 Creem 测试环境
+//   CREEM_API_KEY             必填（加密变量）
+//   CREEM_PRODUCT_<站名大写>  选填，覆盖该站商品 ID，如 CREEM_PRODUCT_GRAPH=prod_xxx
+//   CREEM_TEST_MODE           选填，"1" 时走 Creem 测试环境
 
 interface Env {
   CREEM_API_KEY?: string;
-  CREEM_PRODUCT_ID?: string;
-  CREEM_PRODUCT_IDS?: string;
   CREEM_TEST_MODE?: string;
+  [key: string]: string | undefined;
 }
 
 const SITES = ['comicboard', 'chalkboard', 'graph', 'whiteboard', 'kidsdraw'];
-const DEFAULT_PRODUCT_ID = 'prod_67fz975idTqLQ4QNWfb5in';
-const LEGACY_PRODUCT_IDS = ['prod_4HLQAqNtCJigYN27XHBKee', 'prod_67fz975idTqLQ4QNWfb5in'];
+// 各站对应的 Creem 商品。chalkboard / graph / whiteboard / kidsdraw 建好专属商品后改这里（或设环境变量）。
+const SITE_PRODUCTS: Record<string, string> = {
+  comicboard: 'prod_4HLQAqNtCJigYN27XHBKee',
+  chalkboard: 'prod_67fz975idTqLQ4QNWfb5in',
+  graph: 'prod_67fz975idTqLQ4QNWfb5in',
+  whiteboard: 'prod_67fz975idTqLQ4QNWfb5in',
+  kidsdraw: 'prod_67fz975idTqLQ4QNWfb5in',
+};
 const OWN_KEY_PREFIX = 'EZPRO1-';
 
 const ORIGIN_RE = /^https:\/\/(comicboard|chalkboard|graph|whiteboard|kidsdraw)\.eazyopc\.com$|^http:\/\/localhost(:\d+)?$/;
@@ -30,13 +35,13 @@ function apiBase(env: Env) {
   return env.CREEM_TEST_MODE === '1' ? 'https://test-api.creem.io' : 'https://api.creem.io';
 }
 
-function checkoutProductId(env: Env) {
-  return (env.CREEM_PRODUCT_ID || DEFAULT_PRODUCT_ID).trim();
+function siteOf(value: unknown) {
+  const s = String(value || '');
+  return SITES.includes(s) ? s : '';
 }
 
-function validProductIds(env: Env) {
-  const extra = (env.CREEM_PRODUCT_IDS || '').split(',').map(s => s.trim()).filter(Boolean);
-  return new Set([checkoutProductId(env), ...LEGACY_PRODUCT_IDS, ...extra]);
+function productForSite(env: Env, site: string) {
+  return (env['CREEM_PRODUCT_' + site.toUpperCase()] || SITE_PRODUCTS[site] || '').trim();
 }
 
 function corsHeaders(request: Request): Record<string, string> {
@@ -98,25 +103,26 @@ function productIdOf(obj: any): string {
   return obj.product?.id || obj.product_id || '';
 }
 
-// 查询结账单是否已付款、且属于 Pro 商品
-async function loadPaidCheckout(env: Env, checkoutId: string) {
+// 查询结账单是否已付款、且是该站的 Pro 商品
+async function loadPaidCheckout(env: Env, site: string, checkoutId: string) {
   const r = await creem(env, 'GET', '/v1/checkouts?checkout_id=' + encodeURIComponent(checkoutId));
   if (!r.ok || !r.data) return { paid: false, reason: r.status === 404 ? 'not_found' : 'creem_error', status: r.status };
   const c = r.data;
   const orderStatus = c.order?.status;
   const paid = c.status === 'completed' && (!orderStatus || orderStatus === 'paid');
   if (!paid) return { paid: false, reason: 'not_paid' };
-  if (!validProductIds(env).has(productIdOf(c))) return { paid: false, reason: 'wrong_product' };
+  if (productIdOf(c) !== productForSite(env, site)) return { paid: false, reason: 'wrong_product' };
   return { paid: true, checkout: c };
 }
 
 async function handleCheckout(request: Request, env: Env) {
   const url = new URL(request.url);
-  const site = SITES.includes(url.searchParams.get('site') || '') ? url.searchParams.get('site')! : 'comicboard';
-  const fallback = `https://www.creem.io/payment/${checkoutProductId(env)}`;
+  const site = siteOf(url.searchParams.get('site')) || 'comicboard';
+  const productId = productForSite(env, site);
+  const fallback = `https://www.creem.io/payment/${productId}`;
   if (!env.CREEM_API_KEY) return Response.redirect(fallback, 302);
   const r = await creem(env, 'POST', '/v1/checkouts', {
-    product_id: checkoutProductId(env),
+    product_id: productId,
     request_id: `${site}-${Date.now()}`,
     success_url: `https://${site}.eazyopc.com/?pro_return=1`,
     metadata: { site },
@@ -130,9 +136,11 @@ async function readBody(request: Request): Promise<any> {
 }
 
 async function handleVerify(request: Request, env: Env) {
-  const { checkout_id } = await readBody(request);
+  const { checkout_id, site: rawSite } = await readBody(request);
+  const site = siteOf(rawSite);
+  if (!site) return json(request, 400, { ok: false, reason: 'missing_site' });
   if (!checkout_id || typeof checkout_id !== 'string') return json(request, 400, { ok: false, reason: 'missing_checkout_id' });
-  const r = await loadPaidCheckout(env, checkout_id);
+  const r = await loadPaidCheckout(env, site, checkout_id);
   if (!r.paid) return json(request, 402, { ok: false, reason: r.reason });
   const c: any = r.checkout;
   const creemKey = (Array.isArray(c.license_keys) && c.license_keys[0]?.key) || c.license_key?.key || '';
@@ -146,29 +154,38 @@ async function handleVerify(request: Request, env: Env) {
 }
 
 async function handleActivate(request: Request, env: Env) {
-  const key = String((await readBody(request)).key || '').trim();
+  const body = await readBody(request);
+  const site = siteOf(body.site);
+  const key = String(body.key || '').trim();
+  if (!site) return json(request, 400, { ok: false, reason: 'missing_site' });
   if (key.length < 8) return json(request, 400, { ok: false, reason: 'invalid_key' });
   const own = await parseOwnKey(env, key);
   if (own) {
-    const r = await loadPaidCheckout(env, own);
+    const r = await loadPaidCheckout(env, site, own);
     return r.paid ? json(request, 200, { ok: true, key, instance_id: '' }) : json(request, 403, { ok: false, reason: r.reason });
   }
   const a = await creem(env, 'POST', '/v1/licenses/activate', { key, instance_name: 'eazyopc-web-' + Date.now() });
   if (a.status === 403) return json(request, 403, { ok: false, reason: 'activation_limit' });
   if (!a.ok || !a.data) return json(request, a.status === 404 || a.status === 410 ? 403 : 502, { ok: false, reason: a.status === 404 ? 'invalid_key' : a.status === 410 ? 'revoked' : 'creem_error' });
-  if (!validProductIds(env).has(a.data.product_id || '')) return json(request, 403, { ok: false, reason: 'wrong_product' });
+  if ((a.data.product_id || '') !== productForSite(env, site)) {
+    // 其他站的卡密：撤销刚才的激活，避免白白占用设备名额
+    if (a.data.instance?.id) await creem(env, 'POST', '/v1/licenses/deactivate', { key, instance_id: a.data.instance.id });
+    return json(request, 403, { ok: false, reason: 'wrong_product' });
+  }
   if (a.data.status && !['active', 'inactive'].includes(a.data.status)) return json(request, 403, { ok: false, reason: 'revoked' });
   return json(request, 200, { ok: true, key, instance_id: a.data.instance?.id || '' });
 }
 
 async function handleValidate(request: Request, env: Env) {
   const body = await readBody(request);
+  const site = siteOf(body.site);
   const key = String(body.key || '').trim();
   const instanceId = String(body.instance_id || '').trim();
+  if (!site) return json(request, 400, { ok: false, reason: 'missing_site' });
   if (!key) return json(request, 400, { ok: false, reason: 'invalid_key' });
   const own = await parseOwnKey(env, key);
   if (own) {
-    const r = await loadPaidCheckout(env, own);
+    const r = await loadPaidCheckout(env, site, own);
     if (r.paid) return json(request, 200, { ok: true });
     // 只有 Creem 明确告知「未付款 / 不存在 / 商品不符」才判定失效；网络故障时保持现状
     return r.reason === 'creem_error' ? json(request, 502, { ok: false, reason: 'creem_error' }) : json(request, 403, { ok: false, reason: r.reason });
@@ -177,7 +194,7 @@ async function handleValidate(request: Request, env: Env) {
   const v = await creem(env, 'POST', '/v1/licenses/validate', { key, instance_id: instanceId });
   if (v.status === 404 || v.status === 410) return json(request, 403, { ok: false, reason: 'revoked' });
   if (!v.ok || !v.data) return json(request, 502, { ok: false, reason: 'creem_error' });
-  if (!validProductIds(env).has(v.data.product_id || '')) return json(request, 403, { ok: false, reason: 'wrong_product' });
+  if ((v.data.product_id || '') !== productForSite(env, site)) return json(request, 403, { ok: false, reason: 'wrong_product' });
   if (v.data.status !== 'active') return json(request, 403, { ok: false, reason: 'revoked' });
   return json(request, 200, { ok: true });
 }
