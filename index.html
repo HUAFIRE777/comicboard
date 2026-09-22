@@ -1145,11 +1145,10 @@
       function clear() {
         try { localStorage.removeItem(LS_KEY); localStorage.removeItem(LS_CHECK); } catch (e) {}
       }
-      function legacy() {
-        // 老买家：旧版本付款后写入的标记，继续保留 Pro
-        try { return localStorage.getItem('eazyopc_pro_unlocked') === 'true'; } catch (e) { return false; }
-      }
-      function isPro() { return !!(load() || legacy()); }
+      // 旧版可被随意伪造的解锁标记（?success=true / 任意 8 位卡密写入）一律作废。
+      // 5 个商品在新版上线前均为 0 笔销售，没有真实买家受影响。
+      try { localStorage.removeItem('eazyopc_pro_unlocked'); localStorage.removeItem('eazyopc_license_key'); } catch (e) {}
+      function isPro() { return !!load(); }
       function emit() {
         try { window.dispatchEvent(new CustomEvent('eazypro:change', { detail: { pro: isPro() } })); } catch (e) {}
       }
