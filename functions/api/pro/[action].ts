@@ -19,13 +19,13 @@ interface Env {
 }
 
 const SITES = ['comicboard', 'chalkboard', 'graph', 'whiteboard', 'kidsdraw'];
-// 各站对应的 Creem 商品。chalkboard / graph / whiteboard / kidsdraw 建好专属商品后改这里（或设环境变量）。
+// 各站专属的 Creem 商品（2026-09-21 各站最初接入时建立的商品）
 const SITE_PRODUCTS: Record<string, string> = {
   comicboard: 'prod_4HLQAqNtCJigYN27XHBKee',
-  chalkboard: 'prod_67fz975idTqLQ4QNWfb5in',
-  graph: 'prod_67fz975idTqLQ4QNWfb5in',
+  chalkboard: 'prod_6vEqLscAYX5rqyZLVatoV7',
+  graph: 'prod_bXhOxSQiOnXJimrmBCcXd',
   whiteboard: 'prod_67fz975idTqLQ4QNWfb5in',
-  kidsdraw: 'prod_67fz975idTqLQ4QNWfb5in',
+  kidsdraw: 'prod_10eSHiVCnnWY55VRT0ZKCM',
 };
 const OWN_KEY_PREFIX = 'EZPRO1-';
 
