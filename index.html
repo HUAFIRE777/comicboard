@@ -146,6 +146,9 @@
       color: #ffffff !important;
       box-shadow: 0 4px 14px rgba(79, 70, 229, 0.45);
     }
+    .ui-icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .nav-ghost-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 10px; font-size: 12px; font-weight: 600; color: #e2e8f0; background: transparent; border: 1px solid rgba(148,163,184,0.28); transition: background .15s ease, border-color .15s ease; cursor: pointer; }
+    .nav-ghost-btn:hover { background: rgba(148,163,184,0.14); border-color: rgba(148,163,184,0.5); }
     .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     body.is-fullscreen {
@@ -1315,6 +1318,18 @@
 
     <!-- 右侧动作按钮组 -->
     <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+      <!-- 作品文件：保存 / 打开 (.eazyopc) -->
+      <div class="hidden sm:flex items-center gap-1" role="group" data-i18n-title="file_group" title="作品文件">
+        <button id="btnSaveWork" type="button" data-action="save-work" class="nav-ghost-btn" data-i18n-title="tip_save_work" title="保存作品为 .eazyopc 文件 (Ctrl+S)">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span class="hidden xl:inline" data-i18n="save_work">保存作品</span>
+        </button>
+        <button id="btnOpenWork" type="button" data-action="open-work" class="nav-ghost-btn" data-i18n-title="tip_open_work" title="打开 .eazyopc 作品文件 (Ctrl+O)">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v1"/><path d="M3 7v10a2 2 0 0 0 2 2h13l3-8H7l-3 8"/></svg>
+          <span class="hidden xl:inline" data-i18n="open_work">打开作品</span>
+        </button>
+      </div>
+      <input type="file" id="workFileInput" accept=".eazyopc,application/json" class="hidden" />
       <!-- 白天/黑夜模式切换 -->
       <button id="btnThemeToggle" class="p-1.5 sm:px-2.5 sm:py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-slate-200 rounded-xl text-xs flex items-center gap-1 transition cursor-pointer" title="切换白天/夜间模式 (☀️/🌙)">
         <span id="themeIcon">🌙</span> <span id="themeLabel" class="hidden sm:inline">夜间</span>
@@ -1436,6 +1451,14 @@
         <button id="btnCloseMoreTools" class="text-slate-400 hover:text-white text-xs">✕</button>
       </div>
       <div class="grid grid-cols-2 gap-1.5 text-xs">
+        <button type="button" data-action="save-work" class="drawer-file-btn flex items-center gap-2 p-1.5 rounded-xl border border-indigo-500/40 bg-indigo-500/10 hover:bg-indigo-500/20 transition text-left" data-i18n-title="tip_save_work" title="保存作品为 .eazyopc 文件 (Ctrl+S)">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span class="text-[11px] font-semibold" data-i18n="save_work">保存作品</span>
+        </button>
+        <button type="button" data-action="open-work" class="drawer-file-btn flex items-center gap-2 p-1.5 rounded-xl border border-indigo-500/40 bg-indigo-500/10 hover:bg-indigo-500/20 transition text-left" data-i18n-title="tip_open_work" title="打开 .eazyopc 作品文件 (Ctrl+O)">
+          <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v1"/><path d="M3 7v10a2 2 0 0 0 2 2h13l3-8H7l-3 8"/></svg>
+          <span class="text-[11px] font-semibold" data-i18n="open_work">打开作品</span>
+        </button>
         <button class="tool-btn flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-800 border border-transparent transition text-left" data-tool="lasso">
           <span>⭕</span> <span class="text-[11px] font-medium">自由套索 (L)</span>
         </button>
@@ -1804,9 +1827,9 @@
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold">
         <span>⚡ 专为漫画家、分镜师、二次元画师与插画创作者打造的在线分镜画板</span>
       </div>
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">极简直观，兼具工业级创作与分镜排版能力</h2>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" data-i18n="hero_title">在浏览器里完成漫画分镜：分格、图层、对白与多页排版</h2>
       <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
-        告别冗重庞大的专业绘画软件，内置四格漫画网格、日漫 B5 原稿纸、对白气泡框、G 笔与酒精马克笔，原生支持无限多页分镜管理与 4K 超清印刷导出，100% 浏览器客户端零延迟运行。
+        <span data-i18n="hero_desc">内置日漫原稿纸、四格网格、拖拽分格工具、对白气泡框、图层、油漆桶与 16 款漫画笔刷；支持多页管理、复制与调整页序、双页并排对照。可导出 PNG（4K）/ SVG / 300 DPI 打印 PDF，作品可保存为 .eazyopc 文件随时继续，全部在浏览器本地运行。</span>
       </p>
     </div>
 
@@ -1817,7 +1840,7 @@
         <h3 class="text-base font-bold text-white flex items-center gap-2">
           <span>⚡</span> <span data-i18n="demos_title">核心能力互动图鉴与动态演示 · Interactive Feature Demos</span>
         </h3>
-        <span class="text-[11px] text-slate-500 font-mono">100% Native 客户端实时矢量渲染</span>
+        <span class="text-[11px] text-slate-500 font-mono" data-i18n="demos_badge">浏览器本地实时渲染</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1832,10 +1855,10 @@
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>✨</span> <span data-i18n="demo_snap_title">GoodNotes 同款 420ms 智能几何吸附</span>
+              <span>✨</span> <span data-i18n="demo_snap_title">停顿 420ms 智能图形吸附</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed" data-i18n="demo_snap_desc">
-              在画布上任意绘制圆形、椭圆、多边形或直线，笔尖停顿 420ms 即可瞬间自动吸附为出版级完美平滑矢量图形。
+              画一条大致的直线或一个圈，笔尖停住 420ms，自动吸附成笔直的直线或平滑的椭圆。
             </p>
           </div>
         </div>
@@ -1874,10 +1897,10 @@
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>🖋️</span> <span data-i18n="demo_brush_title">12 款商业大师级压感笔刷物理引擎</span>
+              <span>🖋️</span> <span data-i18n="demo_brush_title">16 款漫画笔刷</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed" data-i18n="demo_brush_desc">
-              搭载 G 笔、丸笔、蓝铅笔、水彩、霓虹发光、网点喷枪与虚线等 12 款专属手绘算法，运笔速度与轻重自适应笔锋。
+              G 笔、丸笔、针管笔、分镜蓝铅笔、水彩毛笔、酒精马克笔、网点喷枪、虚线笔等 16 款笔刷；落笔时的笔压决定线条粗细。
             </p>
           </div>
         </div>
@@ -1892,10 +1915,10 @@
           </div>
           <div>
             <h4 class="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>📚</span> <span data-i18n="demo_pages_title">无限多页漫画分镜管理与出版级 PDF</span>
+              <span>📚</span> <span data-i18n="demo_pages_title">多页分镜管理与打印 PDF</span>
             </h4>
             <p class="text-xs text-slate-400 mt-1 leading-relaxed" data-i18n="demo_pages_desc">
-              告别单页白板拼接！支持自由「➕加页」、快速翻阅与重排，绘制完毕一键合成正式出版级 300 DPI 多页矢量 PDF 文档。
+              自由加页、复制页、调整页序，所有页面一键合成 300 DPI 高清打印 PDF（位图）。
             </p>
           </div>
         </div>
@@ -1933,10 +1956,10 @@
 
         <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-xl space-y-1.5">
           <div class="font-bold text-amber-300 flex items-center gap-1">
-            <span>3.</span> <span>跨页双板并排与 300 DPI 出版 PDF 导出</span>
+            <span>3.</span> <span>双页并排对照与 300 DPI 打印 PDF</span>
           </div>
           <p class="text-slate-400 leading-relaxed text-[11px]">
-            开启「双板并排」实时对照前后两页分镜连贯性，绘制完毕后一键导出 300 DPI 矢量 PDF 打印文件或 Canva/Figma SVG 矢量节点，无缝对接商业出版。
+            开启「双板并排」对照前后两页分镜的连贯性；完成后导出 300 DPI 高清打印 PDF（Pro 还可按 B5 投稿原稿、条漫长图或带页码的书籍 PDF 导出），或导出 SVG 在 Figma / Illustrator 中继续编辑。
           </p>
         </div>
       </div>
@@ -1963,7 +1986,7 @@
             <span>控制台与自动化 API (window.EazyBoard)</span>
           </div>
           <p class="text-slate-300 leading-relaxed text-[11px]">
-            智能体与无头自动化测试（Playwright / Puppeteer / Browser-Use）可直接调用全局 <code class="px-1.5 py-0.5 bg-slate-800 text-indigo-300 rounded font-mono text-[10px]">window.EazyBoard</code> 接口，快速执行笔刷切换、文字标注、批量几何连线与无水印原图导出。
+            智能体与无头自动化测试（Playwright / Puppeteer / Browser-Use）可调用全局 <code class="px-1.5 py-0.5 bg-slate-800 text-indigo-300 rounded font-mono text-[10px]">window.EazyBoard</code> 接口：切换工具与颜色、添加笔画与文字、绘制矩形与直线、打开导出面板。
           </p>
         </div>
 
@@ -1973,17 +1996,17 @@
             <span>Computer Use 视觉光标与快捷键驱动</span>
           </div>
           <p class="text-slate-300 leading-relaxed text-[11px]">
-            全面适配 Claude Computer Use 与视觉智能体。画板配备标准键盘指令（<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">V</kbd> 选择调整、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">B</kbd> 画笔手绘、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">H</kbd> 抓手平移、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">1-9</kbd> 切色），AI 可像人类创作者一样精准操作画布。
+            画板配备标准键盘快捷键（<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">V</kbd> 选择、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">P</kbd> 画笔、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">E</kbd> 橡皮、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">G</kbd> 油漆桶、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">T</kbd> 文字、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">H</kbd> 抓手平移、<kbd class="px-1 py-0.5 bg-slate-800 text-slate-200 rounded font-mono text-[10px]">?</kbd> 快捷键一览），视觉智能体可以像创作者一样操作画布。
           </p>
         </div>
 
         <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-2">
           <div class="font-bold text-amber-300 flex items-center gap-1.5">
             <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono font-bold">3</span>
-            <span>Prompt 驱动 SVG 矢量生成与二次编辑</span>
+            <span>让模型生成笔画，人工精修后导出</span>
           </div>
           <p class="text-slate-300 leading-relaxed text-[11px]">
-            引导大模型依据分镜、草图或数学几何输出标准 SVG 矢量节点代码，一键粘贴至画布或导出为 Canva / Figma 格式，实现“Agent 自动化构思 $	o$ 人工手绘精修 $	o$ 印刷级输出”的高效闭环。
+            让大模型依据分镜脚本输出笔画坐标或分格矩形，通过 <code class="px-1.5 py-0.5 bg-slate-800 text-indigo-300 rounded font-mono text-[10px]">EazyBoard.addStroke / drawRect</code> 画到画布上，再手绘精修，最后导出 PNG / PDF / SVG。
           </p>
         </div>
       </div>
@@ -2083,7 +2106,7 @@
             <div class="space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-mono text-pink-400 font-bold">#02 漫画创作</span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">12款笔刷</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">16款笔刷</span>
               </div>
               <h4 class="text-base font-bold text-white group-hover:text-pink-300 transition flex items-center gap-1.5">
                 <span>🎨</span> <span>ComicBoard · 漫画分镜</span>
@@ -2325,7 +2348,7 @@
               </div>
               <span class="font-bold text-emerald-400 text-xs" data-i18n="free_price">$0 免费</span>
             </div>
-            <p class="text-[11px] text-slate-300 leading-relaxed" data-i18n="tier_free_desc">输出 1080P 标准高清 PNG 格式，带微小 EazyOPC 水印。适合日常草图构思、随手记录与社媒快速分享。</p>
+            <p class="text-[11px] text-slate-300 leading-relaxed" data-i18n="tier_free_desc">输出高清 PNG（长边 1920px），带微小 EazyOPC 水印。适合草图构思、随手记录与社媒分享。</p>
           </div>
         </label>
 
@@ -2345,26 +2368,26 @@
             </div>
             
             <p class="text-[11px] text-slate-200 leading-relaxed" data-i18n="tier_pro_desc">
-              单次 $4.99 永久买断，解锁<strong>全部 4 大专业规格</strong>与商业授权，跨设备终身有效，无任何后续订阅费：
+              单次 $4.99 永久买断，解锁全部 Pro 导出格式，跨设备可用卡密恢复，无任何后续订阅费：
             </p>
 
             <!-- 4 大专业特权微缩矩阵 -->
             <div class="grid grid-cols-2 gap-1.5 text-[10px] pt-0.5">
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
                 <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                <div><span class="font-bold text-white block">4K 超清原画</span><span class="text-slate-400 text-[9px]">3840px 终身去水印</span></div>
+                <div><span class="font-bold text-white block" data-i18n="perk_4k_title">4K 超清原画</span><span class="text-slate-400 text-[9px]" data-i18n="perk_4k_sub">长边 3840px · 无水印</span></div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
                 <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
-                <div><span class="font-bold text-white block">透明背景 PNG</span><span class="text-slate-400 text-[9px]">剥离底纸·贴纸免抠</span></div>
+                <div><span class="font-bold text-white block" data-i18n="perk_png_title">透明背景 PNG</span><span class="text-slate-400 text-[9px]" data-i18n="perk_png_sub">剥离底纸 · 贴纸免抠</span></div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
                 <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
-                <div><span class="font-bold text-white block">Canva/Figma SVG</span><span class="text-slate-400 text-[9px]">矢量贝塞尔无损二次编辑</span></div>
+                <div><span class="font-bold text-white block" data-i18n="perk_svg_title">SVG 矢量线稿</span><span class="text-slate-400 text-[9px]" data-i18n="perk_svg_sub">Figma / Illustrator 可编辑</span></div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/90 border border-slate-700/60 flex items-center gap-2">
                 <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <div><span class="font-bold text-white block">矢量 PDF 打印文档</span><span class="text-slate-400 text-[9px]">按幅面出版印刷排版</span></div>
+                <div><span class="font-bold text-white block" data-i18n="perk_pdf_title">高清打印 PDF</span><span class="text-slate-400 text-[9px]" data-i18n="perk_pdf_sub">300 DPI · 纸张实际尺寸</span></div>
               </div>
             </div>
 
@@ -2372,10 +2395,10 @@
             <div id="proFormatSubOptions" class="hidden pt-2 border-t border-amber-500/20 space-y-1.5">
               <span class="text-[10px] text-amber-300 font-bold block" data-i18n="pro_choose_format">选择本次导出的 Pro 文件规格：</span>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-1 text-[11px]">
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400 text-center transition active:scale-95" data-fmt="png_4k">4K 超清图</button>
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="png_transparent">透明免抠</button>
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="svg_vector">矢量 SVG</button>
-                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="pdf_pro">矢量 PDF</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold border border-amber-400 text-center transition active:scale-95" data-fmt="png_4k" data-i18n="fmtbtn_png_4k">4K 超清图</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="png_transparent" data-i18n="fmtbtn_png_transparent">透明免抠</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="svg_vector" data-i18n="fmtbtn_svg_vector">SVG 矢量</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="pdf_pro" data-i18n="fmtbtn_pdf_pro">打印 PDF</button>
               </div>
             </div>
           </div>
@@ -2388,11 +2411,11 @@
           <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
           <span data-i18n="canva_figma_title">Canva & Figma 直连编辑工作流</span>
         </div>
-        <p class="text-[11px] text-slate-400" data-i18n="canva_figma_desc">已专为设计工具优化矢量格式，您可以一键复制矢量节点，或直接跳转到对应工具无缝编辑：</p>
+        <p class="text-[11px] text-slate-400" data-i18n="canva_figma_desc">SVG 中笔画为矢量路径，笔刷粗细、透明度与虚线与画布一致；荧光笔的正片叠底与霓虹发光在部分设计软件中会显示为普通半透明。</p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 pt-1">
           <button id="btnCopySvgToClipboard" class="py-2 px-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            <span data-i18n="btn_copy_svg">复制矢量到剪贴板</span>
+            <span data-i18n="btn_copy_svg">复制 SVG 代码</span>
           </button>
           <a href="https://www.canva.com" target="_blank" id="btnOpenCanva" class="py-2 px-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-[11px] font-semibold transition flex items-center justify-center gap-1 text-center">
             <span data-i18n="btn_open_canva">前往 Canva.com</span>
@@ -2409,7 +2432,7 @@
       <div class="space-y-2.5 pt-1">
         <button id="btnExecuteExport" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer active:scale-98">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-          <span id="lblExecuteExport" data-i18n="lbl_export_default">免费导出 1080P 标准图 (带水印)</span>
+          <span id="lblExecuteExport" data-i18n="lbl_export_default">免费导出高清 PNG（长边 1920px，带水印）</span>
         </button>
 
         <div class="flex items-center justify-between px-1 text-[11px] text-slate-400">
@@ -5241,6 +5264,229 @@
       }
     };
 
+    // ==== R4 i18n BEGIN (Round 4 新增/更正文案：后写覆盖同名旧键) ====
+    const TR_R4 = {
+      zh: {
+        site_subtitle: "漫画分镜与条漫在线画板",
+        fmt_pdf: "📄 高清打印 PDF（300 DPI）",
+        fmt_pdf_desc: "页面尺寸与所选纸张一致（A4 / A3 / Letter / B5），按原比例排版，所有页合成一份 PDF",
+        fmt_svg_canva_desc: "笔画导出为矢量路径（含纸张底纹、图层分组、图片与文字），可在 Figma / Illustrator 中继续编辑；Canva 请上传 .svg 文件",
+        canva_figma_desc: "SVG 中笔画为矢量路径，笔刷粗细、透明度与虚线与画布一致；荧光笔的正片叠底与霓虹发光在部分设计软件中会显示为普通半透明。",
+        svg_copied_toast: "SVG 代码已复制到剪贴板。\nFigma / Illustrator 中可直接粘贴 (Ctrl+V / Cmd+V)；Canva 不支持粘贴 SVG 代码，请改用「导出 SVG 文件」后上传。",
+        pro_perk_4: "<strong>高清打印 PDF（300 DPI）</strong>（页面尺寸与纸张一致）",
+        demo_snap_title: "停顿 420ms 智能图形吸附",
+        demo_snap_desc: "画一条大致的直线或一个圈，笔尖停住 420ms，自动吸附成笔直的直线或平滑的椭圆。",
+        demo_brush_title: "16 款漫画笔刷",
+        demo_brush_desc: "G 笔、丸笔、针管笔、分镜蓝铅笔、水彩毛笔、酒精马克笔、网点喷枪、虚线笔等 16 款笔刷；落笔时的笔压决定线条粗细。",
+        demo_pages_title: "多页分镜管理与打印 PDF",
+        demo_pages_desc: "自由加页、复制页、调整页序，所有页面一键合成 300 DPI 高清打印 PDF（位图）。",
+        tier_free_desc: "输出高清 PNG（长边 1920px），带微小 EazyOPC 水印。适合草图构思、随手记录与社媒分享。",
+        lbl_export_default: "免费导出高清 PNG（长边 1920px，带水印）",
+        btn_export_free: "免费导出高清 PNG（长边 1920px，带水印）",
+        fmt_png_free: "🖼️ 高清 PNG（长边 1920px）",
+        fmt_png_4k_desc: "长边 3840px，永久去水印",
+        tier_pro_desc: "单次 $4.99 永久买断，解锁全部 Pro 导出格式，跨设备可用卡密恢复，无任何后续订阅费：",
+        export_failed: "导出失败：图像过大或浏览器内存不足，请稍后重试。",
+        pdf_lib_loading: "PDF 组件加载中，请稍后再试。",
+        export_working: "正在生成文件，请稍候…",
+        autosave_quota_toast: "本地自动保存空间不足，图片未能存入浏览器。请点击「保存作品」下载 .eazyopc 文件，完整保留图片。",
+        file_saved_toast: "作品已保存为 .eazyopc 文件，之后可用「打开作品」继续编辑。",
+        file_save_failed: "保存失败，请重试。",
+        file_invalid: "无法打开：这不是有效的 EazyOPC 作品文件 (.eazyopc)。",
+        file_other_site_confirm: "这个作品文件来自 EazyOPC 的另一个工具（{site}），在 ComicBoard 中打开可能显示不同。仍要打开吗？",
+        file_opened_toast: "已打开作品（共 {n} 页）。",
+        save_work: "保存作品",
+        open_work: "打开作品",
+        tip_save_work: "保存作品为 .eazyopc 文件 (Ctrl+S)",
+        tip_open_work: "打开 .eazyopc 作品文件 (Ctrl+O)",
+        file_group: "作品文件",
+        btn_copy_svg: "复制 SVG 代码",
+        exp_btn_png_4k: "✨ 导出 4K PNG（长边 3840px，无水印）",
+        exp_btn_png_transparent: "🪟 导出透明背景 PNG（长边 3840px）",
+        exp_btn_svg_vector: "🎨 导出 SVG 矢量线稿",
+        exp_btn_pdf_pro: "📄 导出高清打印 PDF（300 DPI，全部页面）",
+        exp_btn_buy: "仅需 $4.99 一次付费 · 永久解锁 Pro 全部导出格式",
+        perk_4k_title: "4K 超清原画",
+        perk_4k_sub: "长边 3840px · 无水印",
+        perk_png_title: "透明背景 PNG",
+        perk_png_sub: "剥离底纸 · 贴纸免抠",
+        perk_svg_title: "SVG 矢量线稿",
+        perk_svg_sub: "Figma / Illustrator 可编辑",
+        perk_pdf_title: "高清打印 PDF",
+        perk_pdf_sub: "300 DPI · 纸张实际尺寸",
+        fmtbtn_png_4k: "4K 超清图",
+        fmtbtn_png_transparent: "透明免抠",
+        fmtbtn_svg_vector: "SVG 矢量",
+        fmtbtn_pdf_pro: "打印 PDF",
+        hero_title: "在浏览器里完成漫画分镜：分格、图层、对白与多页排版",
+        hero_desc: "内置日漫原稿纸、四格网格、拖拽分格工具、对白气泡框、图层、油漆桶与 16 款漫画笔刷；支持多页管理、复制与调整页序、双页并排对照。可导出 PNG（4K）/ SVG / 300 DPI 打印 PDF，作品可保存为 .eazyopc 文件随时继续，全部在浏览器本地运行。",
+        demos_badge: "浏览器本地实时渲染"
+      },
+      en: {
+        site_subtitle: "Online manga storyboard & comic board",
+        fmt_pdf: "📄 Print-ready PDF (300 DPI)",
+        fmt_pdf_desc: "Page size matches the selected paper (A4 / A3 / Letter / B5), original aspect ratio, all pages in one PDF",
+        fmt_svg_canva_desc: "Strokes export as vector paths (with paper background, layer groups, images and text), editable in Figma / Illustrator; upload the .svg file to Canva",
+        canva_figma_desc: "In the SVG, strokes are vector paths with the same width, opacity and dashes as on the canvas; highlighter multiply and neon glow may show as plain transparency in some design tools.",
+        svg_copied_toast: "SVG code copied to the clipboard.\nPaste it directly in Figma / Illustrator (Ctrl+V / Cmd+V). Canva cannot paste SVG code — export the .svg file and upload it instead.",
+        pro_perk_4: "<strong>Print-ready PDF (300 DPI)</strong> (page size matches the paper)",
+        demo_snap_title: "Hold 420ms to snap shapes",
+        demo_snap_desc: "Draw a rough line or loop and hold the pen still for 420ms: it snaps into a straight line or a smooth ellipse.",
+        demo_brush_title: "16 comic brushes",
+        demo_brush_desc: "G-pen, maru pen, fineliner, blue pencil, watercolor brush, alcohol marker, screentone airbrush, dotted pen and more — 16 brushes; pen pressure at touch-down sets the line width.",
+        demo_pages_title: "Multi-page storyboards & print PDF",
+        demo_pages_desc: "Add, duplicate and reorder pages, then combine every page into one 300 DPI print-ready (raster) PDF.",
+        tier_free_desc: "Outputs a high-res PNG (long side 1920px) with a subtle watermark. Ideal for sketches, notes and sharing.",
+        lbl_export_default: "Free export: PNG, long side 1920px (watermarked)",
+        btn_export_free: "Free export: PNG, long side 1920px (watermarked)",
+        fmt_png_free: "🖼️ HD PNG (long side 1920px)",
+        fmt_png_4k_desc: "Long side 3840px, permanently watermark-free",
+        tier_pro_desc: "Pay $4.99 once to unlock every Pro export format — restore on any device with your license key, no subscription:",
+        export_failed: "Export failed: the image is too large or the browser ran out of memory. Please try again.",
+        pdf_lib_loading: "The PDF component is still loading. Please try again in a moment.",
+        export_working: "Generating your file…",
+        autosave_quota_toast: "Local autosave is out of space, so images were not stored in the browser. Use “Save work” to download an .eazyopc file that keeps your images.",
+        file_saved_toast: "Saved as an .eazyopc file — use “Open work” to continue editing later.",
+        file_save_failed: "Saving failed, please try again.",
+        file_invalid: "Cannot open: this is not a valid EazyOPC work file (.eazyopc).",
+        file_other_site_confirm: "This work file was made with another EazyOPC tool ({site}). It may look different in ComicBoard. Open anyway?",
+        file_opened_toast: "Work opened ({n} pages).",
+        save_work: "Save work",
+        open_work: "Open work",
+        tip_save_work: "Save your work as an .eazyopc file (Ctrl+S)",
+        tip_open_work: "Open an .eazyopc work file (Ctrl+O)",
+        file_group: "Work file",
+        btn_copy_svg: "Copy SVG code",
+        exp_btn_png_4k: "✨ Export 4K PNG (long side 3840px, no watermark)",
+        exp_btn_png_transparent: "🪟 Export transparent PNG (long side 3840px)",
+        exp_btn_svg_vector: "🎨 Export SVG line art",
+        exp_btn_pdf_pro: "📄 Export print-ready PDF (300 DPI, all pages)",
+        exp_btn_buy: "Just $4.99 once · unlock every Pro export format forever",
+        perk_4k_title: "4K artwork",
+        perk_4k_sub: "Long side 3840px · no watermark",
+        perk_png_title: "Transparent PNG",
+        perk_png_sub: "No paper · sticker-ready",
+        perk_svg_title: "SVG line art",
+        perk_svg_sub: "Editable in Figma / Illustrator",
+        perk_pdf_title: "Print-ready PDF",
+        perk_pdf_sub: "300 DPI · real paper size",
+        fmtbtn_png_4k: "4K PNG",
+        fmtbtn_png_transparent: "Transparent",
+        fmtbtn_svg_vector: "SVG",
+        fmtbtn_pdf_pro: "Print PDF",
+        hero_title: "Storyboard your comic in the browser: panels, layers, dialogue and multi-page layout",
+        hero_desc: "Manga manuscript paper, 4-koma grid, drag-to-split panel tool, speech balloons, layers, paint bucket and 16 comic brushes; multi-page management with duplicate/reorder and a side-by-side two-page view. Export PNG (4K) / SVG / 300 DPI print PDF, and save your work as an .eazyopc file to continue later — everything runs locally in your browser.",
+        demos_badge: "Rendered live in your browser"
+      },
+      ja: {
+        site_subtitle: "オンライン漫画ネーム・コマ割りボード",
+        fmt_pdf: "📄 印刷用高解像度 PDF（300 DPI）",
+        fmt_pdf_desc: "用紙サイズ（A4 / A3 / Letter / B5）に合わせたページ、元の比率のまま全ページを1つの PDF に",
+        fmt_svg_canva_desc: "線はベクターパスで出力（用紙背景・レイヤー・画像・文字を含む）。Figma / Illustrator で編集可能、Canva には .svg をアップロード",
+        canva_figma_desc: "SVG の線はベクターパスで、太さ・透明度・破線はキャンバスと同じです。蛍光ペンの乗算とネオン発光は一部のデザインツールで通常の半透明になります。",
+        svg_copied_toast: "SVG コードをコピーしました。\nFigma / Illustrator ではそのまま貼り付けできます。Canva は SVG コードの貼り付けに非対応のため、.svg ファイルを書き出してアップロードしてください。",
+        pro_perk_4: "<strong>印刷用 PDF（300 DPI）</strong>（用紙サイズどおり）",
+        demo_snap_title: "420ms 静止で図形スナップ",
+        demo_snap_desc: "大まかな線や円を描いてペンを 420ms 止めると、直線またはなめらかな楕円に補正されます。",
+        demo_brush_title: "16 種類の漫画ブラシ",
+        demo_brush_desc: "Gペン、丸ペン、ミリペン、青鉛筆、水彩筆、アルコールマーカー、トーン用エアブラシ、点線ペンなど16種類。描き始めの筆圧で線の太さが決まります。",
+        demo_pages_title: "複数ページ管理と印刷用 PDF",
+        demo_pages_desc: "ページの追加・複製・並べ替えができ、全ページを 300 DPI の印刷用 PDF（ラスター）にまとめて書き出せます。",
+        tier_free_desc: "長辺 1920px の PNG（小さな透かし入り）。ラフや共有に最適。",
+        lbl_export_default: "無料で PNG 保存（長辺 1920px・透かしあり）",
+        btn_export_free: "無料で PNG 保存（長辺 1920px・透かしあり）",
+        fmt_png_free: "🖼️ HD PNG（長辺 1920px）",
+        fmt_png_4k_desc: "長辺 3840px、透かしなし",
+        btn_copy_svg: "SVG コードをコピー"
+      },
+      ko: {
+        site_subtitle: "온라인 만화 콘티 · 웹툰 보드",
+        fmt_pdf: "📄 인쇄용 고해상도 PDF (300 DPI)",
+        fmt_pdf_desc: "선택한 용지(A4 / A3 / Letter / B5) 크기 그대로, 원본 비율로 모든 페이지를 하나의 PDF로",
+        fmt_svg_canva_desc: "선은 벡터 패스로 내보냅니다(용지 배경, 레이어, 이미지, 텍스트 포함). Figma / Illustrator에서 편집 가능, Canva에는 .svg 파일을 업로드하세요",
+        canva_figma_desc: "SVG의 선은 캔버스와 같은 굵기·투명도·점선의 벡터 패스입니다. 형광펜 곱하기와 네온 발광은 일부 디자인 툴에서 일반 반투명으로 보일 수 있습니다.",
+        svg_copied_toast: "SVG 코드가 클립보드에 복사되었습니다.\nFigma / Illustrator에는 바로 붙여넣을 수 있습니다. Canva는 SVG 코드 붙여넣기를 지원하지 않으니 .svg 파일로 내보내 업로드하세요.",
+        pro_perk_4: "<strong>인쇄용 PDF (300 DPI)</strong> (용지 크기 그대로)",
+        demo_snap_title: "420ms 멈추면 도형 보정",
+        demo_snap_desc: "대략적인 선이나 원을 그리고 420ms 멈추면 곧은 직선 또는 매끄러운 타원으로 보정됩니다.",
+        demo_brush_title: "16가지 만화 브러시",
+        demo_brush_desc: "G펜, 마루펜, 피그먼트 라이너, 파란 연필, 수채 붓, 알코올 마커, 스크린톤 에어브러시, 점선 펜 등 16가지. 펜을 댈 때의 필압으로 선 굵기가 정해집니다.",
+        demo_pages_title: "다중 페이지 관리와 인쇄용 PDF",
+        demo_pages_desc: "페이지 추가·복제·순서 변경 후 모든 페이지를 300 DPI 인쇄용 PDF(래스터) 하나로 합칩니다.",
+        tier_free_desc: "긴 변 1920px PNG(작은 워터마크 포함). 스케치와 공유용.",
+        lbl_export_default: "무료 PNG 저장 (긴 변 1920px, 워터마크)",
+        btn_export_free: "무료 PNG 저장 (긴 변 1920px, 워터마크)",
+        fmt_png_free: "🖼️ HD PNG (긴 변 1920px)",
+        fmt_png_4k_desc: "긴 변 3840px, 워터마크 없음",
+        btn_copy_svg: "SVG 코드 복사"
+      },
+      de: {
+        site_subtitle: "Online-Manga-Storyboard & Comic-Board",
+        fmt_pdf: "📄 Druckfertiges PDF (300 DPI)",
+        fmt_pdf_desc: "Seitengröße wie das gewählte Papier (A4 / A3 / Letter / B5), Originalseitenverhältnis, alle Seiten in einem PDF",
+        fmt_svg_canva_desc: "Striche als Vektorpfade (mit Papierhintergrund, Ebenen, Bildern und Text), bearbeitbar in Figma / Illustrator; in Canva die .svg-Datei hochladen",
+        canva_figma_desc: "Im SVG sind Striche Vektorpfade mit derselben Breite, Deckkraft und Strichelung wie auf der Leinwand; Textmarker-Multiplizieren und Neon-Glühen erscheinen in manchen Tools als normale Transparenz.",
+        svg_copied_toast: "SVG-Code in die Zwischenablage kopiert.\nIn Figma / Illustrator direkt einfügen. Canva kann keinen SVG-Code einfügen – bitte die .svg-Datei exportieren und hochladen.",
+        pro_perk_4: "<strong>Druckfertiges PDF (300 DPI)</strong> (Seitengröße wie Papier)",
+        demo_snap_title: "420 ms halten zum Einrasten",
+        demo_snap_desc: "Eine grobe Linie oder Schleife zeichnen und den Stift 420 ms ruhig halten: sie rastet als gerade Linie oder glatte Ellipse ein.",
+        demo_brush_title: "16 Comic-Pinsel",
+        demo_brush_desc: "G-Feder, Maru-Feder, Fineliner, Blaustift, Aquarellpinsel, Alkoholmarker, Rasterton-Airbrush, gepunkteter Stift u. v. m. – 16 Pinsel; der Andruck beim Aufsetzen bestimmt die Linienbreite.",
+        demo_pages_title: "Mehrseitige Storyboards & Druck-PDF",
+        demo_pages_desc: "Seiten hinzufügen, duplizieren und umsortieren, dann alle Seiten zu einem druckfertigen 300-DPI-PDF (Raster) kombinieren.",
+        tier_free_desc: "PNG mit langer Seite 1920 px und dezentem Wasserzeichen. Ideal für Skizzen und zum Teilen.",
+        lbl_export_default: "Kostenlos: PNG, lange Seite 1920 px (Wasserzeichen)",
+        btn_export_free: "Kostenlos: PNG, lange Seite 1920 px (Wasserzeichen)",
+        fmt_png_free: "🖼️ HD-PNG (lange Seite 1920 px)",
+        fmt_png_4k_desc: "Lange Seite 3840 px, ohne Wasserzeichen",
+        btn_copy_svg: "SVG-Code kopieren"
+      },
+      es: {
+        site_subtitle: "Tablero online de storyboard manga y cómic",
+        fmt_pdf: "📄 PDF listo para imprimir (300 DPI)",
+        fmt_pdf_desc: "Tamaño de página igual al papel elegido (A4 / A3 / Carta / B5), proporción original, todas las páginas en un PDF",
+        fmt_svg_canva_desc: "Los trazos se exportan como trayectos vectoriales (con fondo del papel, capas, imágenes y texto), editables en Figma / Illustrator; en Canva sube el archivo .svg",
+        canva_figma_desc: "En el SVG los trazos son trayectos vectoriales con el mismo grosor, opacidad y guiones que en el lienzo; el multiplicar del resaltador y el brillo neón pueden verse como transparencia simple en algunas herramientas.",
+        svg_copied_toast: "Código SVG copiado al portapapeles.\nPégalo directamente en Figma / Illustrator. Canva no admite pegar código SVG: exporta el archivo .svg y súbelo.",
+        pro_perk_4: "<strong>PDF listo para imprimir (300 DPI)</strong> (tamaño del papel)",
+        demo_snap_title: "Mantén 420 ms para ajustar formas",
+        demo_snap_desc: "Dibuja una línea o un lazo aproximado y deja el lápiz quieto 420 ms: se ajusta a una línea recta o a una elipse suave.",
+        demo_brush_title: "16 pinceles de cómic",
+        demo_brush_desc: "Plumilla G, plumilla maru, rotulador fino, lápiz azul, pincel de acuarela, rotulador de alcohol, aerógrafo de trama, pluma punteada y más: 16 pinceles; la presión al apoyar define el grosor.",
+        demo_pages_title: "Storyboards multipágina y PDF de impresión",
+        demo_pages_desc: "Añade, duplica y reordena páginas y combínalas en un PDF de impresión a 300 DPI (rasterizado).",
+        tier_free_desc: "PNG con lado largo de 1920 px y marca de agua sutil. Ideal para bocetos y compartir.",
+        lbl_export_default: "Exportar gratis: PNG, lado largo 1920 px (con marca)",
+        btn_export_free: "Exportar gratis: PNG, lado largo 1920 px (con marca)",
+        fmt_png_free: "🖼️ PNG HD (lado largo 1920 px)",
+        fmt_png_4k_desc: "Lado largo 3840 px, sin marca de agua",
+        btn_copy_svg: "Copiar código SVG"
+      },
+      fr: {
+        site_subtitle: "Planche en ligne pour storyboard manga et BD",
+        fmt_pdf: "📄 PDF prêt à imprimer (300 DPI)",
+        fmt_pdf_desc: "Format de page identique au papier choisi (A4 / A3 / Letter / B5), proportions d’origine, toutes les pages dans un PDF",
+        fmt_svg_canva_desc: "Les traits sont exportés en tracés vectoriels (avec fond du papier, calques, images et texte), modifiables dans Figma / Illustrator ; dans Canva, importez le fichier .svg",
+        canva_figma_desc: "Dans le SVG, les traits sont des tracés vectoriels de même épaisseur, opacité et pointillés que sur le canevas ; le mode produit du surligneur et la lueur néon peuvent apparaître en simple transparence dans certains outils.",
+        svg_copied_toast: "Code SVG copié dans le presse-papiers.\nCollez-le directement dans Figma / Illustrator. Canva ne sait pas coller du code SVG : exportez le fichier .svg puis importez-le.",
+        pro_perk_4: "<strong>PDF prêt à imprimer (300 DPI)</strong> (format du papier)",
+        demo_snap_title: "Maintenir 420 ms pour aligner",
+        demo_snap_desc: "Tracez une ligne ou une boucle approximative et gardez le stylet immobile 420 ms : elle devient une droite ou une ellipse lisse.",
+        demo_brush_title: "16 pinceaux BD",
+        demo_brush_desc: "Plume G, plume maru, feutre fin, crayon bleu, pinceau aquarelle, marqueur à alcool, aérographe trame, stylo pointillé… 16 pinceaux ; la pression au contact fixe l’épaisseur.",
+        demo_pages_title: "Storyboards multipages et PDF d’impression",
+        demo_pages_desc: "Ajoutez, dupliquez et réordonnez les pages, puis combinez-les en un PDF d’impression 300 DPI (matriciel).",
+        tier_free_desc: "PNG au grand côté de 1920 px avec filigrane discret. Idéal pour croquis et partage.",
+        lbl_export_default: "Export gratuit : PNG, grand côté 1920 px (filigrane)",
+        btn_export_free: "Export gratuit : PNG, grand côté 1920 px (filigrane)",
+        fmt_png_free: "🖼️ PNG HD (grand côté 1920 px)",
+        fmt_png_4k_desc: "Grand côté 3840 px, sans filigrane",
+        btn_copy_svg: "Copier le code SVG"
+      }
+    };
+    Object.keys(TR_R4).forEach((l) => { TRANSLATIONS[l] = Object.assign(TRANSLATIONS[l] || {}, TR_R4[l]); });
+    // ==== R4 i18n END ====
+
     const appState = {
       lang: 'zh',
       tool: 'pen',        // 'select' | 'pen' | 'ballpoint' | 'pencil' | 'brush' | 'crayon' | 'highlighter' | 'spray' | 'text' | 'eraser' | 'lasso' | 'laser'
@@ -5286,6 +5532,22 @@
       panStart: { x: 0, y: 0 }
     };
     window.appState = appState;
+
+    // 取词顺序：当前语言 → (非中文时) 英文 → 中文
+    function lookupI18n(lang, key) {
+      const d = TRANSLATIONS[lang];
+      if (d && d[key] != null) return d[key];
+      if (lang !== 'zh' && TRANSLATIONS.en && TRANSLATIONS.en[key] != null) return TRANSLATIONS.en[key];
+      if (TRANSLATIONS.zh && TRANSLATIONS.zh[key] != null) return TRANSLATIONS.zh[key];
+      return null;
+    }
+    // i18n 取词：当前语言 → 英文/中文兜底 → 键名；支持 {name} 占位符
+    function tr(key, vars) {
+      let v = lookupI18n(appState.lang, key);
+      if (v == null) v = key;
+      if (vars) for (const k in vars) v = String(v).split('{' + k + '}').join(vars[k]);
+      return v;
+    }
 
     const canvas = document.getElementById('mainCanvas');
     const ctx = canvas.getContext('2d');
@@ -5532,56 +5794,62 @@
       if (appState.isDualSpread) renderReferenceBoard();
     }
 
-    function renderBackgroundOnContext(targetCtx, w, h, scaleFactor = 1, transparent = false) {
+    // ================= 🎨 纸张底纹 (画布与 SVG 共用同一套几何参数) =================
+    // opts: { offsetX, offsetY, plainPaper, paper }
+    function renderBackgroundOnContext(targetCtx, w, h, scaleFactor = 1, transparent = false, opts = null) {
+      const o = opts || {};
+      const ox = o.offsetX || 0, oy = o.offsetY || 0;
       targetCtx.save();
       targetCtx.setTransform(1, 0, 0, 1, 0, 0);
 
       if (transparent) {
-        targetCtx.clearRect(0, 0, w * scaleFactor, h * scaleFactor);
+        targetCtx.clearRect(ox, oy, w * scaleFactor, h * scaleFactor);
         targetCtx.restore();
         return;
       }
 
+      targetCtx.setTransform(1, 0, 0, 1, ox, oy);
       targetCtx.scale(scaleFactor, scaleFactor);
+      const paper = o.paper || appState.paper;
 
-      switch (appState.paper) {
-        case 'manga_manuscript':
+      if (o.plainPaper) {
+        // 印刷导出可选：只保留纸色，不画非摄影蓝参考线 / 网格
+        targetCtx.fillStyle = paper === 'dark_comic' ? '#0f172a' : '#ffffff';
+        targetCtx.fillRect(0, 0, w, h);
+        targetCtx.restore();
+        return;
+      }
+
+      switch (paper) {
+        case 'manga_manuscript': {
           // 经典日漫 B5 印刷原稿纸 (带有内框裁切安全线与天头地脚标尺)
           targetCtx.fillStyle = '#ffffff';
           targetCtx.fillRect(0, 0, w, h);
-
           // 浅蓝非摄影安全线 (Non-repro Blue)
           targetCtx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
           targetCtx.lineWidth = 1;
-
           const padX = Math.round(w * 0.08);
           const padY = Math.round(h * 0.08);
-          // 外出血框 (Bleed box)
-          targetCtx.strokeRect(padX * 0.5, padY * 0.5, w - padX, h - padY);
-          // 内框主体 (Inner safe frame)
+          targetCtx.strokeRect(padX * 0.5, padY * 0.5, w - padX, h - padY); // 外出血框 (Bleed box)
           targetCtx.setLineDash([6, 3]);
-          targetCtx.strokeRect(padX, padY, w - padX * 2, h - padY * 2);
+          targetCtx.strokeRect(padX, padY, w - padX * 2, h - padY * 2);     // 内框主体 (Inner safe frame)
           targetCtx.setLineDash([]);
-
-          // 中心十字标记 (Center cross mark)
-          targetCtx.beginPath();
+          targetCtx.beginPath();                                            // 中心十字标记
           targetCtx.moveTo(w / 2 - 8, h / 2); targetCtx.lineTo(w / 2 + 8, h / 2);
           targetCtx.moveTo(w / 2, h / 2 - 8); targetCtx.lineTo(w / 2, h / 2 + 8);
           targetCtx.stroke();
           break;
-
-        case 'comic_4koma_grid':
+        }
+        case 'comic_4koma_grid': {
           targetCtx.fillStyle = '#ffffff';
           targetCtx.fillRect(0, 0, w, h);
           targetCtx.strokeStyle = 'rgba(100, 116, 139, 0.35)';
           targetCtx.lineWidth = 1.5;
           const kPad = Math.round(w * 0.12);
           const boxH = Math.round((h - kPad * 2) / 4);
-          for (let i = 0; i < 4; i++) {
-            targetCtx.strokeRect(kPad, kPad + i * boxH + 4, w - kPad * 2, boxH - 8);
-          }
+          for (let i = 0; i < 4; i++) targetCtx.strokeRect(kPad, kPad + i * boxH + 4, w - kPad * 2, boxH - 8);
           break;
-
+        }
         case 'webtoon_canvas':
           targetCtx.fillStyle = '#ffffff';
           targetCtx.fillRect(0, 0, w, h);
@@ -5590,8 +5858,7 @@
           targetCtx.strokeRect(20, 20, w - 40, h - 40);
           targetCtx.setLineDash([]);
           break;
-
-        case 'dot':
+        case 'dot': {
           targetCtx.fillStyle = '#ffffff';
           targetCtx.fillRect(0, 0, w, h);
           targetCtx.fillStyle = 'rgba(148, 163, 184, 0.45)';
@@ -5602,8 +5869,8 @@
             }
           }
           break;
-
-        case 'square':
+        }
+        case 'square': {
           targetCtx.fillStyle = '#ffffff';
           targetCtx.fillRect(0, 0, w, h);
           targetCtx.strokeStyle = 'rgba(148, 163, 184, 0.35)';
@@ -5614,7 +5881,7 @@
           for (let y = 0; y <= h; y += step) { targetCtx.moveTo(0, y); targetCtx.lineTo(w, y); }
           targetCtx.stroke();
           break;
-
+        }
         case 'dark_comic':
           targetCtx.fillStyle = '#0f172a';
           targetCtx.fillRect(0, 0, w, h);
@@ -5623,223 +5890,190 @@
           targetCtx.strokeRect(20, 20, w - 40, h - 40);
           targetCtx.setLineDash([]);
           break;
-
         default:
           targetCtx.fillStyle = '#ffffff';
           targetCtx.fillRect(0, 0, w, h);
           break;
       }
-
       targetCtx.restore();
+    }
+
+    // ================= 🖋️ 统一笔刷样式表 (屏幕实时绘制 / 重绘 / 位图导出 / SVG 导出共用，保证导出与画布一致) =================
+    function getStrokeStyle(s) {
+      const size = Number(s.size) || 2;
+      const st = { color: s.color || '#18181b', alpha: 1, width: size, cap: 'round', join: 'round', dash: null, composite: 'source-over', glow: 0 };
+      switch (s.tool) {
+        case 'marker': st.alpha = 0.65; st.cap = 'square'; st.join = 'bevel'; st.width = Math.max(3, size * 2.8); break;
+        case 'fineliner': st.width = Math.max(0.6, size * 0.42); break;
+        case 'fude_pen': st.alpha = 0.95; st.width = size * 1.5; break;
+        case 'white_gel': st.color = '#ffffff'; st.width = Math.max(1.2, size * 0.85); break;
+        case 'highlighter': st.composite = 'multiply'; st.alpha = 0.35; st.cap = 'square'; st.join = 'miter'; st.width = size * 3.6; break;
+        case 'spray': st.alpha = 0.45; break;
+        case 'pencil': st.alpha = 0.78; st.width = Math.max(1, size * 0.75); break;
+        case 'blue_pencil': st.color = s.color || '#38bdf8'; st.alpha = 0.65; st.width = Math.max(1, size * 0.8); break;
+        case 'maru': st.alpha = 0.95; st.width = Math.max(0.8, size * 0.55); break;
+        case 'brush': st.alpha = 0.88; st.width = size * 1.35; break;
+        case 'crosshatch': st.alpha = 0.85; st.width = size * 0.9; break;
+        case 'neon': st.glow = Math.max(6, size * 2.8); st.alpha = 0.95; st.width = Math.max(2, size * 1.2); break;
+        case 'dotted': st.dash = [Math.max(4, size * 1.8), Math.max(4, size * 1.8)]; break;
+        case 'ballpoint': st.alpha = 0.95; st.width = Math.max(1, size * 0.82); break;
+        case 'panel': st.cap = 'square'; st.join = 'miter'; break; // 分镜格边框 / 气泡
+        default: break;
+      }
+      if (s.isDashed && !st.dash) st.dash = [5, 5];
+      return st;
+    }
+
+    function applyStrokeStyle(c, st, scale = 1) {
+      c.globalCompositeOperation = st.composite;
+      c.strokeStyle = st.color;
+      c.fillStyle = st.color;
+      c.globalAlpha = st.alpha;
+      c.lineCap = st.cap;
+      c.lineJoin = st.join;
+      c.lineWidth = st.width;
+      c.setLineDash(st.dash || []);
+      if (st.glow) {
+        // shadowBlur 不受 transform 缩放影响，按导出倍率换算，保证 4K 导出与屏幕发光一致
+        c.shadowBlur = st.glow * scale;
+        c.shadowColor = st.color;
+      } else {
+        c.shadowBlur = 0;
+      }
+    }
+
+    // 贝塞尔中点二次曲线平滑插值 (与 SVG 导出的 path 完全同构)
+    function traceStrokePath(c, pts) {
+      c.moveTo(pts[0].x, pts[0].y);
+      if (pts.length === 2) {
+        c.lineTo(pts[1].x, pts[1].y);
+        return;
+      }
+      for (let i = 1; i < pts.length - 1; i++) {
+        const p1 = pts[i];
+        const p2 = pts[i + 1];
+        c.quadraticCurveTo(p1.x, p1.y, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+      }
+      c.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+    }
+
+    function drawStrokeOn(c, s, scale = 1) {
+      const pts = s.points;
+      if (!pts || pts.length === 0) return;
+      const st = getStrokeStyle(s);
+      c.save();
+      if (s.tool === 'spray') {
+        c.fillStyle = st.color;
+        c.globalAlpha = st.alpha;
+        for (const pt of pts) {
+          if (!pt.sprayDots) continue;
+          for (const dot of pt.sprayDots) c.fillRect(pt.x + dot.dx, pt.y + dot.dy, dot.r, dot.r);
+        }
+        c.restore();
+        return;
+      }
+      if (s.fill && pts.length >= 3) {
+        // 气泡框 / 封闭图形的底色 (白底遮挡下方画面)
+        c.beginPath();
+        traceStrokePath(c, pts);
+        c.closePath();
+        c.globalAlpha = 1;
+        c.fillStyle = s.fill;
+        c.fill();
+      }
+      applyStrokeStyle(c, st, scale);
+      if (pts.length === 1) {
+        c.beginPath();
+        c.arc(pts[0].x, pts[0].y, Math.max(1.5, st.width / 2), 0, Math.PI * 2);
+        c.fill();
+      } else {
+        c.beginPath();
+        traceStrokePath(c, pts);
+        if (s.closed) c.closePath();
+        c.stroke();
+      }
+      c.restore();
+    }
+
+    function drawImageOn(c, im) {
+      if (!im.img || !im.img.complete || !im.img.naturalWidth) return;
+      c.save();
+      const cx = im.x + im.width / 2;
+      const cy = im.y + im.height / 2;
+      c.translate(cx, cy);
+      if (im.rotation) c.rotate(im.rotation);
+      c.drawImage(im.img, -im.width / 2, -im.height / 2, im.width, im.height);
+      c.restore();
+    }
+
+    // 文字排版度量 (画布渲染与 SVG 导出共用)
+    function measureTextLayout(t, measureCtx) {
+      const fontSize = Number(t.size) || 24;
+      const family = t.fontFamily || "'Noto Sans SC', sans-serif";
+      const font = `${t.bold ? 'bold' : 'normal'} ${fontSize}px ${family}`;
+      const lines = String(t.text || '').split('\n');
+      const m = measureCtx || ctx;
+      m.save();
+      m.font = font;
+      let maxW = 30;
+      for (const line of lines) {
+        const w = m.measureText(line).width;
+        if (w > maxW) maxW = w;
+      }
+      m.restore();
+      const lineH = fontSize * 1.25;
+      const totalH = Math.max(lineH, lines.length * lineH);
+      const cx = t.x + maxW / 2;
+      const cy = t.y - lineH + totalH / 2;
+      return { fontSize, family, font, lines, maxW, lineH, totalH, cx, cy };
+    }
+
+    function drawTextOn(c, t) {
+      if (t._editing) return;
+      const L = measureTextLayout(t, c);
+      c.save();
+      c.font = L.font;
+      c.fillStyle = t.color || '#ffffff';
+      c.textBaseline = 'alphabetic';
+      c.translate(L.cx, L.cy);
+      if (t.rotation) c.rotate(t.rotation);
+      for (let li = 0; li < L.lines.length; li++) {
+        c.fillText(L.lines[li], -L.maxW / 2, -L.totalH / 2 + (li + 0.82) * L.lineH);
+      }
+      c.restore();
+    }
+
+    // 渲染分组：按图层自下而上，每层内依次为 图片 → 笔画 → 文字
+    function getRenderGroups(src) {
+      return [{ images: src.images || [], strokes: src.strokes || [], texts: src.texts || [] }];
     }
 
     // data: 任意页面数据 {strokes, texts, images}，默认渲染当前主画板 (appState)
-    function redrawAllStrokes(targetCtx = ctx, scale = dpr, transparent = false, data = null) {
+    // opts: { offsetX, offsetY, plainPaper, clip } —— 用于印刷导出时把页面放进更大的纸张
+    function redrawAllStrokes(targetCtx = ctx, scale = dpr, transparent = false, data = null, opts = null) {
       const src = data || appState;
-      renderBackgroundOnContext(targetCtx, cssWidth, cssHeight, scale, transparent);
+      const o = opts || {};
+      renderBackgroundOnContext(targetCtx, cssWidth, cssHeight, scale, transparent, o);
 
       targetCtx.save();
-      targetCtx.setTransform(1, 0, 0, 1, 0, 0);
+      targetCtx.setTransform(1, 0, 0, 1, o.offsetX || 0, o.offsetY || 0);
       targetCtx.scale(scale, scale);
-
-      // 1. 渲染插入/粘贴的图片 (支持 360° 旋转)
-      for (const im of (src.images || [])) {
-        if (im.img && im.img.complete) {
-          targetCtx.save();
-          const cx = im.x + im.width / 2;
-          const cy = im.y + im.height / 2;
-          targetCtx.translate(cx, cy);
-          if (im.rotation) targetCtx.rotate(im.rotation);
-          targetCtx.drawImage(im.img, -im.width / 2, -im.height / 2, im.width, im.height);
-          targetCtx.restore();
-        }
+      if (o.clip) {
+        targetCtx.beginPath();
+        targetCtx.rect(0, 0, cssWidth, cssHeight);
+        targetCtx.clip();
       }
-
-            // 2. 渲染 12 大商业级手绘笔画 (G-Pen, 丸笔, 铅笔, 蓝笔, 毛笔, 喷枪, 荧光, 排线, 霓虹, 虚线, 激光, 圆珠笔)
-      for (const s of (src.strokes || [])) {
-        if (!s.points || s.points.length === 0) continue;
-        targetCtx.save();
-
-        if (s.isDashed || s.tool === 'dotted') {
-          targetCtx.setLineDash([5, 5]);
-        } else {
-          targetCtx.setLineDash([]);
-        }
-
-        if (s.tool === 'marker') {
-          targetCtx.globalCompositeOperation = 'source-over';
-          targetCtx.strokeStyle = s.color;
-          targetCtx.globalAlpha = 0.65;
-          targetCtx.lineCap = 'square';
-          targetCtx.lineJoin = 'bevel';
-          targetCtx.lineWidth = Math.max(3, s.size * 2.8);
-        } else if (s.tool === 'fineliner') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 1.0;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(0.6, s.size * 0.42);
-        } else if (s.tool === 'fude_pen') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.95;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = s.size * 1.5;
-        } else if (s.tool === 'white_gel') {
-          targetCtx.strokeStyle = '#ffffff';
-          targetCtx.fillStyle = '#ffffff';
-          targetCtx.globalAlpha = 1.0;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(1.2, s.size * 0.85);
-        } else if (s.tool === 'highlighter') {
-          targetCtx.globalCompositeOperation = 'multiply';
-          targetCtx.strokeStyle = s.color;
-          targetCtx.globalAlpha = 0.35;
-          targetCtx.lineCap = 'square';
-          targetCtx.lineJoin = 'miter';
-          targetCtx.lineWidth = s.size * 3.6;
-        } else if (s.tool === 'spray') {
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.45;
-          for (const pt of s.points) {
-            if (pt.sprayDots) {
-              for (const dot of pt.sprayDots) {
-                targetCtx.fillRect(pt.x + dot.dx, pt.y + dot.dy, dot.r, dot.r);
-              }
-            }
-          }
-          targetCtx.restore();
-          continue;
-        } else if (s.tool === 'pencil') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.78;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(1, s.size * 0.75);
-        } else if (s.tool === 'blue_pencil') {
-          targetCtx.strokeStyle = s.color || '#38bdf8';
-          targetCtx.fillStyle = s.color || '#38bdf8';
-          targetCtx.globalAlpha = 0.65;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(1, s.size * 0.8);
-        } else if (s.tool === 'maru') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.95;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(0.8, s.size * 0.55);
-        } else if (s.tool === 'brush') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.88;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = s.size * 1.35;
-        } else if (s.tool === 'crosshatch') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.85;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = s.size * 0.9;
-        } else if (s.tool === 'neon') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.shadowBlur = Math.max(6, s.size * 2.8);
-          targetCtx.shadowColor = s.color;
-          targetCtx.globalAlpha = 0.95;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(2, s.size * 1.2);
-        } else if (s.tool === 'dotted') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 1.0;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.setLineDash([Math.max(4, s.size * 1.8), Math.max(4, s.size * 1.8)]);
-          targetCtx.lineWidth = s.size;
-        } else if (s.tool === 'ballpoint') {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 0.95;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = Math.max(1, s.size * 0.82);
-        } else {
-          targetCtx.strokeStyle = s.color;
-          targetCtx.fillStyle = s.color;
-          targetCtx.globalAlpha = 1.0;
-          targetCtx.lineCap = 'round';
-          targetCtx.lineJoin = 'round';
-          targetCtx.lineWidth = s.size;
-        }
-
-        if (s.points.length === 1) {
-          targetCtx.beginPath();
-          targetCtx.arc(s.points[0].x, s.points[0].y, Math.max(1.5, targetCtx.lineWidth / 2), 0, Math.PI * 2);
-          targetCtx.fill();
-        } else if (s.points.length === 2) {
-          targetCtx.beginPath();
-          targetCtx.moveTo(s.points[0].x, s.points[0].y);
-          targetCtx.lineTo(s.points[1].x, s.points[1].y);
-          targetCtx.stroke();
-        } else {
-          // 🌟 贝塞尔中点二次曲线平滑插值，彻底消除角折线与锯齿齿轮
-          targetCtx.beginPath();
-          targetCtx.moveTo(s.points[0].x, s.points[0].y);
-          for (let i = 1; i < s.points.length - 1; i++) {
-            const p1 = s.points[i];
-            const p2 = s.points[i + 1];
-            const midX = (p1.x + p2.x) / 2;
-            const midY = (p1.y + p2.y) / 2;
-            targetCtx.quadraticCurveTo(p1.x, p1.y, midX, midY);
-          }
-          targetCtx.lineTo(s.points[s.points.length - 1].x, s.points[s.points.length - 1].y);
-          targetCtx.stroke();
-        }
-
-        targetCtx.restore();
+      for (const g of getRenderGroups(src)) {
+        for (const im of g.images) drawImageOn(targetCtx, im);
+        for (const s of g.strokes) drawStrokeOn(targetCtx, s, scale);
+        for (const t of g.texts) drawTextOn(targetCtx, t);
       }
-
-      // 3. 渲染自由打字文本 (支持 9 款开源艺术字体、多行对齐与 360° 旋转)
-      for (const t of (src.texts || [])) {
-        if (t._editing) continue;
-        targetCtx.save();
-        const fontSize = Number(t.size) || 24;
-        const family = t.fontFamily || "'Noto Sans SC', sans-serif";
-        targetCtx.font = `${t.bold ? 'bold' : 'normal'} ${fontSize}px ${family}`;
-        targetCtx.fillStyle = t.color || '#ffffff';
-        targetCtx.textBaseline = 'alphabetic';
-        const lines = String(t.text || '').split('\n');
-        let maxW = 30;
-        for (const line of lines) {
-          const w = targetCtx.measureText(line).width;
-          if (w > maxW) maxW = w;
-        }
-        const lineH = fontSize * 1.25;
-        const totalH = Math.max(lineH, lines.length * lineH);
-        const cx = t.x + maxW / 2;
-        const cy = t.y - lineH + totalH / 2;
-        targetCtx.translate(cx, cy);
-        if (t.rotation) targetCtx.rotate(t.rotation);
-        for (let li = 0; li < lines.length; li++) {
-          const ly = -totalH / 2 + (li + 0.82) * lineH;
-          targetCtx.fillText(lines[li], -maxW / 2, ly);
-        }
-        targetCtx.restore();
-      }
-
       targetCtx.restore();
-      if (!data && targetCtx === ctx && typeof scheduleAutosave === 'function') scheduleAutosave();
+      if (!data && targetCtx === ctx) {
+        if (typeof scheduleAutosave === 'function') scheduleAutosave();
+        if (typeof updateEmptyHint === 'function') updateEmptyHint();
+      }
     }
-
     function createLaserBeam(x, y) {
       const dot = document.createElement('div');
       dot.className = 'laser-dot w-4 h-4 bg-rose-500 shadow-[0_0_12px_#f43f5e] opacity-90';
@@ -7004,113 +7238,18 @@
       c.save();
       c.setTransform(1, 0, 0, 1, 0, 0);
       c.scale(dpr, dpr);
+      const st = getStrokeStyle(s);
 
-      // 彻底防止虚线模式泄漏：默认无条件重置虚线
-      if (s.tool === 'dotted') {
-        c.setLineDash([Math.max(4, s.size * 1.8), Math.max(4, s.size * 1.8)]);
-      } else {
-        c.setLineDash([]);
-      }
-
-      if (s.tool === 'highlighter') {
-        c.globalCompositeOperation = 'multiply';
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.35;
-        c.lineCap = 'square';
-        c.lineJoin = 'miter';
-        c.lineWidth = s.size * 3.6;
-      } else if (s.tool === 'spray') {
-        c.fillStyle = s.color;
-        c.globalAlpha = 0.45;
+      if (s.tool === 'spray') {
+        c.fillStyle = st.color;
+        c.globalAlpha = st.alpha;
         if (p2 && p2.sprayDots) {
-          for (const dot of p2.sprayDots) {
-            c.fillRect(p2.x + dot.dx, p2.y + dot.dy, dot.r, dot.r);
-          }
+          for (const dot of p2.sprayDots) c.fillRect(p2.x + dot.dx, p2.y + dot.dy, dot.r, dot.r);
         }
         c.restore();
         return;
-      } else if (s.tool === 'pencil') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.78;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(1, s.size * 0.75);
-      } else if (s.tool === 'blue_pencil') {
-        c.strokeStyle = s.color || '#38bdf8';
-        c.globalAlpha = 0.65;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(1, s.size * 0.8);
-      } else if (s.tool === 'maru') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.95;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(0.8, s.size * 0.55);
-      } else if (s.tool === 'brush') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.88;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = s.size * 1.35;
-      } else if (s.tool === 'crosshatch') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.85;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = s.size * 0.9;
-      } else if (s.tool === 'neon') {
-        c.strokeStyle = s.color;
-        c.shadowBlur = Math.max(6, s.size * 2.8);
-        c.shadowColor = s.color;
-        c.globalAlpha = 0.95;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(2, s.size * 1.2);
-      } else if (s.tool === 'dotted') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 1.0;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = s.size;
-      } else if (s.tool === 'ballpoint') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.95;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(1, s.size * 0.82);
-      } else if (s.tool === 'marker') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.65;
-        c.lineCap = 'square';
-        c.lineJoin = 'bevel';
-        c.lineWidth = Math.max(3, s.size * 2.8);
-      } else if (s.tool === 'fineliner') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 1.0;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(0.6, s.size * 0.42);
-      } else if (s.tool === 'fude_pen') {
-        c.strokeStyle = s.color;
-        c.globalAlpha = 0.95;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = s.size * 1.5;
-      } else if (s.tool === 'white_gel') {
-        c.strokeStyle = '#ffffff';
-        c.globalAlpha = 1.0;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(1.2, s.size * 0.85);
-      } else {
-        // G 笔与通用手绘笔：光滑圆润，杜绝阶梯锯齿与齿轮状珠点
-        c.strokeStyle = s.color;
-        c.globalAlpha = 1.0;
-        c.lineCap = 'round';
-        c.lineJoin = 'round';
-        c.lineWidth = Math.max(1, s.size);
       }
+      applyStrokeStyle(c, st, dpr);
 
       // 🌟 贝塞尔二次平滑中点曲线绘制：杜绝直线折角与粗细跳变导致的齿轮齿状
       const pts = s.points;
@@ -7119,13 +7258,9 @@
         const p0 = pts[len - 3];
         const pA = pts[len - 2];
         const pB = pts[len - 1];
-        const m1x = (p0.x + pA.x) / 2;
-        const m1y = (p0.y + pA.y) / 2;
-        const m2x = (pA.x + pB.x) / 2;
-        const m2y = (pA.y + pB.y) / 2;
         c.beginPath();
-        c.moveTo(m1x, m1y);
-        c.quadraticCurveTo(pA.x, pA.y, m2x, m2y);
+        c.moveTo((p0.x + pA.x) / 2, (p0.y + pA.y) / 2);
+        c.quadraticCurveTo(pA.x, pA.y, (pA.x + pB.x) / 2, (pA.y + pB.y) / 2);
         c.stroke();
       } else if (p1 && p2) {
         c.beginPath();
@@ -7133,7 +7268,6 @@
         c.lineTo(p2.x, p2.y);
         c.stroke();
       }
-
       c.restore();
     }
 
@@ -7679,8 +7813,11 @@
         return;
       }
 
+      const hadStroke = !!currentStroke;
       isDrawing = false;
       currentStroke = null;
+      // 笔画结束后整体重绘一次：消除实时分段绘制的半透明叠加，保证所见即导出
+      if (hadStroke) redrawAllStrokes();
     }
     window.addEventListener('pointerup', onWindowPointerUp);
     window.addEventListener('pointercancel', onWindowPointerUp);
@@ -7738,7 +7875,9 @@
       e.preventDefault();
       if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
         const file = e.dataTransfer.files[0];
-        if (file.type.startsWith('image/')) {
+        if (isWorkFile(file)) {
+          openWorkFile(file);
+        } else if (file.type.startsWith('image/')) {
           const reader = new FileReader();
           reader.onload = (ev) => addImageToCanvas(ev.target.result);
           reader.readAsDataURL(file);
@@ -7897,24 +8036,26 @@
           return c;
         }),
         images: withImages
-          ? (b.images || []).map(im => ({
-              id: im.id,
-              src: (im.img && im.img.src) || '',
-              x: im.x, y: im.y, width: im.width, height: im.height,
-              rotation: im.rotation || 0
-            })).filter(im => im.src)
+          ? (b.images || []).map(im => {
+              const { img, ...rest } = im;
+              return { ...rest, src: (img && img.src) || '', rotation: im.rotation || 0 };
+            }).filter(im => im.src)
           : []
       };
     }
 
+    // 自动保存与「保存作品 (.eazyopc)」共用同一个序列化器
     function buildDocumentForSave(withImages) {
       const cur = appState.currentPageIndex;
       return {
+        app: 'eazyopc',
+        site: 'comicboard',
         v: 1,
         savedAt: Date.now(),
         currentPageIndex: appState.isDualSpread ? 0 : cur, // 双板状态下刷新回到第 1 页
         paper: appState.paper,
         ratio: appState.ratio,
+        canvas: { w: cssWidth, h: cssHeight }, // 保存时的画布逻辑尺寸，换设备打开时按比例缩放
         pages: appState.pages.map((p, i) => {
           const data = serializeBoardForSave(i === cur ? appState : p, withImages);
           data.id = p.id;
@@ -7923,6 +8064,7 @@
       };
     }
 
+    let lastQuotaToastAt = 0;
     function saveDocumentNow() {
       clearTimeout(autosaveTimer);
       autosaveTimer = null;
@@ -7936,39 +8078,42 @@
       try {
         localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildDocumentForSave(false)));
       } catch (err) {}
+      const hasImages = appState.pages.some((p, i) => ((i === appState.currentPageIndex ? appState : p).images || []).length > 0);
+      if (hasImages && Date.now() - lastQuotaToastAt > 60000) {
+        lastQuotaToastAt = Date.now();
+        toast(tr('autosave_quota_toast'), 6500);
+      }
     }
 
     function selectHasOption(sel, value) {
       return !!(sel && Array.from(sel.options).some(o => o.value === value));
     }
 
-    // 启动时 (首帧渲染前) 恢复存档
-    function restoreDocumentFromAutosave() {
-      let doc = null;
-      try {
-        const raw = localStorage.getItem(AUTOSAVE_KEY);
-        if (raw) doc = JSON.parse(raw);
-      } catch (err) { doc = null; }
+    // 把存档 / 作品文件里的文档对象装载进 appState (不负责渲染)
+    let pendingDocRescale = null;
+    function applyDocumentObject(doc) {
       if (!doc || !Array.isArray(doc.pages) || doc.pages.length === 0) return false;
-
       const onImgLoad = () => {
         redrawAllStrokes();
         if (appState.isDualSpread) renderReferenceBoard();
       };
+      const num = (v, d) => (Number.isFinite(Number(v)) ? Number(v) : d);
       const pages = doc.pages.map((pg, i) => ({
-        id: pg.id || (Date.now() + i),
-        strokes: Array.isArray(pg.strokes) ? pg.strokes.filter(st => st && Array.isArray(st.points)) : [],
-        texts: Array.isArray(pg.texts) ? pg.texts.filter(t => t && typeof t.text === 'string') : [],
-        images: (Array.isArray(pg.images) ? pg.images : []).filter(im => im && im.src).map(im => {
+        id: (pg && pg.id) || (Date.now() + i),
+        strokes: Array.isArray(pg && pg.strokes) ? pg.strokes.filter(st => st && Array.isArray(st.points)) : [],
+        texts: Array.isArray(pg && pg.texts) ? pg.texts.filter(t => t && typeof t.text === 'string') : [],
+        images: (Array.isArray(pg && pg.images) ? pg.images : []).filter(im => im && typeof im.src === 'string' && im.src).map(im => {
           const img = new Image();
           img.onload = onImgLoad;
           img.src = im.src;
+          const { src, ...rest } = im;
           return {
+            ...rest,
             id: im.id || (Date.now() + Math.random()),
             img,
-            x: Number(im.x) || 0, y: Number(im.y) || 0,
-            width: Number(im.width) || 100, height: Number(im.height) || 100,
-            rotation: Number(im.rotation) || 0
+            x: num(im.x, 0), y: num(im.y, 0),
+            width: num(im.width, 100) || 100, height: num(im.height, 100) || 100,
+            rotation: num(im.rotation, 0)
           };
         }),
         history: [],
@@ -7994,8 +8139,115 @@
         appState.ratio = doc.ratio;
         ratioSel.value = doc.ratio;
       }
+      pendingDocRescale = (doc.canvas && Number(doc.canvas.w) > 0 && Number(doc.canvas.h) > 0) ? { w: Number(doc.canvas.w), h: Number(doc.canvas.h) } : null;
       return true;
     }
+
+    // 画布逻辑尺寸与存档时不同 (换设备 / 窗口大小变化)：整体等比缩放内容，保证内容仍落在纸面上
+    function applyPendingDocRescale() {
+      const r = pendingDocRescale;
+      pendingDocRescale = null;
+      if (!r) return;
+      const k = Math.min(cssWidth / r.w, cssHeight / r.h);
+      if (!Number.isFinite(k) || k <= 0 || Math.abs(k - 1) < 0.02) return;
+      const seen = new Set();
+      const boards = appState.pages.concat([appState]);
+      for (const b of boards) {
+        for (const s of (b.strokes || [])) {
+          if (seen.has(s)) continue; seen.add(s);
+          s.size = (Number(s.size) || 2) * k;
+          for (const pt of (s.points || [])) {
+            pt.x *= k; pt.y *= k;
+            if (pt.sprayDots) for (const d of pt.sprayDots) { d.dx *= k; d.dy *= k; }
+          }
+        }
+        for (const t of (b.texts || [])) {
+          if (seen.has(t)) continue; seen.add(t);
+          t.x *= k; t.y *= k; t.size = (Number(t.size) || 24) * k;
+        }
+        for (const im of (b.images || [])) {
+          if (seen.has(im)) continue; seen.add(im);
+          im.x *= k; im.y *= k; im.width *= k; im.height *= k;
+        }
+      }
+    }
+
+    // 启动时 (首帧渲染前) 恢复存档
+    function restoreDocumentFromAutosave() {
+      let doc = null;
+      try {
+        const raw = localStorage.getItem(AUTOSAVE_KEY);
+        if (raw) doc = JSON.parse(raw);
+      } catch (err) { doc = null; }
+      return applyDocumentObject(doc);
+    }
+
+    // ================= 💾 作品文件：保存 / 打开 (.eazyopc) =================
+    function saveWorkFile() {
+      try {
+        const doc = buildDocumentForSave(true);
+        const blob = new Blob([JSON.stringify(doc)], { type: 'application/json' });
+        handleFileDownloadOrShare(blob, `ComicBoard-${exportStamp()}.eazyopc`, 'application/json');
+        toast(tr('file_saved_toast'));
+      } catch (err) {
+        toast(tr('file_save_failed'));
+      }
+    }
+
+    function openWorkDocument(doc) {
+      if (!doc || doc.app !== 'eazyopc' || !Array.isArray(doc.pages)) {
+        toast(tr('file_invalid'));
+        return false;
+      }
+      if (doc.site && doc.site !== 'comicboard') {
+        if (!confirm(tr('file_other_site_confirm', { site: String(doc.site) }))) return false;
+      }
+      closeAllFlyouts();
+      const wasDual = appState.isDualSpread;
+      appState.isDualSpread = false;
+      if (!applyDocumentObject(doc)) { toast(tr('file_invalid')); return false; }
+      appState.lastActiveBoard = 'right';
+      if (typeof onDocumentLayersLoaded === 'function') onDocumentLayersLoaded(doc);
+      resizeCanvas();
+      applyPendingDocRescale();
+      const idx = appState.currentPageIndex;
+      appState.currentPageIndex = 0;
+      // loadPage 会先把 appState 写回 pages[currentPageIndex]，这里先对齐到刚装载的页面
+      appState.strokes = appState.pages[0].strokes.slice();
+      appState.texts = appState.pages[0].texts.slice();
+      appState.images = appState.pages[0].images.slice();
+      loadPage(0);
+      if (wasDual) updateDualViewUI();
+      saveDocumentNow();
+      toast(tr('file_opened_toast', { n: appState.pages.length }));
+      return idx >= 0;
+    }
+
+    function openWorkFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        let doc = null;
+        try { doc = JSON.parse(String(reader.result || '')); } catch (err) { doc = null; }
+        openWorkDocument(doc);
+      };
+      reader.onerror = () => toast(tr('file_invalid'));
+      reader.readAsText(file);
+    }
+
+    function isWorkFile(file) {
+      return !!file && (/\.eazyopc$/i.test(file.name || '') || file.type === 'application/json' || /\.json$/i.test(file.name || ''));
+    }
+
+    const workFileInput = document.getElementById('workFileInput');
+    function promptOpenWorkFile() {
+      if (!workFileInput) return;
+      workFileInput.value = '';
+      workFileInput.click();
+    }
+    if (workFileInput) workFileInput.onchange = (e) => { if (e.target.files && e.target.files[0]) openWorkFile(e.target.files[0]); };
+    document.querySelectorAll('[data-action="save-work"]').forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); closeAllFlyouts(); saveWorkFile(); }));
+    document.querySelectorAll('[data-action="open-work"]').forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); closeAllFlyouts(); promptOpenWorkFile(); }));
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') saveDocumentNow();
@@ -8015,9 +8267,14 @@
     }
 
     window.addEventListener('keydown', (e) => {
-      if (isEditableTarget(e.target) || isEditableTarget(document.activeElement)) return;
       const key = (e.key || '').toLowerCase();
       const mod = e.ctrlKey || e.metaKey;
+      if (mod && !e.altKey && !e.shiftKey && (key === 's' || key === 'o')) {
+        e.preventDefault();
+        if (key === 's') saveWorkFile(); else promptOpenWorkFile();
+        return;
+      }
+      if (isEditableTarget(e.target) || isEditableTarget(document.activeElement)) return;
       if (mod && !e.altKey && key === 'z') {
         e.preventDefault();
         if (e.shiftKey) redo(); else undo();
@@ -8125,7 +8382,7 @@
         if (canvaBox) canvaBox.classList.add('hidden');
 
         btnExecuteExport.className = 'w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
-        lblExecuteExport.innerText = '免费导出 1080P 标准图 (带水印)';
+        lblExecuteExport.innerText = tr('lbl_export_default');
       } else {
         if (cardFree) {
           cardFree.classList.remove('border-emerald-500');
@@ -8140,16 +8397,10 @@
 
         if (appState.isPro) {
           btnExecuteExport.className = 'w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
-          const fmtLabels = {
-            png_4k: '✨ 立即导出 4K 超清原画 (去水印)',
-            png_transparent: '🪟 立即导出透明背景 PNG (免抠图)',
-            svg_vector: '🎨 立即导出 Canva/SVG 矢量工程',
-            pdf_pro: '📄 立即导出矢量 PDF 打印文档'
-          };
-          lblExecuteExport.innerText = fmtLabels[selectedProFormat] || '✨ 立即以 Pro 特权导出';
+          lblExecuteExport.innerText = tr('exp_btn_' + selectedProFormat);
         } else {
           btnExecuteExport.className = 'w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold rounded-2xl shadow-xl transition-all text-xs flex items-center justify-center gap-2 cursor-pointer';
-          lblExecuteExport.innerText = '仅需 $4.99 一次付费 · 永久解锁 Pro 全套特权';
+          lblExecuteExport.innerText = tr('exp_btn_buy');
         }
       }
     }
@@ -8175,15 +8426,15 @@
       const tier = getSelectedExportTier();
       if (tier === 'free') {
         exportModal.classList.add('hidden');
-        exportImageCanvas(1.5, true, false);
+        exportImageCanvas(EXPORT_FREE_LONG_SIDE, true, false);
       } else {
         if (!appState.isPro) {
           document.getElementById('proModal').classList.remove('hidden');
           return;
         }
         exportModal.classList.add('hidden');
-        if (selectedProFormat === 'png_4k') exportImageCanvas(3.0, false, false);
-        else if (selectedProFormat === 'png_transparent') exportImageCanvas(2.0, false, true);
+        if (selectedProFormat === 'png_4k') exportImageCanvas(EXPORT_4K_LONG_SIDE, false, false);
+        else if (selectedProFormat === 'png_transparent') exportImageCanvas(EXPORT_4K_LONG_SIDE, false, true);
         else if (selectedProFormat === 'svg_vector') exportVectorSVG();
         else if (selectedProFormat === 'pdf_pro') exportToPDF();
       }
@@ -8212,27 +8463,112 @@
       btnConfirmRestore.onclick = () => activateProLicense(restoreKeyInput, btnConfirmRestore, restoreModal);
     }
 
-    function exportImageCanvas(scaleFactor = 2, withWatermark = false, isTransparent = false) {
-      const offCanvas = document.createElement('canvas');
-      offCanvas.width = Math.round(cssWidth * scaleFactor);
-      offCanvas.height = Math.round(cssHeight * scaleFactor);
-      const offCtx = offCanvas.getContext('2d');
+    // ================= 📦 导出引擎 (尺寸如实：免费长边 1920px；Pro 4K 长边 3840px；PDF 按纸张物理尺寸 300 DPI) =================
+    const EXPORT_FREE_LONG_SIDE = 1920;
+    const EXPORT_4K_LONG_SIDE = 3840;
+    const PDF_DPI = 300;
+    const PDF_MAX_RASTER = 4960; // 单页位图长边上限 (内存保护)
+    const PAPER_MM = { a4_p: [210, 297], a4_l: [297, 210], a3_l: [420, 297], letter_p: [215.9, 279.4], manga_b5: [182, 257] };
 
-      redrawAllStrokes(offCtx, scaleFactor, isTransparent);
+    function exportStamp() {
+      const d = new Date();
+      const p = (n) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`;
+    }
+    function scaleForLongSide(px) { return px / Math.max(1, cssWidth, cssHeight); }
+    function getPageData(idx) { return idx === appState.currentPageIndex ? appState : appState.pages[idx]; }
+    function getActiveBoardData() { return isLeftBoardActive() ? appState.pages[0] : appState; }
+    function canvasToBlob(cv, type, quality) {
+      return new Promise((res) => {
+        try { cv.toBlob((b) => res(b), type, quality); } catch (e) { res(null); }
+      });
+    }
+    const nextTick = () => new Promise((r) => setTimeout(r, 0));
 
+    function renderBoardToCanvas(data, scale, opts) {
+      const o = opts || {};
+      const cv = document.createElement('canvas');
+      cv.width = Math.max(1, Math.round(cssWidth * scale));
+      cv.height = Math.max(1, Math.round(cssHeight * scale));
+      const c2 = cv.getContext('2d');
+      if (!c2) return null;
+      redrawAllStrokes(c2, scale, !!o.transparent, data, { clip: true, plainPaper: !!o.plainPaper });
+      return cv;
+    }
+
+    // 灰度化 (用于投稿原稿)：saturation 混合模式把所有像素饱和度归零，不需要 getImageData，大图也不爆内存
+    function applyGrayscale(c2, cv) {
+      c2.save();
+      c2.setTransform(1, 0, 0, 1, 0, 0);
+      c2.globalCompositeOperation = 'saturation';
+      c2.globalAlpha = 1;
+      c2.fillStyle = '#808080';
+      c2.fillRect(0, 0, cv.width, cv.height);
+      c2.restore();
+    }
+
+    // 在 PNG 中写入 pHYs 物理分辨率 (DPI)，让排版 / 打印软件按真实尺寸识别
+    const PNG_CRC_TABLE = (() => {
+      const t = new Uint32Array(256);
+      for (let n = 0; n < 256; n++) {
+        let c = n;
+        for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+        t[n] = c >>> 0;
+      }
+      return t;
+    })();
+    function pngCrc32(bytes) {
+      let c = 0xFFFFFFFF;
+      for (let i = 0; i < bytes.length; i++) c = PNG_CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+      return (c ^ 0xFFFFFFFF) >>> 0;
+    }
+    async function withPngDpi(blob, dpi) {
+      try {
+        const buf = new Uint8Array(await blob.arrayBuffer());
+        const dv = new DataView(buf.buffer);
+        if (buf.length < 33 || buf[12] !== 0x49 || buf[13] !== 0x48 || buf[14] !== 0x44 || buf[15] !== 0x52) return blob;
+        const parts = [buf.subarray(0, 33)];
+        const phys = new Uint8Array(21);
+        const pv = new DataView(phys.buffer);
+        const ppm = Math.round(dpi / 0.0254);
+        pv.setUint32(0, 9);
+        phys.set([0x70, 0x48, 0x59, 0x73], 4); // 'pHYs'
+        pv.setUint32(8, ppm);
+        pv.setUint32(12, ppm);
+        phys[16] = 1; // 单位：米
+        pv.setUint32(17, pngCrc32(phys.subarray(4, 17)));
+        parts.push(phys);
+        let off = 33;
+        while (off + 12 <= buf.length) {
+          const len = dv.getUint32(off);
+          const end = off + 12 + len;
+          if (end > buf.length) return blob;
+          const isPhys = buf[off + 4] === 0x70 && buf[off + 5] === 0x48 && buf[off + 6] === 0x59 && buf[off + 7] === 0x73;
+          if (!isPhys) parts.push(buf.subarray(off, end));
+          off = end;
+        }
+        return new Blob(parts, { type: 'image/png' });
+      } catch (e) {
+        return blob;
+      }
+    }
+
+    async function exportImageCanvas(longSide = EXPORT_FREE_LONG_SIDE, withWatermark = false, isTransparent = false) {
+      const scale = scaleForLongSide(longSide);
+      const off = renderBoardToCanvas(getActiveBoardData(), scale, { transparent: isTransparent });
+      if (!off) { toast(tr('export_failed')); return; }
       if (withWatermark && !isTransparent) {
+        const offCtx = off.getContext('2d');
         offCtx.save();
-        offCtx.font = `600 ${Math.round(13 * scaleFactor)}px sans-serif`;
+        offCtx.font = `600 ${Math.round(13 * scale)}px sans-serif`;
         offCtx.fillStyle = 'rgba(100, 116, 139, 0.65)';
         offCtx.textAlign = 'right';
-        offCtx.fillText('Made with EazyOPC ComicBoard', offCanvas.width - 16 * scaleFactor, offCanvas.height - 14 * scaleFactor);
+        offCtx.fillText('Made with EazyOPC ComicBoard', off.width - 16 * scale, off.height - 14 * scale);
         offCtx.restore();
       }
-
-      offCanvas.toBlob(blob => {
-        if (!blob) return;
-        handleFileDownloadOrShare(blob, `ComicBoard-${Date.now()}.png`, 'image/png');
-      }, 'image/png');
+      const blob = await canvasToBlob(off, 'image/png');
+      if (!blob) { toast(tr('export_failed')); return; }
+      handleFileDownloadOrShare(blob, `ComicBoard-${exportStamp()}.png`, 'image/png');
     }
 
     function escapeXml(v) {
@@ -8243,125 +8579,240 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&apos;');
     }
+    function toast(msg, duration) {
+      if (typeof showCreatorToast === 'function') showCreatorToast(escapeXml(msg).replace(/\n/g, '<br>'), duration || 3200);
+    }
 
-    function generateVectorSVGString() {
-      let pathsSvg = '';
+    // ================= 🧩 SVG 导出 (纸张底纹 / 图层分组 / 图片 / 文字 / 与画布一致的笔刷参数) =================
+    function svgN(n) { return Math.round((Number(n) || 0) * 100) / 100; }
 
-      // 1. 导出插入的图片 (支持 360° 旋转)
-      for (const im of appState.images) {
-        if (im.img && im.img.src) {
-          const cx = im.x + im.width / 2;
-          const cy = im.y + im.height / 2;
-          const rotDeg = ((im.rotation || 0) * 180 / Math.PI).toFixed(2);
-          const transform = im.rotation ? ` transform="rotate(${rotDeg} ${cx} ${cy})"` : '';
-          pathsSvg += `<image href="${escapeXml(im.img.src)}" x="${im.x}" y="${im.y}" width="${im.width}" height="${im.height}"${transform} />\n`;
+    function paperSVG(w, h, paper, plain) {
+      const dark = paper === 'dark_comic';
+      let out = `<rect x="0" y="0" width="${w}" height="${h}" fill="${dark ? '#0f172a' : '#ffffff'}" />\n`;
+      if (plain) return out;
+      if (paper === 'manga_manuscript') {
+        const padX = Math.round(w * 0.08), padY = Math.round(h * 0.08);
+        out += `<g fill="none" stroke="rgb(56,189,248)" stroke-opacity="0.45" stroke-width="1">`
+          + `<rect x="${svgN(padX * 0.5)}" y="${svgN(padY * 0.5)}" width="${w - padX}" height="${h - padY}" />`
+          + `<rect x="${padX}" y="${padY}" width="${w - padX * 2}" height="${h - padY * 2}" stroke-dasharray="6 3" />`
+          + `<path d="M ${svgN(w / 2 - 8)} ${svgN(h / 2)} L ${svgN(w / 2 + 8)} ${svgN(h / 2)} M ${svgN(w / 2)} ${svgN(h / 2 - 8)} L ${svgN(w / 2)} ${svgN(h / 2 + 8)}" />`
+          + `</g>\n`;
+      } else if (paper === 'comic_4koma_grid') {
+        const kPad = Math.round(w * 0.12);
+        const boxH = Math.round((h - kPad * 2) / 4);
+        out += `<g fill="none" stroke="rgb(100,116,139)" stroke-opacity="0.35" stroke-width="1.5">`;
+        for (let i = 0; i < 4; i++) out += `<rect x="${kPad}" y="${kPad + i * boxH + 4}" width="${w - kPad * 2}" height="${boxH - 8}" />`;
+        out += `</g>\n`;
+      } else if (paper === 'webtoon_canvas') {
+        out += `<rect x="20" y="20" width="${w - 40}" height="${h - 40}" fill="none" stroke="rgb(99,102,241)" stroke-opacity="0.25" stroke-dasharray="4 4" />\n`;
+      } else if (paper === 'dot') {
+        let d = '';
+        for (let x = 28; x < w; x += 28) {
+          for (let y = 28; y < h; y += 28) d += `<circle cx="${Math.round(x)}" cy="${Math.round(y)}" r="1.25" />`;
         }
+        out += `<g fill="rgb(148,163,184)" fill-opacity="0.45">${d}</g>\n`;
+      } else if (paper === 'square') {
+        let d = '';
+        for (let x = 0; x <= w; x += 20) d += `M ${x} 0 L ${x} ${h} `;
+        for (let y = 0; y <= h; y += 20) d += `M 0 ${y} L ${w} ${y} `;
+        out += `<path d="${d.trim()}" fill="none" stroke="rgb(148,163,184)" stroke-opacity="0.35" stroke-width="0.5" />\n`;
+      } else if (dark) {
+        out += `<rect x="20" y="20" width="${w - 40}" height="${h - 40}" fill="none" stroke="rgb(255,255,255)" stroke-opacity="0.15" stroke-dasharray="4 4" />\n`;
       }
+      return out;
+    }
 
-      // 2. 导出 7 大笔刷手绘线条
-      for (const s of appState.strokes) {
-        if (!s.points || s.points.length === 0) continue;
-        if (s.tool === 'spray') {
-          for (const pt of s.points) {
-            if (pt.sprayDots) {
-              for (const dot of pt.sprayDots) {
-                pathsSvg += `<rect x="${pt.x + dot.dx}" y="${pt.y + dot.dy}" width="${dot.r}" height="${dot.r}" fill="${escapeXml(s.color)}" opacity="0.45" />\n`;
-              }
-            }
-          }
-          continue;
+    function strokePathD(pts, closed) {
+      let d = `M ${svgN(pts[0].x)} ${svgN(pts[0].y)}`;
+      if (pts.length === 2) {
+        d += ` L ${svgN(pts[1].x)} ${svgN(pts[1].y)}`;
+      } else {
+        for (let i = 1; i < pts.length - 1; i++) {
+          const p1 = pts[i], p2 = pts[i + 1];
+          d += ` Q ${svgN(p1.x)} ${svgN(p1.y)} ${svgN((p1.x + p2.x) / 2)} ${svgN((p1.y + p2.y) / 2)}`;
         }
-        if (s.points.length === 1) {
-          pathsSvg += `<circle cx="${s.points[0].x}" cy="${s.points[0].y}" r="${s.size / 2}" fill="${escapeXml(s.color)}" />\n`;
-          continue;
-        }
-        let d = `M ${s.points[0].x} ${s.points[0].y}`;
-        for (let i = 1; i < s.points.length; i++) {
-          const p1 = s.points[i - 1];
-          const p2 = s.points[i];
-          const midX = (p1.x + p2.x) / 2;
-          const midY = (p1.y + p2.y) / 2;
-          d += ` Q ${p1.x} ${p1.y} ${midX} ${midY}`;
-        }
-        const opacity = s.tool === 'highlighter' ? '0.35' : (s.tool === 'pencil' ? '0.78' : '1');
-        pathsSvg += `<path d="${d}" fill="none" stroke="${escapeXml(s.color)}" stroke-width="${s.size}" stroke-linecap="round" stroke-linejoin="round" opacity="${opacity}" />\n`;
+        d += ` L ${svgN(pts[pts.length - 1].x)} ${svgN(pts[pts.length - 1].y)}`;
       }
+      return closed ? d + ' Z' : d;
+    }
 
-      // 3. 导出自由打字文字 (支持 360° 旋转)
-      for (const t of appState.texts) {
-        const estW = Math.max(30, (t.text ? t.text.length : 4) * t.size * 0.7);
-        const cx = t.x + estW / 2;
-        const cy = t.y - t.size / 2;
-        const rotDeg = ((t.rotation || 0) * 180 / Math.PI).toFixed(2);
-        const transform = t.rotation ? ` transform="rotate(${rotDeg} ${cx} ${cy})"` : '';
-        const lines = String(t.text || '').split('\n');
-        const lineH = (Number(t.size) || 24) * 1.25;
-        const tspans = lines.map((ln, li) => `<tspan x="${t.x}" y="${t.y + li * lineH}">${escapeXml(ln)}</tspan>`).join('');
-        pathsSvg += `<text x="${t.x}" y="${t.y}" font-size="${t.size}" fill="${escapeXml(t.color)}" font-weight="${t.bold ? 700 : 600}" font-family="${escapeXml(t.fontFamily || 'sans-serif')}"${transform}>${tspans}</text>\n`;
+    function strokeToSVG(s, uid, defs) {
+      const pts = s.points;
+      if (!pts || !pts.length) return '';
+      const st = getStrokeStyle(s);
+      const col = escapeXml(st.color);
+      if (s.tool === 'spray') {
+        let r = '';
+        for (const pt of pts) {
+          if (!pt.sprayDots) continue;
+          for (const dot of pt.sprayDots) r += `<rect x="${svgN(pt.x + dot.dx)}" y="${svgN(pt.y + dot.dy)}" width="${dot.r}" height="${dot.r}" />`;
+        }
+        return r ? `<g fill="${col}" fill-opacity="${st.alpha}">${r}</g>\n` : '';
       }
+      let out = '';
+      if (s.fill && pts.length >= 3) out += `<path d="${strokePathD(pts, true)}" fill="${escapeXml(s.fill)}" stroke="none" />\n`;
+      const extra = [];
+      if (st.composite === 'multiply') extra.push('style="mix-blend-mode:multiply"');
+      if (st.glow) {
+        const fid = `glow${uid}`;
+        defs.push(`<filter id="${fid}" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="${svgN(st.glow / 2)}" flood-color="${col}" /></filter>`);
+        extra.push(`filter="url(#${fid})"`);
+      }
+      const ex = extra.length ? ' ' + extra.join(' ') : '';
+      if (pts.length === 1) {
+        out += `<circle cx="${svgN(pts[0].x)}" cy="${svgN(pts[0].y)}" r="${svgN(Math.max(1.5, st.width / 2))}" fill="${col}" fill-opacity="${st.alpha}"${ex} />\n`;
+        return out;
+      }
+      const dash = st.dash ? ` stroke-dasharray="${st.dash.map(svgN).join(' ')}"` : '';
+      out += `<path d="${strokePathD(pts, !!s.closed)}" fill="none" stroke="${col}" stroke-width="${svgN(st.width)}" stroke-linecap="${st.cap === 'square' ? 'square' : 'round'}" stroke-linejoin="${st.join}" stroke-opacity="${st.alpha}"${dash}${ex} />\n`;
+      return out;
+    }
 
+    function textToSVG(t) {
+      const L = measureTextLayout(t, ctx);
+      const rotDeg = svgN((t.rotation || 0) * 180 / Math.PI);
+      const transform = t.rotation ? ` transform="rotate(${rotDeg} ${svgN(L.cx)} ${svgN(L.cy)})"` : '';
+      const tspans = L.lines.map((ln, li) => `<tspan x="${svgN(t.x)}" y="${svgN(L.cy - L.totalH / 2 + (li + 0.82) * L.lineH)}">${escapeXml(ln)}</tspan>`).join('');
+      return `<text xml:space="preserve" font-size="${L.fontSize}" fill="${escapeXml(t.color || '#ffffff')}" font-weight="${t.bold ? 700 : 400}" font-family="${escapeXml(L.family)}"${transform}>${tspans}</text>\n`;
+    }
+
+    function imageToSVG(im) {
+      if (!im.img || !im.img.src) return '';
+      const cx = im.x + im.width / 2, cy = im.y + im.height / 2;
+      const transform = im.rotation ? ` transform="rotate(${svgN(im.rotation * 180 / Math.PI)} ${svgN(cx)} ${svgN(cy)})"` : '';
+      return `<image xlink:href="${escapeXml(im.img.src)}" x="${svgN(im.x)}" y="${svgN(im.y)}" width="${svgN(im.width)}" height="${svgN(im.height)}" preserveAspectRatio="none"${transform} />\n`;
+    }
+
+    function generateVectorSVGString(data) {
+      const src = data || getActiveBoardData();
+      const defs = [];
+      let body = '';
+      let uid = 0;
+      for (const g of getRenderGroups(src)) {
+        let inner = '';
+        for (const im of g.images) inner += imageToSVG(im);
+        for (const s of g.strokes) inner += strokeToSVG(s, ++uid, defs);
+        for (const t of g.texts) { if (!t._editing) inner += textToSVG(t); }
+        if (g.label) body += `<g id="${escapeXml(g.id)}" data-name="${escapeXml(g.label)}">\n${inner}</g>\n`;
+        else body += inner;
+      }
       return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cssWidth} ${cssHeight}" width="${cssWidth}" height="${cssHeight}">
-  <rect width="100%" height="100%" fill="${appState.paper === 'dark_comic' ? '#0f172a' : (appState.paper.includes('chalk') ? '#0c241b' : '#ffffff')}" />
-  ${pathsSvg}
-</svg>`;
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${cssWidth} ${cssHeight}" width="${cssWidth}" height="${cssHeight}">
+${defs.length ? `<defs>${defs.join('')}</defs>\n` : ''}<g id="paper">
+${paperSVG(cssWidth, cssHeight, appState.paper, false)}</g>
+${body}</svg>`;
     }
 
     function exportVectorSVG() {
       const svgContent = generateVectorSVGString();
       const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
-      handleFileDownloadOrShare(blob, `ComicBoard-${Date.now()}.svg`, 'image/svg+xml');
+      handleFileDownloadOrShare(blob, `ComicBoard-${exportStamp()}.svg`, 'image/svg+xml');
     }
 
     const btnCopySvg = document.getElementById('btnCopySvgToClipboard');
     if (btnCopySvg) {
       btnCopySvg.onclick = async () => {
         const svgContent = generateVectorSVGString();
-        const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
         try {
           await navigator.clipboard.writeText(svgContent);
-          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
         } catch (err) {
           const ta = document.createElement('textarea');
           ta.value = svgContent;
           document.body.appendChild(ta);
           ta.select();
-          document.execCommand('copy');
+          try { document.execCommand('copy'); } catch (e2) {}
           ta.remove();
-          alert(dict.svg_copied_toast || '🎉 矢量 SVG 已成功复制到剪贴板！可以直接在 Canva、Figma 或 Illustrator 中按 Ctrl+V (Mac: Cmd+V) 立即无缝粘贴可自由编辑的矢量线稿！');
         }
+        toast(tr('svg_copied_toast'), 5200);
       };
     }
 
-    function exportToPDF() {
-      if (!window.jspdf) {
-        alert('PDF 渲染组件加载中，请稍后再试');
-        return;
+    // ================= 📄 PDF 导出 (页面尺寸 = 所选纸张物理尺寸；位图 300 DPI；按原始比例居中，绝不拉伸) =================
+    function getPdfPageSizeMM() {
+      const p = PAPER_MM[appState.ratio];
+      if (p) return { w: p[0], h: p[1] };
+      const ar = cssWidth / Math.max(1, cssHeight);
+      return ar >= 1 ? { w: 297, h: 297 / ar } : { w: 297 * ar, h: 297 };
+    }
+
+    // 把页面顺序排成 PDF 纸面：单页 [[i]]，或跨页 [[左, 右]] (null = 空白半页)
+    function buildPdfSheets(count, spread, rtl, coverSingle) {
+      const order = [];
+      for (let i = 0; i < count; i++) order.push(i);
+      if (!spread) return order.map((i) => [i]);
+      const sheets = [];
+      let k = 0;
+      if (coverSingle && count > 0) {
+        // 封面单独成页：横排书封面在右半页，日漫 (右→左) 封面在左半页
+        sheets.push(rtl ? [0, null] : [null, 0]);
+        k = 1;
       }
+      for (; k < count; k += 2) {
+        const a = order[k];
+        const b = k + 1 < count ? order[k + 1] : null;
+        sheets.push(rtl ? [b, a] : [a, b]);
+      }
+      return sheets;
+    }
+
+    async function buildPdfDocument(o) {
       const { jsPDF } = window.jspdf;
-      const isLandscape = cssWidth >= cssHeight;
-      const pdf = new jsPDF({ orientation: isLandscape ? 'l' : 'p', unit: 'pt', format: 'a4' });
-      const pdfW = pdf.internal.pageSize.getWidth();
-      const pdfH = pdf.internal.pageSize.getHeight();
+      const pageW = o.pageW, pageH = o.pageH;
+      const dpi = o.dpi || PDF_DPI;
+      const count = appState.pages.length;
+      const sheets = buildPdfSheets(count, !!o.spread, !!o.rtl, o.coverSingle !== false);
+      const sheetW = o.spread ? pageW * 2 : pageW;
+      const margin = o.pageNumbers ? 8 : 0;
+      const aw = pageW - margin * 2, ah = pageH - margin * 2;
+      const fit = Math.min(aw / cssWidth, ah / cssHeight);
+      const iw = cssWidth * fit, ih = cssHeight * fit;
+      let rasterScale = (iw / 25.4 * dpi) / cssWidth;
+      const longPx = Math.max(cssWidth, cssHeight) * rasterScale;
+      if (longPx > PDF_MAX_RASTER) rasterScale *= PDF_MAX_RASTER / longPx;
 
-      const offCanvas = document.createElement('canvas');
-      offCanvas.width = Math.round(cssWidth * 2);
-      offCanvas.height = Math.round(cssHeight * 2);
-      const offCtx = offCanvas.getContext('2d');
+      const orient = sheetW > pageH ? 'l' : 'p';
+      const pdf = new jsPDF({ unit: 'mm', format: [sheetW, pageH], orientation: orient, compress: true });
+      const cv = document.createElement('canvas');
+      cv.width = Math.max(1, Math.round(cssWidth * rasterScale));
+      cv.height = Math.max(1, Math.round(cssHeight * rasterScale));
+      const c2 = cv.getContext('2d');
 
-      // 逐页绘制并打包多页 PDF（漫画分镜本）：只读渲染每页数据，绝不改写 appState / pages
-      const curIdx = appState.currentPageIndex;
-      appState.pages.forEach((p, idx) => {
-        if (idx > 0) pdf.addPage();
-        const pageData = (idx === curIdx) ? appState : p;
-        offCtx.setTransform(1, 0, 0, 1, 0, 0);
-        offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
-        redrawAllStrokes(offCtx, 2, false, pageData);
-        const imgData = offCanvas.toDataURL('image/jpeg', 0.95);
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
-      });
+      for (let si = 0; si < sheets.length; si++) {
+        if (si > 0) pdf.addPage([sheetW, pageH], orient);
+        const slots = sheets[si];
+        for (let k = 0; k < slots.length; k++) {
+          const idx = slots[k];
+          if (idx === null || idx === undefined) continue;
+          const slotX = k * pageW;
+          c2.setTransform(1, 0, 0, 1, 0, 0);
+          c2.clearRect(0, 0, cv.width, cv.height);
+          redrawAllStrokes(c2, rasterScale, false, getPageData(idx), { clip: true, plainPaper: !!o.plainPaper });
+          if (o.grayscale) applyGrayscale(c2, cv);
+          const imgData = cv.toDataURL('image/jpeg', 0.95);
+          pdf.addImage(imgData, 'JPEG', slotX + margin + (aw - iw) / 2, margin + (ah - ih) / 2, iw, ih, undefined, 'FAST');
+          if (o.pageNumbers) {
+            pdf.setFontSize(9);
+            pdf.setTextColor(90, 90, 90);
+            pdf.text(String(idx + 1), slotX + pageW / 2, pageH - 3.2, { align: 'center' });
+          }
+          await nextTick();
+        }
+      }
+      return pdf;
+    }
 
-      pdf.save(`ComicBoard-Story-${Date.now()}.pdf`);
+    async function exportToPDF() {
+      if (!window.jspdf) { toast(tr('pdf_lib_loading')); return; }
+      syncCurrentPageToState();
+      toast(tr('export_working'), 2400);
+      await nextTick();
+      try {
+        const size = getPdfPageSizeMM();
+        const pdf = await buildPdfDocument({ pageW: size.w, pageH: size.h });
+        handleFileDownloadOrShare(pdf.output('blob'), `ComicBoard-${exportStamp()}.pdf`, 'application/pdf');
+      } catch (err) {
+        toast(tr('export_failed'));
+      }
     }
 
     async function handleFileDownloadOrShare(blob, filename, mimeType) {
@@ -8811,16 +9262,16 @@
       document.getElementById('currentLangLabel').textContent = labels[lang] || 'EN';
       const dict = TRANSLATIONS[lang];
       document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[key]) el.innerHTML = dict[key];
+        const v = lookupI18n(lang, el.getAttribute('data-i18n'));
+        if (v) el.innerHTML = v;
       });
       document.querySelectorAll('[data-i18n-title]').forEach(el => {
-        const key = el.getAttribute('data-i18n-title');
-        if (dict[key]) el.title = dict[key];
+        const v = lookupI18n(lang, el.getAttribute('data-i18n-title'));
+        if (v) { el.title = v; el.setAttribute('aria-label', v); }
       });
       document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-        const key = el.getAttribute('data-i18n-ph');
-        if (dict[key]) el.placeholder = dict[key];
+        const v = lookupI18n(lang, el.getAttribute('data-i18n-ph'));
+        if (v) el.placeholder = v;
       });
       if (dict.ratios) {
         const ratioSel = document.getElementById('ratioSelector');
@@ -9050,6 +9501,7 @@
       initHsvColorWheel();
       setupWritableDualBoard();
       resizeCanvas();
+      if (pendingDocRescale) { applyPendingDocRescale(); redrawAllStrokes(); }
       updatePageUI();
       autosaveReady = true;
     }
@@ -9467,7 +9919,7 @@
         }
 
         if (demoPageStatus) {
-          demoPageStatus.innerText = activeIdx === 2 ? '📄 矢量合并导出 PDF (300 DPI)' : `第 ${activeIdx + 1} / 3 页 · 漫画分镜绘制中`;
+          demoPageStatus.innerText = activeIdx === 2 ? '📄 合成打印 PDF (300 DPI)' : `第 ${activeIdx + 1} / 3 页 · 漫画分镜绘制中`;
         }
 
         pageTick = (pageTick + 1) % 210;
