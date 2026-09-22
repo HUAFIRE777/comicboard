@@ -1509,7 +1509,7 @@
       <button id="btnNextPage" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="下一页 (▶)">▶</button>
       <span class="text-slate-700">|</span>
       <button id="btnAddPage" class="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="新建空白漫画页 (+)"><svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span data-i18n="add_page" class="text-white font-bold">加页</span></button>
-      <button id="btnToggleDualView" class="flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="双板并排对比 / 见开两页 (Side-by-Side Dual Spread)"><span>📖</span><span id="lblDualView" data-i18n="dual_view">双板并排</span></button>
+      <button id="btnToggleDualView" class="flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="双板并排对比 / 见开两页 (Side-by-Side Dual Spread)"><span>📖</span><span id="lblDualView" class="hidden sm:inline">双板并排</span></button>
       <button id="btnDeletePage" class="p-1 hover:bg-rose-900/40 text-slate-400 hover:text-rose-400 rounded-lg text-xs transition" title="删除当前页面">🗑️</button>
     </div>
 
@@ -1518,7 +1518,7 @@
       <!-- 📄 左侧画板 (第 1 页，双板模式) -->
       <div id="referenceCanvasCard" class="hidden relative rounded-2xl shadow-2xl ring-1 ring-slate-800 overflow-hidden flex items-center justify-center bg-white origin-center">
         <canvas id="referenceCanvas" class="cursor-crosshair touch-none"></canvas>
-        <div class="absolute bottom-2 left-3 px-2 py-0.5 rounded-md bg-stone-900/60 text-[10px] text-slate-300 font-mono select-none pointer-events-none border border-slate-700/50 backdrop-blur-sm">第 1 页</div>
+        <div id="leftPageBadge" class="absolute bottom-2 left-3 px-2 py-0.5 rounded-md bg-stone-900/60 text-[10px] text-slate-300 font-mono select-none pointer-events-none border border-slate-700/50 backdrop-blur-sm">第 1 页</div>
       </div>
 
       <!-- ✏️ 右侧主绘制画板 (第 2 页，单板模式时为默认主画板) -->
@@ -2410,6 +2410,10 @@
         tip_clear: '🗑️ 清空白板所有内容',
         tip_fit: '适应居中',
         add_page: 'Add Page',
+        single_view: '单板模式',
+        page_indicator: '第 {cur} / {total} 页',
+        page_indicator_dual: '第 1 - {cur} / {total} 页 (双板)',
+        page_badge: '第 {n} 页',
         redo_btn: '重做 (Ctrl+Shift+Z)',
         undo_btn: '撤销 (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -2825,6 +2829,10 @@
         tip_clear: '🗑️ Clear Canvas',
         tip_fit: 'Fit to Screen',
         add_page: 'Add Page',
+        single_view: 'Single Page',
+        page_indicator: 'Page {cur} / {total}',
+        page_indicator_dual: 'Pages 1 - {cur} / {total} (Dual)',
+        page_badge: 'Page {n}',
         redo_btn: 'Redo (Ctrl+Shift+Z)',
         undo_btn: 'Undo (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -3240,6 +3248,11 @@
         tip_clear: '🗑️ キャンバスを全消去',
         tip_fit: '画面に合わせる',
         add_page: 'Add Page',
+        dual_view: '見開き表示',
+        single_view: '単ページ表示',
+        page_indicator: '{cur} / {total} ページ',
+        page_indicator_dual: '1 - {cur} / {total} ページ (見開き)',
+        page_badge: '{n} ページ',
         redo_btn: 'やり直し (Ctrl+Shift+Z)',
         undo_btn: '元に戻す (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -3589,6 +3602,11 @@
         tip_clear: '🗑️ 화이트보드 전체 지우기',
         tip_fit: '화면 맞춤',
         add_page: 'Add Page',
+        dual_view: '양면 보기',
+        single_view: '단일 페이지',
+        page_indicator: '{cur} / {total} 페이지',
+        page_indicator_dual: '1 - {cur} / {total} 페이지 (양면)',
+        page_badge: '{n} 페이지',
         redo_btn: '다시 실행 (Ctrl+Shift+Z)',
         undo_btn: '실행 취소 (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -3938,6 +3956,11 @@
         tip_clear: '🗑️ Whiteboard leeren',
         tip_fit: 'Einpassen',
         add_page: 'Add Page',
+        dual_view: 'Doppelseite',
+        single_view: 'Einzelseite',
+        page_indicator: 'Seite {cur} / {total}',
+        page_indicator_dual: 'Seiten 1 - {cur} / {total} (Doppel)',
+        page_badge: 'Seite {n}',
         redo_btn: 'Wiederholen (Strg+Umschalt+Z)',
         undo_btn: 'Rückgängig (Strg+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -4287,6 +4310,11 @@
         tip_clear: '🗑️ Limpiar pizarra',
         tip_fit: 'Ajustar a pantalla',
         add_page: 'Add Page',
+        dual_view: 'Doble página',
+        single_view: 'Página única',
+        page_indicator: 'Página {cur} / {total}',
+        page_indicator_dual: 'Páginas 1 - {cur} / {total} (Doble)',
+        page_badge: 'Página {n}',
         redo_btn: 'Rehacer (Ctrl+Mayús+Z)',
         undo_btn: 'Deshacer (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -4636,6 +4664,11 @@
         tip_clear: '🗑️ Tout effacer',
         tip_fit: 'Ajuster à l\'écran',
         add_page: 'Add Page',
+        dual_view: 'Double page',
+        single_view: 'Page unique',
+        page_indicator: 'Page {cur} / {total}',
+        page_indicator_dual: 'Pages 1 - {cur} / {total} (Double)',
+        page_badge: 'Page {n}',
         redo_btn: 'Rétablir (Ctrl+Maj+Z)',
         undo_btn: 'Annuler (Ctrl+Z)',
         tip_gpen: '🖋️ Manga G-Pen (Dynamic Taper & Pressure Sensitive, Key P)',
@@ -4969,6 +5002,8 @@
       // 📖 双板并排 / 参照对比画板状态 (Side-by-Side Dual Spread)
       isDualSpread: false,
       referencePageIndex: 0,
+      lastActiveBoard: 'right', // 'left' | 'right'：撤销/重做作用于最后操作的画板
+      isRefPanning: false,
       // 缩放与平移状态 (Pan & Zoom)
       zoom: 1.0,
       panX: 0,
@@ -5014,6 +5049,7 @@
     let cssWidth = 800;
     let cssHeight = 600;
     let dpr = 1;
+    let dualFitScale = 1; // 双板模式下整体显示缩放 (逻辑坐标不变)
 
     
     // 🌓 智能底纹对比度保护系统 (Auto Contrast Protection)
@@ -5129,7 +5165,8 @@
     function applyZoomAndPan() {
       const stage = document.getElementById('artboardStage');
       if (stage) {
-        stage.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom})`;
+        const fit = appState.isDualSpread ? dualFitScale : 1;
+        stage.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom * fit})`;
         canvasCard.style.transform = 'none';
       } else {
         canvasCard.style.transform = `translate(${appState.panX}px, ${appState.panY}px) scale(${appState.zoom})`;
@@ -5144,9 +5181,10 @@
       let maxW = Math.max(300, containerRect.width - padding);
       let maxH = Math.max(300, containerRect.height - padding);
 
-      if (appState.isDualSpread) {
-        maxW = Math.max(300, (maxW - 36) * 0.48);
-      }
+      // 双板模式不再把逻辑画布宽度减半 (否则单板时画在右半边的内容会被裁掉)：
+      // 两块画板保持与单板完全相同的逻辑尺寸，只通过 artboardStage 的 CSS 缩放整体缩小显示。
+      const availW = maxW;
+      const availH = maxH;
 
       let targetRatio = null;
       if (appState.ratio === 'a4_p') targetRatio = 210 / 297;
@@ -5178,6 +5216,13 @@
 
       cssWidth = Math.round(cssWidth);
       cssHeight = Math.round(cssHeight);
+
+      if (appState.isDualSpread) {
+        const STAGE_GAP = 24; // artboardStage 的 gap-6
+        dualFitScale = Math.min(1, availW / (cssWidth * 2 + STAGE_GAP), availH / cssHeight);
+      } else {
+        dualFitScale = 1;
+      }
 
       canvasCard.style.width = `${cssWidth}px`;
       canvasCard.style.height = `${cssHeight}px`;
@@ -5305,7 +5350,9 @@
       targetCtx.restore();
     }
 
-    function redrawAllStrokes(targetCtx = ctx, scale = dpr, transparent = false) {
+    // data: 任意页面数据 {strokes, texts, images}，默认渲染当前主画板 (appState)
+    function redrawAllStrokes(targetCtx = ctx, scale = dpr, transparent = false, data = null) {
+      const src = data || appState;
       renderBackgroundOnContext(targetCtx, cssWidth, cssHeight, scale, transparent);
 
       targetCtx.save();
@@ -5313,7 +5360,7 @@
       targetCtx.scale(scale, scale);
 
       // 1. 渲染插入/粘贴的图片 (支持 360° 旋转)
-      for (const im of appState.images) {
+      for (const im of (src.images || [])) {
         if (im.img && im.img.complete) {
           targetCtx.save();
           const cx = im.x + im.width / 2;
@@ -5326,7 +5373,7 @@
       }
 
             // 2. 渲染 12 大商业级手绘笔画 (G-Pen, 丸笔, 铅笔, 蓝笔, 毛笔, 喷枪, 荧光, 排线, 霓虹, 虚线, 激光, 圆珠笔)
-      for (const s of appState.strokes) {
+      for (const s of (src.strokes || [])) {
         if (!s.points || s.points.length === 0) continue;
         targetCtx.save();
 
@@ -5479,7 +5526,7 @@
       }
 
       // 3. 渲染自由打字文本 (支持 9 款开源艺术字体、多行对齐与 360° 旋转)
-      for (const t of appState.texts) {
+      for (const t of (src.texts || [])) {
         if (t._editing) continue;
         targetCtx.save();
         const fontSize = Number(t.size) || 24;
@@ -5507,6 +5554,7 @@
       }
 
       targetCtx.restore();
+      if (!data && targetCtx === ctx && typeof scheduleAutosave === 'function') scheduleAutosave();
     }
 
     function createLaserBeam(x, y) {
@@ -6102,14 +6150,18 @@
     function updatePageUI() {
       const indicator = document.getElementById('pageIndicator');
       if (indicator) {
+        const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
         const cur = appState.currentPageIndex + 1;
         const total = appState.pages.length;
         if (appState.isDualSpread) {
-          indicator.innerText = `第 1 - 2 / ${Math.max(2, total)} 页 (双板)`;
+          const tpl = dict.page_indicator_dual || TRANSLATIONS.zh.page_indicator_dual || '第 1 - {cur} / {total} 页 (双板)';
+          indicator.innerText = tpl.replace('{cur}', cur).replace('{total}', total);
         } else {
-          indicator.innerText = `第 ${cur} / ${total} 页`;
+          const tpl = dict.page_indicator || TRANSLATIONS.zh.page_indicator || '第 {cur} / {total} 页';
+          indicator.innerText = tpl.replace('{cur}', cur).replace('{total}', total);
         }
       }
+      updateDualViewUI();
       if (appState.isDualSpread) renderReferenceBoard();
     }
 
@@ -6132,89 +6184,10 @@
       const p = appState.pages[refIdx];
       if (!p) return;
 
+      // 与主画板共用同一渲染管线 (笔刷样式 / 喷枪 sprayDots / 旋转文字图片完全一致)
       const refCtx = refCanvas.getContext('2d');
-      renderBackgroundOnContext(refCtx, cssWidth, cssHeight, dpr, false);
-
-      refCtx.save();
-      refCtx.setTransform(1, 0, 0, 1, 0, 0);
-      refCtx.scale(dpr, dpr);
-
-      // 渲染对照页图片
-      for (const im of (p.images || [])) {
-        if (im.img && im.img.complete) {
-          refCtx.save();
-          const cx = im.x + im.width / 2;
-          const cy = im.y + im.height / 2;
-          refCtx.translate(cx, cy);
-          if (im.rotation) refCtx.rotate(im.rotation);
-          refCtx.drawImage(im.img, -im.width / 2, -im.height / 2, im.width, im.height);
-          refCtx.restore();
-        }
-      }
-
-      // 渲染对照页笔触
-      for (const s of (p.strokes || [])) {
-        if (!s.points || s.points.length === 0) continue;
-        refCtx.save();
-        refCtx.strokeStyle = s.color || '#18181b';
-        refCtx.fillStyle = s.color || '#18181b';
-        refCtx.lineCap = 'round';
-        refCtx.lineJoin = 'round';
-        refCtx.lineWidth = Math.max(1, s.size || 3);
-        if (s.tool === 'highlighter') {
-          refCtx.globalCompositeOperation = 'multiply';
-          refCtx.globalAlpha = 0.35;
-          refCtx.lineWidth = (s.size || 3) * 3.6;
-        } else if (s.tool === 'spray') {
-          refCtx.globalAlpha = 0.45;
-          for (const pt of s.points) {
-            const dots = generateSprayDots(pt.x, pt.y, (s.size || 4) * 2.5);
-            for (const d of dots) refCtx.fillRect(d.x, d.y, d.r, d.r);
-          }
-          refCtx.restore();
-          continue;
-        }
-
-        if (s.points.length === 1) {
-          refCtx.beginPath();
-          refCtx.arc(s.points[0].x, s.points[0].y, Math.max(1.5, (s.size || 3) / 2), 0, Math.PI * 2);
-          refCtx.fill();
-        } else if (s.points.length === 2) {
-          refCtx.beginPath();
-          refCtx.moveTo(s.points[0].x, s.points[0].y);
-          refCtx.lineTo(s.points[1].x, s.points[1].y);
-          refCtx.stroke();
-        } else {
-          // 🌟 贝塞尔二次平滑插值
-          refCtx.beginPath();
-          refCtx.moveTo(s.points[0].x, s.points[0].y);
-          for (let i = 1; i < s.points.length - 1; i++) {
-            const p1 = s.points[i];
-            const p2 = s.points[i + 1];
-            refCtx.quadraticCurveTo(p1.x, p1.y, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
-          }
-          refCtx.lineTo(s.points[s.points.length - 1].x, s.points[s.points.length - 1].y);
-          refCtx.stroke();
-        }
-        refCtx.restore();
-      }
-
-      // 渲染对照页文本
-      for (const t of (p.texts || [])) {
-        if (!t.text) continue;
-        refCtx.save();
-        refCtx.font = `${t.bold ? 'bold' : 'normal'} ${t.size || 24}px ${t.fontFamily || "'Noto Sans SC', sans-serif"}`;
-        refCtx.fillStyle = t.color || '#ffffff';
-        refCtx.textBaseline = 'top';
-        const lines = String(t.text).split('\n');
-        const lineHeight = (t.size || 24) * 1.35;
-        lines.forEach((line, idx) => {
-          refCtx.fillText(line, t.x, t.y + idx * lineHeight);
-        });
-        refCtx.restore();
-      }
-
-      refCtx.restore();
+      redrawAllStrokes(refCtx, dpr, false, p);
+      if (typeof scheduleAutosave === 'function') scheduleAutosave();
     }
 
     // 🌟 左侧画板直接书写交互系统 (支持两板同时编辑、双板手绘与撤销)
@@ -6238,32 +6211,66 @@
       if (!refCanvas || refCanvas._bound) return;
       refCanvas._bound = true;
 
+      // 左板橡皮擦：与主画板相同的命中算法 (笔迹 + 文字)
       function eraseOnLeftPage(pos) {
         const p = appState.pages[0];
-        if (!p || !p.strokes) return;
-        const r = Math.max(12, (Number(appState.brushSize) || 8) * 1.5);
-        p.strokes = p.strokes.filter(s => {
-          if (!s.points) return true;
-          return !s.points.some(pt => Math.hypot(pt.x - pos.x, pt.y - pos.y) <= r);
-        });
+        if (!p) return false;
+        const hitRadius = Math.max(20, (Number(appState.brushSize) || 4) * 3);
+        const sCount = (p.strokes || []).length;
+        const tCount = (p.texts || []).length;
+        p.strokes = (p.strokes || []).filter(st => !isStrokeNearPoint(st, pos.x, pos.y, hitRadius));
+        p.texts = (p.texts || []).filter(t => Math.hypot(t.x - pos.x, t.y - pos.y) > hitRadius * 1.5);
+        return p.strokes.length < sCount || p.texts.length < tCount;
       }
 
       refCanvas.addEventListener('pointerdown', (e) => {
         closeAllFlyouts();
-        e.preventDefault();
-        const pos = getRefCanvasCoordinates(e);
+        if (!appState.isDualSpread) return;
+        if (multiTouchBlocked) return;
+        if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) {
+          if (e.pointerType === 'touch') cancelStrokeForMultiTouch();
+          return;
+        }
         const p = appState.pages[0]; // 左板固定绘制到第 1 页
         if (!p) return;
-        if (!p.strokes) p.strokes = [];
-        if (!p.history) p.history = [];
-        p.history.push(JSON.parse(JSON.stringify(p.strokes)));
-        if (p.history.length > 30) p.history.shift();
+        appState.lastActiveBoard = 'left';
 
-        if (appState.tool === 'eraser') {
-          isRefDrawing = true;
-          eraseOnLeftPage(pos);
-          renderReferenceBoard();
+        // 抓手 / 空格 / 中键：平移共享画台 (两块画板一起移动)
+        if (appState.tool === 'hand' || appState.isSpaceDown || e.button === 1) {
+          e.preventDefault();
+          activeDrawPointerId = e.pointerId;
+          appState.isRefPanning = true;
+          appState.panStart = { x: e.clientX - appState.panX, y: e.clientY - appState.panY };
           return;
+        }
+
+        // 仅笔触工具与橡皮擦作用于左板；选择/套索/文字/激光等工具不在左板生成笔迹
+        const isEraser = appState.tool === 'eraser';
+        if (!isEraser && !isStrokeTool(appState.tool)) return;
+
+        e.preventDefault();
+        activeDrawPointerId = e.pointerId;
+        try { refCanvas.setPointerCapture(e.pointerId); } catch (err) {}
+
+        const pos = getRefCanvasCoordinates(e);
+        if (!p.strokes) p.strokes = [];
+        if (!p.texts) p.texts = [];
+        if (!p.images) p.images = [];
+        saveLeftHistory();
+
+        if (isEraser) {
+          isRefDrawing = true;
+          currentRefStroke = null;
+          if (eraseOnLeftPage(pos)) renderReferenceBoard();
+          return;
+        }
+
+        const pressure = (e.pressure !== undefined && e.pressure > 0) ? e.pressure : 0.5;
+        const strokeWidth = computeStrokeWidth(appState.tool, pressure);
+        pos.time = performance.now();
+        pos.pressure = pressure;
+        if (appState.tool === 'spray') {
+          pos.sprayDots = generateSprayDots(pos.x, pos.y, strokeWidth);
         }
 
         isRefDrawing = true;
@@ -6271,7 +6278,7 @@
           id: Date.now() + Math.random(),
           tool: appState.tool,
           color: appState.currentColor,
-          size: Number(appState.brushSize) || 3,
+          size: Math.max(1.5, strokeWidth),
           points: [pos]
         };
         p.strokes.push(currentRefStroke);
@@ -6281,57 +6288,60 @@
         refCtx.setTransform(1, 0, 0, 1, 0, 0);
         refCtx.scale(dpr, dpr);
         refCtx.fillStyle = currentRefStroke.color;
-        refCtx.beginPath();
-        refCtx.arc(pos.x, pos.y, Math.max(1, currentRefStroke.size / 2), 0, Math.PI * 2);
-        refCtx.fill();
+        if (currentRefStroke.tool === 'highlighter') {
+          refCtx.globalCompositeOperation = 'multiply';
+          refCtx.globalAlpha = 0.35;
+        } else if (currentRefStroke.tool === 'pencil') {
+          refCtx.globalAlpha = 0.78;
+        }
+        if (currentRefStroke.tool === 'spray') {
+          refCtx.globalAlpha = 0.45;
+          for (const dot of pos.sprayDots) refCtx.fillRect(pos.x + dot.dx, pos.y + dot.dy, dot.r, dot.r);
+        } else {
+          refCtx.beginPath();
+          refCtx.arc(pos.x, pos.y, Math.max(1, currentRefStroke.size / 2), 0, Math.PI * 2);
+          refCtx.fill();
+        }
         refCtx.restore();
       });
 
       refCanvas.addEventListener('pointermove', (e) => {
+        if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) return;
         if (!isRefDrawing) return;
         e.preventDefault();
-        const pos = getRefCanvasCoordinates(e);
+        const p = appState.pages[0];
+        if (!p) return;
 
-        if (appState.tool === 'eraser') {
-          eraseOnLeftPage(pos);
-          renderReferenceBoard();
+        if (appState.tool === 'eraser' && !currentRefStroke) {
+          if (eraseOnLeftPage(getRefCanvasCoordinates(e))) renderReferenceBoard();
           return;
         }
-
         if (!currentRefStroke) return;
-        const pts = currentRefStroke.points;
-        if (pts.length > 0) {
-          const last = pts[pts.length - 1];
-          if (Math.hypot(pos.x - last.x, pos.y - last.y) < 2) return;
-        }
-        pos.time = performance.now();
-        pts.push(pos);
 
         const refCtx = refCanvas.getContext('2d');
-        refCtx.save();
-        refCtx.setTransform(1, 0, 0, 1, 0, 0);
-        refCtx.scale(dpr, dpr);
-        refCtx.strokeStyle = currentRefStroke.color;
-        refCtx.lineCap = 'round';
-        refCtx.lineJoin = 'round';
-        refCtx.lineWidth = currentRefStroke.size;
-
-        if (pts.length >= 3) {
-          const p0 = pts[pts.length - 3], pA = pts[pts.length - 2], pB = pts[pts.length - 1];
-          refCtx.beginPath();
-          refCtx.moveTo((p0.x + pA.x)/2, (p0.y + pA.y)/2);
-          refCtx.quadraticCurveTo(pA.x, pA.y, (pA.x + pB.x)/2, (pA.y + pB.y)/2);
-          refCtx.stroke();
-        } else if (pts.length === 2) {
-          refCtx.beginPath();
-          refCtx.moveTo(pts[0].x, pts[0].y);
-          refCtx.lineTo(pts[1].x, pts[1].y);
-          refCtx.stroke();
+        const events = (e.getCoalescedEvents && typeof e.getCoalescedEvents === 'function') ? e.getCoalescedEvents() : [e];
+        for (const ce of (events.length ? events : [e])) {
+          const cPos = getRefCanvasCoordinates(ce);
+          const pts = currentRefStroke.points;
+          if (pts.length > 0 && currentRefStroke.tool !== 'spray') {
+            const last = pts[pts.length - 1];
+            if (Math.hypot(cPos.x - last.x, cPos.y - last.y) < 2) continue;
+          }
+          cPos.time = performance.now();
+          cPos.pressure = (ce.pressure !== undefined && ce.pressure > 0) ? ce.pressure : 0.5;
+          if (currentRefStroke.tool === 'spray') {
+            cPos.sprayDots = generateSprayDots(cPos.x, cPos.y, currentRefStroke.size);
+          }
+          pts.push(cPos);
+          if (pts.length >= 2) {
+            renderLiveStrokeSegment(currentRefStroke, pts[pts.length - 2], pts[pts.length - 1], refCtx);
+          }
         }
-        refCtx.restore();
       });
 
-      const onRefUp = () => {
+      const onRefUp = (e) => {
+        if (activeDrawPointerId !== null && e && e.pointerId !== activeDrawPointerId) return;
+        try { if (e && refCanvas.hasPointerCapture && refCanvas.hasPointerCapture(e.pointerId)) refCanvas.releasePointerCapture(e.pointerId); } catch (err) {}
         if (isRefDrawing) {
           isRefDrawing = false;
           currentRefStroke = null;
@@ -6339,7 +6349,35 @@
         }
       };
       refCanvas.addEventListener('pointerup', onRefUp);
-      refCanvas.addEventListener('pointerleave', onRefUp);
+      refCanvas.addEventListener('pointercancel', onRefUp);
+    }
+
+    // 双板按钮与右板页码徽标 (文案走 i18n 字典，setLanguage 后重新调用)
+    function updateDualViewUI() {
+      const dict = TRANSLATIONS[appState.lang] || TRANSLATIONS.zh;
+      const btn = document.getElementById('btnToggleDualView');
+      const lbl = document.getElementById('lblDualView');
+      const rightBadge = document.getElementById('rightPageBadge');
+      const leftBadge = document.getElementById('leftPageBadge');
+      if (btn) {
+        btn.classList.toggle('dual-active', !!appState.isDualSpread);
+        if (appState.isDualSpread) {
+          btn.className = 'dual-active flex items-center gap-1 px-2.5 py-1 bg-indigo-600 text-white rounded-xl text-xs font-bold shadow-lg transition active:scale-95';
+        } else {
+          btn.className = 'flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95';
+        }
+      }
+      if (lbl) {
+        lbl.textContent = appState.isDualSpread
+          ? (dict.single_view || TRANSLATIONS.zh.single_view || '单板模式')
+          : (dict.dual_view || TRANSLATIONS.zh.dual_view || '双板并排');
+      }
+      const badgeTpl = dict.page_badge || TRANSLATIONS.zh.page_badge || '第 {n} 页';
+      if (rightBadge) {
+        rightBadge.classList.toggle('hidden', !appState.isDualSpread);
+        rightBadge.textContent = badgeTpl.replace('{n}', appState.currentPageIndex + 1);
+      }
+      if (leftBadge) leftBadge.textContent = badgeTpl.replace('{n}', 1);
     }
 
     function toggleDualSpreadView() {
@@ -6366,20 +6404,8 @@
         loadPage(1); // 右板加载第 2 页
       }
 
-      const btn = document.getElementById('btnToggleDualView');
-      const lbl = document.getElementById('lblDualView');
-      const rightBadge = document.getElementById('rightPageBadge');
-      if (btn && lbl) {
-        if (appState.isDualSpread) {
-          btn.className = 'flex items-center gap-1 px-2.5 py-1 bg-indigo-600 text-white rounded-xl text-xs font-bold shadow-lg transition active:scale-95';
-          lbl.innerText = '单板模式';
-          if (rightBadge) rightBadge.classList.remove('hidden');
-        } else {
-          btn.className = 'flex items-center gap-1 px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95';
-          lbl.innerText = '双板并排';
-          if (rightBadge) rightBadge.classList.add('hidden');
-        }
-      }
+      appState.lastActiveBoard = 'right';
+      updateDualViewUI();
 
       resizeCanvas();
       clearSelection();
@@ -6403,6 +6429,7 @@
 
     function loadPage(index) {
       if (index < 0 || index >= appState.pages.length) return;
+      if (appState.isDualSpread && index === 0) index = Math.min(1, appState.pages.length - 1);
       syncCurrentPageToState();
       appState.currentPageIndex = index;
       const p = appState.pages[index];
@@ -6447,6 +6474,7 @@
       if (appState.currentPageIndex >= appState.pages.length) {
         appState.currentPageIndex = appState.pages.length - 1;
       }
+      if (appState.isDualSpread && appState.currentPageIndex < 1) appState.currentPageIndex = Math.min(1, appState.pages.length - 1);
       const p = appState.pages[appState.currentPageIndex];
       appState.strokes = (p.strokes || []).slice();
       appState.texts = (p.texts || []).slice();
@@ -6454,8 +6482,15 @@
       appState.history = (p.history || []).slice();
       appState.redoStack = (p.redoStack || []).slice();
       clearSelection();
+      if (appState.isDualSpread && appState.pages.length < 2) {
+        // 双板需要至少 2 页：走正常切换路径退出双板 (会调用 loadPage(0))
+        toggleDualSpreadView();
+        scheduleAutosave();
+        return;
+      }
       redrawAllStrokes();
       updatePageUI();
+      scheduleAutosave();
     }
 
     // 🔤 高精度文本度量与包围盒计算系统 (支持多行与动态字体系数)
@@ -6698,116 +6733,116 @@
       return dots;
     }
 
-    function renderLiveStrokeSegment(s, p1, p2) {
-      ctx.save();
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(dpr, dpr);
+    function renderLiveStrokeSegment(s, p1, p2, c = ctx) {
+      c.save();
+      c.setTransform(1, 0, 0, 1, 0, 0);
+      c.scale(dpr, dpr);
 
       // 彻底防止虚线模式泄漏：默认无条件重置虚线
       if (s.tool === 'dotted') {
-        ctx.setLineDash([Math.max(4, s.size * 1.8), Math.max(4, s.size * 1.8)]);
+        c.setLineDash([Math.max(4, s.size * 1.8), Math.max(4, s.size * 1.8)]);
       } else {
-        ctx.setLineDash([]);
+        c.setLineDash([]);
       }
 
       if (s.tool === 'highlighter') {
-        ctx.globalCompositeOperation = 'multiply';
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.35;
-        ctx.lineCap = 'square';
-        ctx.lineJoin = 'miter';
-        ctx.lineWidth = s.size * 3.6;
+        c.globalCompositeOperation = 'multiply';
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.35;
+        c.lineCap = 'square';
+        c.lineJoin = 'miter';
+        c.lineWidth = s.size * 3.6;
       } else if (s.tool === 'spray') {
-        ctx.fillStyle = s.color;
-        ctx.globalAlpha = 0.45;
+        c.fillStyle = s.color;
+        c.globalAlpha = 0.45;
         if (p2 && p2.sprayDots) {
           for (const dot of p2.sprayDots) {
-            ctx.fillRect(p2.x + dot.dx, p2.y + dot.dy, dot.r, dot.r);
+            c.fillRect(p2.x + dot.dx, p2.y + dot.dy, dot.r, dot.r);
           }
         }
-        ctx.restore();
+        c.restore();
         return;
       } else if (s.tool === 'pencil') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.78;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(1, s.size * 0.75);
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.78;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(1, s.size * 0.75);
       } else if (s.tool === 'blue_pencil') {
-        ctx.strokeStyle = s.color || '#38bdf8';
-        ctx.globalAlpha = 0.65;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(1, s.size * 0.8);
+        c.strokeStyle = s.color || '#38bdf8';
+        c.globalAlpha = 0.65;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(1, s.size * 0.8);
       } else if (s.tool === 'maru') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.95;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(0.8, s.size * 0.55);
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.95;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(0.8, s.size * 0.55);
       } else if (s.tool === 'brush') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.88;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = s.size * 1.35;
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.88;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = s.size * 1.35;
       } else if (s.tool === 'crosshatch') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.85;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = s.size * 0.9;
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.85;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = s.size * 0.9;
       } else if (s.tool === 'neon') {
-        ctx.strokeStyle = s.color;
-        ctx.shadowBlur = Math.max(6, s.size * 2.8);
-        ctx.shadowColor = s.color;
-        ctx.globalAlpha = 0.95;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(2, s.size * 1.2);
+        c.strokeStyle = s.color;
+        c.shadowBlur = Math.max(6, s.size * 2.8);
+        c.shadowColor = s.color;
+        c.globalAlpha = 0.95;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(2, s.size * 1.2);
       } else if (s.tool === 'dotted') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 1.0;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = s.size;
+        c.strokeStyle = s.color;
+        c.globalAlpha = 1.0;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = s.size;
       } else if (s.tool === 'ballpoint') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.95;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(1, s.size * 0.82);
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.95;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(1, s.size * 0.82);
       } else if (s.tool === 'marker') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.65;
-        ctx.lineCap = 'square';
-        ctx.lineJoin = 'bevel';
-        ctx.lineWidth = Math.max(3, s.size * 2.8);
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.65;
+        c.lineCap = 'square';
+        c.lineJoin = 'bevel';
+        c.lineWidth = Math.max(3, s.size * 2.8);
       } else if (s.tool === 'fineliner') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 1.0;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(0.6, s.size * 0.42);
+        c.strokeStyle = s.color;
+        c.globalAlpha = 1.0;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(0.6, s.size * 0.42);
       } else if (s.tool === 'fude_pen') {
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 0.95;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = s.size * 1.5;
+        c.strokeStyle = s.color;
+        c.globalAlpha = 0.95;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = s.size * 1.5;
       } else if (s.tool === 'white_gel') {
-        ctx.strokeStyle = '#ffffff';
-        ctx.globalAlpha = 1.0;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(1.2, s.size * 0.85);
+        c.strokeStyle = '#ffffff';
+        c.globalAlpha = 1.0;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(1.2, s.size * 0.85);
       } else {
         // G 笔与通用手绘笔：光滑圆润，杜绝阶梯锯齿与齿轮状珠点
-        ctx.strokeStyle = s.color;
-        ctx.globalAlpha = 1.0;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.lineWidth = Math.max(1, s.size);
+        c.strokeStyle = s.color;
+        c.globalAlpha = 1.0;
+        c.lineCap = 'round';
+        c.lineJoin = 'round';
+        c.lineWidth = Math.max(1, s.size);
       }
 
       // 🌟 贝塞尔二次平滑中点曲线绘制：杜绝直线折角与粗细跳变导致的齿轮齿状
@@ -6821,18 +6856,18 @@
         const m1y = (p0.y + pA.y) / 2;
         const m2x = (pA.x + pB.x) / 2;
         const m2y = (pA.y + pB.y) / 2;
-        ctx.beginPath();
-        ctx.moveTo(m1x, m1y);
-        ctx.quadraticCurveTo(pA.x, pA.y, m2x, m2y);
-        ctx.stroke();
+        c.beginPath();
+        c.moveTo(m1x, m1y);
+        c.quadraticCurveTo(pA.x, pA.y, m2x, m2y);
+        c.stroke();
       } else if (p1 && p2) {
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.stroke();
+        c.beginPath();
+        c.moveTo(p1.x, p1.y);
+        c.lineTo(p2.x, p2.y);
+        c.stroke();
       }
 
-      ctx.restore();
+      c.restore();
     }
 
     // 🌟 全局弹窗/浮动面板互斥管理器：打开任何一个功能，其他功能自动退出
@@ -6875,8 +6910,84 @@
       if (marqueeEl) marqueeEl.remove();
     }
 
+    // 非笔触工具 (不会在任何画板上生成笔迹)
+    const NON_STROKE_TOOLS = new Set(['select', 'hand', 'text', 'lasso', 'laser', 'eraser', 'shape', 'sticky']);
+    function isStrokeTool(tool) {
+      return !!tool && !NON_STROKE_TOOLS.has(tool);
+    }
+
+    function computeStrokeWidth(tool, pressure) {
+      const baseSize = Number(appState.brushSize) || 4;
+      if (tool === 'pencil') return baseSize * 0.75;
+      if (tool === 'maru') return Math.max(0.8, baseSize * 0.55);
+      if (tool === 'blue_pencil') return Math.max(1, baseSize * 0.8);
+      if (tool === 'brush') return baseSize * (0.7 + 0.8 * pressure);
+      if (tool === 'ballpoint') return baseSize * 0.82;
+      if (tool === 'crosshatch') return baseSize * 0.9;
+      if (tool === 'neon') return Math.max(2, baseSize * 1.2);
+      if (tool === 'dotted') return baseSize;
+      if (tool === 'highlighter') return baseSize * 3.6;
+      if (tool === 'spray') return baseSize * 2.2;
+      return baseSize * (0.5 + 0.8 * Math.pow(pressure, 1.3));
+    }
+
+    // 多指触控保护：只跟踪当前正在绘制的 pointerId，第二根手指不会让笔迹“之字形”乱跳
+    let activeDrawPointerId = null;
+    let multiTouchBlocked = false;
+
+    function cancelStrokeForMultiTouch() {
+      // 第二根手指落下：若第一根手指刚开始画 (很短的笔迹)，视为双指手势并撤回这笔误触
+      multiTouchBlocked = true;
+      clearTimeout(shapeHoldTimer);
+      if (isDrawing && currentStroke) {
+        const pts = currentStroke.points || [];
+        const age = performance.now() - ((pts[0] && pts[0].time) || 0);
+        if (pts.length <= 12 || age < 350) {
+          appState.strokes = appState.strokes.filter(st => st !== currentStroke);
+          if (appState.history && appState.history.length) appState.history.pop();
+          redrawAllStrokes();
+        }
+      }
+      if (isRefDrawing && currentRefStroke) {
+        const p0 = appState.pages[0];
+        const pts = currentRefStroke.points || [];
+        const age = performance.now() - ((pts[0] && pts[0].time) || 0);
+        if (p0 && (pts.length <= 12 || age < 350)) {
+          p0.strokes = (p0.strokes || []).filter(st => st !== currentRefStroke);
+          if (p0.history && p0.history.length) p0.history.pop();
+          renderReferenceBoard();
+        }
+      }
+      isDrawing = false;
+      currentStroke = null;
+      isRefDrawing = false;
+      currentRefStroke = null;
+      appState.isPanning = false;
+    }
+
+    // 记录当前按下的触控点 (捕获阶段，先于画板监听器执行)
+    const activeTouchPointers = new Set();
+    window.addEventListener('pointerdown', (e) => { if (e.pointerType === 'touch') activeTouchPointers.add(e.pointerId); }, true);
+    const onTouchPointerEnd = (e) => { if (e.pointerType === 'touch') activeTouchPointers.delete(e.pointerId); };
+    window.addEventListener('pointerup', onTouchPointerEnd, true);
+    window.addEventListener('pointercancel', onTouchPointerEnd, true);
+
+    function releaseActivePointer(e) {
+      if (activeDrawPointerId !== null && e && e.pointerId !== activeDrawPointerId) return false;
+      activeDrawPointerId = null;
+      return true;
+    }
+
     canvas.addEventListener('pointerdown', (e) => {
       closeAllFlyouts();
+      if (multiTouchBlocked) return;
+      if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) {
+        if (e.pointerType === 'touch') cancelStrokeForMultiTouch();
+        return;
+      }
+      activeDrawPointerId = e.pointerId;
+      appState.lastActiveBoard = 'right';
+      try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
 
       // 抓手平移模式 (Hand tool、空格长按或鼠标中键)
       if (appState.tool === 'hand' || e.spaceKey || appState.isSpaceDown || e.button === 1) {
@@ -7037,6 +7148,8 @@
       clearSelection();
 
       if (appState.tool === 'laser') {
+        // 激光笔：按下后持续拖动产生拖尾 (pointermove 需要 isDrawing)
+        isDrawing = true;
         createLaserBeam(pos.x, pos.y);
         return;
       }
@@ -7052,19 +7165,7 @@
       isDrawing = true;
       isShapeSnapped = false;
       const pressure = (e.pressure !== undefined && e.pressure > 0) ? e.pressure : 0.5;
-      const baseSize = Number(appState.brushSize);
-      let strokeWidth = baseSize;
-      if (appState.tool === 'pencil') strokeWidth = baseSize * 0.75;
-      else if (appState.tool === 'maru') strokeWidth = Math.max(0.8, baseSize * 0.55);
-      else if (appState.tool === 'blue_pencil') strokeWidth = Math.max(1, baseSize * 0.8);
-      else if (appState.tool === 'brush') strokeWidth = baseSize * (0.7 + 0.8 * pressure);
-      else if (appState.tool === 'ballpoint') strokeWidth = baseSize * 0.82;
-      else if (appState.tool === 'crosshatch') strokeWidth = baseSize * 0.9;
-      else if (appState.tool === 'neon') strokeWidth = Math.max(2, baseSize * 1.2);
-      else if (appState.tool === 'dotted') strokeWidth = baseSize;
-      else if (appState.tool === 'highlighter') strokeWidth = baseSize * 3.6;
-      else if (appState.tool === 'spray') strokeWidth = baseSize * 2.2;
-      else strokeWidth = baseSize * (0.5 + 0.8 * Math.pow(pressure, 1.3));
+      const strokeWidth = computeStrokeWidth(appState.tool, pressure);
 
       pos.time = performance.now();
       pos.pressure = pressure;
@@ -7108,6 +7209,7 @@
     });
 
     canvas.addEventListener('pointermove', (e) => {
+      if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) return;
       if (appState.isPanning) {
         appState.panX = e.clientX - appState.panStart.x;
         appState.panY = e.clientY - appState.panStart.y;
@@ -7191,6 +7293,13 @@
 
     // 🌟 全局 Window 层级平移拖拽与拉框多选系统
     window.addEventListener('pointermove', (e) => {
+      if (activeDrawPointerId !== null && e.pointerId !== activeDrawPointerId) return;
+      if (appState.isRefPanning) {
+        appState.panX = e.clientX - appState.panStart.x;
+        appState.panY = e.clientY - appState.panStart.y;
+        applyZoomAndPan();
+        return;
+      }
       if (appState.isMarqueeSelecting) {
         e.preventDefault();
         const pos = getCanvasCoordinates(e);
@@ -7229,8 +7338,20 @@
       }
     });
 
-    window.addEventListener('pointerup', () => {
+    function onWindowPointerUp(e) {
+      if (multiTouchBlocked) {
+        // 双指手势期间：等所有手指抬起后再恢复绘制
+        activeDrawPointerId = null;
+        if (activeTouchPointers.size === 0) multiTouchBlocked = false;
+        return;
+      }
+      if (!releaseActivePointer(e)) return;
       clearTimeout(shapeHoldTimer);
+      scheduleAutosave();
+      if (appState.isRefPanning) {
+        appState.isRefPanning = false;
+        return;
+      }
       if (appState.isPanning) {
         appState.isPanning = false;
         if (appState.tool === 'hand') canvasCard.style.cursor = 'grab';
@@ -7280,7 +7401,9 @@
 
       isDrawing = false;
       currentStroke = null;
-    });
+    }
+    window.addEventListener('pointerup', onWindowPointerUp);
+    window.addEventListener('pointercancel', onWindowPointerUp);
 
     // 🖼️ 剪贴板图片粘贴与文件插入 (Ctrl+V / Drag & Drop)
     function addImageToCanvas(src, posX, posY) {
@@ -8243,7 +8366,11 @@
     const btnCloseDualView = document.getElementById('btnCloseDualView');
     const refPageSelect = document.getElementById('refPageSelect');
 
-    if (btnPrevPage) btnPrevPage.onclick = () => { if (appState.currentPageIndex > 0) loadPage(appState.currentPageIndex - 1); };
+    // 双板模式下右板始终停留在第 2 页及以后 (左板固定第 1 页，两块画板绝不编辑同一页)
+    if (btnPrevPage) btnPrevPage.onclick = () => {
+      const minIdx = appState.isDualSpread ? 1 : 0;
+      if (appState.currentPageIndex > minIdx) loadPage(appState.currentPageIndex - 1);
+    };
     if (btnNextPage) btnNextPage.onclick = () => { if (appState.currentPageIndex < appState.pages.length - 1) loadPage(appState.currentPageIndex + 1); };
     if (btnAddPage) btnAddPage.onclick = () => addNewPage();
     if (btnDeletePage) btnDeletePage.onclick = () => deleteCurrentPage();
@@ -8322,6 +8449,8 @@
       const isLight = document.body.classList.contains('theme-light');
       if (themeLabel) themeLabel.innerText = isLight ? (dict.theme_light || '白天') : (dict.theme_dark || '夜间');
       if (typeof updateExportModalUI === 'function') updateExportModalUI();
+      // 双板按钮/页码文案依赖当前状态，需在字典刷新后按状态重新渲染
+      if (typeof updatePageUI === 'function') updatePageUI();
     }
 
     // 白天 / 夜间模式控制 (Day/Night Theme)
