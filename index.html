@@ -2658,6 +2658,7 @@
                 <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="print_b5" data-i18n="fmtbtn_print_b5">B5 投稿原稿</button>
                 <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="webtoon_long" data-i18n="fmtbtn_webtoon_long">条漫长图</button>
                 <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="print_a4" data-i18n="fmtbtn_print_a4">A4 打印</button>
+                <button type="button" class="btn-pro-fmt py-1 px-1.5 rounded-lg bg-slate-900 text-slate-300 hover:text-white border border-slate-700 text-center transition active:scale-95" data-fmt="book_pdf" data-i18n="fmtbtn_book_pdf">书籍 PDF</button>
               </div>
             </div>
           </div>
@@ -2678,7 +2679,26 @@
           <label class="flex items-center gap-1"><span data-i18n="opt_page_gap">页间留白</span>
             <select id="expWebtoonGap" class="bg-slate-800 border border-slate-600 rounded px-1 py-0.5"><option value="0">0 px</option><option value="20">20 px</option><option value="60">60 px</option></select></label>
         </div>
-        <div class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="print_b5 webtoon_long print_a4">
+        <div class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="book_pdf">
+          <label class="flex items-center gap-1"><span data-i18n="opt_book_size">开本</span>
+            <select id="expBookSize" class="bg-slate-800 border border-slate-600 rounded px-1 py-0.5">
+              <option value="auto" data-i18n="opt_size_auto">跟随画幅</option>
+              <option value="b5">B5 182×257 mm</option>
+              <option value="a5">A5 148×210 mm</option>
+              <option value="a4">A4 210×297 mm</option>
+            </select></label>
+          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" id="expBookNumbers" checked class="accent-amber-500" /> <span data-i18n="opt_page_numbers">页码</span></label>
+          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" id="expBookSpread" class="accent-amber-500" /> <span data-i18n="opt_spread">双页跨页</span></label>
+        </div>
+        <div id="expBookSpreadOpts" class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="book_pdf">
+          <label class="flex items-center gap-1"><span data-i18n="opt_reading_dir">阅读方向</span>
+            <select id="expBookDir" class="bg-slate-800 border border-slate-600 rounded px-1 py-0.5">
+              <option value="rtl" data-i18n="opt_dir_rtl">右 → 左 (日漫)</option>
+              <option value="ltr" data-i18n="opt_dir_ltr">左 → 右</option>
+            </select></label>
+          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" id="expBookCover" checked class="accent-amber-500" /> <span data-i18n="opt_cover_single">第 1 页作为单独封面</span></label>
+        </div>
+        <div class="exp-opt flex flex-wrap items-center gap-x-3 gap-y-1" data-for="print_b5 webtoon_long print_a4 book_pdf">
           <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" id="expPlainPaper" checked class="accent-amber-500" /> <span data-i18n="opt_plain_paper">隐藏纸张参考线 / 网格</span></label>
         </div>
       </div>
@@ -5740,7 +5760,18 @@
         exp_btn_webtoon_long: "📜 导出条漫长图 (800px 宽)",
         exp_btn_print_a4: "🖨️ 导出 A4 打印 PDF",
         export_progress: "正在导出 {i} / {n}…",
-        export_dpi_fallback: "浏览器内存不足以生成 600 DPI 大图，已自动改为 350 DPI。"
+        export_dpi_fallback: "浏览器内存不足以生成 600 DPI 大图，已自动改为 350 DPI。",
+        fmtbtn_book_pdf: "书籍 PDF",
+        opt_book_size: "开本",
+        opt_size_auto: "跟随画幅",
+        opt_page_numbers: "页码",
+        opt_spread: "双页跨页",
+        opt_reading_dir: "阅读方向",
+        opt_dir_rtl: "右 → 左 (日漫)",
+        opt_dir_ltr: "左 → 右",
+        opt_cover_single: "第 1 页作为单独封面",
+        exp_desc_book_pdf: "按页面管理器中的顺序合成全部 {n} 页的书籍 PDF（300 DPI）：可加页码；勾选「双页跨页」后每张 PDF 页面并排放两页，并可选阅读方向与封面单页。",
+        exp_btn_book_pdf: "📚 导出书籍 PDF"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5921,7 +5952,18 @@
         exp_btn_webtoon_long: "📜 Export webtoon strip (800px wide)",
         exp_btn_print_a4: "🖨️ Export A4 print PDF",
         export_progress: "Exporting {i} / {n}…",
-        export_dpi_fallback: "Not enough browser memory for 600 DPI; switched to 350 DPI."
+        export_dpi_fallback: "Not enough browser memory for 600 DPI; switched to 350 DPI.",
+        fmtbtn_book_pdf: "Book PDF",
+        opt_book_size: "Trim size",
+        opt_size_auto: "Match canvas",
+        opt_page_numbers: "Page numbers",
+        opt_spread: "Two-page spreads",
+        opt_reading_dir: "Reading direction",
+        opt_dir_rtl: "Right → left (manga)",
+        opt_dir_ltr: "Left → right",
+        opt_cover_single: "Page 1 as a single cover",
+        exp_desc_book_pdf: "Builds a book PDF of all {n} pages in page-manager order (300 DPI): optional page numbers; with “Two-page spreads” each PDF page holds two pages side by side, with reading direction and a single cover page.",
+        exp_btn_book_pdf: "📚 Export book PDF"
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -9975,7 +10017,14 @@
       box.querySelectorAll('.exp-opt').forEach(el => {
         el.classList.toggle('hidden', !(el.dataset.for || '').split(' ').includes(selectedProFormat));
       });
+      const spreadOpts = document.getElementById('expBookSpreadOpts');
+      const spreadChk = document.getElementById('expBookSpread');
+      if (spreadOpts && selectedProFormat === 'book_pdf') spreadOpts.classList.toggle('hidden', !(spreadChk && spreadChk.checked));
     }
+    (function bindBookOptions() {
+      const chk = document.getElementById('expBookSpread');
+      if (chk) chk.addEventListener('change', () => updateExportPresetOptions(true));
+    })();
 
     function updateExportModalUI() {
       const tier = getSelectedExportTier();
@@ -10566,6 +10615,34 @@ ${body}</svg>`;
         files.push({ blob, name: `ComicBoard-webtoon-${WEBTOON_WIDTH}w${suffix}-${stamp}.png`, type: 'image/png' });
       }
       await deliverFiles(files);
+    }
+
+    // 📚 书籍 PDF：按页面管理器的顺序，可加页码、可排成双页跨页
+    const BOOK_SIZES_MM = { b5: [182, 257], a5: [148, 210], a4: [210, 297] };
+    function readBookOptions() {
+      const v = (id) => document.getElementById(id);
+      return {
+        size: (v('expBookSize') || {}).value || 'auto',
+        pageNumbers: !!(v('expBookNumbers') || {}).checked,
+        spread: !!(v('expBookSpread') || {}).checked,
+        rtl: ((v('expBookDir') || {}).value || 'rtl') === 'rtl',
+        coverSingle: !!(v('expBookCover') || {}).checked,
+        plainPaper: !!(v('expPlainPaper') || {}).checked
+      };
+    }
+    async function exportBookPDF(o) {
+      if (!window.jspdf) { toast(tr('pdf_lib_loading')); return; }
+      syncCurrentPageToState();
+      toast(tr('export_working'), 2400);
+      await nextTick();
+      try {
+        const fixed = BOOK_SIZES_MM[o.size];
+        const size = fixed ? { w: fixed[0], h: fixed[1] } : getPdfPageSizeMM();
+        const pdf = await buildPdfDocument({ pageW: size.w, pageH: size.h, spread: o.spread, rtl: o.rtl, coverSingle: o.coverSingle, pageNumbers: o.pageNumbers, plainPaper: o.plainPaper });
+        handleFileDownloadOrShare(pdf.output('blob'), `ComicBoard-Book-${exportStamp()}.pdf`, 'application/pdf');
+      } catch (err) {
+        toast(tr('export_failed'));
+      }
     }
 
     async function exportPrintA4(opts) {
