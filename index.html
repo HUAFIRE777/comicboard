@@ -1186,6 +1186,12 @@
     body.theme-light #toolOptionsBar .opt-btn { background: #ffffff; border-color: #0f172a; }
     #eraserRing { position: fixed; z-index: 45; pointer-events: none; border-radius: 50%; border: 1.5px solid rgba(15, 23, 42, 0.85); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9); display: none; }
 
+    #pageMenu .page-menu-item { width: 100%; display: flex; align-items: center; gap: 8px; height: var(--btn-md); padding: 0 10px; border-radius: var(--r-sm); font-weight: 600; color: var(--text-1); text-align: left; }
+    #pageMenu .page-menu-item:hover:not(:disabled) { background: rgba(148, 163, 184, 0.16); }
+    #pageMenu .page-menu-item:disabled { opacity: 0.4; cursor: not-allowed; }
+    body.theme-light #pageMenu .page-menu-item { color: #0f172a !important; font-weight: 700 !important; }
+    body.theme-light #pageManagerDock #btnPageMenu { color: #0f172a !important; }
+
     /* 焦点可见环 (键盘操作) */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       outline: none !important;
@@ -2025,7 +2031,15 @@
       <span class="hidden sm:inline text-slate-700">|</span>
       <button id="btnAddPage" class="shrink-0 flex items-center gap-1.5 px-2 sm:px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="新建空白漫画页 (+)"><svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span data-i18n="add_page" class="hidden sm:inline text-white font-bold">加页</span></button>
       <button id="btnToggleDualView" class="shrink-0 flex items-center gap-1 px-2 sm:px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold shadow transition active:scale-95" title="双板并排对比 / 见开两页 (Side-by-Side Dual Spread)"><span>📖</span><span id="lblDualView" class="hidden sm:inline">双板并排</span></button>
-      <button id="btnDeletePage" class="p-1 hover:bg-rose-900/40 text-slate-400 hover:text-rose-400 rounded-lg text-xs transition" title="删除当前页面">🗑️</button>
+      <button id="btnPageMenu" type="button" class="shrink-0 px-1.5 hover:bg-slate-800 rounded-lg text-slate-300 hover:text-white font-bold transition" data-i18n-title="tip_page_menu" title="页面操作：复制、调整顺序" aria-haspopup="true">⋯</button>
+      <button id="btnDeletePage" class="p-1 hover:bg-rose-900/40 text-slate-400 hover:text-rose-400 rounded-lg text-xs transition" data-i18n-title="tip_delete_page" title="删除当前页面">🗑️</button>
+    </div>
+
+    <!-- 📑 页面操作菜单：复制本页 / 前移 / 后移 -->
+    <div id="pageMenu" class="hidden absolute bottom-16 left-1/2 -translate-x-1/2 z-40 rounded-2xl p-1.5 w-52 text-xs space-y-0.5" role="menu">
+      <button id="btnDuplicatePage" type="button" class="page-menu-item" role="menuitem"><span>⧉</span><span data-i18n="page_duplicate">复制本页</span></button>
+      <button id="btnMovePageLeft" type="button" class="page-menu-item" role="menuitem"><span>◀</span><span data-i18n="page_move_left">向前移一页</span></button>
+      <button id="btnMovePageRight" type="button" class="page-menu-item" role="menuitem"><span>▶</span><span data-i18n="page_move_right">向后移一页</span></button>
     </div>
 
     <!-- 真实物理纸张容器 (带高阶阴影与标准长宽比，支持双板并排对照) -->
@@ -5670,7 +5684,15 @@
         bal_thought: "内心思考云",
         bal_rect: "旁白讲解框",
         balloon_inserted_toast: "已插入气泡：拖动调整位置和大小，再用文字工具 (T) 点击气泡输入台词。",
-        sc_panel_cut: "分格工具"
+        sc_panel_cut: "分格工具",
+        tip_page_menu: "页面操作：复制、调整顺序",
+        tip_delete_page: "删除当前页面",
+        page_duplicate: "复制本页",
+        page_move_left: "向前移一页",
+        page_move_right: "向后移一页",
+        page_duplicated_toast: "已复制为第 {n} 页。",
+        page_moved_toast: "已移到第 {n} 页。",
+        page_move_dual_locked: "双板模式下第 1 页固定在左侧；如需调整第 1 页的位置，请先退出双板。"
       },
       en: {
         site_subtitle: "Online manga storyboard & comic board",
@@ -5824,7 +5846,15 @@
         bal_thought: "Thought",
         bal_rect: "Caption box",
         balloon_inserted_toast: "Balloon added: drag to move or resize it, then use the Text tool (T) and click inside to write the line.",
-        sc_panel_cut: "Panel cutter"
+        sc_panel_cut: "Panel cutter",
+        tip_page_menu: "Page actions: duplicate, reorder",
+        tip_delete_page: "Delete this page",
+        page_duplicate: "Duplicate page",
+        page_move_left: "Move page earlier",
+        page_move_right: "Move page later",
+        page_duplicated_toast: "Duplicated as page {n}.",
+        page_moved_toast: "Moved to page {n}.",
+        page_move_dual_locked: "In dual view page 1 stays on the left; exit dual view to move page 1."
       },
       ja: {
         site_subtitle: "オンライン漫画ネーム・コマ割りボード",
@@ -7639,6 +7669,7 @@
         }
       }
       updateDualViewUI();
+      if (typeof updatePageMenuState === 'function') updatePageMenuState();
       if (appState.isDualSpread) renderReferenceBoard();
     }
 
@@ -8000,6 +8031,54 @@
       redrawAllStrokes();
       updatePageUI();
       scheduleAutosave();
+    }
+
+    // 📑 复制本页 (插在后面) / 前后移动页序 (导出、书籍 PDF 均按此顺序)
+    function duplicateCurrentPage() {
+      syncCurrentPageToState();
+      const idx = isLeftBoardActive() ? 0 : appState.currentPageIndex;
+      const src = appState.pages[idx];
+      if (!src) return;
+      const copy = {
+        id: Date.now(),
+        strokes: JSON.parse(JSON.stringify(src.strokes || [])),
+        texts: (src.texts || []).map(t => { const c = JSON.parse(JSON.stringify(t)); delete c._editing; c.id = Date.now() + Math.random(); return c; }),
+        images: (src.images || []).map(im => ({ ...im, id: Date.now() + Math.random() })),
+        history: [],
+        redoStack: []
+      };
+      copy.strokes.forEach(st => { st.id = Date.now() + Math.random(); });
+      appState.pages.splice(idx + 1, 0, copy);
+      appState.lastActiveBoard = 'right';
+      loadPage(idx + 1);
+      scheduleAutosave();
+      toast(tr('page_duplicated_toast', { n: idx + 2 }));
+    }
+
+    function moveCurrentPage(dir) {
+      const idx = appState.currentPageIndex;
+      const j = idx + dir;
+      if (j < 0 || j >= appState.pages.length) return;
+      if (appState.isDualSpread && (j === 0 || idx === 0)) { toast(tr('page_move_dual_locked'), 4200); return; }
+      syncCurrentPageToState();
+      const tmp = appState.pages[idx];
+      appState.pages[idx] = appState.pages[j];
+      appState.pages[j] = tmp;
+      appState.currentPageIndex = j;
+      clearSelection();
+      redrawAllStrokes();
+      updatePageUI();
+      scheduleAutosave();
+      toast(tr('page_moved_toast', { n: j + 1 }));
+    }
+
+    function updatePageMenuState() {
+      const idx = appState.currentPageIndex, n = appState.pages.length;
+      const minIdx = appState.isDualSpread ? 1 : 0;
+      const l = document.getElementById('btnMovePageLeft');
+      const r = document.getElementById('btnMovePageRight');
+      if (l) l.disabled = idx - 1 < minIdx;
+      if (r) r.disabled = idx + 1 >= n;
     }
 
     // 🔤 高精度文本度量与包围盒计算系统 (支持多行与动态字体系数)
@@ -10754,6 +10833,24 @@ ${body}</svg>`;
     if (btnNextPage) btnNextPage.onclick = () => { if (appState.currentPageIndex < appState.pages.length - 1) loadPage(appState.currentPageIndex + 1); };
     if (btnAddPage) btnAddPage.onclick = () => addNewPage();
     if (btnDeletePage) btnDeletePage.onclick = () => deleteCurrentPage();
+    (function bindPageMenu() {
+      const menu = document.getElementById('pageMenu');
+      const btn = document.getElementById('btnPageMenu');
+      if (!menu || !btn) return;
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const show = menu.classList.contains('hidden');
+        closeAllFlyouts(show ? 'pageMenu' : null);
+        menu.classList.toggle('hidden', !show);
+        if (show) updatePageMenuState();
+      };
+      menu.addEventListener('pointerdown', (e) => e.stopPropagation());
+      document.addEventListener('click', (e) => { if (!menu.contains(e.target) && !btn.contains(e.target)) menu.classList.add('hidden'); });
+      const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = (e) => { e.stopPropagation(); fn(); updatePageMenuState(); }; };
+      on('btnDuplicatePage', () => { duplicateCurrentPage(); menu.classList.add('hidden'); });
+      on('btnMovePageLeft', () => moveCurrentPage(-1));
+      on('btnMovePageRight', () => moveCurrentPage(1));
+    })();
     if (btnToggleDualView) btnToggleDualView.onclick = toggleDualSpreadView;
     if (btnCloseDualView) btnCloseDualView.onclick = toggleDualSpreadView;
     if (refPageSelect) refPageSelect.onchange = (e) => {
