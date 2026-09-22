@@ -964,6 +964,124 @@
       font-weight: 700 !important;
     }
     
+
+    /* ================= ☀️ 白天模式四大弹窗高对比度 (规则 2：白底 + #0f172a 粗体字 + 黑底白字按钮) ================= */
+    body.theme-light #proModal > div,
+    body.theme-light #exportModal > div,
+    body.theme-light #restoreModal > div,
+    body.theme-light #feedbackModal > div {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    body.theme-light #proModal > div *,
+    body.theme-light #exportModal > div *,
+    body.theme-light #restoreModal > div *,
+    body.theme-light #feedbackModal > div * {
+      color: #0f172a !important;
+    }
+    body.theme-light #proModal > div :is(p, span, label, strong, div, a, li, button, small),
+    body.theme-light #exportModal > div :is(p, span, label, strong, div, a, li, button, small),
+    body.theme-light #restoreModal > div :is(p, span, label, strong, div, a, li, button, small),
+    body.theme-light #feedbackModal > div :is(p, span, label, strong, div, a, li, button, small) {
+      font-weight: 700 !important;
+    }
+    body.theme-light #proModal > div :is(h3, h4),
+    body.theme-light #exportModal > div :is(h3, h4),
+    body.theme-light #restoreModal > div :is(h3, h4),
+    body.theme-light #feedbackModal > div :is(h3, h4) {
+      font-weight: 800 !important;
+    }
+    body.theme-light #proModal > div :is(.bg-slate-800, .bg-slate-800\/80, .bg-slate-800\/90, .bg-slate-900, .bg-slate-900\/90, .bg-slate-900\/60, .bg-slate-950, .bg-slate-700, .bg-indigo-500\/10, .bg-amber-500\/10, .bg-amber-500\/15, .bg-amber-500\/20, .bg-emerald-500\/20),
+    body.theme-light #exportModal > div :is(.bg-slate-800, .bg-slate-800\/80, .bg-slate-800\/90, .bg-slate-900, .bg-slate-900\/90, .bg-slate-900\/60, .bg-slate-950, .bg-slate-700, .bg-indigo-500\/10, .bg-amber-500\/10, .bg-amber-500\/15, .bg-amber-500\/20, .bg-emerald-500\/20),
+    body.theme-light #restoreModal > div :is(.bg-slate-800, .bg-slate-800\/80, .bg-slate-800\/90, .bg-slate-900, .bg-slate-900\/90, .bg-slate-900\/60, .bg-slate-950, .bg-slate-700, .bg-indigo-500\/10, .bg-amber-500\/10, .bg-amber-500\/15, .bg-amber-500\/20, .bg-emerald-500\/20),
+    body.theme-light #feedbackModal > div :is(.bg-slate-800, .bg-slate-800\/80, .bg-slate-800\/90, .bg-slate-900, .bg-slate-900\/90, .bg-slate-900\/60, .bg-slate-950, .bg-slate-700, .bg-indigo-500\/10, .bg-amber-500\/10, .bg-amber-500\/15, .bg-amber-500\/20, .bg-emerald-500\/20) {
+      background: #f8fafc !important;
+      background-image: none !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.theme-light #proModal > div :is(input[type="text"], input[type="email"], input:not([type]), textarea, select),
+    body.theme-light #exportModal > div :is(input[type="text"], input[type="email"], input:not([type]), textarea, select),
+    body.theme-light #restoreModal > div :is(input[type="text"], input[type="email"], input:not([type]), textarea, select),
+    body.theme-light #feedbackModal > div :is(input[type="text"], input[type="email"], input:not([type]), textarea, select) {
+      background: #ffffff !important;
+      border: 1.5px solid #0f172a !important;
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light #proModal > div :is(input, textarea)::placeholder,
+    body.theme-light #exportModal > div :is(input, textarea)::placeholder,
+    body.theme-light #restoreModal > div :is(input, textarea)::placeholder,
+    body.theme-light #feedbackModal > div :is(input, textarea)::placeholder {
+      color: #475569 !important;
+      font-weight: 600 !important;
+    }
+    body.theme-light #exportModal #btnExecuteExport,
+    body.theme-light #proModal #creemCheckoutBtn,
+    body.theme-light #proModal #btnVerifyLicense,
+    body.theme-light #restoreModal #btnConfirmRestore,
+    body.theme-light #feedbackModal #btnSubmitFeedback,
+    body.theme-light #exportModal #btnCopySvgToClipboard,
+    body.theme-light #exportModal #btnOpenCanva,
+    body.theme-light #exportModal #btnOpenFigma {
+      background: #0f172a !important;
+      background-image: none !important;
+      border-color: #0f172a !important;
+      color: #ffffff !important;
+      font-weight: 800 !important;
+    }
+    body.theme-light #exportModal #btnExecuteExport *,
+    body.theme-light #proModal #creemCheckoutBtn *,
+    body.theme-light #proModal #btnVerifyLicense *,
+    body.theme-light #restoreModal #btnConfirmRestore *,
+    body.theme-light #feedbackModal #btnSubmitFeedback *,
+    body.theme-light #exportModal #btnCopySvgToClipboard *,
+    body.theme-light #exportModal #btnOpenCanva *,
+    body.theme-light #exportModal #btnOpenFigma * {
+      color: #ffffff !important;
+    }
+    body.theme-light #exportModal #btnExecuteExport:hover,
+    body.theme-light #proModal #creemCheckoutBtn:hover,
+    body.theme-light #proModal #btnVerifyLicense:hover,
+    body.theme-light #restoreModal #btnConfirmRestore:hover,
+    body.theme-light #feedbackModal #btnSubmitFeedback:hover,
+    body.theme-light #exportModal #btnCopySvgToClipboard:hover,
+    body.theme-light #exportModal #btnOpenCanva:hover,
+    body.theme-light #exportModal #btnOpenFigma:hover {
+      background: #334155 !important;
+    }
+    /* Pro 导出格式切换胶囊：未选中白底黑字，选中黑底白字 */
+    body.theme-light #exportModal > div .btn-pro-fmt {
+      background: #ffffff !important;
+      border: 1.5px solid #0f172a !important;
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light #exportModal > div .btn-pro-fmt.bg-amber-500 {
+      background: #0f172a !important;
+      color: #ffffff !important;
+    }
+    /* 选中的导出方案卡片保留彩色描边以示区分 */
+    body.theme-light #exportModal > div #exportCardFree.border-emerald-500 { border-color: #059669 !important; }
+    body.theme-light #exportModal > div #exportCardPro.border-amber-500 { border-color: #d97706 !important; }
+
+    /* 页码坞：双板切换按钮在白天模式下清晰可读 */
+    body.theme-light #pageManagerDock button#btnToggleDualView {
+      background: #ffffff !important;
+      border: 1.5px solid #0f172a !important;
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    body.theme-light #pageManagerDock button#btnToggleDualView * {
+      color: #0f172a !important;
+    }
+    body.theme-light #pageManagerDock button#btnToggleDualView.dual-active {
+      background: #0f172a !important;
+      color: #ffffff !important;
+    }
+    body.theme-light #pageManagerDock button#btnToggleDualView.dual-active * {
+      color: #ffffff !important;
+    }
 </style>
   <!-- Open-Source Typography (Google Fonts - 16 Master Typographic Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
