@@ -9838,12 +9838,15 @@
       if (toolKey) {
         selectTool(toolKey === '@brush' ? currentBrushTool() : toolKey);
       } else if (e.code === 'Space') {
+        // 空格 = 临时抓手：阻止默认行为，否则会"按下"刚点过的工具栏按钮 (如弹出笔刷工坊) 或滚动页面
+        e.preventDefault();
         appState.isSpaceDown = true;
         workbenchWrapper.style.cursor = 'grab';
       }
     });
 
     window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space' && !isEditableTarget(e.target) && !isEditableTarget(document.activeElement)) e.preventDefault();
       if (e.code === 'Space') {
         appState.isSpaceDown = false;
         workbenchWrapper.style.cursor = 'default';
