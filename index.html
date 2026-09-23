@@ -12493,6 +12493,27 @@ ${body}</svg>`;
         }
         return (s.points || []).map(function (p) { return px(p, u); });
       }
+      // ✍️ 手握笔：动画时画在画布最上层（下一次重绘自动消失），录制会一起录进去
+      var HAND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">' +
+        '<defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8d3b6"/><stop offset="1" stop-color="#e7a987"/></linearGradient></defs>' +
+        '<path d="M6 6 L22 14 L118 110 L108 120 L12 24 Z" fill="#1e293b"/>' +
+        '<path d="M6 6 L22 14 L14 22 Z" fill="#94a3b8"/><path d="M6 6 L11 9 L9 11 Z" fill="#0f172a"/>' +
+        '<path d="M100 96 L112 90 L126 104 L120 116 Z" fill="#334155"/>' +
+        '<path d="M78 92 C92 70 120 70 138 84 C160 96 190 110 214 150 L214 220 L120 220 C104 196 92 170 96 150 C84 146 70 136 66 124 C62 112 68 100 78 92 Z" fill="url(#s)" stroke="#c98b6b" stroke-width="2"/>' +
+        '<path d="M74 118 C82 130 94 136 106 136" fill="none" stroke="#c98b6b" stroke-width="2" stroke-linecap="round"/>' +
+        '<path d="M92 100 C104 96 116 100 124 108" fill="none" stroke="#c98b6b" stroke-width="2" stroke-linecap="round"/>' +
+        '</svg>';
+      var handImg = new Image(); handImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(HAND_SVG);
+      var handOn = true;
+      function drawHand(x, y) {
+        if (!handOn || !handImg.complete || !handImg.naturalWidth) return;
+        var cv = document.getElementById('mainCanvas'); if (!cv) return;
+        var c = cv.getContext('2d'), k = cv.width / (W() || 1), size = Math.max(90, Math.min(170, W() * 0.11));
+        c.save(); c.setTransform(k, 0, 0, k, 0, 0);
+        c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 10; c.shadowOffsetX = 4; c.shadowOffsetY = 6;
+        c.drawImage(handImg, x - size * 6 / 220, y - size * 6 / 220, size, size);
+        c.restore();
+      }
       async function animateStroke(points, opts) {
         opts = opts || {};
         if (!points || points.length < 2 || typeof EBf().addStroke !== 'function') return null;
@@ -12507,7 +12528,7 @@ ${body}</svg>`;
             var k = Math.min(1, (performance.now() - t0) / dur), n = Math.max(Math.min(full.length, 4), Math.round(k * full.length));
             stroke.points.length = 0;
             for (var j = 0; j < n; j++) stroke.points.push({ x: full[j].x, y: full[j].y, pressure: 0.5 });
-            redraw();
+            redraw(); drawHand(full[n - 1].x, full[n - 1].y);
             if (k < 1) { if (document.hidden) setTimeout(frame, 16); else requestAnimationFrame(frame); } else resolve();   // 后台标签页里 rAF 会暂停
           })();
         });
@@ -12522,7 +12543,13 @@ ${body}</svg>`;
         if (!item || typeof item !== 'object') item = (appState.texts || [])[before];
         if (!item) return null;
         var chars = Array.from(String(text)), cps = opts.cps || 12;   // 每秒字数
-        for (var i = 1; i <= chars.length; i++) { item.text = chars.slice(0, i).join(''); redraw(); await sleep(1000 / cps); }
+        var fsz = item.size || item.fontSize || opts.size || 24, cv = document.getElementById('mainCanvas'), mc = cv && cv.getContext('2d');
+        for (var i = 1; i <= chars.length; i++) {
+          item.text = chars.slice(0, i).join(''); redraw();
+          var tw = mc ? (mc.save(), mc.font = fsz + 'px ' + (item.fontFamily || 'sans-serif'), mc.measureText(item.text).width + (mc.restore(), 0)) : i * fsz * 0.6;
+          drawHand(item.x + tw, item.y + fsz * 0.8);
+          await sleep(1000 / cps);
+        }
         return item;
       }
       // 讲解指示点：屏幕上显示红点，录制时也会被录进视频
@@ -12572,10 +12599,16 @@ ${body}</svg>`;
         script = typeof script === 'string' ? JSON.parse(script) : (script || {});
         var steps = script.steps || [], rec = script.record ? recorder() : null, color, size;
         playing = true;
+        handOn = script.hand !== false;   // 默认显示手握笔，hand:false 关闭
         try {
-          if (script.brush !== 'keep') {
+          if (script.brush !== 'keep') {   // 默认马克笔；brush:'pencil' 等可指定其它笔刷，brush:'keep' 保留当前笔
+            var brushName = typeof script.brush === 'string' ? script.brush : 'marker';
             var penBtn = document.querySelector('[data-tool="pen"]') || document.querySelector('[data-tool="gpen"]');
             if (penBtn) penBtn.click(); else if (EBf().setTool) EBf().setTool('pen');
+            var bBtn = document.querySelector('[data-brush="' + brushName + '"]');
+            if (bBtn) bBtn.click();
+            if (EBf().setBrushType) EBf().setBrushType(brushName);
+            try { var fly = document.getElementById('brushStudioFlyout'); if (fly) fly.classList.add('hidden'); } catch (e) {}
           }
           if (rec) { await rec.start(); await sleep(600); }
           for (var i = 0; i < steps.length; i++) {
@@ -12596,8 +12629,9 @@ ${body}</svg>`;
             }
             if (s.pause) await sleep(s.pause);
           }
+          redraw();   // 收尾：去掉画面上的手
           if (rec) { await sleep(800); await rec.stop(); }
-        } finally { playing = false; }
+        } finally { playing = false; redraw(); }
         return { ok: true, steps: steps.length };
       }
       function attach() {
