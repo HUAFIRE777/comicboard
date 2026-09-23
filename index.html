@@ -12587,7 +12587,7 @@ ${body}</svg>`;
               case 'color': color = s.value; if (EBf().setColor) EBf().setColor(s.value); break;
               case 'size': size = s.value; if (EBf().setBrushSize) EBf().setBrushSize(s.value); break;
               case 'text': await writeText(s.text, s.at, { size: s.size, color: o.color, cps: s.cps, units: o.units, fontFamily: s.font }); break;
-              case 'point': await pointAt(s.at, s.ms, o); break;
+              case 'point': if (script.pointer) await pointAt(s.at, s.ms, o); break;   // 红色指示点默认关闭，脚本写 pointer:true 才显示
               case 'arrow': { s.units = o.units; var ar = shapePoints(Object.assign({ shape: 'arrow' }, s)); await animateStroke(ar.body, o); await animateStroke(ar.head, o); break; }
               case 'line': await animateStroke([px(s.from, o.units), px(s.to, o.units)], o); break;
               case 'path': await animateStroke(shapePoints({ points: s.points, units: o.units }), o); break;
