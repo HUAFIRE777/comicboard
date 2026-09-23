@@ -12598,44 +12598,88 @@ ${body}</svg>`;
         });
         return stroke;
       }
+      // ✍️ 一笔一画写字：英文 / 数字 / 符号用 Hershey 单线字体，汉字用 Hanzi Writer 笔顺数据；
+      //   每一笔都用当前画笔真实画出来，笔尖沿笔画移动。数据从 jsDelivr 按需加载，加载失败时退回逐字显现。
+      var HERSHEY_URL = 'https://cdn.jsdelivr.net/npm/hersheytext@2.0.0/svg_fonts/HersheySans1.svg';
+      var HANZI_URL = 'https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/';
+      var hersheyP = null, hanziCache = {};
+      var EXTRA = {   // Hershey 缺的数学符号（同一坐标系：基线 y=0，向上为正，大写高约 662）
+        '√': 'M 60 300 L 170 360 L 330 0 L 470 700 L 820 700',
+        '·': 'M 150 300 L 190 300',
+        'π': 'M 150 441 L 700 441 M 320 441 L 260 0 M 560 441 L 600 0',
+        '×': 'M 200 460 L 600 60 M 600 460 L 200 60',
+        '÷': 'M 150 260 L 650 260 M 395 440 L 405 440 M 395 80 L 405 80',
+        '−': 'M 150 260 L 650 260',
+        '°': 'M 150 662 L 230 662 L 230 582 L 150 582 L 150 662'
+      };
+      function parsePath(d) {
+        var polys = [], cur = null, tk = String(d).trim().split(/\s+/);
+        for (var i = 0; i < tk.length; i++) {
+          if (tk[i] === 'M') { cur = [[+tk[i + 1], +tk[i + 2]]]; polys.push(cur); i += 2; }
+          else if (tk[i] === 'L' && cur) { cur.push([+tk[i + 1], +tk[i + 2]]); i += 2; }
+        }
+        return polys.filter(function (p) { return p.length > 1; });
+      }
+      function loadHershey() {
+        if (hersheyP) return hersheyP;
+        hersheyP = fetch(HERSHEY_URL).then(function (r) { return r.text(); }).then(function (txt) {
+          var doc = new DOMParser().parseFromString(txt, 'image/svg+xml'), map = {};
+          doc.querySelectorAll('glyph').forEach(function (g) { var u = g.getAttribute('unicode'); if (u) map[u] = { polys: parsePath(g.getAttribute('d') || ''), adv: +(g.getAttribute('horiz-adv-x') || 600) }; });
+          Object.keys(EXTRA).forEach(function (k) { map[k] = { polys: parsePath(EXTRA[k]), adv: 850 }; });
+          return map;
+        }).catch(function () { hersheyP = null; return null; });
+        return hersheyP;
+      }
+      function loadHanzi(ch) {
+        if (!hanziCache[ch]) hanziCache[ch] = fetch(HANZI_URL + encodeURIComponent(ch) + '.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+        return hanziCache[ch];
+      }
+      var SUB = '₀₁₂₃₄₅₆₇₈₉', SUP = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' };
       async function writeText(text, at, opts) {
         opts = opts || {};
-        if (typeof EBf().addText !== 'function') return null;
         var p = px(at || [10, 10], opts.units);
-        var before = (appState.texts || []).length;
-        var item = EBf().addText(' ', p.x, p.y, { size: opts.size, color: opts.color, fontFamily: opts.fontFamily });
-        if (!item || typeof item !== 'object') item = (appState.texts || [])[before];
-        if (!item) return null;
-        var chars = Array.from(String(text)), cps = opts.cps || 12;   // 每秒字数
-        // 逐字「手写」：当前字从左到右逐渐显现，笔尖停在显现的边缘并上下运笔
-        var fsz = item.size || item.fontSize || opts.size || 24, cv = document.getElementById('mainCanvas'), mc = cv && cv.getContext('2d');
-        var font = (item.bold ? 'bold ' : '') + fsz + 'px ' + (item.fontFamily || 'sans-serif');
-        var perChar = Math.max(90, 1000 / cps);
-        for (var i = 0; i < chars.length; i++) {
-          var prefix = chars.slice(0, i).join(''), ch = chars[i];
-          item.text = prefix || ' ';
-          var t0 = performance.now();
-          while (true) {
-            var u = Math.min(1, (performance.now() - t0) / perChar);
-            redraw();
-            if (mc) {
-              var k = cv.width / (W() || 1);
-              mc.save(); mc.setTransform(k, 0, 0, k, 0, 0);
-              mc.font = font; mc.textBaseline = 'top'; mc.fillStyle = item.color || '#ffffff';
-              var x0 = item.x + (prefix ? mc.measureText(prefix).width : 0), cw = mc.measureText(ch).width || fsz * 0.5;
-              mc.beginPath(); mc.rect(x0 - 2, item.y - fsz * 0.3, cw * u + 2, fsz * 1.6); mc.clip();
-              mc.fillText(ch, x0, item.y);
-              mc.restore();
-              // 笔尖：沿显现边缘移动，并在字高范围内上下运笔
-              var wave = 0.5 - 0.42 * Math.cos(u * Math.PI * 6);
-              drawHand(x0 + cw * u, item.y + fsz * (0.12 + 0.76 * wave));
+        var fsz = opts.size || 32;
+        var penSize = opts.penSize || Math.max(2, Math.round(fsz * 0.075));
+        var speed = opts.speed || Math.max(260, fsz * 9);            // 写字速度（像素 / 秒）
+        var font = await loadHershey();
+        var x = p.x, top = p.y, base = top + fsz * 0.86, chars = Array.from(String(text)), drew = 0;
+        for (var ci = 0; ci < chars.length; ci++) {
+          var ch = chars[ci];
+          if (ch === ' ') { x += fsz * 0.35; continue; }
+          if (/[㐀-鿿豈-﫿]/.test(ch)) {                 // 汉字：按笔顺写
+            var hz = await loadHanzi(ch);
+            if (hz && hz.medians) {
+              var s = fsz * 0.95 / 1024;
+              for (var k = 0; k < hz.medians.length; k++) {
+                var pts = hz.medians[k].map(function (m) { return { x: x + m[0] * s, y: top + (900 - m[1]) * s }; });
+                await animateStroke(pts, { color: opts.color, size: penSize, speed: speed });
+                drew++; await sleep(70);
+              }
+              x += fsz * 1.02; continue;
             }
-            if (u >= 1) break;
-            await sleep(16);
           }
+          var scale = 1, dy = 0, key = ch;
+          var si = SUB.indexOf(ch);
+          if (si >= 0) { key = String(si); scale = 0.6; dy = fsz * 0.16; }
+          else if (SUP[ch]) { key = SUP[ch]; scale = 0.6; dy = -fsz * 0.42; }
+          var g = font && font[key];
+          if (g && g.polys.length) {                                        // 字母 / 数字 / 符号：Hershey 单线字形
+            var gs = fsz * 0.72 / 662 * scale, minX = Infinity, maxX = -Infinity;
+            g.polys.forEach(function (pl) { pl.forEach(function (q) { minX = Math.min(minX, q[0]); maxX = Math.max(maxX, q[0]); }); });
+            for (var j = 0; j < g.polys.length; j++) {
+              var pts2 = g.polys[j].map(function (q) { return { x: x + (q[0] - minX) * gs, y: base + dy - q[1] * gs }; });
+              await animateStroke(pts2, { color: opts.color, size: Math.max(2, penSize * (scale < 1 ? 0.8 : 1)), speed: speed });
+              drew++; await sleep(50);
+            }
+            x += (maxX - minX) * gs + fsz * 0.14;
+            continue;
+          }
+          // 没有笔画数据的字符：按普通文字放上去（不抖动）
+          if (typeof EBf().addText === 'function') { EBf().addText(ch, x, top, { size: fsz, color: opts.color }); redraw(); }
+          x += fsz * 0.8; drew++;
+          await sleep(120);
         }
-        item.text = chars.join(''); redraw();
-        return item;
+        return { strokes: drew };
       }
       // 讲解指示点：屏幕上显示红点，录制时也会被录进视频
       function pointer() {
