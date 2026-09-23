@@ -12601,8 +12601,8 @@ ${body}</svg>`;
         playing = true;
         handOn = script.hand !== false;   // 默认显示手握笔，hand:false 关闭
         try {
-          if (script.brush !== 'keep') {   // 默认马克笔；brush:'pencil' 等可指定其它笔刷，brush:'keep' 保留当前笔
-            var brushName = typeof script.brush === 'string' ? script.brush : 'marker';
+          if (typeof script.brush === 'string' && script.brush !== 'keep') {   // 默认沿用用户当前选的笔；脚本写 brush:'marker' 等才换笔
+            var brushName = script.brush;
             var penBtn = document.querySelector('[data-tool="pen"]') || document.querySelector('[data-tool="gpen"]');
             if (penBtn) penBtn.click(); else if (EBf().setTool) EBf().setTool('pen');
             var bBtn = document.querySelector('[data-brush="' + brushName + '"]');
