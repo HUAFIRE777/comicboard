@@ -12494,24 +12494,16 @@ ${body}</svg>`;
         return (s.points || []).map(function (p) { return px(p, u); });
       }
       // ✍️ 手握笔：动画时画在画布最上层（下一次重绘自动消失），录制会一起录进去
-      var HAND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">' +
-        '<defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8d3b6"/><stop offset="1" stop-color="#e7a987"/></linearGradient></defs>' +
-        '<path d="M6 6 L22 14 L118 110 L108 120 L12 24 Z" fill="#1e293b"/>' +
-        '<path d="M6 6 L22 14 L14 22 Z" fill="#94a3b8"/><path d="M6 6 L11 9 L9 11 Z" fill="#0f172a"/>' +
-        '<path d="M100 96 L112 90 L126 104 L120 116 Z" fill="#334155"/>' +
-        '<path d="M78 92 C92 70 120 70 138 84 C160 96 190 110 214 150 L214 220 L120 220 C104 196 92 170 96 150 C84 146 70 136 66 124 C62 112 68 100 78 92 Z" fill="url(#s)" stroke="#c98b6b" stroke-width="2"/>' +
-        '<path d="M74 118 C82 130 94 136 106 136" fill="none" stroke="#c98b6b" stroke-width="2" stroke-linecap="round"/>' +
-        '<path d="M92 100 C104 96 116 100 124 108" fill="none" stroke="#c98b6b" stroke-width="2" stroke-linecap="round"/>' +
-        '</svg>';
+      var HAND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260"><g transform="translate(8 8) rotate(45)" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><rect x="196" y="-34" width="80" height="72" rx="10" fill="#3b82f6"/><rect x="186" y="-38" width="22" height="80" rx="8" fill="#93c5fd"/><path d="M118 -30 C150 -48 196 -40 196 4 C196 44 156 50 124 38 C104 30 100 -18 118 -30 Z" fill="#ffe0bd"/><path d="M0 0 L26 -9 L26 9 Z" fill="#fde68a"/><path d="M0 0 L9 -3 L9 3 Z" fill="#374151"/><rect x="26" y="-9" width="146" height="18" fill="#fbbf24"/><rect x="172" y="-9" width="10" height="18" fill="#cbd5e1"/><rect x="182" y="-9" width="14" height="18" rx="4" fill="#f472b6"/><rect x="88" y="-26" width="70" height="22" rx="11" fill="#ffe0bd"/><rect x="98" y="4" width="56" height="22" rx="11" fill="#ffe0bd"/><path d="M150 26 C160 34 172 34 180 26" fill="none" stroke-width="3"/><path d="M156 -24 C166 -30 176 -30 184 -22" fill="none" stroke-width="3"/></g></svg>';   // 卡通手握铅笔，笔尖在 (8,8)
       var handImg = new Image(); handImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(HAND_SVG);
       var handOn = true;
       function drawHand(x, y) {
         if (!handOn || !handImg.complete || !handImg.naturalWidth) return;
         var cv = document.getElementById('mainCanvas'); if (!cv) return;
-        var c = cv.getContext('2d'), k = cv.width / (W() || 1), size = Math.max(90, Math.min(170, W() * 0.11));
+        var c = cv.getContext('2d'), k = cv.width / (W() || 1), size = Math.max(120, Math.min(210, W() * 0.15));
         c.save(); c.setTransform(k, 0, 0, k, 0, 0);
         c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 10; c.shadowOffsetX = 4; c.shadowOffsetY = 6;
-        c.drawImage(handImg, x - size * 6 / 220, y - size * 6 / 220, size, size);
+        c.drawImage(handImg, x - size * 8 / 260, y - size * 8 / 260, size, size);
         c.restore();
       }
       async function animateStroke(points, opts) {
