@@ -12338,6 +12338,8 @@ ${body}</svg>`;
           ox = (bw + rec.gap) * s;
         }
         if (main && main.width) c.drawImage(main, ox, 0, bw * s, bh * s);
+        var ptr = window.__ezPointer;
+        if (ptr) { c.save(); c.fillStyle = '#f43f5e'; c.shadowColor = '#f43f5e'; c.shadowBlur = 14; c.beginPath(); c.arc(ox + ptr.x * s, ptr.y * s, 9 * s, 0, Math.PI * 2); c.fill(); c.restore(); }
         if (rec.wm) drawWatermark(c, W, H);
       }
       function loop() {
@@ -12428,6 +12430,8 @@ ${body}</svg>`;
         setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
         toast(byLimit ? t('limit') : t('saved') + name, byLimit ? 8000 : 4500);
       }
+      // 供 EazyBoard.play 自动录制使用（不录麦克风）
+      window.ezRecorder = { start: function () { if (rec.state === 'idle') begin(null); }, stop: function () { stop(false); } };
       function init() {
         panel = document.createElement('div'); panel.id = 'ezRecPanel'; panel.setAttribute('role', 'dialog');
         document.body.appendChild(panel); renderPanel();
@@ -12447,6 +12451,164 @@ ${body}</svg>`;
         new MutationObserver(function () { btn.title = t('tip'); if (rec.state === 'idle') renderPanel(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
       }
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    })();
+  </script>
+  <!-- ================= 🎬 AI 讲解导演：EazyBoard.play(script) — 让 AI / 自动化脚本一笔一笔画出讲解并自动录制 ================= -->
+  <script>
+    (function () {
+      function EBf() { return window.EazyBoard || {}; }
+      var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+      function W() { try { return cssWidth; } catch (e) { return 800; } }
+      function H() { try { return cssHeight; } catch (e) { return 600; } }
+      function redraw() { try { redrawAllStrokes(); } catch (e) {} }
+      // 坐标默认用百分比 (0–100)，与屏幕大小无关；units:'px' 时使用画板像素
+      function px(p, units) { return units === 'px' ? { x: +p[0], y: +p[1] } : { x: +p[0] / 100 * W(), y: +p[1] / 100 * H() }; }
+      function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+      // 在折线上按间距补点，让动画匀速、线条平滑
+      function densify(pts, step) {
+        var out = [pts[0]];
+        for (var i = 1; i < pts.length; i++) {
+          var a = pts[i - 1], b = pts[i], n = Math.max(1, Math.ceil(dist(a, b) / step));
+          for (var k = 1; k <= n; k++) out.push({ x: a.x + (b.x - a.x) * k / n, y: a.y + (b.y - a.y) * k / n });
+        }
+        return out;
+      }
+      function shapePoints(s) {
+        var u = s.units, c, r, rx, ry, i, pts = [];
+        if (s.shape === 'circle' || s.shape === 'ellipse') {
+          c = px(s.center || [50, 50], u);
+          rx = u === 'px' ? (s.rx || s.r || 50) : (s.rx || s.r || 10) / 100 * W();
+          ry = u === 'px' ? (s.ry || s.r || 50) : (s.ry || s.r || 10) / 100 * (s.r && !s.ry ? W() : H());
+          for (i = 0; i <= 72; i++) { var a = -Math.PI / 2 + i / 72 * Math.PI * 2; pts.push({ x: c.x + Math.cos(a) * rx, y: c.y + Math.sin(a) * ry }); }
+          return pts;
+        }
+        if (s.shape === 'rect') {
+          var p0 = px(s.from || [20, 20], u), p1 = px(s.to || [80, 80], u);
+          return [p0, { x: p1.x, y: p0.y }, p1, { x: p0.x, y: p1.y }, p0];
+        }
+        if (s.shape === 'arrow') {
+          var A = px(s.from, u), B = px(s.to, u), ang = Math.atan2(B.y - A.y, B.x - A.x), hl = s.head || 18;
+          return { body: [A, B], head: [{ x: B.x - hl * Math.cos(ang - 0.45), y: B.y - hl * Math.sin(ang - 0.45) }, B, { x: B.x - hl * Math.cos(ang + 0.45), y: B.y - hl * Math.sin(ang + 0.45) }] };
+        }
+        return (s.points || []).map(function (p) { return px(p, u); });
+      }
+      async function animateStroke(points, opts) {
+        opts = opts || {};
+        if (!points || points.length < 2 || typeof EBf().addStroke !== 'function') return null;
+        var speed = opts.speed || 600;               // 像素 / 秒
+        var full = densify(points, 3);
+        var stroke = EBf().addStroke(full.slice(0, 2), { color: opts.color, size: opts.size, brushType: opts.brushType, tool: opts.tool });
+        if (!stroke || !stroke.points) return stroke;
+        var total = 0; for (var i = 1; i < full.length; i++) total += dist(full[i - 1], full[i]);
+        var dur = Math.max(120, total / speed * 1000), t0 = performance.now();
+        await new Promise(function (resolve) {
+          (function frame() {
+            var k = Math.min(1, (performance.now() - t0) / dur), n = Math.max(2, Math.round(k * full.length));
+            stroke.points.length = 0;
+            for (var j = 0; j < n; j++) stroke.points.push({ x: full[j].x, y: full[j].y, pressure: 0.5 });
+            redraw();
+            if (k < 1) { if (document.hidden) setTimeout(frame, 16); else requestAnimationFrame(frame); } else resolve();   // 后台标签页里 rAF 会暂停
+          })();
+        });
+        return stroke;
+      }
+      async function writeText(text, at, opts) {
+        opts = opts || {};
+        if (typeof EBf().addText !== 'function') return null;
+        var p = px(at || [10, 10], opts.units);
+        var before = (appState.texts || []).length;
+        var item = EBf().addText(' ', p.x, p.y, { size: opts.size, color: opts.color, fontFamily: opts.fontFamily });
+        if (!item || typeof item !== 'object') item = (appState.texts || [])[before];
+        if (!item) return null;
+        var chars = Array.from(String(text)), cps = opts.cps || 12;   // 每秒字数
+        for (var i = 1; i <= chars.length; i++) { item.text = chars.slice(0, i).join(''); redraw(); await sleep(1000 / cps); }
+        return item;
+      }
+      // 讲解指示点：屏幕上显示红点，录制时也会被录进视频
+      function pointer() {
+        var el = document.getElementById('ezPointer');
+        if (!el) {
+          el = document.createElement('div'); el.id = 'ezPointer'; el.className = 'laser-dot';
+          el.style.cssText = 'position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#f43f5e;box-shadow:0 0 14px #f43f5e;pointer-events:none;z-index:45;opacity:0;transition:left .35s ease,top .35s ease,opacity .25s';
+          var layer = document.getElementById('laserLayer') || document.getElementById('canvasCard');
+          if (layer) layer.appendChild(el);
+        }
+        return el;
+      }
+      async function pointAt(at, ms, opts) {
+        var p = px(at, (opts || {}).units), el = pointer();
+        el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; el.style.opacity = '1';
+        window.__ezPointer = { x: p.x, y: p.y, a: 1 };
+        await sleep(ms || 1200);
+        el.style.opacity = '0'; window.__ezPointer = null;
+      }
+      function recorder() {
+        if (window.ezRecorder) return window.ezRecorder;
+        if (window.cbStartRecording) return {   // Chalkboard 自带的录制
+          start: function () { var m = document.getElementById('recMicToggle'); if (m) m.checked = false; return window.cbStartRecording(); },
+          stop: function () { return window.cbStopRecording && window.cbStopRecording(false); }
+        };
+        return null;
+      }
+      var playing = false;
+      /**
+       * 播放讲解脚本。script = { title?, record?: true, speed?, steps: [ ... ] }
+       * 步骤（坐标默认是画板百分比 0–100）：
+       *   { do:'clear' } | { do:'page', add:true } | { do:'wait', ms }
+       *   { do:'color', value:'#fff' } | { do:'size', value:4 }
+       *   { do:'line', from:[x,y], to:[x,y] } | { do:'path', points:[[x,y],...] }
+       *   { do:'circle', center:[x,y], r } | { do:'rect', from, to } | { do:'arrow', from, to }
+       *   { do:'text', text:'…', at:[x,y], size:32 } | { do:'point', at:[x,y], ms:1500 }
+       */
+      async function play(script) {
+        if (playing) throw new Error('a script is already playing');
+        script = typeof script === 'string' ? JSON.parse(script) : (script || {});
+        var steps = script.steps || [], rec = script.record ? recorder() : null, color, size;
+        playing = true;
+        try {
+          if (rec) { await rec.start(); await sleep(600); }
+          for (var i = 0; i < steps.length; i++) {
+            var s = steps[i] || {}, o = { color: s.color || color, size: s.size || size, speed: s.speed || script.speed, units: s.units || script.units };
+            switch (s.do) {
+              case 'clear': if (EBf().clear) EBf().clear(); break;
+              case 'page': try { if (s.add) addNewPage(); } catch (e) {} break;
+              case 'wait': await sleep(s.ms || 800); break;
+              case 'color': color = s.value; if (EBf().setColor) EBf().setColor(s.value); break;
+              case 'size': size = s.value; if (EBf().setBrushSize) EBf().setBrushSize(s.value); break;
+              case 'text': await writeText(s.text, s.at, { size: s.size, color: o.color, cps: s.cps, units: o.units, fontFamily: s.font }); break;
+              case 'point': await pointAt(s.at, s.ms, o); break;
+              case 'arrow': { s.units = o.units; var ar = shapePoints(Object.assign({ shape: 'arrow' }, s)); await animateStroke(ar.body, o); await animateStroke(ar.head, o); break; }
+              case 'line': await animateStroke([px(s.from, o.units), px(s.to, o.units)], o); break;
+              case 'path': await animateStroke(shapePoints({ points: s.points, units: o.units }), o); break;
+              case 'circle': case 'ellipse': case 'rect':
+                await animateStroke(shapePoints(Object.assign({ shape: s.do === 'rect' ? 'rect' : 'circle', units: o.units }, s)), o); break;
+            }
+            if (s.pause) await sleep(s.pause);
+          }
+          if (rec) { await sleep(800); await rec.stop(); }
+        } finally { playing = false; }
+        return { ok: true, steps: steps.length };
+      }
+      function attach() {
+        var EB = window.EazyBoard = window.EazyBoard || {};
+        if (EB.play === play) return;
+      EB.animateStroke = function (pts, opts) { return animateStroke((pts || []).map(function (p) { return Array.isArray(p) ? px(p, (opts || {}).units) : p; }), opts); };
+      EB.writeText = writeText;
+      EB.pointAt = pointAt;
+      EB.play = play;
+      EB.demo = function () {
+        return play({ record: false, speed: 500, steps: [
+          { do: 'text', text: '勾股定理  a² + b² = c²', at: [8, 8], size: 36 },
+          { do: 'path', points: [[20, 80], [60, 80], [20, 30], [20, 80]] },
+          { do: 'text', text: 'a', at: [14, 55], size: 28 }, { do: 'text', text: 'b', at: [38, 84], size: 28 }, { do: 'text', text: 'c', at: [42, 50], size: 28 },
+          { do: 'point', at: [40, 55], ms: 1500 },
+          { do: 'arrow', from: [70, 30], to: [55, 50] },
+          { do: 'text', text: '斜边最长', at: [70, 24], size: 26 }
+        ] });
+      };
+      }
+      attach();
+      window.addEventListener('load', function () { attach(); setTimeout(attach, 1500); });
     })();
   </script>
 </body>
