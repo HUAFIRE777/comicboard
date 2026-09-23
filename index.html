@@ -12300,6 +12300,7 @@ ${body}</svg>`;
         if (rec.state === 'idle') {
           panel.classList.remove('paused');
           panel.innerHTML = '<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="ezRecMic" checked> ' + t('mic') + '</label>' +
+            (window.EzHand ? '<label style="display:flex;align-items:center;gap:6px;cursor:pointer">' + window.EzHand.toggleHtml() + '</label>' : '') +
             '<span class="muted">' + (isPro() ? t('pro') : t('free')) + '</span>' +
             (isPro() ? '' : '<button type="button" id="ezRecUp">' + t('up') + '</button>') +
             '<button type="button" class="primary" id="ezRecStart">' + t('start') + '</button>' +
@@ -12340,6 +12341,7 @@ ${body}</svg>`;
         if (main && main.width) c.drawImage(main, ox, 0, bw * s, bh * s);
         var ptr = window.__ezPointer;
         if (ptr) { c.save(); c.fillStyle = '#f43f5e'; c.shadowColor = '#f43f5e'; c.shadowBlur = 14; c.beginPath(); c.arc(ox + ptr.x * s, ptr.y * s, 9 * s, 0, Math.PI * 2); c.fill(); c.restore(); }
+        if (window.EzHand) window.EzHand.drawForRecording(c, s, ox, 0, rec.dual);
         if (rec.wm) drawWatermark(c, W, H);
       }
       function loop() {
@@ -12454,6 +12456,84 @@ ${body}</svg>`;
       if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
     })();
   </script>
+  <!-- ================= ✍️ 手握笔（5 站统一）：录制 / AI 讲解时显示，用户可选「有手 / 没有手」 ================= -->
+  <script>
+    (function () {
+      var META = { w: 835, h: 488, tipX: 16, tipY: 340 };   // 图片尺寸与笔尖位置（像素）
+      var KEY = 'eazyopc_hand';                              // 'on' | 'off'
+      var hand = new Image(), mask = new Image(), ready = 0;
+      hand.onload = mask.onload = function () { ready++; };
+      hand.src = '/assets/hand.png'; mask.src = '/assets/hand-penmask.png';
+      var tintCache = {};
+      function enabled() { try { return localStorage.getItem(KEY) !== 'off'; } catch (e) { return true; } }
+      function setEnabled(on) { try { localStorage.setItem(KEY, on ? 'on' : 'off'); } catch (e) {} syncToggles(); }
+      function boardW() { try { return cssWidth; } catch (e) { return 800; } }
+      function penColor() { try { return appState.currentColor || '#ffffff'; } catch (e) { return '#ffffff'; } }
+      // 笔身按当前颜色染色（白色笔身 × 颜色，保留原来的明暗）
+      function tintedPen(color) {
+        if (tintCache[color]) return tintCache[color];
+        var t = document.createElement('canvas'); t.width = META.w; t.height = META.h;
+        var x = t.getContext('2d');
+        x.drawImage(mask, 0, 0);
+        x.globalCompositeOperation = 'source-in'; x.fillStyle = color; x.fillRect(0, 0, t.width, t.height);
+        tintCache[color] = t;
+        return t;
+      }
+      // 在 ctx 上画手，让笔尖落在 (x, y)；k = 每个画板像素对应的目标像素
+      function draw(ctx, x, y, k) {
+        if (ready < 2) return;
+        var size = Math.max(150, Math.min(260, boardW() * 0.2)), f = size / META.w;
+        var dx = x - META.tipX * f, dy = y - META.tipY * f, dw = META.w * f, dh = META.h * f;
+        ctx.save();
+        ctx.setTransform(k, 0, 0, k, 0, 0);
+        ctx.shadowColor = 'rgba(0,0,0,0.28)'; ctx.shadowBlur = 12; ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 8;
+        ctx.drawImage(hand, dx, dy, dw, dh);
+        ctx.shadowColor = 'transparent';
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.drawImage(tintedPen(penColor()), dx, dy, dw, dh);
+        ctx.restore();
+      }
+      // AI 讲解动画：直接画在画板上（下次重绘自动消失，录制会录进去）
+      function drawOnCanvas(x, y) {
+        var cv = document.getElementById('mainCanvas'); if (!cv) return;
+        draw(cv.getContext('2d'), x, y, cv.width / (boardW() || 1));
+      }
+      // 手动画画时跟踪笔尖位置，录制时把手画进视频
+      var last = null;
+      function track(which) {
+        var el = document.getElementById(which === 'ref' ? 'referenceCanvas' : 'mainCanvas');
+        if (!el) return;
+        var h = function (e) {
+          var r = el.getBoundingClientRect();
+          last = { which: which, x: (e.clientX - r.left) * boardW() / (r.width || 1), y: (e.clientY - r.top) * boardW() / (r.width || 1), t: performance.now() };
+        };
+        el.addEventListener('pointermove', h); el.addEventListener('pointerdown', h);
+      }
+      function drawForRecording(c, s, oxMain, oxRef, dual) {
+        if (!enabled() || !last || performance.now() - last.t > 1500) return;
+        if (last.which === 'ref' && !dual) return;
+        c.save(); c.translate(last.which === 'ref' ? oxRef : oxMain, 0);
+        draw(c, last.x, last.y, s);
+        c.restore();
+      }
+      // 「显示手」开关：放在录制面板里
+      function toggleHtml() {
+        var zh = (document.documentElement.lang || 'zh').slice(0, 2) === 'zh';
+        return '<input type="checkbox" class="ez-hand-toggle"' + (enabled() ? ' checked' : '') + '> ✍️ ' + (zh ? '显示手' : 'Show hand');
+      }
+      function syncToggles() { document.querySelectorAll('.ez-hand-toggle').forEach(function (b) { b.checked = enabled(); }); }
+      document.addEventListener('change', function (e) { if (e.target && e.target.classList && e.target.classList.contains('ez-hand-toggle')) setEnabled(e.target.checked); });
+      function mountChalkboardToggle() {
+        var setup = document.getElementById('recSetup');
+        if (!setup || setup.querySelector('.ez-hand-toggle')) return;
+        var l = document.createElement('label'); l.className = 'flex items-center gap-1 cursor-pointer whitespace-nowrap'; l.innerHTML = toggleHtml();
+        setup.insertBefore(l, setup.children[1] || null);
+      }
+      window.EzHand = { enabled: enabled, setEnabled: setEnabled, drawOnCanvas: drawOnCanvas, drawForRecording: drawForRecording, toggleHtml: toggleHtml };
+      function init() { track('main'); track('ref'); mountChalkboardToggle(); }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    })();
+  </script>
   <!-- ================= 🎬 AI 讲解导演：EazyBoard.play(script) — 让 AI / 自动化脚本一笔一笔画出讲解并自动录制 ================= -->
   <script>
     (function () {
@@ -12497,15 +12577,7 @@ ${body}</svg>`;
       var HAND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260"><g transform="translate(8 8) rotate(45)" stroke="#1f2937" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M0 0 L26 -9 L26 9 Z" fill="#fde68a"/><path d="M0 0 L9 -3 L9 3 Z" fill="#374151"/><rect x="26" y="-9" width="170" height="18" fill="#fbbf24"/><path d="M26 -3 L196 -3" stroke="#f59e0b" stroke-width="3" fill="none"/><rect x="196" y="-9" width="12" height="18" fill="#cbd5e1"/><rect x="208" y="-9" width="18" height="18" rx="5" fill="#f472b6"/></g></svg>';   // 一支卡通铅笔，笔尖在 (8,8)
       var handImg = new Image(); handImg.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(HAND_SVG);
       var handOn = true;
-      function drawHand(x, y) {
-        if (!handOn || !handImg.complete || !handImg.naturalWidth) return;
-        var cv = document.getElementById('mainCanvas'); if (!cv) return;
-        var c = cv.getContext('2d'), k = cv.width / (W() || 1), size = Math.max(120, Math.min(210, W() * 0.15));
-        c.save(); c.setTransform(k, 0, 0, k, 0, 0);
-        c.shadowColor = 'rgba(0,0,0,0.35)'; c.shadowBlur = 10; c.shadowOffsetX = 4; c.shadowOffsetY = 6;
-        c.drawImage(handImg, x - size * 8 / 260, y - size * 8 / 260, size, size);
-        c.restore();
-      }
+      function drawHand(x, y) { if (handOn && window.EzHand) window.EzHand.drawOnCanvas(x, y); }
       async function animateStroke(points, opts) {
         opts = opts || {};
         if (!points || points.length < 2 || typeof EBf().addStroke !== 'function') return null;
@@ -12591,7 +12663,7 @@ ${body}</svg>`;
         script = typeof script === 'string' ? JSON.parse(script) : (script || {});
         var steps = script.steps || [], rec = script.record ? recorder() : null, color, size;
         playing = true;
-        handOn = script.hand !== false;   // 默认显示手握笔，hand:false 关闭
+        handOn = script.hand !== undefined ? !!script.hand : (!window.EzHand || window.EzHand.enabled());   // 跟随用户的「显示手」设置，脚本可用 hand:true/false 覆盖
         try {
           if (typeof script.brush === 'string' && script.brush !== 'keep') {   // 默认沿用用户当前选的笔；脚本写 brush:'marker' 等才换笔
             var brushName = script.brush;
