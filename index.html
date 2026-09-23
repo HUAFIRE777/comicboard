@@ -12230,5 +12230,224 @@ ${body}</svg>`;
       document.body.appendChild(s);
     })();
   </script>
+  <!-- ================= 🎥 录制视频（与 Chalkboard 相同规则：免费 3 分钟 + 水印；Pro 无水印、不限时长） ================= -->
+  <style>
+    #ezRecBtn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #f43f5e; margin: 2px auto; transition: background .15s; }
+    #ezRecBtn:hover { background: rgba(244, 63, 94, 0.12); }
+    #ezRecBtn.is-rec { background: linear-gradient(135deg, #e11d48, #f43f5e); color: #fff; box-shadow: 0 4px 14px rgba(225, 29, 72, .45); }
+    #ezRecPanel { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 60; display: none; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;
+      max-width: 94vw; padding: 8px 12px; border-radius: 16px; font-size: 12px; font-weight: 700;
+      background: rgba(15, 23, 42, .94); color: #f8fafc; border: 1px solid rgba(148, 163, 184, .35); box-shadow: 0 12px 32px rgba(0, 0, 0, .35); backdrop-filter: blur(10px); }
+    #ezRecPanel.open { display: flex; }
+    #ezRecPanel button { padding: 6px 12px; border-radius: 10px; font-weight: 800; font-size: 12px; background: #1e293b; color: #f8fafc; border: 1px solid rgba(148, 163, 184, .35); }
+    #ezRecPanel button.primary { background: #e11d48; border-color: #e11d48; color: #fff; }
+    #ezRecPanel .muted { opacity: .8; font-weight: 600; }
+    #ezRecPanel .dot { width: 10px; height: 10px; border-radius: 50%; background: #f43f5e; animation: ezRecBlink 1s infinite; }
+    #ezRecPanel.paused .dot { animation: none; opacity: .4; }
+    @keyframes ezRecBlink { 50% { opacity: .25; } }
+    @media (prefers-reduced-motion: reduce) { #ezRecPanel .dot { animation: none; } }
+    body.theme-light #ezRecPanel { background: #ffffff; color: #0f172a; border-color: #cbd5e1; }
+    body.theme-light #ezRecPanel button { background: #0f172a; color: #ffffff; border-color: #0f172a; }
+    body.theme-light #ezRecPanel button.primary { background: #e11d48; border-color: #e11d48; }
+    body.theme-light #ezRecPanel .muted { opacity: 1; color: #0f172a; }
+    #ezRecToast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 70; max-width: 92vw; padding: 10px 14px; border-radius: 12px;
+      background: rgba(15, 23, 42, .95); color: #fff; font-size: 13px; font-weight: 700; box-shadow: 0 10px 28px rgba(0,0,0,.35); display: none; }
+    body.theme-light #ezRecToast { background: #0f172a; color: #fff; }
+  </style>
+  <script>
+    (function () {
+      var BRAND = 'ComicBoard';
+      var FREE_LIMIT = 3 * 60 * 1000;
+      var T = {
+        zh: { tip: '🎥 录制视频（画板 + 麦克风）', mic: '录入麦克风声音', free: '免费版：带水印 · 最长 3 分钟', pro: 'Pro：无水印 · 不限时长', up: '升级 Pro',
+          start: '开始录制', pause: '暂停', resume: '继续', stop: '停止并保存', close: '关闭', unsupported: '当前浏览器不支持录制，请使用较新的 Chrome / Edge / Safari / Firefox。',
+          micDenied: '无法使用麦克风。要继续录制无声视频吗？', noAudio: '🔇 无声音', started: '🔴 开始录制', limit: '⏱️ 免费版单次最长 3 分钟，已自动停止并保存。升级 Pro 可不限时长、去除水印。',
+          saved: '✅ 视频已保存：', failed: '⚠️ 录制失败：', leave: '正在录制视频，确定离开吗？' },
+        en: { tip: '🎥 Record video (board + microphone)', mic: 'Record microphone', free: 'Free: watermark · max 3 min', pro: 'Pro: no watermark · no time limit', up: 'Go Pro',
+          start: 'Start recording', pause: 'Pause', resume: 'Resume', stop: 'Stop & save', close: 'Close', unsupported: 'This browser cannot record video. Please use a recent Chrome, Edge, Safari or Firefox.',
+          micDenied: 'The microphone is unavailable. Continue recording without sound?', noAudio: '🔇 No audio', started: '🔴 Recording', limit: '⏱️ Free recordings stop at 3 minutes and were saved. Pro removes the limit and the watermark.',
+          saved: '✅ Video saved: ', failed: '⚠️ Recording failed: ', leave: 'A video is being recorded. Leave anyway?' }
+      };
+      function t(k) { var l = (document.documentElement.lang || 'en').slice(0, 2); return (T[l] || T.en)[k]; }
+      function isPro() { try { return !!appState.isPro; } catch (e) { return false; } }
+      function isDual() { try { return !!appState.isDualSpread; } catch (e) { return false; } }
+      function boardW() { try { return cssWidth; } catch (e) { return 800; } }
+      function boardH() { try { return cssHeight; } catch (e) { return 600; } }
+      function toast(msg, ms) {
+        var el = document.getElementById('ezRecToast');
+        if (!el) { el = document.createElement('div'); el.id = 'ezRecToast'; document.body.appendChild(el); }
+        el.textContent = msg; el.style.display = 'block';
+        clearTimeout(el._t); el._t = setTimeout(function () { el.style.display = 'none'; }, ms || 3500);
+      }
+      function openPro() {
+        var show = function () { var m = document.getElementById('proModal'); if (m) { m.classList.remove('hidden'); m.style.display = ''; } };
+        if (window.KDParentGate) window.KDParentGate.require(show); else show();
+      }
+      function stamp() { var d = new Date(), p = function (n) { return String(n).padStart(2, '0'); }; return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '-' + p(d.getHours()) + p(d.getMinutes()); }
+      function fmt(ms) { var s = Math.floor(ms / 1000); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+      function pickMime() {
+        if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) return '';
+        var list = ['video/mp4;codecs=avc1,mp4a.40.2', 'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+        for (var i = 0; i < list.length; i++) { try { if (MediaRecorder.isTypeSupported(list[i])) return list[i]; } catch (e) {} }
+        return '';
+      }
+      var rec = { state: 'idle', mr: null, mic: null, chunks: [], comp: null, c: null, raf: 0, tick: 0, acc: 0, seg: 0, limit: FREE_LIMIT, wm: true, dual: false, scale: 1, gap: 24, mime: '', ext: 'webm', byLimit: false };
+      var panel, btn;
+      function elapsed() { return rec.acc + (rec.state === 'recording' ? performance.now() - rec.seg : 0); }
+
+      function renderPanel() {
+        if (!panel) return;
+        if (rec.state === 'idle') {
+          panel.classList.remove('paused');
+          panel.innerHTML = '<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="ezRecMic" checked> ' + t('mic') + '</label>' +
+            '<span class="muted">' + (isPro() ? t('pro') : t('free')) + '</span>' +
+            (isPro() ? '' : '<button type="button" id="ezRecUp">' + t('up') + '</button>') +
+            '<button type="button" class="primary" id="ezRecStart">' + t('start') + '</button>' +
+            '<button type="button" id="ezRecClose" aria-label="' + t('close') + '">✕</button>';
+          panel.querySelector('#ezRecStart').onclick = start;
+          panel.querySelector('#ezRecClose').onclick = function () { panel.classList.remove('open'); };
+          var up = panel.querySelector('#ezRecUp'); if (up) up.onclick = openPro;
+        } else {
+          panel.innerHTML = '<span class="dot"></span><span id="ezRecTime" style="font-family:monospace;font-size:14px">00:00</span>' +
+            (rec.limit ? '<span class="muted" style="font-family:monospace">/ 03:00</span>' : '') +
+            '<span>' + (rec.mic ? '🎙️' : t('noAudio')) + '</span>' +
+            '<button type="button" id="ezRecPause">' + (rec.state === 'paused' ? t('resume') : t('pause')) + '</button>' +
+            '<button type="button" class="primary" id="ezRecStop">' + t('stop') + '</button>';
+          panel.querySelector('#ezRecPause').onclick = togglePause;
+          panel.querySelector('#ezRecStop').onclick = function () { stop(false); };
+        }
+      }
+      function drawWatermark(c, W, H) {
+        var fs = Math.max(14, Math.round(H * 0.028)), text = 'Made with ' + BRAND;
+        c.save(); c.font = '700 ' + fs + 'px sans-serif';
+        var tw = c.measureText(text).width, pad = Math.round(fs * 0.6), x = W - tw - pad * 2 - fs, y = H - fs * 2.2;
+        c.globalAlpha = 0.8; c.fillStyle = 'rgba(2, 6, 23, 0.6)';
+        c.beginPath(); if (c.roundRect) c.roundRect(x, y, tw + pad * 2, fs * 1.6, fs * 0.5); else c.rect(x, y, tw + pad * 2, fs * 1.6); c.fill();
+        c.fillStyle = '#ffffff'; c.textBaseline = 'middle'; c.fillText(text, x + pad, y + fs * 0.82);
+        c.restore();
+      }
+      function drawFrame() {
+        var c = rec.c; if (!c) return;
+        var W = rec.comp.width, H = rec.comp.height, s = rec.scale, bw = boardW(), bh = boardH();
+        c.setTransform(1, 0, 0, 1, 0, 0);
+        c.fillStyle = '#0f172a'; c.fillRect(0, 0, W, H);
+        var ox = 0, main = document.getElementById('mainCanvas');
+        if (rec.dual) {
+          var ref = document.getElementById('referenceCanvas');
+          if (ref && ref.width) c.drawImage(ref, 0, 0, bw * s, bh * s);
+          ox = (bw + rec.gap) * s;
+        }
+        if (main && main.width) c.drawImage(main, ox, 0, bw * s, bh * s);
+        if (rec.wm) drawWatermark(c, W, H);
+      }
+      function loop() {
+        if (rec.state === 'idle') return;
+        drawFrame();
+        var el = elapsed(), te = document.getElementById('ezRecTime');
+        if (te) te.textContent = fmt(el);
+        if (rec.limit && el >= rec.limit && rec.state === 'recording') { stop(true); return; }
+        rec.raf = requestAnimationFrame(loop);
+      }
+      function begin(mic) {
+        try {
+          rec.dual = isDual();
+          var bw = boardW(), bh = boardH();
+          var W = rec.dual ? bw * 2 + rec.gap : bw, H = bh;
+          rec.scale = Math.min(2, 1920 / Math.max(W, H));
+          var comp = document.createElement('canvas');
+          comp.width = Math.max(2, Math.round(W * rec.scale / 2) * 2);
+          comp.height = Math.max(2, Math.round(H * rec.scale / 2) * 2);
+          rec.comp = comp; rec.c = comp.getContext('2d');
+          rec.wm = !isPro(); rec.limit = isPro() ? 0 : FREE_LIMIT;
+          drawFrame();
+          var tracks = comp.captureStream(30).getVideoTracks();
+          if (mic) tracks = tracks.concat(mic.getAudioTracks());
+          var stream = new MediaStream(tracks), mime = pickMime();
+          var mr = mime ? new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 5000000 }) : new MediaRecorder(stream);
+          rec.mime = mr.mimeType || mime || 'video/webm'; rec.ext = /mp4/i.test(rec.mime) ? 'mp4' : 'webm';
+          rec.chunks = []; rec.mr = mr; rec.mic = mic; rec.stream = stream; rec.byLimit = false;
+          mr.ondataavailable = function (e) { if (e.data && e.data.size) rec.chunks.push(e.data); };
+          mr.onstop = finish;
+          mr.start(1000);
+          rec.state = 'recording'; rec.acc = 0; rec.seg = performance.now();
+          if (btn) btn.classList.add('is-rec');
+          renderPanel(); panel.classList.add('open');
+          toast(t('started'), 2000);
+          rec.raf = requestAnimationFrame(loop);
+          clearInterval(rec.tick);
+          rec.tick = setInterval(function () {
+            if (rec.state === 'idle') { clearInterval(rec.tick); return; }
+            if (document.hidden) drawFrame();
+            if (rec.limit && rec.state === 'recording' && elapsed() >= rec.limit) stop(true);
+          }, 250);
+        } catch (err) {
+          if (mic) mic.getTracks().forEach(function (tr) { tr.stop(); });
+          rec.state = 'idle';
+          toast(t('failed') + ((err && err.message) || err), 6000);
+        }
+      }
+      function start() {
+        if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) { toast(t('unsupported'), 5000); return; }
+        var wantMic = !!(document.getElementById('ezRecMic') || {}).checked;
+        if (!wantMic) { begin(null); return; }
+        var ask = function () {
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { if (confirm(t('micDenied'))) begin(null); return; }
+          navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } })
+            .then(function (m) { begin(m); })
+            .catch(function () { if (confirm(t('micDenied'))) begin(null); });
+        };
+        // 儿童站：打开麦克风前需要家长验证
+        if (window.KDParentGate) window.KDParentGate.require(ask); else ask();
+      }
+      function togglePause() {
+        if (!rec.mr) return;
+        if (rec.state === 'recording') { try { rec.mr.pause(); } catch (e) {} rec.acc += performance.now() - rec.seg; rec.state = 'paused'; panel.classList.add('paused'); }
+        else if (rec.state === 'paused') { try { rec.mr.resume(); } catch (e) {} rec.seg = performance.now(); rec.state = 'recording'; panel.classList.remove('paused'); }
+        var bp = document.getElementById('ezRecPause'); if (bp) bp.textContent = rec.state === 'paused' ? t('resume') : t('pause');
+      }
+      function stop(byLimit) {
+        if (!rec.mr || rec.state === 'idle' || rec.state === 'stopping') return;
+        if (rec.state === 'recording') rec.acc += performance.now() - rec.seg;
+        rec.state = 'stopping'; rec.byLimit = !!byLimit;
+        drawFrame();
+        try { rec.mr.stop(); } catch (e) { finish(); }
+      }
+      function finish() {
+        cancelAnimationFrame(rec.raf); clearInterval(rec.tick);
+        if (rec.stream) rec.stream.getTracks().forEach(function (tr) { try { tr.stop(); } catch (e) {} });
+        if (rec.mic) rec.mic.getTracks().forEach(function (tr) { try { tr.stop(); } catch (e) {} });
+        var chunks = rec.chunks, type = (rec.mime || 'video/webm').split(';')[0], ext = rec.ext, byLimit = rec.byLimit;
+        rec.chunks = []; rec.state = 'idle'; rec.mr = null; rec.mic = null; rec.stream = null;
+        if (rec.comp) { rec.comp.width = rec.comp.height = 0; rec.comp = null; rec.c = null; }
+        if (btn) btn.classList.remove('is-rec');
+        panel.classList.remove('open'); renderPanel();
+        if (!chunks.length) { toast(t('failed') + 'empty recording', 5000); return; }
+        var blob = new Blob(chunks, { type: type }), name = BRAND.replace(/\s+/g, '') + '-video-' + stamp() + '.' + ext;
+        var url = URL.createObjectURL(blob), a = document.createElement('a');
+        a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        toast(byLimit ? t('limit') : t('saved') + name, byLimit ? 8000 : 4500);
+      }
+      function init() {
+        panel = document.createElement('div'); panel.id = 'ezRecPanel'; panel.setAttribute('role', 'dialog');
+        document.body.appendChild(panel); renderPanel();
+        var dock = document.getElementById('leftSidebar');
+        btn = document.createElement('button');
+        btn.type = 'button'; btn.id = 'ezRecBtn'; btn.title = t('tip'); btn.setAttribute('aria-label', t('tip'));
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>';
+        btn.onclick = function (e) {
+          e.stopPropagation();
+          if (rec.state !== 'idle') { panel.classList.add('open'); return; }
+          renderPanel(); panel.classList.toggle('open');
+        };
+        if (dock) { var last = dock.lastElementChild; if (last) dock.insertBefore(btn, last); else dock.appendChild(btn); }
+        else { btn.style.cssText += 'position:fixed;left:16px;bottom:16px;z-index:55;background:#0f172a'; document.body.appendChild(btn); }
+        window.addEventListener('eazypro:change', function () { if (rec.state === 'idle') renderPanel(); });
+        window.addEventListener('beforeunload', function (e) { if (rec.state === 'recording' || rec.state === 'paused') { e.preventDefault(); e.returnValue = t('leave'); return e.returnValue; } });
+        new MutationObserver(function () { btn.title = t('tip'); if (rec.state === 'idle') renderPanel(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    })();
+  </script>
 </body>
 </html>
