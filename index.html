@@ -12607,13 +12607,34 @@ ${body}</svg>`;
         if (!item || typeof item !== 'object') item = (appState.texts || [])[before];
         if (!item) return null;
         var chars = Array.from(String(text)), cps = opts.cps || 12;   // 每秒字数
+        // 逐字「手写」：当前字从左到右逐渐显现，笔尖停在显现的边缘并上下运笔
         var fsz = item.size || item.fontSize || opts.size || 24, cv = document.getElementById('mainCanvas'), mc = cv && cv.getContext('2d');
-        for (var i = 1; i <= chars.length; i++) {
-          item.text = chars.slice(0, i).join(''); redraw();
-          var tw = mc ? (mc.save(), mc.font = fsz + 'px ' + (item.fontFamily || 'sans-serif'), mc.measureText(item.text).width + (mc.restore(), 0)) : i * fsz * 0.6;
-          drawHand(item.x + tw, item.y + fsz * 0.8);
-          await sleep(1000 / cps);
+        var font = (item.bold ? 'bold ' : '') + fsz + 'px ' + (item.fontFamily || 'sans-serif');
+        var perChar = Math.max(90, 1000 / cps);
+        for (var i = 0; i < chars.length; i++) {
+          var prefix = chars.slice(0, i).join(''), ch = chars[i];
+          item.text = prefix || ' ';
+          var t0 = performance.now();
+          while (true) {
+            var u = Math.min(1, (performance.now() - t0) / perChar);
+            redraw();
+            if (mc) {
+              var k = cv.width / (W() || 1);
+              mc.save(); mc.setTransform(k, 0, 0, k, 0, 0);
+              mc.font = font; mc.textBaseline = 'top'; mc.fillStyle = item.color || '#ffffff';
+              var x0 = item.x + (prefix ? mc.measureText(prefix).width : 0), cw = mc.measureText(ch).width || fsz * 0.5;
+              mc.beginPath(); mc.rect(x0 - 2, item.y - fsz * 0.3, cw * u + 2, fsz * 1.6); mc.clip();
+              mc.fillText(ch, x0, item.y);
+              mc.restore();
+              // 笔尖：沿显现边缘移动，并在字高范围内上下运笔
+              var wave = 0.5 - 0.42 * Math.cos(u * Math.PI * 6);
+              drawHand(x0 + cw * u, item.y + fsz * (0.12 + 0.76 * wave));
+            }
+            if (u >= 1) break;
+            await sleep(16);
+          }
         }
+        item.text = chars.join(''); redraw();
         return item;
       }
       // 讲解指示点：屏幕上显示红点，录制时也会被录进视频
