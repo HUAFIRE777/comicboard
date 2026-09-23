@@ -12355,7 +12355,8 @@ ${body}</svg>`;
           rec.dual = isDual();
           var bw = boardW(), bh = boardH();
           var W = rec.dual ? bw * 2 + rec.gap : bw, H = bh;
-          rec.scale = Math.min(2, 1920 / Math.max(W, H));
+          var _src = document.getElementById('mainCanvas'); var _dpr = (_src && _src.width && cssWidth) ? _src.width / cssWidth : (window.devicePixelRatio || 1);
+          rec.scale = Math.max(1, Math.min(_dpr, 1920 / Math.max(W, H)));   // 按画布真实像素录制，避免放大发糊
           var comp = document.createElement('canvas');
           comp.width = Math.max(2, Math.round(W * rec.scale / 2) * 2);
           comp.height = Math.max(2, Math.round(H * rec.scale / 2) * 2);
@@ -12365,7 +12366,7 @@ ${body}</svg>`;
           var tracks = comp.captureStream(30).getVideoTracks();
           if (mic) tracks = tracks.concat(mic.getAudioTracks());
           var stream = new MediaStream(tracks), mime = pickMime();
-          var mr = mime ? new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 5000000 }) : new MediaRecorder(stream);
+          var mr = mime ? new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8000000 }) : new MediaRecorder(stream);
           rec.mime = mr.mimeType || mime || 'video/webm'; rec.ext = /mp4/i.test(rec.mime) ? 'mp4' : 'webm';
           rec.chunks = []; rec.mr = mr; rec.mic = mic; rec.stream = stream; rec.byLimit = false;
           mr.ondataavailable = function (e) { if (e.data && e.data.size) rec.chunks.push(e.data); };
@@ -12497,13 +12498,13 @@ ${body}</svg>`;
         if (!points || points.length < 2 || typeof EBf().addStroke !== 'function') return null;
         var speed = opts.speed || 600;               // 像素 / 秒
         var full = densify(points, 3);
-        var stroke = EBf().addStroke(full.slice(0, 2), { color: opts.color, size: opts.size, brushType: opts.brushType, tool: opts.tool });
+        var stroke = EBf().addStroke(full.slice(0, Math.min(full.length, 4)), { color: opts.color, size: opts.size, brushType: opts.brushType, tool: opts.tool });
         if (!stroke || !stroke.points) return stroke;
         var total = 0; for (var i = 1; i < full.length; i++) total += dist(full[i - 1], full[i]);
         var dur = Math.max(120, total / speed * 1000), t0 = performance.now();
         await new Promise(function (resolve) {
           (function frame() {
-            var k = Math.min(1, (performance.now() - t0) / dur), n = Math.max(2, Math.round(k * full.length));
+            var k = Math.min(1, (performance.now() - t0) / dur), n = Math.max(Math.min(full.length, 4), Math.round(k * full.length));
             stroke.points.length = 0;
             for (var j = 0; j < n; j++) stroke.points.push({ x: full[j].x, y: full[j].y, pressure: 0.5 });
             redraw();
@@ -12528,7 +12529,7 @@ ${body}</svg>`;
       function pointer() {
         var el = document.getElementById('ezPointer');
         if (!el) {
-          el = document.createElement('div'); el.id = 'ezPointer'; el.className = 'laser-dot';
+          el = document.createElement('div'); el.id = 'ezPointer';
           el.style.cssText = 'position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#f43f5e;box-shadow:0 0 14px #f43f5e;pointer-events:none;z-index:45;opacity:0;transition:left .35s ease,top .35s ease,opacity .25s';
           var layer = document.getElementById('laserLayer') || document.getElementById('canvasCard');
           if (layer) layer.appendChild(el);
@@ -12536,7 +12537,13 @@ ${body}</svg>`;
         return el;
       }
       async function pointAt(at, ms, opts) {
-        var p = px(at, (opts || {}).units), el = pointer();
+        var p = px(at, (opts || {}).units);
+        if (window.cbRecorder && typeof createLaserBeam === 'function') {   // Chalkboard：用自带激光笔，录制会自动录进去
+          var end = performance.now() + (ms || 1200);
+          while (performance.now() < end) { createLaserBeam(p.x, p.y); await sleep(90); }
+          return;
+        }
+        var el = pointer();
         el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; el.style.opacity = '1';
         window.__ezPointer = { x: p.x, y: p.y, a: 1 };
         await sleep(ms || 1200);
@@ -12566,6 +12573,10 @@ ${body}</svg>`;
         var steps = script.steps || [], rec = script.record ? recorder() : null, color, size;
         playing = true;
         try {
+          if (script.brush !== 'keep') {
+            var penBtn = document.querySelector('[data-tool="pen"]') || document.querySelector('[data-tool="gpen"]');
+            if (penBtn) penBtn.click(); else if (EBf().setTool) EBf().setTool('pen');
+          }
           if (rec) { await rec.start(); await sleep(600); }
           for (var i = 0; i < steps.length; i++) {
             var s = steps[i] || {}, o = { color: s.color || color, size: s.size || size, speed: s.speed || script.speed, units: s.units || script.units };
